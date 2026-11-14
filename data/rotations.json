@@ -967,5 +967,155 @@
     "dataset": "NASA POWER",
     "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
     "generated_at": "2026-11-14"
+  },
+  {
+    "id": "F",
+    "name": "F: Durum wheat - Lentil",
+    "can_be_current": true,
+    "sequence": [
+      "Durum wheat",
+      "Lentil"
+    ],
+    "scores": {
+      "water": 63,
+      "soil": 75,
+      "income": 58,
+      "erosion": 72,
+      "risk_resilience": 100
+    },
+    "confidence": "low",
+    "why": "A legume (lentil) replaces sunflower: it adds nitrogen to the soil and leaves no summer crop exposed to heat.",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: rain in the growing months covers 66% (Durum wheat), 61% (Lentil) of the crop water need (Kc x ET0).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: average weekly chance of the main hazard in the sensitive weeks: Durum wheat heat 0% (Apr-May), Lentil heat 0% (Apr-May).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: 28% of the year's heavy-rain frequency (days of 20 mm or more) falls while this rotation leaves the soil bare (bare in some or all years: Jul, Aug, Sep, Oct, Nov).",
+        "provenance": "derived"
+      }
+    ],
+    "benefits": [
+      "Legume year in the rotation",
+      "Less nitrogen fertiliser for the next wheat"
+    ],
+    "gaps": [
+      "Local lentil yields not checked",
+      "ECREA reports lentils, chickpeas and vetches as one group (one year, 2020)"
+    ],
+    "risks": [
+      "Lentil is sensitive to heat at flowering",
+      "Crop calendar to verify (TBD)"
+    ],
+    "pac_eligible": "TBD",
+    "income": {
+      "eur_ha_year": 361.2,
+      "missing_rule": null,
+      "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
+      "region": "Andalucía, secano",
+      "by_crop": [
+        {
+          "crop": "Durum wheat",
+          "eur_ha": 99.1,
+          "assumed": false,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Trigo duro secano",
+          "note": null
+        },
+        {
+          "crop": "Lentil",
+          "eur_ha": 623.2,
+          "assumed": false,
+          "years": [
+            2020
+          ],
+          "ecrea_crop": "Lentejas, garbanzos y vezas secano",
+          "note": "ECREA reports lentils, chickpeas and vetches as one group; the group value is used for lentil (same value as chickpea). One year only."
+        }
+      ],
+      "missing": [],
+      "source": "MAPA ECREA 2.0 (RECAN), see pipeline/income_ecrea.json",
+      "documents": [
+        {
+          "id": "cereales_2018",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf"
+        },
+        {
+          "id": "cereales_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf"
+        },
+        {
+          "id": "proteaginosos_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cultivos_proteaginosos_y_forrajeros_tcm30-660333.pdf"
+        }
+      ],
+      "accessed": "2026-11-14"
+    },
+    "bare_months": [
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "bare_months_share": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0.5,
+      0
+    ],
+    "water_balance": [
+      {
+        "crop": "Durum wheat",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 562.8
+      },
+      {
+        "crop": "Lentil",
+        "months": [
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 305.4,
+        "need_mm": 501.5
+      }
+    ],
+    "provenance": "derived",
+    "dataset": "NASA POWER",
+    "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "generated_at": "2026-11-14"
   }
 ]

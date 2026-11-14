@@ -5,6 +5,7 @@
     "frost_days": 4,
     "heat_days": 21,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -18,7 +19,8 @@
       "B": 68.5,
       "C": 55.3,
       "D": 62.5,
-      "E": 51.8
+      "E": 51.8,
+      "F": 70.5
     },
     "criteria": {
       "current": {
@@ -62,6 +64,13 @@
         "income": null,
         "erosion": 43,
         "risk_resilience": 100
+      },
+      "F": {
+        "water": 38,
+        "soil": 75,
+        "income": 58,
+        "erosion": 69,
+        "risk_resilience": 100
       }
     },
     "provenance": "simulated",
@@ -74,6 +83,7 @@
     "frost_days": 2,
     "heat_days": 32,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -87,7 +97,8 @@
       "B": 68.8,
       "C": 54.3,
       "D": 62,
-      "E": 51.3
+      "E": 51.3,
+      "F": 70
     },
     "criteria": {
       "current": {
@@ -131,6 +142,13 @@
         "income": null,
         "erosion": 43,
         "risk_resilience": 99
+      },
+      "F": {
+        "water": 37,
+        "soil": 75,
+        "income": 58,
+        "erosion": 69,
+        "risk_resilience": 99
       }
     },
     "provenance": "simulated",
@@ -143,6 +161,7 @@
     "frost_days": 1,
     "heat_days": 44,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -156,7 +175,8 @@
       "B": 68.8,
       "C": 53.5,
       "D": 61.3,
-      "E": 50.5
+      "E": 50.5,
+      "F": 69.3
     },
     "criteria": {
       "current": {
@@ -200,6 +220,13 @@
         "income": null,
         "erosion": 43,
         "risk_resilience": 97
+      },
+      "F": {
+        "water": 36,
+        "soil": 75,
+        "income": 58,
+        "erosion": 69,
+        "risk_resilience": 97
       }
     },
     "provenance": "simulated",
@@ -213,6 +240,7 @@
     "heat_days": 59,
     "ranking": [
       "B",
+      "F",
       "A",
       "D",
       "C",
@@ -225,7 +253,8 @@
       "B": 68.5,
       "C": 52,
       "D": 60.3,
-      "E": 49.5
+      "E": 49.5,
+      "F": 68.3
     },
     "criteria": {
       "current": {
@@ -269,6 +298,13 @@
         "income": null,
         "erosion": 43,
         "risk_resilience": 94
+      },
+      "F": {
+        "water": 35,
+        "soil": 75,
+        "income": 58,
+        "erosion": 69,
+        "risk_resilience": 94
       }
     },
     "provenance": "simulated",
@@ -281,6 +317,7 @@
     "frost_days": 4,
     "heat_days": 21,
     "ranking": [
+      "F",
       "A",
       "B",
       "D",
@@ -294,7 +331,8 @@
       "B": 70,
       "C": 56.8,
       "D": 63.8,
-      "E": 53.3
+      "E": 53.3,
+      "F": 73
     },
     "criteria": {
       "current": {
@@ -338,6 +376,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 100
+      },
+      "F": {
+        "water": 44,
+        "soil": 75,
+        "income": 58,
+        "erosion": 73,
+        "risk_resilience": 100
       }
     },
     "provenance": "simulated",
@@ -350,6 +395,7 @@
     "frost_days": 2,
     "heat_days": 32,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -363,7 +409,8 @@
       "B": 70.3,
       "C": 55.8,
       "D": 63.3,
-      "E": 52.8
+      "E": 52.8,
+      "F": 72.5
     },
     "criteria": {
       "current": {
@@ -407,6 +454,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 99
+      },
+      "F": {
+        "water": 43,
+        "soil": 75,
+        "income": 58,
+        "erosion": 73,
+        "risk_resilience": 99
       }
     },
     "provenance": "simulated",
@@ -419,6 +473,7 @@
     "frost_days": 1,
     "heat_days": 44,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -432,7 +487,8 @@
       "B": 70,
       "C": 54.8,
       "D": 62.3,
-      "E": 51.8
+      "E": 51.8,
+      "F": 71.8
     },
     "criteria": {
       "current": {
@@ -476,6 +532,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 97
+      },
+      "F": {
+        "water": 42,
+        "soil": 75,
+        "income": 58,
+        "erosion": 73,
+        "risk_resilience": 97
       }
     },
     "provenance": "simulated",
@@ -488,6 +551,7 @@
     "frost_days": 0,
     "heat_days": 59,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -501,7 +565,8 @@
       "B": 69.8,
       "C": 53.3,
       "D": 61.3,
-      "E": 50.8
+      "E": 50.8,
+      "F": 70.5
     },
     "criteria": {
       "current": {
@@ -545,6 +610,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 94
+      },
+      "F": {
+        "water": 40,
+        "soil": 75,
+        "income": 58,
+        "erosion": 73,
+        "risk_resilience": 94
       }
     },
     "provenance": "simulated",
@@ -557,6 +629,7 @@
     "frost_days": 4,
     "heat_days": 21,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -570,7 +643,8 @@
       "B": 71.3,
       "C": 57.3,
       "D": 64.8,
-      "E": 54.8
+      "E": 54.8,
+      "F": 73.5
     },
     "criteria": {
       "current": {
@@ -614,6 +688,13 @@
         "income": null,
         "erosion": 41,
         "risk_resilience": 100
+      },
+      "F": {
+        "water": 51,
+        "soil": 75,
+        "income": 58,
+        "erosion": 68,
+        "risk_resilience": 100
       }
     },
     "provenance": "simulated",
@@ -626,6 +707,7 @@
     "frost_days": 2,
     "heat_days": 32,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -639,7 +721,8 @@
       "B": 71.3,
       "C": 56.3,
       "D": 64,
-      "E": 54
+      "E": 54,
+      "F": 72.8
     },
     "criteria": {
       "current": {
@@ -683,6 +766,13 @@
         "income": null,
         "erosion": 41,
         "risk_resilience": 99
+      },
+      "F": {
+        "water": 49,
+        "soil": 75,
+        "income": 58,
+        "erosion": 68,
+        "risk_resilience": 99
       }
     },
     "provenance": "simulated",
@@ -695,6 +785,7 @@
     "frost_days": 1,
     "heat_days": 44,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -708,7 +799,8 @@
       "B": 71.3,
       "C": 55,
       "D": 63,
-      "E": 53
+      "E": 53,
+      "F": 72
     },
     "criteria": {
       "current": {
@@ -752,6 +844,13 @@
         "income": null,
         "erosion": 41,
         "risk_resilience": 97
+      },
+      "F": {
+        "water": 48,
+        "soil": 75,
+        "income": 58,
+        "erosion": 68,
+        "risk_resilience": 97
       }
     },
     "provenance": "simulated",
@@ -765,6 +864,7 @@
     "heat_days": 59,
     "ranking": [
       "B",
+      "F",
       "A",
       "D",
       "C",
@@ -777,7 +877,8 @@
       "B": 70.8,
       "C": 53.5,
       "D": 62,
-      "E": 52
+      "E": 52,
+      "F": 70.8
     },
     "criteria": {
       "current": {
@@ -821,6 +922,13 @@
         "income": null,
         "erosion": 41,
         "risk_resilience": 94
+      },
+      "F": {
+        "water": 46,
+        "soil": 75,
+        "income": 58,
+        "erosion": 68,
+        "risk_resilience": 94
       }
     },
     "provenance": "simulated",
@@ -833,6 +941,7 @@
     "frost_days": 4,
     "heat_days": 21,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -846,7 +955,8 @@
       "B": 73.8,
       "C": 59.3,
       "D": 67.5,
-      "E": 56.8
+      "E": 56.8,
+      "F": 76
     },
     "criteria": {
       "current": {
@@ -890,6 +1000,13 @@
         "income": null,
         "erosion": 43,
         "risk_resilience": 100
+      },
+      "F": {
+        "water": 57,
+        "soil": 75,
+        "income": 58,
+        "erosion": 72,
+        "risk_resilience": 100
       }
     },
     "provenance": "simulated",
@@ -902,6 +1019,7 @@
     "frost_days": 2,
     "heat_days": 32,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -915,7 +1033,8 @@
       "B": 73.8,
       "C": 58.3,
       "D": 66.8,
-      "E": 56
+      "E": 56,
+      "F": 75.3
     },
     "criteria": {
       "current": {
@@ -959,6 +1078,13 @@
         "income": null,
         "erosion": 43,
         "risk_resilience": 99
+      },
+      "F": {
+        "water": 55,
+        "soil": 75,
+        "income": 58,
+        "erosion": 72,
+        "risk_resilience": 99
       }
     },
     "provenance": "simulated",
@@ -971,6 +1097,7 @@
     "frost_days": 1,
     "heat_days": 44,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -984,7 +1111,8 @@
       "B": 73.5,
       "C": 57.3,
       "D": 66,
-      "E": 55.3
+      "E": 55.3,
+      "F": 74.5
     },
     "criteria": {
       "current": {
@@ -1028,6 +1156,13 @@
         "income": null,
         "erosion": 43,
         "risk_resilience": 97
+      },
+      "F": {
+        "water": 54,
+        "soil": 75,
+        "income": 58,
+        "erosion": 72,
+        "risk_resilience": 97
       }
     },
     "provenance": "simulated",
@@ -1040,6 +1175,7 @@
     "frost_days": 0,
     "heat_days": 59,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1053,7 +1189,8 @@
       "B": 73,
       "C": 55.8,
       "D": 64.8,
-      "E": 54
+      "E": 54,
+      "F": 73.3
     },
     "criteria": {
       "current": {
@@ -1097,6 +1234,13 @@
         "income": null,
         "erosion": 43,
         "risk_resilience": 94
+      },
+      "F": {
+        "water": 52,
+        "soil": 75,
+        "income": 58,
+        "erosion": 72,
+        "risk_resilience": 94
       }
     },
     "provenance": "simulated",
@@ -1109,6 +1253,7 @@
     "frost_days": 4,
     "heat_days": 21,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1122,7 +1267,8 @@
       "B": 75.3,
       "C": 60.3,
       "D": 69,
-      "E": 58.3
+      "E": 58.3,
+      "F": 77.5
     },
     "criteria": {
       "current": {
@@ -1166,6 +1312,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 100
+      },
+      "F": {
+        "water": 63,
+        "soil": 75,
+        "income": 58,
+        "erosion": 72,
+        "risk_resilience": 100
       }
     },
     "provenance": "simulated",
@@ -1178,6 +1331,7 @@
     "frost_days": 2,
     "heat_days": 32,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1191,7 +1345,8 @@
       "B": 75.3,
       "C": 59.3,
       "D": 68.3,
-      "E": 57.5
+      "E": 57.5,
+      "F": 76.8
     },
     "criteria": {
       "current": {
@@ -1235,6 +1390,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 99
+      },
+      "F": {
+        "water": 61,
+        "soil": 75,
+        "income": 58,
+        "erosion": 72,
+        "risk_resilience": 99
       }
     },
     "provenance": "simulated",
@@ -1247,6 +1409,7 @@
     "frost_days": 1,
     "heat_days": 44,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1260,7 +1423,8 @@
       "B": 75,
       "C": 58,
       "D": 67.3,
-      "E": 56.5
+      "E": 56.5,
+      "F": 75.8
     },
     "criteria": {
       "current": {
@@ -1304,6 +1468,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 97
+      },
+      "F": {
+        "water": 59,
+        "soil": 75,
+        "income": 58,
+        "erosion": 72,
+        "risk_resilience": 97
       }
     },
     "provenance": "simulated",
@@ -1316,6 +1487,7 @@
     "frost_days": 0,
     "heat_days": 59,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1329,7 +1501,8 @@
       "B": 74.5,
       "C": 56.5,
       "D": 66,
-      "E": 55.3
+      "E": 55.3,
+      "F": 74.8
     },
     "criteria": {
       "current": {
@@ -1373,6 +1546,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 94
+      },
+      "F": {
+        "water": 58,
+        "soil": 75,
+        "income": 58,
+        "erosion": 72,
+        "risk_resilience": 94
       }
     },
     "provenance": "simulated",
@@ -1385,6 +1565,7 @@
     "frost_days": 4,
     "heat_days": 21,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1398,7 +1579,8 @@
       "B": 76.5,
       "C": 61.5,
       "D": 70,
-      "E": 59.5
+      "E": 59.5,
+      "F": 79
     },
     "criteria": {
       "current": {
@@ -1442,6 +1624,13 @@
         "income": null,
         "erosion": 41,
         "risk_resilience": 100
+      },
+      "F": {
+        "water": 70,
+        "soil": 75,
+        "income": 58,
+        "erosion": 71,
+        "risk_resilience": 100
       }
     },
     "provenance": "simulated",
@@ -1454,6 +1643,7 @@
     "frost_days": 2,
     "heat_days": 32,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1467,7 +1657,8 @@
       "B": 76.3,
       "C": 60.3,
       "D": 69.3,
-      "E": 58.8
+      "E": 58.8,
+      "F": 78
     },
     "criteria": {
       "current": {
@@ -1511,6 +1702,13 @@
         "income": null,
         "erosion": 41,
         "risk_resilience": 99
+      },
+      "F": {
+        "water": 67,
+        "soil": 75,
+        "income": 58,
+        "erosion": 71,
+        "risk_resilience": 99
       }
     },
     "provenance": "simulated",
@@ -1523,6 +1721,7 @@
     "frost_days": 1,
     "heat_days": 44,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1536,7 +1735,8 @@
       "B": 76,
       "C": 59.3,
       "D": 68.3,
-      "E": 57.8
+      "E": 57.8,
+      "F": 77
     },
     "criteria": {
       "current": {
@@ -1580,6 +1780,13 @@
         "income": null,
         "erosion": 41,
         "risk_resilience": 97
+      },
+      "F": {
+        "water": 65,
+        "soil": 75,
+        "income": 58,
+        "erosion": 71,
+        "risk_resilience": 97
       }
     },
     "provenance": "simulated",
@@ -1592,6 +1799,7 @@
     "frost_days": 0,
     "heat_days": 59,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1605,7 +1813,8 @@
       "B": 75.5,
       "C": 57.5,
       "D": 67,
-      "E": 56.5
+      "E": 56.5,
+      "F": 75.8
     },
     "criteria": {
       "current": {
@@ -1649,6 +1858,13 @@
         "income": null,
         "erosion": 41,
         "risk_resilience": 94
+      },
+      "F": {
+        "water": 63,
+        "soil": 75,
+        "income": 58,
+        "erosion": 71,
+        "risk_resilience": 94
       }
     },
     "provenance": "simulated",
@@ -1661,6 +1877,7 @@
     "frost_days": 4,
     "heat_days": 21,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1674,7 +1891,8 @@
       "B": 78.3,
       "C": 63,
       "D": 72,
-      "E": 61.5
+      "E": 61.5,
+      "F": 81
     },
     "criteria": {
       "current": {
@@ -1718,6 +1936,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 100
+      },
+      "F": {
+        "water": 76,
+        "soil": 75,
+        "income": 58,
+        "erosion": 73,
+        "risk_resilience": 100
       }
     },
     "provenance": "simulated",
@@ -1730,6 +1955,7 @@
     "frost_days": 2,
     "heat_days": 32,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1743,7 +1969,8 @@
       "B": 78.3,
       "C": 61.8,
       "D": 71,
-      "E": 60.5
+      "E": 60.5,
+      "F": 80.3
     },
     "criteria": {
       "current": {
@@ -1787,6 +2014,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 99
+      },
+      "F": {
+        "water": 74,
+        "soil": 75,
+        "income": 58,
+        "erosion": 73,
+        "risk_resilience": 99
       }
     },
     "provenance": "simulated",
@@ -1799,6 +2033,7 @@
     "frost_days": 1,
     "heat_days": 44,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1812,7 +2047,8 @@
       "B": 77.8,
       "C": 60.5,
       "D": 70,
-      "E": 59.5
+      "E": 59.5,
+      "F": 79
     },
     "criteria": {
       "current": {
@@ -1856,6 +2092,13 @@
         "income": null,
         "erosion": 42,
         "risk_resilience": 97
+      },
+      "F": {
+        "water": 71,
+        "soil": 75,
+        "income": 58,
+        "erosion": 73,
+        "risk_resilience": 97
       }
     },
     "provenance": "simulated",
@@ -1868,6 +2111,7 @@
     "frost_days": 0,
     "heat_days": 59,
     "ranking": [
+      "F",
       "B",
       "A",
       "D",
@@ -1881,7 +2125,8 @@
       "B": 77.3,
       "C": 59,
       "D": 68.8,
-      "E": 58.3
+      "E": 58.3,
+      "F": 77.8
     },
     "criteria": {
       "current": {
@@ -1924,6 +2169,13 @@
         "soil": 25,
         "income": null,
         "erosion": 42,
+        "risk_resilience": 94
+      },
+      "F": {
+        "water": 69,
+        "soil": 75,
+        "income": 58,
+        "erosion": 73,
         "risk_resilience": 94
       }
     },

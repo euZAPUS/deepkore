@@ -109,10 +109,10 @@ pitch/                Pitch deck (index.html, English, 7 slides) and speaker not
 | `rotations.json` | `[{id, name, sequence[], can_be_current, scores:{water, soil, income, erosion, risk_resilience}, confidence, why, evidence:[{dataset, fact}], benefits[], gaps[], risks[], pac_eligible, income:{eur_ha_year, by_crop:[{crop, eur_ha}], missing[]}, bare_months[], bare_months_share[12], provenance}]` |
 | `scenarios.json` | `[{rain_pct, temp_delta, frost_days, heat_days, ranking[], scores:{id:total}, criteria:{id:{water, soil, income, erosion, risk_resilience}}, provenance}]`: every scenario scores **every** rotation |
 
-**Rotations.** Six rotations, all from rainfed Andalucía: `current` Durum wheat – Sunflower (the default current
+**Rotations.** Seven rotations, all from rainfed Andalucía: `current` Durum wheat – Sunflower (the default current
 rotation), `A` Durum wheat – Chickpea, `B` Barley – Vetch – Durum wheat, `C` Wheat – Sunflower – Chickpea + cover crop,
-`D` Durum wheat – Durum wheat (monoculture), `E` Durum wheat – Fallow. Texts of `current`, A-C come from
-`data/mock/rotations.json`; D, E and `can_be_current` from `pipeline/rotation_catalog.json`.
+`D` Durum wheat – Durum wheat (monoculture), `E` Durum wheat – Fallow, `F` Durum wheat – Lentil. Texts of
+`current`, A-C come from `data/mock/rotations.json`; D-F and `can_be_current` from `pipeline/rotation_catalog.json`.
 
 - `can_be_current` (boolean): `true` = a farmer in the area can grow it today; these rotations are offered in
   "What do you grow now?". `id: "current"` must exist and be `true` (it is the default). Files without the field

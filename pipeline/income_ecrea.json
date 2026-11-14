@@ -44,6 +44,12 @@
       ],
       "note": "ECREA reports lentils, chickpeas and vetches as one group; the group value is used for chickpea. One year only."
     },
+    "Lentil": {
+      "values": [
+        { "year": 2020, "eur_ha": 623.2, "ecrea_crop": "Lentejas, garbanzos y vezas secano", "doc": "proteaginosos_2020" }
+      ],
+      "note": "ECREA reports lentils, chickpeas and vetches as one group; the group value is used for lentil (same value as chickpea). One year only."
+    },
     "Vetch (forage / green manure)": {
       "values": [],
       "note": "TBD: the ECREA legume group covers vetch sold as grain, not vetch used as forage or green manure."

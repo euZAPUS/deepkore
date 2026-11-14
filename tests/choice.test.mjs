@@ -26,8 +26,11 @@ test("default current rotation and default priorities: current 51, best reported
   assert.deepEqual(set.current.sequence, ["Durum wheat", "Sunflower"]);
   assert.equal(Math.round(set.currentTotal), 51);
   console.log(`  default best: ${set.best.rotation.id} (${set.best.rotation.name}) ${Math.round(set.best.total)} vs current ${Math.round(set.currentTotal)}`);
-  assert.equal(set.best.rotation.id, "B");
-  assert.equal(Math.round(set.best.total), 68);
+  // The pitch says 51 -> 68 (B: Barley - Vetch - Durum wheat). B still scores 68, but since F (Durum wheat - Lentil)
+  // was added it ranks first with 70 (see NIGHT_REPORT.md). Asserted so any later change is noticed.
+  assert.equal(Math.round(rankRotations(rotations, DEFAULT_WEIGHTS).find((x) => x.rotation.id === "B").total), 68);
+  assert.equal(set.best.rotation.id, "F");
+  assert.equal(Math.round(set.best.total), 70);
 });
 
 test("scores of the 4 original rotations did not change", () => {

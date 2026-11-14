@@ -54,6 +54,14 @@
       "family": { "value": null, "source": "TBD: species not chosen" },
       "kc": { "value": null, "source": "TBD: cover crops have no row in FAO-56 Table 12" }
     },
+    "Lentil": {
+      "sow_months": { "value": [12, 1], "source": "TBD: general knowledge, to verify" },
+      "harvest_months": { "value": [6], "source": "TBD: general knowledge, to verify" },
+      "sensitive": { "value": { "phase": "flowering and pod filling", "months": [4, 5], "hazard": "heat" }, "source": "TBD: general knowledge, to verify" },
+      "legume": { "value": true, "source": "TBD: general knowledge, to verify" },
+      "family": { "value": "Fabaceae", "source": "TBD: general knowledge, to verify" },
+      "kc": { "value": { "ini": 0.4, "mid": 1.1, "end": 0.3 }, "source": "FAO-56 Table 12, 'Lentil' (Kc ini from the 'Legumes (Leguminosae)' group row)" }
+    },
     "Fallow": {
       "bare": { "value": true, "source": "TBD: bare fallow (barbecho blanco): no crop, soil uncovered for one crop year; tillage and spontaneous vegetation not modelled, to verify" },
       "legume": { "value": false, "source": "Not applicable: no crop" },

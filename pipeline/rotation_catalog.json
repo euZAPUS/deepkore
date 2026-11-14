@@ -6,7 +6,8 @@
     "B": { "value": false, "source": "Proposed option (vetch as forage / green manure), not offered as a starting point" },
     "C": { "value": false, "source": "Proposed option (adds a winter cover crop), not offered as a starting point" },
     "D": { "value": true, "source": "TBD: typical rainfed rotation in Andalucía, team knowledge, to verify" },
-    "E": { "value": true, "source": "TBD: traditional 'año y vez' (cereal - fallow) in rainfed Andalucía, team knowledge, to verify" }
+    "E": { "value": true, "source": "TBD: traditional 'año y vez' (cereal - fallow) in rainfed Andalucía, team knowledge, to verify" },
+    "F": { "value": true, "source": "TBD: typical rainfed rotation in Andalucía, team knowledge, to verify" }
   },
   "rotations": [
     {
@@ -26,6 +27,15 @@
       "benefits": ["Known crop, machinery and buyers", "Only one crop to sow every two years"],
       "gaps": ["Water stored in the soil during the fallow year is not modelled", "No verified net margin for the fallow year", "No field-level yield records used"],
       "risks": ["Soil left bare for the whole fallow year", "No legume in the rotation"]
+    },
+    {
+      "id": "F",
+      "name": "F: Durum wheat - Lentil",
+      "sequence": ["Durum wheat", "Lentil"],
+      "why": "A legume (lentil) replaces sunflower: it adds nitrogen to the soil and leaves no summer crop exposed to heat.",
+      "benefits": ["Legume year in the rotation", "Less nitrogen fertiliser for the next wheat"],
+      "gaps": ["Local lentil yields not checked", "ECREA reports lentils, chickpeas and vetches as one group (one year, 2020)"],
+      "risks": ["Lentil is sensitive to heat at flowering", "Crop calendar to verify (TBD)"]
     }
   ]
 }
