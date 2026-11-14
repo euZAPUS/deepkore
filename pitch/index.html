@@ -208,6 +208,11 @@ p{margin:0}
 .road .card{min-height:clamp(150px,26vh,280px)}
 .road h3{font-size:clamp(1.4rem,2.6vw,2.6rem)}
 
+/* cierre con QR */
+.endrow{display:flex;align-items:center;gap:clamp(16px,2.4vw,36px)}
+.endrow .qr{width:clamp(120px,19vh,210px);padding:10px;border-radius:20px}
+.trust{margin-top:clamp(14px,1.8vw,26px);font:550 clamp(.9rem,1.25vw,1.25rem)/1.4 var(--sans);color:var(--mut)}
+.trust b{color:var(--greend)}
 /* demo / QR */
 .demo{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,56px);align-items:center;text-align:left}
 .qr{width:clamp(160px,22vh,260px);aspect-ratio:1;padding:14px;border-radius:24px;background:#fff;box-shadow:0 30px 60px -28px rgba(20,48,31,.45),0 0 0 1px var(--line)}
@@ -266,7 +271,7 @@ body.isblank .hud,body.isblank #hint{opacity:0}
 .closing .hl{color:var(--green)}
 @keyframes word{from{opacity:0;transform:translateY(.4em);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
 .slide[aria-label="Gracias"] h1{font-size:clamp(2.4rem,min(6vw,10vh),6.4rem)}
-.slide[aria-label="Gracias"] .a{animation-delay:calc(2.6s + (var(--i,0) - 9)*.15s)!important}
+.slide[aria-label="Gracias"] .a{animation-delay:2.9s!important}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.a,.closing span{opacity:1}.fl{opacity:.5}}
 @media (max-width:900px),(max-aspect-ratio:1/1){
@@ -292,10 +297,6 @@ body.isblank .hud,body.isblank #hint{opacity:0}
   <div class="pl" data-for="data" data-part="field"><i></i><em></em><span><b>NASA POWER</b> · clima de tu parcela</span></div>
   <div class="pl sk left" data-for="data" data-part="beam"><i></i><em></em><span><b>GPM IMERG</b> · lluvia fuerte</span></div>
   <div class="pl wh" data-for="data" data-part="moist"><i></i><em></em><span><b>SMAP</b> · humedad del suelo</span></div>
-  <div class="pl" data-for="layers" data-part="crop"><i></i><em></em><span>Cubierta: frena la erosión</span></div>
-  <div class="pl wh" data-for="layers" data-part="organic"><i></i><em></em><span>Materia orgánica: la parte fértil</span></div>
-  <div class="pl sk left" data-for="layers" data-part="moist"><i></i><em></em><span>Humedad · medida por <b>SMAP</b></span></div>
-  <div class="pl" data-for="layers" data-part="roots"><i></i><em></em><span>Raíces de leguminosa: fijan nitrógeno</span></div>
 </div>
 
 <main id="ui">
@@ -342,20 +343,8 @@ body.isblank .hud,body.isblank #hint{opacity:0}
   </div>
 </section>
 
-<!-- 4 · Solución -->
-<section class="slide C" data-band="off" aria-label="La solución">
-  <div class="panel">
-    <p class="kk a" style="--i:0">La solución</p>
-    <h2 class="a" style="--i:1">Datos de la NASA, <span class="grad">en el idioma del campo.</span></h2>
-    <div class="grid g3 tall">
-      <div class="card step a" style="--i:2"><b>1</b><h3>Dinos qué te importa</h3><p>Agua, salud del suelo, dinero o erosión. Cuatro barras, nada más.</p></div>
-      <div class="card step a" style="--i:3"><b>2</b><h3>Leemos los datos NASA</h3><p>Clima, lluvia fuerte y humedad del suelo de tu parcela.</p></div>
-      <div class="card step a" style="--i:4"><b>3</b><h3>Elige y prepárate</h3><p>La rotación que más te conviene y las semanas de riesgo del año.</p></div>
-    </div>
-  </div>
-</section>
 
-<!-- 5 · Los datos (3D: satélite + haz) -->
+<!-- 4 · Los datos (3D: satélite + haz) -->
 <section class="slide R" data-band="data" aria-label="Los datos">
   <div class="panel glass narrow">
     <p class="kk a" style="--i:0">Los datos</p>
@@ -368,16 +357,8 @@ body.isblank .hud,body.isblank #hint{opacity:0}
   </div>
 </section>
 
-<!-- 6 · Bajo tus pies (3D: corte del suelo) -->
-<section class="slide B" data-band="layers" aria-label="Bajo tus pies">
-  <div class="panel glass slim">
-    <p class="kk a" style="--i:0">Por dentro</p>
-    <h2 class="a" style="--i:1;margin-bottom:clamp(8px,1vw,14px)">Lo que pasa <span class="grad">bajo tus pies</span></h2>
-    <p class="lead2 a" style="--i:2">Una buena rotación cubre el suelo, lo alimenta y guarda el agua.</p>
-  </div>
-</section>
 
-<!-- 7 · Todo lo que hace -->
+<!-- 5 · Todo lo que hace -->
 <section class="slide C" data-band="off" aria-label="La app">
   <div class="panel fit">
     <p class="kk a" style="--i:0">La app</p>
@@ -403,109 +384,34 @@ body.isblank .hud,body.isblank #hint{opacity:0}
   </div>
 </section>
 
-<!-- 8 · Un año en tu parcela -->
-<section class="slide C" data-band="off" aria-label="Un año en tu parcela">
-  <div class="panel">
-    <p class="kk a" style="--i:0">Un año con DeepKore</p>
-    <h2 class="a" style="--i:1">Prepárate <span class="grad">antes del riesgo</span></h2>
-    <div class="tl">
-      <div class="card a" style="--i:2"><span class="pin"></span><span class="t">ENE</span><p class="say">Semanas de helada.<em>Protege lo que esté en flor.</em></p></div>
-      <div class="card a" style="--i:3"><span class="pin"></span><span class="t">JUL</span><p class="say">Golpe de calor.<em>El girasol sufre en floración.</em></p></div>
-      <div class="card a" style="--i:4"><span class="pin"></span><span class="t">OCT</span><p class="say">Tormentas con suelo desnudo.<em>Siembra una cubierta.</em></p></div>
-      <div class="card a" style="--i:5"><span class="pin"></span><span class="t">NOV</span><p class="say">Suelo más seco de lo normal.<em>Espera antes de sembrar.</em></p></div>
-      <div class="card a" style="--i:6"><span class="pin"></span><span class="t">AÑO 2</span><p class="say">Entra una leguminosa.<em>Menos abono para el trigo.</em></p></div>
-    </div>
-  </div>
-</section>
 
-<!-- 9 · Comparador -->
+<!-- 6 · Comparador -->
 <section class="slide C" data-band="off" aria-label="Comparador">
   <div class="panel">
     <p class="kk a" style="--i:0">El resultado <span class="pill" id="vs-pill" hidden>Datos de ejemplo</span></p>
     <h2 class="a" style="--i:1">Tu rotación de hoy <span class="grad">vs la mejor para ti</span></h2>
     <div class="vs" id="vs"></div>
+    <p class="trust a" style="--i:6"><b>Apoya, no sustituye.</b> Cada dato dice de dónde viene, con sus lagunas y riesgos. Tú y tu agrónomo decidís.</p>
   </div>
 </section>
 
-<!-- 10 · Confianza -->
-<section class="slide C" data-band="off" aria-label="Confianza">
-  <div class="panel">
-    <p class="kk a" style="--i:0">Confianza</p>
-    <h2 class="a" style="--i:1">Apoya al agricultor. <span class="grad">No lo sustituye.</span></h2>
-    <div class="grid g4 tall">
-      <div class="card a" style="--i:2"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Procedencia</h3><p>Cada número dice si es observado, calculado, de IA o simulado</p></div>
-      <div class="card a" style="--i:3"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg></div><h3>Lagunas a la vista</h3><p>Lo que los datos no saben, lo decimos</p></div>
-      <div class="card a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Riesgos que revisar</h3><p>Cada rotación trae su lista para el técnico</p></div>
-      <div class="card a" style="--i:5"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></svg></div><h3>Tu agrónomo decide</h3><p>Un aviso fijo en toda la app lo recuerda</p></div>
-    </div>
-  </div>
-</section>
 
-<!-- 11 · Retos -->
-<section class="slide C" data-band="off" aria-label="Retos">
-  <div class="panel">
-    <p class="kk cl a" style="--i:0">Lo que aprendimos</p>
-    <h2 class="a" style="--i:1">Retos <span class="grad">→ soluciones</span></h2>
-    <div class="grid g5 retos">
-      <div class="card a" style="--i:2"><span class="from">Píxeles de 50 km</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Lo decimos claro en Límites</h3></div>
-      <div class="card a" style="--i:3"><span class="from">Datos complicados</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Cuatro barras y un calendario</h3></div>
-      <div class="card a" style="--i:4"><span class="from">La IA puede inventar</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Etiqueta en cada dato</h3></div>
-      <div class="card a" style="--i:5"><span class="from">Mala cobertura en el campo</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Web ligera e instalable</h3></div>
-      <div class="card a" style="--i:6"><span class="from">Reglas PAC que cambian</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Orientativo, a revisar</h3></div>
-    </div>
-  </div>
-</section>
 
-<!-- 12 · Para quién -->
-<section class="slide C" data-band="off" aria-label="Para quién">
-  <div class="panel">
-    <p class="kk a" style="--i:0">Impacto</p>
-    <h2 class="a" style="--i:1">Gratis hoy. <span class="grad">Global mañana.</span></h2>
-    <div class="grid g3">
-      <div class="card c1 a" style="--i:2"><span class="lab">Para quién</span><h3>Agricultores de secano, cooperativas y técnicos</h3></div>
-      <div class="card c2 a" style="--i:3"><span class="lab">Coste</span><h3>Datos abiertos de la NASA y una web estática</h3></div>
-      <div class="card c3 a" style="--i:4"><span class="lab">Escala</span><h3>Los datos son globales: vale para cualquier parcela</h3></div>
-      <div class="card c4 a" style="--i:5"><span class="lab">Canales</span><h3>Cooperativas y oficinas comarcales agrarias</h3></div>
-      <div class="card c1 a" style="--i:6"><span class="lab">Valor</span><h3>Menos erosión, menos abono, decisiones con datos</h3></div>
-      <div class="card c2 a" style="--i:7"><span class="lab">Aliados</span><h3>Administraciones, centros de investigación y la PAC</h3></div>
-    </div>
-  </div>
-</section>
 
-<!-- 13 · Roadmap -->
-<section class="slide C" data-band="off" aria-label="Roadmap">
-  <div class="panel">
-    <p class="kk a" style="--i:0">Roadmap</p>
-    <h2 class="a" style="--i:1">De una parcela <span class="grad">a cualquier campo</span></h2>
-    <div class="road">
-      <div class="card c1 a" style="--i:2"><span class="lab">Hoy</span><h3>Prototipo</h3><div class="chips"><span class="chip">Antequera</span><span class="chip">3 datasets NASA</span><span class="chip">Web app</span></div></div>
-      <div class="card c2 a" style="--i:3"><span class="lab">Después</span><h3>Piloto</h3><div class="chips"><span class="chip">Cooperativas de Málaga</span><span class="chip">Tu parcela dibujada</span><span class="chip">Pendiente y vegetación</span></div></div>
-      <div class="card c4 a" style="--i:4"><span class="lab">Futuro</span><h3>Escala</h3><div class="chips"><span class="chip">Cualquier parcela</span><span class="chip">Avisos al móvil</span><span class="chip">Más cultivos</span></div></div>
-    </div>
-  </div>
-</section>
 
-<!-- 14 · Demo -->
-<section class="slide C" data-band="off" aria-label="Pruébala">
-  <div class="panel slim">
-    <p class="kk a" style="--i:0">Demo</p>
-    <h2 class="a" style="--i:1">Pruébala <span class="grad">ahora mismo.</span></h2>
-    <div class="demo a" style="--i:2">
-      <div class="qr" id="qr" role="img" aria-label="Código QR de la app"></div>
-      <div>
-        <p class="url" id="app-url"></p>
-        <p class="meta" style="margin-top:12px">Móvil u ordenador · sin registro · se instala como app</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- 15 · Cierre -->
+<!-- 7 · Cierre -->
 <section class="slide L" data-band="cover" aria-label="Gracias">
   <div class="panel">
     <p class="closing"><span style="--w:0">El</span> <span style="--w:1">suelo</span> <span style="--w:2">tarda</span> <span style="--w:3">mil</span> <span style="--w:4">años</span> <span style="--w:5">en</span> <span style="--w:6">formarse.</span> <span class="hl" style="--w:7">Protejámoslo</span> <span class="hl" style="--w:8">a</span> <span class="hl" style="--w:9">tiempo.</span></p>
-    <p class="kk a" style="--i:9">DeepKore · Datos de la NASA para el campo</p>
-    <h1 class="a" style="--i:11">Gracias<span class="grad">.</span></h1>
+    <div class="endrow a" style="--i:9">
+      <div class="qr" id="qr" role="img" aria-label="Código QR de la app"></div>
+      <div>
+        <h1>Gracias<span class="grad">.</span></h1>
+        <p class="kk" style="margin:10px 0 6px">Pruébala ahora</p>
+        <p class="url" id="app-url"></p>
+      </div>
+    </div>
   </div>
 </section>
 
