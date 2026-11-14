@@ -36,12 +36,18 @@ export function nearestScenario(scenarios, rainPct, tempDelta) {
   return best;
 }
 
-// True if at least one rotation has a numeric score for this criterion.
+// True if every rotation has a numeric score for this criterion (a criterion scored for only some
+// rotations would make the ranking unfair, so it stays out until all have it).
 export function isScored(rotations, key) {
-  return (rotations || []).some((r) => typeof r?.scores?.[key] === "number");
+  return (rotations || []).length > 0 && rotations.every((r) => typeof r?.scores?.[key] === "number");
 }
 
-export const NOT_SCORED_NOTE = {
-  income: "Income: not scored yet (no verified local prices or yields)",
-};
-export const notScoredNote = (key, label) => NOT_SCORED_NOTE[key] ?? `${label}: not scored yet`;
+export function notScoredNote(key, label, rotations = []) {
+  if (key === "income") {
+    const withMargin = rotations.filter((r) => typeof r?.income?.eur_ha_year === "number").length;
+    return withMargin
+      ? `Income: not in the ranking yet (verified net margins for ${withMargin} of ${rotations.length} rotations; see each rotation)`
+      : "Income: not scored yet (no verified local prices or yields)";
+  }
+  return `${label}: not scored yet`;
+}

@@ -47,6 +47,21 @@ function tabHTML(r, tab) {
   return listHTML(r.risks, "ilist--risk", ICON.warn);
 }
 
+// Net margin from MAPA ECREA (informative, not in the ranking).
+function incomeHTML(r) {
+  const inc = r.income;
+  if (!inc) return "";
+  const eur = (v) => `${v < 0 ? "−" : ""}${Math.abs(Math.round(v)).toLocaleString("en-US")} €/ha`;
+  const crops = (inc.by_crop || []).map((b) => `<li><b>${esc(b.crop)}</b> ${b.eur_ha === null
+    ? '<span class="muted">no verified value</span>'
+    : `${eur(b.eur_ha)} <span class="muted">(${esc(b.years.join(", "))}${b.ecrea_crop ? ` · ECREA "${esc(b.ecrea_crop)}"` : ""})</span>`}${b.note ? `<br><span class="small muted">${esc(b.note)}</span>` : ""}</li>`).join("");
+  return `<div class="income">
+    <div class="bar__top"><span>Net margin <span class="muted">(not in the ranking)</span></span><b>${inc.eur_ha_year === null ? "–" : `${eur(inc.eur_ha_year)} per year`}</b></div>
+    <ul class="income__list">${crops}</ul>
+    <p class="small muted">${esc(inc.region ?? "")} · MAPA ECREA 2.0 net margin (margen neto), without decoupled payments · ${provBadge("derived", "MAPA ECREA")}</p>
+  </div>`;
+}
+
 export function render(el, ctx) {
   const { rotations } = ctx.data;
   const scored = CRITERIA_META.filter((c) => isScored(rotations, c.key));
@@ -65,7 +80,7 @@ export function render(el, ctx) {
          ${panelHead("Your priorities", '<button class="btn-text" id="pop-done">Done</button>')}
          <div class="sliders" id="weights">
            ${CRITERIA_META.map((c) => {
-             if (!isScored(rotations, c.key)) return `<p class="note">${esc(notScoredNote(c.key, c.label))}</p>`;
+             if (!isScored(rotations, c.key)) return `<p class="note">${esc(notScoredNote(c.key, c.label, rotations))}</p>`;
              const v = store.get().weights[c.key];
              return sliderHTML({ id: `rw-${c.key}`, key: c.key, label: c.label, color: c.color, value: v, output: `${levelWord(v)} · ${v}` });
            }).join("")}
@@ -120,7 +135,8 @@ export function render(el, ctx) {
             <div class="bar__track"><div class="bar__fill" data-w="${v}"></div></div></div>`;
         }).join("")}
       </div>
-      ${unscored.map((c) => `<p class="small muted">${esc(notScoredNote(c.key, c.label))}</p>`).join("")}
+      ${incomeHTML(r)}
+      ${unscored.map((c) => `<p class="small muted">${esc(notScoredNote(c.key, c.label, rotations))}</p>`).join("")}
       ${vs ? '<p class="small muted" style="margin-top:-6px">Green / red numbers: difference with your current rotation.</p>' : ""}
       <div class="detail__meta">${confidenceHTML(r.confidence)}${pacHTML(r.pac_eligible)}</div>
       <div>${segmentedHTML("detail-tabs", TABS, tab, "Details")}</div>

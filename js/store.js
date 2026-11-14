@@ -1,7 +1,8 @@
-// User choices shared by all screens (priorities + limits), remembered on this device.
+// User choices shared by all screens (priorities, limits, field location and size), remembered on this device.
+// location: null = the pilot field in /data; else { lat, lon, province } chosen on the map.
 
 const KEY = "deepkore-prefs";
-const DEFAULTS = { weights: { water: 70, soil: 70, income: 50, erosion: 60 }, mode: "rainfed" };
+const DEFAULTS = { weights: { water: 70, soil: 70, income: 50, erosion: 60 }, mode: "rainfed", location: null, area_ha: 10 };
 
 function load() {
   try {
@@ -21,8 +22,9 @@ export const store = {
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* not remembered */ }
     subs.forEach((fn) => fn(state));
   },
+  // Resets priorities and limits; keeps the field location and size.
   reset() {
-    this.set({ ...DEFAULTS, weights: { ...DEFAULTS.weights } });
+    this.set({ mode: DEFAULTS.mode, weights: { ...DEFAULTS.weights } });
   },
   subscribe(fn) {
     subs.add(fn);
