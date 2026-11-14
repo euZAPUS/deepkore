@@ -1,0 +1,31 @@
+{
+  "about": "Rotations added to the texts of data/mock/rotations.json (which stays as it is) and, for every rotation, whether a farmer in the area can grow it today (can_be_current). Read by pipeline/lib/rotations_core.mjs (rotationTexts).",
+  "can_be_current": {
+    "current": { "value": true, "source": "TBD: typical rainfed rotation in Andalucía, team knowledge, to verify" },
+    "A": { "value": true, "source": "TBD: typical rainfed rotation in Andalucía, team knowledge, to verify" },
+    "B": { "value": false, "source": "Proposed option (vetch as forage / green manure), not offered as a starting point" },
+    "C": { "value": false, "source": "Proposed option (adds a winter cover crop), not offered as a starting point" },
+    "D": { "value": true, "source": "TBD: typical rainfed rotation in Andalucía, team knowledge, to verify" },
+    "E": { "value": true, "source": "TBD: traditional 'año y vez' (cereal - fallow) in rainfed Andalucía, team knowledge, to verify" }
+  },
+  "rotations": [
+    {
+      "id": "D",
+      "name": "D: Durum wheat - Durum wheat",
+      "sequence": ["Durum wheat", "Durum wheat"],
+      "why": "Durum wheat every year (monoculture): the same crop and calendar every season.",
+      "benefits": ["Known crop, machinery and buyers", "One sowing and harvest calendar to manage"],
+      "gaps": ["No field-level yield records used", "Market prices not included"],
+      "risks": ["No legume or break crop in the rotation", "Soil left bare between each harvest and the next sowing"]
+    },
+    {
+      "id": "E",
+      "name": "E: Durum wheat - Fallow",
+      "sequence": ["Durum wheat", "Fallow"],
+      "why": "Durum wheat one year, bare fallow the next (the traditional 'año y vez').",
+      "benefits": ["Known crop, machinery and buyers", "Only one crop to sow every two years"],
+      "gaps": ["Water stored in the soil during the fallow year is not modelled", "No verified net margin for the fallow year", "No field-level yield records used"],
+      "risks": ["Soil left bare for the whole fallow year", "No legume in the rotation"]
+    }
+  ]
+}

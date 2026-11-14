@@ -53,6 +53,12 @@
       "legume": { "value": null, "source": "TBD: species not chosen" },
       "family": { "value": null, "source": "TBD: species not chosen" },
       "kc": { "value": null, "source": "TBD: cover crops have no row in FAO-56 Table 12" }
+    },
+    "Fallow": {
+      "bare": { "value": true, "source": "TBD: bare fallow (barbecho blanco): no crop, soil uncovered for one crop year; tillage and spontaneous vegetation not modelled, to verify" },
+      "legume": { "value": false, "source": "Not applicable: no crop" },
+      "family": { "value": null, "source": "Not applicable: no crop" },
+      "kc": { "value": null, "source": "Not applicable: bare soil, no crop water need" }
     }
   }
 }

@@ -12,7 +12,7 @@ const CFG = read("pipeline/config.json");
 const TH = read("pipeline/thresholds.json");
 const RULES = read("pipeline/agro_rules.json");
 const INCOME = read("pipeline/income_ecrea.json");
-const texts = read("data/mock/rotations.json");
+const texts = r.rotationTexts(read("data/mock/rotations.json"), read("pipeline/rotation_catalog.json"));
 const raw = read("pipeline/raw/power_daily.json");
 const period = `${CFG.first_year}-${CFG.last_full_year}`;
 

@@ -19,9 +19,10 @@ const progress = (stage, done, total) => self.postMessage({ type: "progress", st
 self.onmessage = async ({ data: { lat, lon, name, eventName } }) => {
   try {
     const [{ downloadPower, buildPowerFiles }, r] = await modules;
-    const [CFG, TH, RULES, INCOME, texts] = await Promise.all(
-      ["pipeline/config.json", "pipeline/thresholds.json", "pipeline/agro_rules.json", "pipeline/income_ecrea.json", "data/mock/rotations.json"].map(getJson)
+    const [CFG, TH, RULES, INCOME, mockTexts, CATALOG] = await Promise.all(
+      ["pipeline/config.json", "pipeline/thresholds.json", "pipeline/agro_rules.json", "pipeline/income_ecrea.json", "data/mock/rotations.json", "pipeline/rotation_catalog.json"].map(getJson)
     );
+    const texts = r.rotationTexts(mockTexts, CATALOG);
     const today = new Date().toISOString().slice(0, 10);
     const period = `${CFG.first_year}-${CFG.last_full_year}`;
     progress("download", 0, 1);

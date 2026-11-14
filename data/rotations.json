@@ -2,6 +2,7 @@
   {
     "id": "current",
     "name": "Current: Durum wheat - Sunflower",
+    "can_be_current": true,
     "sequence": [
       "Durum wheat",
       "Sunflower"
@@ -90,6 +91,30 @@
       ],
       "accessed": "2026-11-14"
     },
+    "bare_months": [
+      1,
+      2,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "bare_months_share": [
+      0.5,
+      0.5,
+      0,
+      0,
+      0,
+      0,
+      0.5,
+      0.5,
+      0.5,
+      1,
+      0.5,
+      0.5
+    ],
     "water_balance": [
       {
         "crop": "Durum wheat",
@@ -129,6 +154,7 @@
   {
     "id": "A",
     "name": "A: Durum wheat - Chickpea",
+    "can_be_current": true,
     "sequence": [
       "Durum wheat",
       "Chickpea"
@@ -218,6 +244,28 @@
       ],
       "accessed": "2026-11-14"
     },
+    "bare_months": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "bare_months_share": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0.5,
+      0.5
+    ],
     "water_balance": [
       {
         "crop": "Durum wheat",
@@ -256,6 +304,7 @@
   {
     "id": "B",
     "name": "B: Barley - Vetch - Durum wheat",
+    "can_be_current": false,
     "sequence": [
       "Barley",
       "Vetch (forage / green manure)",
@@ -352,6 +401,28 @@
       ],
       "accessed": "2026-11-14"
     },
+    "bare_months": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "bare_months_share": [
+      0,
+      0,
+      0,
+      0,
+      0.33,
+      0.33,
+      1,
+      1,
+      1,
+      0.67,
+      0,
+      0
+    ],
     "water_balance": [
       {
         "crop": "Barley",
@@ -406,6 +477,7 @@
   {
     "id": "C",
     "name": "C: Wheat - Sunflower - Chickpea + cover crop",
+    "can_be_current": false,
     "sequence": [
       "Durum wheat",
       "Sunflower",
@@ -520,6 +592,34 @@
       ],
       "accessed": "2026-11-14"
     },
+    "bare_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "bare_months_share": [
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.5,
+      0.5
+    ],
     "water_balance": [
       {
         "crop": "Durum wheat",
@@ -574,6 +674,293 @@
         ],
         "rain_mm": 277.2,
         "need_mm": null
+      }
+    ],
+    "provenance": "derived",
+    "dataset": "NASA POWER",
+    "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "generated_at": "2026-11-14"
+  },
+  {
+    "id": "D",
+    "name": "D: Durum wheat - Durum wheat",
+    "can_be_current": true,
+    "sequence": [
+      "Durum wheat",
+      "Durum wheat"
+    ],
+    "scores": {
+      "water": 66,
+      "soil": 25,
+      "income": 16,
+      "erosion": 85,
+      "risk_resilience": 100
+    },
+    "confidence": "low",
+    "why": "Durum wheat every year (monoculture): the same crop and calendar every season.",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: rain in the growing months covers 66% (Durum wheat), 66% (Durum wheat) of the crop water need (Kc x ET0).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: average weekly chance of the main hazard in the sensitive weeks: Durum wheat heat 0% (Apr-May), Durum wheat heat 0% (Apr-May).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: 15% of the year's heavy-rain frequency (days of 20 mm or more) falls while this rotation leaves the soil bare (bare in some or all years: Jul, Aug, Sep, Oct).",
+        "provenance": "derived"
+      }
+    ],
+    "benefits": [
+      "Known crop, machinery and buyers",
+      "One sowing and harvest calendar to manage"
+    ],
+    "gaps": [
+      "No field-level yield records used",
+      "Market prices not included"
+    ],
+    "risks": [
+      "No legume or break crop in the rotation",
+      "Soil left bare between each harvest and the next sowing"
+    ],
+    "pac_eligible": "TBD",
+    "income": {
+      "eur_ha_year": 99.1,
+      "missing_rule": null,
+      "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
+      "region": "Andalucía, secano",
+      "by_crop": [
+        {
+          "crop": "Durum wheat",
+          "eur_ha": 99.1,
+          "assumed": false,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Trigo duro secano",
+          "note": null
+        },
+        {
+          "crop": "Durum wheat",
+          "eur_ha": 99.1,
+          "assumed": false,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Trigo duro secano",
+          "note": null
+        }
+      ],
+      "missing": [],
+      "source": "MAPA ECREA 2.0 (RECAN), see pipeline/income_ecrea.json",
+      "documents": [
+        {
+          "id": "cereales_2018",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf"
+        },
+        {
+          "id": "cereales_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf"
+        }
+      ],
+      "accessed": "2026-11-14"
+    },
+    "bare_months": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "bare_months_share": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "water_balance": [
+      {
+        "crop": "Durum wheat",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 562.8
+      },
+      {
+        "crop": "Durum wheat",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 562.8
+      }
+    ],
+    "provenance": "derived",
+    "dataset": "NASA POWER",
+    "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "generated_at": "2026-11-14"
+  },
+  {
+    "id": "E",
+    "name": "E: Durum wheat - Fallow",
+    "can_be_current": true,
+    "sequence": [
+      "Durum wheat",
+      "Fallow"
+    ],
+    "scores": {
+      "water": 66,
+      "soil": 25,
+      "income": null,
+      "erosion": 42,
+      "risk_resilience": 100
+    },
+    "confidence": "low",
+    "why": "Durum wheat one year, bare fallow the next (the traditional 'año y vez').",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: rain in the growing months covers 66% (Durum wheat) of the crop water need (Kc x ET0).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: average weekly chance of the main hazard in the sensitive weeks: Durum wheat heat 0% (Apr-May).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: 58% of the year's heavy-rain frequency (days of 20 mm or more) falls while this rotation leaves the soil bare (bare in some or all years: Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec).",
+        "provenance": "derived"
+      }
+    ],
+    "benefits": [
+      "Known crop, machinery and buyers",
+      "Only one crop to sow every two years"
+    ],
+    "gaps": [
+      "Water stored in the soil during the fallow year is not modelled",
+      "No verified net margin for the fallow year",
+      "No field-level yield records used"
+    ],
+    "risks": [
+      "Soil left bare for the whole fallow year",
+      "No legume in the rotation"
+    ],
+    "pac_eligible": "TBD",
+    "income": {
+      "eur_ha_year": null,
+      "missing_rule": null,
+      "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
+      "region": "Andalucía, secano",
+      "by_crop": [
+        {
+          "crop": "Durum wheat",
+          "eur_ha": 99.1,
+          "assumed": false,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Trigo duro secano",
+          "note": null
+        },
+        {
+          "crop": "Fallow",
+          "eur_ha": null,
+          "assumed": true,
+          "years": [],
+          "ecrea_crop": null,
+          "note": "TBD: ECREA has no net margin for fallow; left empty (not counted as 0 euro/ha) until a sourced value is found."
+        }
+      ],
+      "missing": [
+        "Fallow"
+      ],
+      "source": "MAPA ECREA 2.0 (RECAN), see pipeline/income_ecrea.json",
+      "documents": [
+        {
+          "id": "cereales_2018",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf"
+        },
+        {
+          "id": "cereales_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf"
+        }
+      ],
+      "accessed": "2026-11-14"
+    },
+    "bare_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "bare_months_share": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      1,
+      1,
+      1,
+      1,
+      0.5,
+      0.5
+    ],
+    "water_balance": [
+      {
+        "crop": "Durum wheat",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 562.8
       }
     ],
     "provenance": "derived",

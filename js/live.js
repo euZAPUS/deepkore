@@ -4,12 +4,12 @@
 import { VALIDATORS } from "./contract.js";
 
 // Bump when the browser computation changes (worker, power_files, rotations_core, power_core).
-export const LIVE_VERSION = "3";
+export const LIVE_VERSION = "4";
 const CACHE_PREFIX = "deepkore-live:";
 const OLD_PREFIXES = ["deepkore-live-v1:", "deepkore-live-v2:"];
 export const LIVE_FILES = ["parcel", "climate", "risk_windows", "validation", "rotations", "scenarios"];
 // Files the worker reads besides NASA POWER: a change in any of them invalidates the cache.
-const INPUTS = ["pipeline/config.json", "pipeline/thresholds.json", "pipeline/agro_rules.json", "pipeline/income_ecrea.json", "data/mock/rotations.json"];
+const INPUTS = ["pipeline/config.json", "pipeline/thresholds.json", "pipeline/agro_rules.json", "pipeline/income_ecrea.json", "data/mock/rotations.json", "pipeline/rotation_catalog.json"];
 
 // Two decimals (about 1 km): finer than the NASA POWER grid, so nothing is lost.
 export const roundCoord = (v) => Math.round(Number(v) * 100) / 100;

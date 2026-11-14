@@ -23,9 +23,16 @@ const monthsFromTo = (a, b) => {
 };
 export const monthSpan = (ms) => (ms.length === 1 ? MONTHS[ms[0] - 1] : `${MONTHS[ms[0] - 1]}-${MONTHS[ms.at(-1) - 1]}`);
 
+// A crop with rules.bare.value === true (Fallow) is a crop year with bare soil: no calendar, no Kc, no hazard.
+export const isBare = (r) => r?.bare?.value === true;
+
 function crop(name, RULES) {
   const r = RULES.crops[name];
   if (!r) throw new Error(`agro_rules.json: no rules for crop "${name}"`);
+  if (isBare(r)) {
+    const tbd = Object.entries(r).filter(([, v]) => isTBD(v)).map(([k]) => k);
+    return { name, rules: r, bare: true, sow: null, harvest: null, cycle: [], tbd };
+  }
   const sow = r.sow_months.value[0];
   const harvest = r.harvest_months.value.at(-1);
   const tbd = Object.entries(r).filter(([, v]) => isTBD(v)).map(([k]) => k);
@@ -46,12 +53,21 @@ function monthlyKc(kc, n) {
 // Place the crops one after another on a month timeline. Each crop is sown at the first
 // occurrence of its sowing month after the previous harvest. Returns the cycle length in
 // years and, for each calendar month, the share of cycle years in which the field is bare.
-function timeline(crops) {
+// A bare crop year (Fallow) covers nothing and pushes the next sowing at least 12 months later.
+// The cycle starts at the first crop that is not bare (a rotation repeats, so the order is kept).
+function timeline(allCrops) {
+  const i0 = allCrops.findIndex((cr) => !cr.bare);
+  if (i0 < 0) throw new Error("a rotation needs at least one crop that is not fallow");
+  const crops = [...allCrops.slice(i0), ...allCrops.slice(0, i0)];
   let t = crops[0].sow - 1;
   const start = t;
   const covered = new Set();
   let prevEnd = -1;
   for (const cr of crops) {
+    if (cr.bare) {
+      prevEnd += 12;
+      continue;
+    }
     while ((t % 12) + 1 !== cr.sow || t <= prevEnd) t++;
     for (let k = 0; k < cr.cycle.length; k++) covered.add(t + k);
     prevEnd = t + cr.cycle.length - 1;
@@ -73,7 +89,8 @@ export function scoreRotation(seq, monthly, weeks, RULES, INCOME) {
   if (tl.years !== years) throw new Error(`${seq.join(" > ")}: crop calendar gives a ${tl.years}-year cycle, sequence has ${years} crops`);
 
   // water: rain of growing months / (Kc x ET0 of those months), capped at 1, mean of the crops with a Kc
-  const water = crops.map((cr) => {
+  const grown = crops.filter((cr) => !cr.bare);
+  const water = grown.map((cr) => {
     const kc = cr.rules.kc.value;
     const rain = cr.cycle.reduce((s, m) => s + monthly.precip_mm[m - 1], 0);
     if (!kc) return { crop: cr.name, months: cr.cycle, ratio: null, rain, need: null };
@@ -84,7 +101,7 @@ export function scoreRotation(seq, monthly, weeks, RULES, INCOME) {
   const waterVals = water.filter((w) => w.ratio !== null).map((w) => w.ratio);
 
   // risk resilience: 1 - mean weekly chance of the crop's hazard during its sensitive weeks
-  const risk = crops.map((cr) => {
+  const risk = grown.map((cr) => {
     const s = cr.rules.sensitive.value;
     const key = HAZARD_KEY[s.hazard];
     if (!key) throw new Error(`${cr.name}: hazard "${s.hazard}" has no weekly probability in risk_windows.weeks`);
@@ -128,9 +145,11 @@ export function rotationIncome(seq, INCOME) {
   const byCrop = seq.map((name) => {
     const vals = INCOME?.crops?.[name]?.values || [];
     const known = vals.length ? round(mean(vals.map((v) => v.eur_ha)), 1) : null;
+    // use_missing_value: false (e.g. Fallow): no value and not counted as missing_value either -> null
+    const useFill = INCOME?.crops?.[name]?.use_missing_value !== false;
     return {
       crop: name,
-      eur_ha: known ?? (typeof fill === "number" ? fill : null),
+      eur_ha: known ?? (useFill && typeof fill === "number" ? fill : null),
       assumed: known === null,
       years: vals.map((v) => v.year),
       ecrea_crop: vals[0]?.ecrea_crop ?? null,
@@ -138,16 +157,17 @@ export function rotationIncome(seq, INCOME) {
     };
   });
   const missing = byCrop.filter((b) => b.assumed).map((b) => b.crop);
+  const filled = byCrop.filter((b) => b.assumed && b.eur_ha !== null).length;
   const docs = [...new Set(seq.flatMap((name) => (INCOME?.crops?.[name]?.values || []).map((v) => v.doc)))];
   return {
     eur_ha_year: byCrop.some((b) => b.eur_ha === null) ? null : round(mean(byCrop.map((b) => b.eur_ha)), 1),
-    missing_rule: missing.length ? INCOME?.missing_value?.source ?? null : null,
+    missing_rule: filled ? INCOME?.missing_value?.source ?? null : null,
     metric: "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
     region: INCOME?.region ?? null,
     by_crop: byCrop,
     missing,
     source: "MAPA ECREA 2.0 (RECAN), see pipeline/income_ecrea.json",
-    documents: docs.map((d) => ({ id: d, url: INCOME.documents[d] })),
+    documents: docs.map((d) => ({ id: d, url: INCOME?.documents?.[d] ?? null })),
     accessed: INCOME?.accessed ?? null,
   };
 }
@@ -185,14 +205,25 @@ function evidence(d, period, TH) {
   const ev = [];
   const w = d.water.filter((x) => x.ratio !== null);
   const noKc = d.water.filter((x) => x.ratio === null).map((x) => x.crop);
-  ev.push(`NASA POWER ${period}: rain in the growing months covers ${w.map((x) => `${Math.round(x.ratio * 100)}% (${x.crop})`).join(", ")} of the crop water need (Kc x ET0).${noKc.length ? ` Not scored for water: ${noKc.join(", ")} (no FAO-56 Kc).` : ""}`);
-  ev.push(`NASA POWER ${period}: average weekly chance of the main hazard in the sensitive weeks: ${d.risk.map((r) => `${r.crop} ${r.hazard} ${Math.round(r.p * 100)}% (${monthSpan(r.months)})`).join(", ")}.`);
+  if (w.length) ev.push(`NASA POWER ${period}: rain in the growing months covers ${w.map((x) => `${Math.round(x.ratio * 100)}% (${x.crop})`).join(", ")} of the crop water need (Kc x ET0).${noKc.length ? ` Not scored for water: ${noKc.join(", ")} (no FAO-56 Kc).` : ""}`);
+  else if (noKc.length) ev.push(`Not scored for water: ${noKc.join(", ")} (no FAO-56 Kc).`);
+  if (d.risk.length) ev.push(`NASA POWER ${period}: average weekly chance of the main hazard in the sensitive weeks: ${d.risk.map((r) => `${r.crop} ${r.hazard} ${Math.round(r.p * 100)}% (${monthSpan(r.months)})`).join(", ")}.`);
   const bare = d.bareShare.map((b, i) => (b > 0 ? MONTHS[i] : null)).filter(Boolean);
   ev.push(`NASA POWER ${period}: ${Math.round(d.bareRainShare * 100)}% of the year's heavy-rain frequency (days of ${TH.extreme_rain.value} mm or more) falls while this rotation leaves the soil bare${bare.length ? ` (bare in some or all years: ${bare.join(", ")})` : ""}.`);
   return ev.map((fact) => ({ dataset: "NASA POWER", fact, provenance: "derived" }));
 }
 
-// texts: data/mock/rotations.json. Returns { rotations, bare } (bare: current rotation's bare-month shares).
+// Texts of data/mock/rotations.json plus the rotations of pipeline/rotation_catalog.json, each with
+// can_be_current (true = a farmer in the area can grow it today; missing = false).
+export function rotationTexts(texts, CATALOG) {
+  const all = [...texts, ...(CATALOG?.rotations || []).filter((x) => !texts.some((m) => m.id === x.id))];
+  return all.map((m) => ({ ...m, can_be_current: CATALOG?.can_be_current?.[m.id]?.value === true }));
+}
+
+// Months (1-12) in which the field is bare in at least some years, from bareShare.
+const bareMonths = (bare) => bare.map((b, i) => (b > 0 ? i + 1 : null)).filter(Boolean);
+
+// texts: rotationTexts(data/mock/rotations.json, rotation_catalog.json). Returns { rotations, bare } (bare: current rotation's bare-month shares).
 export function buildRotations({ texts, monthly, weeks, RULES, TH, INCOME, period, today }) {
   const usedTBD = (d) => d.crops.some((cr) => cr.tbd.length) || isTBD(RULES.kc_stages) || isTBD(INCOME?.score_scale);
   const edit = (id) => TEXT_EDITS[id] || {};
@@ -200,6 +231,7 @@ export function buildRotations({ texts, monthly, weeks, RULES, TH, INCOME, perio
   const rotations = results.map(({ m, scores, detail }) => ({
     id: m.id,
     name: STRIP(m.name),
+    can_be_current: m.can_be_current === true,
     sequence: m.sequence.map(STRIP),
     scores,
     confidence: usedTBD(detail) ? "low" : "medium",
@@ -210,6 +242,8 @@ export function buildRotations({ texts, monthly, weeks, RULES, TH, INCOME, perio
     risks: m.risks.map(STRIP).filter((t) => !(edit(m.id).dropRisks || []).includes(t)),
     pac_eligible: "TBD",
     income: rotationIncome(m.sequence, INCOME),
+    bare_months: bareMonths(detail.bareShare),
+    bare_months_share: detail.bareShare.map((b) => Math.round(b * 100) / 100),
     water_balance: detail.water.map((x) => ({ crop: x.crop, months: x.months, rain_mm: round(x.rain, 1), need_mm: x.need === null ? null : round(x.need, 1) })),
     provenance: "derived",
     dataset: "NASA POWER",
@@ -223,7 +257,7 @@ export function buildRotations({ texts, monthly, weeks, RULES, TH, INCOME, perio
 // Keys merged into risk_windows.json for the current rotation's bare months.
 export function bareMonthsKeys(bare) {
   return {
-    bare_months: bare.map((b, i) => (b > 0 ? i + 1 : null)).filter(Boolean),
+    bare_months: bareMonths(bare),
     bare_months_share: bare.map((b) => Math.round(b * 100) / 100),
     bare_months_source: "crop calendar (TBD), not satellite-observed",
   };

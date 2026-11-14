@@ -3,7 +3,8 @@
 // Reads:  data/climate.json, data/risk_windows.json, pipeline/raw/power_daily.json,
 //         pipeline/agro_rules.json, pipeline/thresholds.json, pipeline/config.json,
 //         pipeline/income_ecrea.json,
-//         data/mock/rotations.json (texts only: id, name, sequence, why, benefits, gaps, risks)
+//         data/mock/rotations.json (texts only: id, name, sequence, why, benefits, gaps, risks),
+//         pipeline/rotation_catalog.json (extra rotations and can_be_current)
 // Writes: data/rotations.json, data/scenarios.json, and merges bare_months into data/risk_windows.json
 // The formulas live in pipeline/lib/rotations_core.mjs (shared with the browser).
 import { readFile, writeFile, rename } from "node:fs/promises";
@@ -25,7 +26,7 @@ const RULES = await readJson("pipeline/agro_rules.json");
 const INCOME = await readJson("pipeline/income_ecrea.json");
 const climate = await readJson("data/climate.json");
 const riskWindows = await readJson("data/risk_windows.json");
-const texts = await readJson("data/mock/rotations.json");
+const texts = r.rotationTexts(await readJson("data/mock/rotations.json"), await readJson("pipeline/rotation_catalog.json"));
 const today = new Date().toISOString().slice(0, 10);
 const period = `${CFG.first_year}-${CFG.last_full_year}`;
 

@@ -51,6 +51,11 @@
     "Winter cover crop": {
       "values": [],
       "note": "TBD: a cover crop is not sold; its costs are not in ECREA."
+    },
+    "Fallow": {
+      "values": [],
+      "use_missing_value": false,
+      "note": "TBD: ECREA has no net margin for fallow; left empty (not counted as 0 euro/ha) until a sourced value is found."
     }
   }
 }

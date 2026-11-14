@@ -65,7 +65,12 @@ export function validateRotations(list) {
   const e = [];
   need(e, isArr(list) && list.length >= 3, "rotations: array with at least 3 rotations expected");
   if (!isArr(list)) return e;
-  need(e, list.some((r) => r.id === "current"), 'rotations: one rotation must have id "current"');
+  need(e, list.some((r) => r.id === "current"), 'rotations: one rotation must have id "current" (the default current rotation)');
+  // can_be_current: true = a farmer in the area can grow it today (offered in "What do you grow now?").
+  // Older files (data/mock) have no can_be_current at all: then only "current" is offered.
+  const withFlag = list.filter((r) => r && r.can_be_current !== undefined).length;
+  need(e, withFlag === 0 || withFlag === list.length, "rotations: can_be_current must be set on every rotation or on none");
+  if (withFlag) need(e, list.some((r) => r.id === "current" && r.can_be_current === true), 'rotations: the "current" rotation must have can_be_current: true');
   list.forEach((r, i) => {
     const tag = `rotations[${i}]${r && r.id ? ` (${r.id})` : ""}`;
     need(e, isStr(r.id) && isStr(r.name), `${tag}: id and name expected`);
@@ -77,6 +82,13 @@ export function validateRotations(list) {
     }
     for (const k of ["evidence", "benefits", "gaps", "risks"]) {
       need(e, isArr(r[k]), `${tag}.${k}: array expected`);
+    }
+    need(e, r.can_be_current === undefined || typeof r.can_be_current === "boolean", `${tag}.can_be_current: true or false expected`);
+    // income is optional; when present its yearly and per-crop margins are numbers or null (no verified value)
+    if (r.income !== undefined) {
+      need(e, isObj(r.income) && (isNum(r.income.eur_ha_year) || r.income.eur_ha_year === null), `${tag}.income.eur_ha_year: number or null expected`);
+      need(e, isArr(r.income?.by_crop) && r.income.by_crop.every((b) => isStr(b?.crop) && (isNum(b.eur_ha) || b.eur_ha === null)), `${tag}.income.by_crop: [{crop, eur_ha: number or null}] expected`);
+      need(e, isArr(r.income?.missing), `${tag}.income.missing: array expected`);
     }
     need(e, r.why !== undefined, `${tag}.why: missing`);
     need(e, r.confidence !== undefined, `${tag}.confidence: missing`);
@@ -109,6 +121,18 @@ export function validateValidation(v) {
   });
   need(e, v.limits === undefined || isArr(v.limits), "validation.limits: array expected");
   need(e, v.provenance !== undefined, "validation.provenance: missing");
+  return e;
+}
+
+// Cross-file check: every scenario scores and ranks every rotation.
+export function validateScenariosCover(scenarios, rotations) {
+  const e = [];
+  if (!isArr(scenarios) || !isArr(rotations)) return e;
+  const ids = rotations.map((r) => r.id);
+  scenarios.forEach((s, i) => {
+    const miss = ids.filter((id) => !isNum(s?.scores?.[id]) || !(s?.ranking || []).includes(id));
+    need(e, !miss.length, `scenarios[${i}]: no score or ranking for ${miss.join(", ")}`);
+  });
   return e;
 }
 
