@@ -35,7 +35,7 @@ await writeJson("data/risk_windows.json", { ...(await readJson("data/risk_window
 
 const raw = await readJson("pipeline/raw/power_daily.json");
 const { days, meta } = c.toDays(raw.responses);
-const scenarios = r.buildScenarios({ days, lat: CFG.lat, elev: meta.elevation_m, y0: CFG.first_year, y1: CFG.last_full_year, TH, RULES, texts, period });
+const scenarios = r.buildScenarios({ days, lat: CFG.lat, elev: meta.elevation_m, y0: CFG.first_year, y1: CFG.last_full_year, TH, RULES, INCOME, texts, period });
 const zero = r.checkZeroScenario(scenarios, rotations);
 console.log("check: scenario (0,0) reproduces rotations.json exactly");
 await writeJson("data/scenarios.json", scenarios);

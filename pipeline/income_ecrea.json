@@ -4,6 +4,15 @@
   "region": "Andalucía, secano",
   "currency": "EUR, current prices of each year (not inflation-adjusted)",
   "accessed": "2026-11-14",
+  "missing_value": {
+    "eur_ha": 0,
+    "source": "TBD: a crop without a verified net margin counts as 0 euro/ha (no sale, costs not counted) until a value is found"
+  },
+  "score_scale": {
+    "zero_eur_ha": 0,
+    "full_eur_ha": 623.2,
+    "source": "TBD: linear, 0 euro/ha or less = 0, highest net margin in this file (chickpea group, 2020) = 100; team to confirm"
+  },
   "documents": {
     "cereales_2018": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf",
     "cereales_2020": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf",

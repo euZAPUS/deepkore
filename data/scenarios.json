@@ -20,35 +20,35 @@
       "current": {
         "water": 26,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 55,
         "risk_resilience": 76
       },
       "A": {
         "water": 36,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 62,
         "risk_resilience": 100
       },
       "B": {
         "water": 41,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 88,
         "risk_resilience": 95
       },
       "C": {
         "water": 28,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 56,
         "risk_resilience": 87
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -40,
@@ -71,35 +71,35 @@
       "current": {
         "water": 26,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 55,
         "risk_resilience": 69
       },
       "A": {
         "water": 35,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 62,
         "risk_resilience": 99
       },
       "B": {
         "water": 40,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 88,
         "risk_resilience": 97
       },
       "C": {
         "water": 27,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 56,
         "risk_resilience": 84
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -40,
@@ -122,35 +122,35 @@
       "current": {
         "water": 25,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 55,
         "risk_resilience": 63
       },
       "A": {
         "water": 34,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 62,
         "risk_resilience": 97
       },
       "B": {
         "water": 39,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 88,
         "risk_resilience": 98
       },
       "C": {
         "water": 27,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 56,
         "risk_resilience": 81
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -40,
@@ -173,35 +173,35 @@
       "current": {
         "water": 24,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 55,
         "risk_resilience": 56
       },
       "A": {
         "water": 33,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 62,
         "risk_resilience": 94
       },
       "B": {
         "water": 38,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 88,
         "risk_resilience": 98
       },
       "C": {
         "water": 26,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 56,
         "risk_resilience": 76
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -30,
@@ -224,35 +224,35 @@
       "current": {
         "water": 31,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 54,
         "risk_resilience": 76
       },
       "A": {
         "water": 42,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 63,
         "risk_resilience": 100
       },
       "B": {
         "water": 48,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 87,
         "risk_resilience": 95
       },
       "C": {
         "water": 33,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 87
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -30,
@@ -275,35 +275,35 @@
       "current": {
         "water": 30,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 54,
         "risk_resilience": 69
       },
       "A": {
         "water": 41,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 63,
         "risk_resilience": 99
       },
       "B": {
         "water": 47,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 87,
         "risk_resilience": 97
       },
       "C": {
         "water": 32,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 84
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -30,
@@ -326,35 +326,35 @@
       "current": {
         "water": 29,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 54,
         "risk_resilience": 63
       },
       "A": {
         "water": 39,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 63,
         "risk_resilience": 97
       },
       "B": {
         "water": 45,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 87,
         "risk_resilience": 98
       },
       "C": {
         "water": 31,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 81
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -30,
@@ -377,35 +377,35 @@
       "current": {
         "water": 28,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 54,
         "risk_resilience": 56
       },
       "A": {
         "water": 38,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 63,
         "risk_resilience": 94
       },
       "B": {
         "water": 44,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 87,
         "risk_resilience": 98
       },
       "C": {
         "water": 30,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 76
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -20,
@@ -428,35 +428,35 @@
       "current": {
         "water": 35,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 53,
         "risk_resilience": 76
       },
       "A": {
         "water": 48,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 58,
         "risk_resilience": 100
       },
       "B": {
         "water": 55,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 85,
         "risk_resilience": 95
       },
       "C": {
         "water": 38,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 54,
         "risk_resilience": 87
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -20,
@@ -479,35 +479,35 @@
       "current": {
         "water": 34,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 53,
         "risk_resilience": 69
       },
       "A": {
         "water": 46,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 58,
         "risk_resilience": 99
       },
       "B": {
         "water": 53,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 85,
         "risk_resilience": 97
       },
       "C": {
         "water": 37,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 54,
         "risk_resilience": 84
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -20,
@@ -530,35 +530,35 @@
       "current": {
         "water": 33,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 53,
         "risk_resilience": 63
       },
       "A": {
         "water": 45,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 58,
         "risk_resilience": 97
       },
       "B": {
         "water": 52,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 85,
         "risk_resilience": 98
       },
       "C": {
         "water": 35,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 54,
         "risk_resilience": 81
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -20,
@@ -581,35 +581,35 @@
       "current": {
         "water": 32,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 53,
         "risk_resilience": 56
       },
       "A": {
         "water": 44,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 58,
         "risk_resilience": 94
       },
       "B": {
         "water": 50,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 85,
         "risk_resilience": 98
       },
       "C": {
         "water": 34,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 54,
         "risk_resilience": 76
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -10,
@@ -632,35 +632,35 @@
       "current": {
         "water": 40,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 58,
         "risk_resilience": 76
       },
       "A": {
         "water": 54,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 65,
         "risk_resilience": 100
       },
       "B": {
         "water": 62,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 88,
         "risk_resilience": 95
       },
       "C": {
         "water": 42,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 58,
         "risk_resilience": 87
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -10,
@@ -683,35 +683,35 @@
       "current": {
         "water": 38,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 58,
         "risk_resilience": 69
       },
       "A": {
         "water": 52,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 65,
         "risk_resilience": 99
       },
       "B": {
         "water": 60,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 88,
         "risk_resilience": 97
       },
       "C": {
         "water": 41,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 58,
         "risk_resilience": 84
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -10,
@@ -734,35 +734,35 @@
       "current": {
         "water": 37,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 58,
         "risk_resilience": 63
       },
       "A": {
         "water": 51,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 65,
         "risk_resilience": 97
       },
       "B": {
         "water": 58,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 88,
         "risk_resilience": 98
       },
       "C": {
         "water": 40,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 58,
         "risk_resilience": 81
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": -10,
@@ -785,35 +785,35 @@
       "current": {
         "water": 36,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 58,
         "risk_resilience": 56
       },
       "A": {
         "water": 49,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 65,
         "risk_resilience": 94
       },
       "B": {
         "water": 56,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 88,
         "risk_resilience": 98
       },
       "C": {
         "water": 39,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 58,
         "risk_resilience": 76
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 0,
@@ -836,35 +836,35 @@
       "current": {
         "water": 44,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 59,
         "risk_resilience": 76
       },
       "A": {
         "water": 60,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 64,
         "risk_resilience": 100
       },
       "B": {
         "water": 69,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 87,
         "risk_resilience": 95
       },
       "C": {
         "water": 47,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 87
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 0,
@@ -887,35 +887,35 @@
       "current": {
         "water": 43,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 59,
         "risk_resilience": 69
       },
       "A": {
         "water": 58,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 64,
         "risk_resilience": 99
       },
       "B": {
         "water": 67,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 87,
         "risk_resilience": 97
       },
       "C": {
         "water": 46,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 84
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 0,
@@ -938,35 +938,35 @@
       "current": {
         "water": 41,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 59,
         "risk_resilience": 63
       },
       "A": {
         "water": 56,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 64,
         "risk_resilience": 97
       },
       "B": {
         "water": 65,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 87,
         "risk_resilience": 98
       },
       "C": {
         "water": 44,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 81
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 0,
@@ -989,35 +989,35 @@
       "current": {
         "water": 40,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 59,
         "risk_resilience": 56
       },
       "A": {
         "water": 54,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 64,
         "risk_resilience": 94
       },
       "B": {
         "water": 63,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 87,
         "risk_resilience": 98
       },
       "C": {
         "water": 43,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 76
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 10,
@@ -1040,35 +1040,35 @@
       "current": {
         "water": 48,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 59,
         "risk_resilience": 76
       },
       "A": {
         "water": 66,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 64,
         "risk_resilience": 100
       },
       "B": {
         "water": 76,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 85,
         "risk_resilience": 95
       },
       "C": {
         "water": 52,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 87
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 10,
@@ -1091,35 +1091,35 @@
       "current": {
         "water": 47,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 59,
         "risk_resilience": 69
       },
       "A": {
         "water": 64,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 64,
         "risk_resilience": 99
       },
       "B": {
         "water": 73,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 85,
         "risk_resilience": 97
       },
       "C": {
         "water": 50,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 84
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 10,
@@ -1142,35 +1142,35 @@
       "current": {
         "water": 45,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 59,
         "risk_resilience": 63
       },
       "A": {
         "water": 62,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 64,
         "risk_resilience": 97
       },
       "B": {
         "water": 71,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 85,
         "risk_resilience": 98
       },
       "C": {
         "water": 49,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 81
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 10,
@@ -1193,35 +1193,35 @@
       "current": {
         "water": 44,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 59,
         "risk_resilience": 56
       },
       "A": {
         "water": 60,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 64,
         "risk_resilience": 94
       },
       "B": {
         "water": 69,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 85,
         "risk_resilience": 98
       },
       "C": {
         "water": 47,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 57,
         "risk_resilience": 76
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 20,
@@ -1244,35 +1244,35 @@
       "current": {
         "water": 53,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 60,
         "risk_resilience": 76
       },
       "A": {
         "water": 72,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 65,
         "risk_resilience": 100
       },
       "B": {
         "water": 82,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 86,
         "risk_resilience": 95
       },
       "C": {
         "water": 57,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 58,
         "risk_resilience": 87
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 20,
@@ -1295,35 +1295,35 @@
       "current": {
         "water": 51,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 60,
         "risk_resilience": 69
       },
       "A": {
         "water": 69,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 65,
         "risk_resilience": 99
       },
       "B": {
         "water": 80,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 86,
         "risk_resilience": 97
       },
       "C": {
         "water": 55,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 58,
         "risk_resilience": 84
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 20,
@@ -1346,35 +1346,35 @@
       "current": {
         "water": 50,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 60,
         "risk_resilience": 63
       },
       "A": {
         "water": 67,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 65,
         "risk_resilience": 97
       },
       "B": {
         "water": 77,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 86,
         "risk_resilience": 98
       },
       "C": {
         "water": 53,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 58,
         "risk_resilience": 81
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   },
   {
     "rain_pct": 20,
@@ -1397,34 +1397,34 @@
       "current": {
         "water": 48,
         "soil": 50,
-        "income": null,
+        "income": 7,
         "erosion": 60,
         "risk_resilience": 56
       },
       "A": {
         "water": 65,
         "soil": 75,
-        "income": null,
+        "income": 58,
         "erosion": 65,
         "risk_resilience": 94
       },
       "B": {
         "water": 75,
         "soil": 50,
-        "income": null,
+        "income": 11,
         "erosion": 86,
         "risk_resilience": 98
       },
       "C": {
         "water": 52,
         "soil": 50,
-        "income": null,
+        "income": 29,
         "erosion": 58,
         "risk_resilience": 76
       }
     },
     "provenance": "simulated",
     "dataset": "NASA POWER",
-    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income not scored)."
+    "method": "Daily NASA POWER 2001-2025: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out: it does not change with climate in this model)."
   }
 ]

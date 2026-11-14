@@ -224,7 +224,8 @@ export function render(el, ctx) {
       if (!inc) return "";
       if (inc.eur_ha_year === null)
         return `<span class="muted">no verified net margin for ${esc(inc.missing.join(", "))}</span>`;
-      return `≈ <b>${fmt(inc.eur_ha_year * ha)} €</b> per year <span class="muted">(${fmt(inc.eur_ha_year, 1)} €/ha)</span>`;
+      return `≈ <b>${fmt(inc.eur_ha_year * ha)} €</b> per year <span class="muted">(${fmt(inc.eur_ha_year, 1)} €/ha${
+        inc.missing?.length ? `; ${esc(inc.missing.join(", "))} counted as 0 €/ha, no verified value` : ""})</span>`;
     };
     totalsEl.innerHTML = `
       <dl class="kv">
@@ -234,7 +235,7 @@ export function render(el, ctx) {
       </dl>
       <h3 class="totals__sub">Water in the growing months, current rotation</h3>
       <ul class="wb-list">${water(current)}</ul>
-      <p class="small muted">Water need = Kc × ET0 (FAO-56) over the growing months, rainfed, no soil storage. Net margin = MAPA ECREA, Andalucía rainfed, 2018-2020 (euro/ha, without decoupled payments); it is not in the ranking. 1 mm on 1 ha = 10 m³.</p>`;
+      <p class="small muted">Water need = Kc × ET0 (FAO-56) over the growing months, rainfed, no soil storage. Net margin = MAPA ECREA, Andalucía rainfed, 2018-2020 (euro/ha, without decoupled payments); it is the base of the income score. 1 mm on 1 ha = 10 m³.</p>`;
   };
 
   /* ---- best match ---- */

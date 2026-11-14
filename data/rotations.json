@@ -9,7 +9,7 @@
     "scores": {
       "water": 44,
       "soil": 50,
-      "income": null,
+      "income": 7,
       "erosion": 59,
       "risk_resilience": 76
     },
@@ -46,12 +46,14 @@
     "pac_eligible": "TBD",
     "income": {
       "eur_ha_year": 45.7,
+      "missing_rule": null,
       "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
       "region": "Andalucía, secano",
       "by_crop": [
         {
           "crop": "Durum wheat",
           "eur_ha": 99.1,
+          "assumed": false,
           "years": [
             2018,
             2020
@@ -62,6 +64,7 @@
         {
           "crop": "Sunflower",
           "eur_ha": -7.8,
+          "assumed": false,
           "years": [
             2020
           ],
@@ -133,7 +136,7 @@
     "scores": {
       "water": 60,
       "soil": 75,
-      "income": null,
+      "income": 58,
       "erosion": 64,
       "risk_resilience": 100
     },
@@ -171,12 +174,14 @@
     "pac_eligible": "TBD",
     "income": {
       "eur_ha_year": 361.2,
+      "missing_rule": null,
       "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
       "region": "Andalucía, secano",
       "by_crop": [
         {
           "crop": "Durum wheat",
           "eur_ha": 99.1,
+          "assumed": false,
           "years": [
             2018,
             2020
@@ -187,6 +192,7 @@
         {
           "crop": "Chickpea",
           "eur_ha": 623.2,
+          "assumed": false,
           "years": [
             2020
           ],
@@ -258,7 +264,7 @@
     "scores": {
       "water": 69,
       "soil": 50,
-      "income": null,
+      "income": 11,
       "erosion": 87,
       "risk_resilience": 95
     },
@@ -294,13 +300,15 @@
     ],
     "pac_eligible": "TBD",
     "income": {
-      "eur_ha_year": null,
+      "eur_ha_year": 67.1,
+      "missing_rule": "TBD: a crop without a verified net margin counts as 0 euro/ha (no sale, costs not counted) until a value is found",
       "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
       "region": "Andalucía, secano",
       "by_crop": [
         {
           "crop": "Barley",
           "eur_ha": 102.2,
+          "assumed": false,
           "years": [
             2018,
             2020
@@ -310,7 +318,8 @@
         },
         {
           "crop": "Vetch (forage / green manure)",
-          "eur_ha": null,
+          "eur_ha": 0,
+          "assumed": true,
           "years": [],
           "ecrea_crop": null,
           "note": "TBD: the ECREA legume group covers vetch sold as grain, not vetch used as forage or green manure."
@@ -318,6 +327,7 @@
         {
           "crop": "Durum wheat",
           "eur_ha": 99.1,
+          "assumed": false,
           "years": [
             2018,
             2020
@@ -405,7 +415,7 @@
     "scores": {
       "water": 47,
       "soil": 50,
-      "income": null,
+      "income": 29,
       "erosion": 57,
       "risk_resilience": 87
     },
@@ -441,13 +451,15 @@
     ],
     "pac_eligible": "TBD",
     "income": {
-      "eur_ha_year": null,
+      "eur_ha_year": 178.6,
+      "missing_rule": "TBD: a crop without a verified net margin counts as 0 euro/ha (no sale, costs not counted) until a value is found",
       "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
       "region": "Andalucía, secano",
       "by_crop": [
         {
           "crop": "Durum wheat",
           "eur_ha": 99.1,
+          "assumed": false,
           "years": [
             2018,
             2020
@@ -458,6 +470,7 @@
         {
           "crop": "Sunflower",
           "eur_ha": -7.8,
+          "assumed": false,
           "years": [
             2020
           ],
@@ -467,6 +480,7 @@
         {
           "crop": "Chickpea",
           "eur_ha": 623.2,
+          "assumed": false,
           "years": [
             2020
           ],
@@ -475,7 +489,8 @@
         },
         {
           "crop": "Winter cover crop",
-          "eur_ha": null,
+          "eur_ha": 0,
+          "assumed": true,
           "years": [],
           "ecrea_crop": null,
           "note": "TBD: a cover crop is not sold; its costs are not in ECREA."

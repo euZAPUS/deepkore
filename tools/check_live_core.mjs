@@ -19,7 +19,7 @@ const period = `${CFG.first_year}-${CFG.last_full_year}`;
 const files = buildPowerFiles({ raw, cfg: CFG, TH, today: "X", eventName: "pilot parcel (Vega de Antequera)" });
 const { rotations, bare } = r.buildRotations({ texts, monthly: files.climate.monthly, weeks: files.risk_windows.weeks, RULES, TH, INCOME, period, today: "X" });
 files.risk_windows = { ...files.risk_windows, ...r.bareMonthsKeys(bare) };
-const scenarios = r.buildScenarios({ days: files.days, lat: CFG.lat, elev: files.meta.elevation_m, y0: CFG.first_year, y1: CFG.last_full_year, TH, RULES, texts, period });
+const scenarios = r.buildScenarios({ days: files.days, lat: CFG.lat, elev: files.meta.elevation_m, y0: CFG.first_year, y1: CFG.last_full_year, TH, RULES, INCOME, texts, period });
 
 // generated_at is the run date; key order does not matter.
 const norm = (v) => {

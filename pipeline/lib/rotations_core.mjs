@@ -66,7 +66,7 @@ function timeline(crops) {
 
 /* ---------- scores (0-100, higher is better, absolute formulas) ---------- */
 
-export function scoreRotation(seq, monthly, weeks, RULES) {
+export function scoreRotation(seq, monthly, weeks, RULES, INCOME) {
   const crops = seq.map((n) => crop(n, RULES));
   const years = seq.length;
   const tl = timeline(crops);
@@ -108,7 +108,7 @@ export function scoreRotation(seq, monthly, weeks, RULES) {
     scores: {
       water: pct(mean(waterVals)),
       soil: pct(soil),
-      income: null,
+      income: incomeScore(rotationIncome(seq, INCOME), INCOME),
       erosion: pct(erosion),
       risk_resilience: pct(1 - mean(risk.map((r) => r.p))),
     },
@@ -120,22 +120,28 @@ export const totalScore = (s) => Math.round(mean(RANK_KEYS.map((k) => s[k])) * 1
 
 /* ---------- income (ECREA net margin, informative; not in the ranking) ---------- */
 
-// Mean net margin per hectare and year over the crops of the sequence. null if any crop has no value.
+// Mean net margin per hectare and year over the crops of the sequence. A crop without a verified value
+// counts as INCOME.missing_value.eur_ha (TBD) and is listed in `missing`.
+// eur_ha_year is null only if income_ecrea.json has no missing_value rule.
 export function rotationIncome(seq, INCOME) {
+  const fill = INCOME?.missing_value?.eur_ha;
   const byCrop = seq.map((name) => {
     const vals = INCOME?.crops?.[name]?.values || [];
+    const known = vals.length ? round(mean(vals.map((v) => v.eur_ha)), 1) : null;
     return {
       crop: name,
-      eur_ha: vals.length ? round(mean(vals.map((v) => v.eur_ha)), 1) : null,
+      eur_ha: known ?? (typeof fill === "number" ? fill : null),
+      assumed: known === null,
       years: vals.map((v) => v.year),
       ecrea_crop: vals[0]?.ecrea_crop ?? null,
       note: INCOME?.crops?.[name]?.note ?? null,
     };
   });
-  const missing = byCrop.filter((b) => b.eur_ha === null).map((b) => b.crop);
+  const missing = byCrop.filter((b) => b.assumed).map((b) => b.crop);
   const docs = [...new Set(seq.flatMap((name) => (INCOME?.crops?.[name]?.values || []).map((v) => v.doc)))];
   return {
-    eur_ha_year: missing.length ? null : round(mean(byCrop.map((b) => b.eur_ha)), 1),
+    eur_ha_year: byCrop.some((b) => b.eur_ha === null) ? null : round(mean(byCrop.map((b) => b.eur_ha)), 1),
+    missing_rule: missing.length ? INCOME?.missing_value?.source ?? null : null,
     metric: "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
     region: INCOME?.region ?? null,
     by_crop: byCrop,
@@ -144,6 +150,14 @@ export function rotationIncome(seq, INCOME) {
     documents: docs.map((d) => ({ id: d, url: INCOME.documents[d] })),
     accessed: INCOME?.accessed ?? null,
   };
+}
+
+// 0-100: linear between score_scale.zero_eur_ha (0) and score_scale.full_eur_ha (100), clamped. null without a scale.
+export function incomeScore(income, INCOME) {
+  const sc = INCOME?.score_scale;
+  if (!sc || income?.eur_ha_year === null || income?.eur_ha_year === undefined) return null;
+  const k = (income.eur_ha_year - sc.zero_eur_ha) / (sc.full_eur_ha - sc.zero_eur_ha);
+  return Math.round(Math.max(0, Math.min(1, k)) * 100);
 }
 
 /* ---------- rotations ---------- */
@@ -180,9 +194,9 @@ function evidence(d, period, TH) {
 
 // texts: data/mock/rotations.json. Returns { rotations, bare } (bare: current rotation's bare-month shares).
 export function buildRotations({ texts, monthly, weeks, RULES, TH, INCOME, period, today }) {
-  const usedTBD = (d) => d.crops.some((cr) => cr.tbd.length) || isTBD(RULES.kc_stages);
+  const usedTBD = (d) => d.crops.some((cr) => cr.tbd.length) || isTBD(RULES.kc_stages) || isTBD(INCOME?.score_scale);
   const edit = (id) => TEXT_EDITS[id] || {};
-  const results = texts.map((m) => ({ m, ...scoreRotation(m.sequence, monthly, weeks, RULES) }));
+  const results = texts.map((m) => ({ m, ...scoreRotation(m.sequence, monthly, weeks, RULES, INCOME) }));
   const rotations = results.map(({ m, scores, detail }) => ({
     id: m.id,
     name: STRIP(m.name),
@@ -218,7 +232,9 @@ export function bareMonthsKeys(bare) {
 /* ---------- scenarios ---------- */
 
 // days: output of power_core.toDays (without ET0 or with it; ET0 is recomputed). onProgress(i, n) optional.
-export function buildScenarios({ days: baseDays, lat, elev, y0, y1, TH, RULES, texts, period, onProgress }) {
+// Income does not depend on climate here (no yield model), so it is the same in every scenario and is left
+// out of the scenario ranking (equal weights of RANK_KEYS).
+export function buildScenarios({ days: baseDays, lat, elev, y0, y1, TH, RULES, INCOME, texts, period, onProgress }) {
   const th = { frost_tmin_c: TH.frost.value, heat_tmax_c: TH.heat.value, extreme_rain_mm_day: TH.extreme_rain.value };
   const add = (v, d) => (v === null ? null : v + d);
   const grid = [];
@@ -235,7 +251,7 @@ export function buildScenarios({ days: baseDays, lat, elev, y0, y1, TH, RULES, t
     c.addEt0(days, lat, elev);
     const clim = c.buildClimate(days, y0, y1, th);
     const weeks = c.buildWeeks(days, y0, y1, th);
-    const scored = Object.fromEntries(texts.map((m) => [m.id, scoreRotation(m.sequence, clim.monthly, weeks, RULES).scores]));
+    const scored = Object.fromEntries(texts.map((m) => [m.id, scoreRotation(m.sequence, clim.monthly, weeks, RULES, INCOME).scores]));
     const totals = Object.fromEntries(Object.entries(scored).map(([id, s]) => [id, totalScore(s)]));
     onProgress?.(i + 1, grid.length);
     return {
@@ -248,7 +264,7 @@ export function buildScenarios({ days: baseDays, lat, elev, y0, y1, TH, RULES, t
       criteria: scored,
       provenance: "simulated",
       dataset: "NASA POWER",
-      method: `Daily NASA POWER ${period}: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of ${RANK_KEYS.join(", ")} (income not scored).`,
+      method: `Daily NASA POWER ${period}: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of ${RANK_KEYS.join(", ")} (income left out: it does not change with climate in this model).`,
     };
   });
 }
