@@ -27,7 +27,7 @@ self.onmessage = async ({ data: { lat, lon, name, eventName } }) => {
     const { rotations, bare } = r.buildRotations({ texts, monthly: files.climate.monthly, weeks: files.risk_windows.weeks, RULES, TH, INCOME, period, today });
     files.risk_windows = { ...files.risk_windows, ...r.bareMonthsKeys(bare) };
     const scenarios = r.buildScenarios({
-      days: files.days, lat, elev: files.meta.elevation_m, y0: CFG.first_year, y1: CFG.last_full_year, TH, RULES, texts, period,
+      days: files.days, lat, elev: files.meta.elevation_m, y0: CFG.first_year, y1: CFG.last_full_year, TH, RULES, INCOME, texts, period,
       onProgress: (d, n) => progress("scenarios", d, n),
     });
     r.checkZeroScenario(scenarios, rotations);

@@ -62,8 +62,9 @@ of the sequence:
   frequency of the 12 months. Monthly frequency = mean weekly heavy-rain chance of that month.
 - **soil** = mean of (years with a legume / years) and (distinct botanical families / years). Unknown legume or
   family (cover crop, species not chosen) counts as no.
-- **income** score = `null`. A score would need every rotation to have a net margin; today two do not (see below).
-  The app leaves income out of the ranking and says why.
+- **income** = 100 × (net margin €/ha/year − 0) / (623.2 − 0), clamped to 0-100 (`income_ecrea.json` →
+  `score_scale`, TBD). Net margin as below. Income does not change with climate here (no yield model), so the
+  what-if ranking leaves it out.
 
 `confidence` = "low" if any value used is TBD, else "medium"; never "high". Today every rotation is "low"
 because the crop calendars are TBD. `pac_eligible` = "TBD".
@@ -73,9 +74,9 @@ kept, so ET0 rises with temperature). ET0, monthly climate, weekly chances, mean
 scores are recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out). The
 script stops if scenario (0, 0) does not reproduce `rotations.json` exactly.
 
-**Income (informative, not in the ranking).** `rotation.income.eur_ha_year` = mean over the crops of the sequence of
-each crop's mean ECREA net margin (margen neto, euro/ha) for Andalucía rainfed. `null` if any crop has no value
-(`missing` lists them). Values in `income_ecrea.json`, all read as text from the ECREA PDFs:
+**Income.** `rotation.income.eur_ha_year` = mean over the crops of the sequence of each crop's mean ECREA net margin
+(margen neto, euro/ha) for Andalucía rainfed. A crop without a verified value counts as 0 €/ha (`missing_value`,
+TBD) and is listed in `missing`. Values in `income_ecrea.json`, all read as text from the ECREA PDFs:
 
 | Crop | 2018 | 2020 | Note |
 |---|---|---|---|
@@ -85,7 +86,8 @@ each crop's mean ECREA net margin (margen neto, euro/ha) for Andalucía rainfed.
 | Chickpea | – | 623.2 | ECREA group "Lentejas, garbanzos y vezas secano" |
 | Vetch (forage / green manure), winter cover crop | – | – | TBD |
 
-Result today: current rotation 45.7 €/ha/year, A 361.2, B and C null. Limits: sample farms (RECAN), 2018-2020 prices,
+Result today (€/ha/year → score): current 45.7 → 7, A 361.2 → 58, B 67.1 → 11 (vetch counted as 0), C 178.6 → 29
+(cover crop counted as 0). Limits: sample farms (RECAN), 2018-2020 prices,
 regional averages, decoupled payments and opportunity costs left out. Other sources looked at: REDES TECO COP
 2017-2022 (figures are charts only), MAPA Anuario and price reports (not used: no per-hectare margin).
 
@@ -115,8 +117,8 @@ data do not support are edited in `TEXT_EDITS` in `build_rotations.mjs`:
 - `agro_rules.json`, all crops: sowing months, harvest months, sensitive phase (months and hazard), legume, family.
 - `agro_rules.json`: Kc of vetch and winter cover crop (no row in FAO-56 Table 12); cover-crop legume and family
   (species not chosen); the 4-equal-stages Kc curve (FAO-56 Table 11 stage lengths not applied).
-- `income_ecrea.json`: net margin of vetch as forage / green manure and of the winter cover crop; chickpea uses a
-  three-legume group value.
+- `income_ecrea.json`: net margin of vetch as forage / green manure and of the winter cover crop (counted as 0 €/ha);
+  the 0-100 scale (0 and 623.2 €/ha); chickpea uses a three-legume group value.
 - Kc with a source (FAO-56 Table 12): durum wheat uses the "Winter Wheat, non-frozen soils" row (0.7 / 1.15 / 0.25);
   barley 0.3 / 1.15 / 0.25; sunflower 0.35 / 1.0 / 0.35 (mid range 1.0-1.15, rainfed lower value); chickpea
   0.4 / 1.0 / 0.35. Kc ini of single crops is the group value printed in the table.

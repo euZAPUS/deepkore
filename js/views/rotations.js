@@ -47,18 +47,18 @@ function tabHTML(r, tab) {
   return listHTML(r.risks, "ilist--risk", ICON.warn);
 }
 
-// Net margin from MAPA ECREA (informative, not in the ranking).
+// Net margin from MAPA ECREA behind the income score.
 function incomeHTML(r) {
   const inc = r.income;
   if (!inc) return "";
   const eur = (v) => `${v < 0 ? "−" : ""}${Math.abs(Math.round(v)).toLocaleString("en-US")} €/ha`;
-  const crops = (inc.by_crop || []).map((b) => `<li><b>${esc(b.crop)}</b> ${b.eur_ha === null
-    ? '<span class="muted">no verified value</span>'
+  const crops = (inc.by_crop || []).map((b) => `<li><b>${esc(b.crop)}</b> ${b.assumed || b.eur_ha === null
+    ? `<span class="muted">no verified value${b.eur_ha === null ? "" : ` · counted as ${eur(b.eur_ha)} (TBD)`}</span>`
     : `${eur(b.eur_ha)} <span class="muted">(${esc(b.years.join(", "))}${b.ecrea_crop ? ` · ECREA "${esc(b.ecrea_crop)}"` : ""})</span>`}${b.note ? `<br><span class="small muted">${esc(b.note)}</span>` : ""}</li>`).join("");
   return `<div class="income">
-    <div class="bar__top"><span>Net margin <span class="muted">(not in the ranking)</span></span><b>${inc.eur_ha_year === null ? "–" : `${eur(inc.eur_ha_year)} per year`}</b></div>
+    <div class="bar__top"><span>Net margin behind the income score</span><b>${inc.eur_ha_year === null ? "–" : `${eur(inc.eur_ha_year)} per year`}</b></div>
     <ul class="income__list">${crops}</ul>
-    <p class="small muted">${esc(inc.region ?? "")} · MAPA ECREA 2.0 net margin (margen neto), without decoupled payments · ${provBadge("derived", "MAPA ECREA")}</p>
+    <p class="small muted">${esc(inc.region ?? "")} · MAPA ECREA 2.0 net margin (margen neto), without decoupled payments. Income score: 0 €/ha or less = 0, 623 €/ha = 100 (scale TBD) · ${provBadge("derived", "MAPA ECREA")}</p>
   </div>`;
 }
 
