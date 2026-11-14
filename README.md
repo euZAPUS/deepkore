@@ -64,7 +64,8 @@ npm run validate       # check /data/*.json against the data contract
 
 ## Works everywhere
 
-Responsive from phone to desktop, light or dark following the device setting. On a phone it can be
+Responsive from phone to desktop. Light or dark theme: follows the device at first, and the round
+sun/moon button in the top bar switches it (the choice is remembered). On a phone it can be
 installed like an app: *Share → Add to Home Screen* (iPhone) or *Menu → Install app* (Android).
 
 ## Deploy (GitHub Pages)
@@ -84,6 +85,7 @@ js/contract.js        Data contract checks (shared by app and tools/validate_dat
 js/scoring.js         total = sum(score × weight) / sum(weights); nearest scenario
 js/ui.js              Provenance badge and small helpers
 js/motion.js          Reveal animations, glass header, sliding nav indicator
+js/theme.js           Light / dark switch (fires a 'deepkore:theme' event for charts and map)
 js/views/             One module per screen
 data/                 parcel, climate, risk_windows, rotations, scenarios (.json)
 tools/                make_mock_data.py (placeholder data), validate_data.mjs

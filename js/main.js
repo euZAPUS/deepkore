@@ -3,6 +3,7 @@ import { SECTIONS, DEFAULT_SECTION, HIDE_MOCK_STRIP } from "./config.js";
 import { loadAll, anyMock } from "./data.js";
 import { esc, icon } from "./ui.js";
 import { revealIn, watchHeader, moveNavIndicator } from "./motion.js";
+import { initTheme } from "./theme.js";
 import * as placeholder from "./views/placeholder.js";
 
 // Section id -> view module ({ render(el, ctx) -> optional cleanup fn }).
@@ -73,6 +74,7 @@ function showDataWarning(problems) {
 
 async function start() {
   buildNav();
+  initTheme();
   watchHeader(document.getElementById("app-header"));
   window.addEventListener("hashchange", route);
   window.addEventListener("resize", () => moveNavIndicator(navList));
