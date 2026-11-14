@@ -20,10 +20,10 @@ farmer's decision; it does not make it.
 
 **Live demo:** <https://euzapus.github.io/deepkore/> · Code: <https://github.com/euZAPUS/deepkore>
 
-**How to use it (2 minutes).**
+**How to use it (2 minutes).** A short welcome card explains the app on first visit (reopen it with the **?** button).
 1. **My field**: see the field on the map, set your priorities with the sliders and choose rainfed or irrigated.
 2. **Risk calendar**: check in which weeks of the year frost, extreme heat or heavy rain are most likely, and how wet the soil is now.
-3. **Compare rotations**: the four rotations re-order according to your priorities. Open a card to see why, evidence, benefits, gaps and risks.
+3. **Compare rotations**: the four rotations re-order according to your priorities. Pick one to see why, the evidence, benefits, gaps, risks and how it compares with your current rotation.
 4. **What-if simulator**: move the rain and temperature sliders and watch the ranking change (simulated scenario).
 5. **Data & Limits**: every NASA dataset used, with link, resolution, licence and what it cannot tell you.
 6. **About / AI declaration**: who built it and how AI was used.
@@ -84,7 +84,8 @@ js/data.js            Loads /data/*.json, detects MOCK provenance
 js/contract.js        Data contract checks (shared by app and tools/validate_data.mjs)
 js/scoring.js         total = sum(score × weight) / sum(weights); nearest scenario
 js/ui.js              Provenance badge and small helpers
-js/motion.js          Reveal animations, glass header, sliding nav indicator
+js/motion.js          Reveal and re-order animations
+js/store.js           User priorities and limits (remembered on the device)
 js/theme.js           Light / dark switch (fires a 'deepkore:theme' event for charts and map)
 js/views/             One module per screen
 data/                 parcel, climate, risk_windows, rotations, scenarios (.json)
@@ -110,7 +111,7 @@ The MOCK strip disappears by itself once no file says `MOCK`.
 
 ## Credits and licences
 
-- Map tiles © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors.
+- Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (map view styled by CARTO); satellite imagery © Esri, Maxar, Earthstar Geographics.
 - [Leaflet](https://leafletjs.com/) (BSD-2-Clause), [Chart.js](https://www.chartjs.org/) (MIT); see `vendor/`.
 - NASA data: see the *Data & Limits* screen for each dataset's source and licence.
 - AI use: see `AI_USAGE_LOG.md` and the *About / AI declaration* screen.

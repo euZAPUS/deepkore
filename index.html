@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>DeepKore</title>
   <meta name="description" content="DeepKore: compare crop rotations for your field using NASA data and your own priorities. Decision support only.">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f2f2f7">
   <script>
-    // Apply the theme before first paint (no white flash). Saved choice wins, else the device setting.
+    // Apply the theme before first paint (no flash). Saved choice wins, else the device setting.
     (function () {
       var t = null;
       try { t = localStorage.getItem("deepkore-theme"); } catch (e) {}
       if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       document.documentElement.dataset.theme = t;
-      document.querySelector('meta[name="theme-color"]').content = t === "dark" ? "#000000" : "#ffffff";
+      document.querySelector('meta[name="theme-color"]').content = t === "dark" ? "#000000" : "#f2f2f7";
     })();
   </script>
   <!-- installable on phones (Add to Home Screen) -->
@@ -31,8 +31,9 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="app-header" id="app-header">
-    <div class="app-header__inner">
+  <div class="app">
+    <!-- Desktop / tablet sidebar -->
+    <aside class="sidebar" aria-label="DeepKore">
       <a class="brand" href="#/field" aria-label="DeepKore home">
         <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
           <rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/>
@@ -40,40 +41,79 @@
           <path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/>
           <path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/>
         </svg>
-        <span>DeepKore</span>
+        <span class="brand__name">DeepKore</span>
       </a>
-      <nav class="main-nav" aria-label="Sections">
-        <ul id="nav-list"></ul>
-      </nav>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Light / dark">
-        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
-        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-    </div>
-  </header>
+      <nav class="side-nav" aria-label="Sections"><ul id="nav-list"></ul></nav>
+      <div class="side-foot">
+        <!-- MOCK pill: shown while any data file has provenance "MOCK" (force-hide: HIDE_MOCK_STRIP in js/config.js) -->
+        <span class="mock-pill js-mock" hidden title="Numbers are placeholders, not real measurements">MOCK DATA</span>
+        <p class="side-disclaimer">Decision support only, always check with your local agronomist.</p>
+        <div class="side-actions">
+          <button class="icon-btn js-help" type="button" aria-label="How DeepKore works" title="How it works">?</button>
+          <button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme" title="Light / dark">
+            <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+            <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
 
-  <!-- One quiet line, on every screen.
-       The MOCK pill shows automatically while any data file has provenance "MOCK"
-       (force-hide: HIDE_MOCK_STRIP = true in js/config.js). -->
-  <div class="ribbon" role="note">
-    <span id="mock-strip" class="mock-pill" hidden title="Numbers are placeholders, not real measurements">MOCK DATA</span>
-    <span class="ribbon__text">Decision support only, always check with your local agronomist.</span>
+    <div class="main">
+      <!-- Phone top bar -->
+      <header class="mobile-bar">
+        <a class="brand" href="#/field" aria-label="DeepKore home">
+          <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/>
+            <rect x="4" y="25.5" width="24" height="3.5" rx="1.75" fill="#7a6247"/>
+            <path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/>
+            <path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/>
+          </svg>
+          <span class="brand__name">DeepKore</span>
+        </a>
+        <span class="mock-pill js-mock" hidden>MOCK DATA</span>
+        <button class="icon-btn js-help" type="button" aria-label="How DeepKore works">?</button>
+        <button class="icon-btn theme-toggle" type="button" aria-label="Switch to dark theme">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </header>
+      <!-- Disclaimer line for tablet and phone (desktop shows it in the sidebar) -->
+      <p class="disclaimer-line" role="note">Decision support only, always check with your local agronomist.</p>
+
+      <div id="data-warning" class="data-warning" hidden role="alert"></div>
+
+      <main id="main" class="view-host" tabindex="-1">
+        <p class="loading">Loading…</p>
+      </main>
+    </div>
   </div>
 
-  <div id="data-warning" class="data-warning" hidden role="alert"></div>
+  <!-- Phone tab bar -->
+  <nav class="tabbar" aria-label="Sections"><ul id="tab-list"></ul></nav>
 
-  <main id="main" class="page" tabindex="-1">
-    <p class="loading">Loading…</p>
-  </main>
-
-  <footer class="app-footer">
-    <div class="app-footer__inner">
-      <p class="app-footer__tagline">Choose the rotation that protects your soil, and prepare before the risk arrives.</p>
-      <p>Decision support only, always check with your local agronomist.</p>
-      <p>DeepKore · NASA Space Apps Challenge 2026 · Málaga</p>
-      <p>Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · Data: NASA (see <a href="#/data">Data &amp; Limits</a>)</p>
+  <!-- First-visit welcome (also opened with the ? button) -->
+  <dialog id="welcome" class="sheet" aria-labelledby="welcome-title">
+    <div class="sheet__body">
+      <svg class="sheet__logo" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/>
+        <rect x="4" y="25.5" width="24" height="3.5" rx="1.75" fill="#7a6247"/>
+        <path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/>
+        <path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/>
+      </svg>
+      <h2 id="welcome-title">Welcome to DeepKore</h2>
+      <p class="sheet__lead">Choose the rotation that protects your soil, and prepare before the risk arrives.</p>
+      <ul class="sheet__list">
+        <li><span class="sheet__ico" style="--c:var(--c-water)"><svg viewBox="0 0 24 24" class="ico"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></span>
+          <div><b>Tell us what matters</b><p>Water, soil health, income or erosion. Move the sliders.</p></div></li>
+        <li><span class="sheet__ico" style="--c:var(--accent)"><svg viewBox="0 0 24 24" class="ico"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 21v-5h-5"/></svg></span>
+          <div><b>See the best rotation</b><p>Your current rotation and three options, ranked with NASA data.</p></div></li>
+        <li><span class="sheet__ico" style="--c:var(--h-heat)"><svg viewBox="0 0 24 24" class="ico"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h2M14 14h2M8 17h2"/></svg></span>
+          <div><b>Prepare for risky weeks</b><p>When frost, extreme heat and heavy rain usually hit your field.</p></div></li>
+      </ul>
+      <p class="sheet__note">Decision support only, always check with your local agronomist.</p>
+      <form method="dialog"><button class="btn btn--block" value="ok">Get started</button></form>
     </div>
-  </footer>
+  </dialog>
 
   <script src="vendor/leaflet/leaflet.js"></script>
   <script src="vendor/chartjs/chart.umd.js"></script>

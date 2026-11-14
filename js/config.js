@@ -76,6 +76,7 @@ export const SECTIONS = [
   {
     id: "about",
     title: "About / AI declaration",
+    nav: "About / AI",
     short: "About",
     files: [],
     intro: "What DeepKore is, who made it, and how AI was used.",

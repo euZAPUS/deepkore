@@ -1,18 +1,19 @@
 // Light / dark theme switch. The initial theme is applied by the inline script in index.html.
-// Views that draw with canvas (charts, map) can listen for the "deepkore:theme" event to redraw.
+// Views that draw with canvas or tiles (charts, map) listen for "deepkore:theme" to redraw.
 
 const KEY = "deepkore-theme";
+const BAR = { light: "#f2f2f7", dark: "#000000" };
 
 export function currentTheme() {
   return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 }
 
 function apply(theme, save) {
-  const root = document.documentElement;
-  root.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#000000" : "#ffffff");
-  const btn = document.getElementById("theme-toggle");
-  btn?.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+  document.documentElement.dataset.theme = theme;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", BAR[theme]);
+  document.querySelectorAll(".theme-toggle").forEach((b) =>
+    b.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme")
+  );
   if (save) {
     try { localStorage.setItem(KEY, theme); } catch { /* private mode: choice just isn't remembered */ }
   }
@@ -21,9 +22,9 @@ function apply(theme, save) {
 
 export function initTheme() {
   apply(currentTheme(), false);
-  document.getElementById("theme-toggle")?.addEventListener("click", () => {
-    apply(currentTheme() === "dark" ? "light" : "dark", true);
-  });
+  document.querySelectorAll(".theme-toggle").forEach((b) =>
+    b.addEventListener("click", () => apply(currentTheme() === "dark" ? "light" : "dark", true))
+  );
   // Follow the device setting only while the user has not chosen explicitly.
   matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", (e) => {
     let saved = null;

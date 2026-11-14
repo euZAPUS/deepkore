@@ -52,25 +52,20 @@ export const ICON = {
   chevron: '<path d="M6 9l6 6 6-6"/>',
   arrowUp: '<path d="M12 19V5M5 12l7-7 7 7"/>',
   arrowDown: '<path d="M12 5v14M19 12l-7 7-7-7"/>',
+  back: '<path d="M15 5l-7 7 7 7"/>',
+  next: '<path d="M9 5l7 7-7 7"/>',
 };
 
-/* ---------- page scaffolding ---------- */
-export function heroHTML({ section, sectionIndex, sectionCount }, lead = section.intro, title = section.title) {
-  return `<section class="hero">
-    <p class="hero__eyebrow reveal">${String(sectionIndex + 1).padStart(2, "0")} / ${String(sectionCount).padStart(2, "0")}</p>
-    <h1 class="reveal" tabindex="-1">${esc(title)}</h1>
-    <p class="hero__lead reveal">${esc(lead)}</p>
-  </section>`;
+/* ---------- view scaffolding ---------- */
+export function viewHead(title, sub = "", actions = "") {
+  return `<header class="view-head">
+    <div><h1 tabindex="-1">${esc(title)}</h1>${sub ? `<p>${esc(sub)}</p>` : ""}</div>
+    ${actions ? `<div class="view-head__actions">${actions}</div>` : ""}
+  </header>`;
 }
 
-export function nextHTML(next) {
-  return next
-    ? `<div class="next-step reveal"><p>Next</p><a class="link-arrow" href="#/${next.id}">${esc(next.title)}</a></div>`
-    : "";
-}
-
-export function blockHead(title, lead = "") {
-  return `<div class="block__head reveal"><h2 class="section-title">${esc(title)}</h2>${lead ? `<p>${esc(lead)}</p>` : ""}</div>`;
+export function panelHead(title, right = "") {
+  return `<div class="panel__head"><h2 class="panel__title">${title}</h2>${right ? `<div>${right}</div>` : ""}</div>`;
 }
 
 /* ---------- slider ---------- */

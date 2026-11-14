@@ -1,7 +1,7 @@
 // 04 What-if simulator: rain / temperature sliders pick the nearest pre-computed scenario.
 import { nearestScenario } from "../scoring.js";
 import { flipReorder } from "../motion.js";
-import { esc, provBadge, heroHTML, nextHTML, sliderHTML, bindSliders, animateNumber, displayName, rotationTag, icon, ICON } from "../ui.js";
+import { esc, provBadge, viewHead, panelHead, sliderHTML, bindSliders, animateNumber, displayName, rotationTag, icon, ICON } from "../ui.js";
 
 const PRESETS = [
   { label: "Today's climate", rain: 0, temp: 0 },
@@ -29,44 +29,43 @@ export function render(el, ctx) {
   let cur = { rain: 0, temp: 0 };
 
   el.innerHTML = `
-    ${heroHTML(ctx, "What if it rains less, or gets hotter? Move the sliders and watch how the best rotation changes.")}
-
-    <div class="center reveal" style="margin-bottom:22px"><span class="pill pill--sim">Simulated scenario</span></div>
-
-    <section class="sim">
-      <div class="sim__controls reveal" id="controls">
+    ${viewHead("What-if simulator", "What if it rains less or gets hotter? Watch the ranking change.", '<span class="pill pill--sim">Simulated scenario</span>')}
+    <div class="view-body g-sim">
+      <section class="panel reveal" id="controls">
+        ${panelHead("Change the climate")}
         <div class="sliders">
           ${sliderHTML({ id: "s-rain", key: "rain", label: "Rain", hint: "Change in yearly rainfall", color: "var(--c-water)", value: 0, ...rain, output: signed(0, " %") })}
           ${sliderHTML({ id: "s-temp", key: "temp", label: "Temperature", hint: "Warmer than today", color: "var(--h-heat)", value: 0, ...temp, output: signed(0, " °C") })}
         </div>
         <div class="presets">${PRESETS.map((p, i) => `<button class="preset${i === 0 ? " is-on" : ""}" data-i="${i}">${esc(p.label)}</button>`).join("")}</div>
-      </div>
+        <div class="sim-stats">
+          <div class="sim-stat"><div class="sim-stat__label">${icon(ICON.frost, 14)} Frost days / year</div><div class="sim-stat__num" id="st-frost">${esc(base.frost_days)}</div><div class="sim-stat__delta" id="dt-frost">same as today</div></div>
+          <div class="sim-stat"><div class="sim-stat__label">${icon(ICON.heat, 14)} Very hot days / year</div><div class="sim-stat__num" id="st-heat">${esc(base.heat_days)}</div><div class="sim-stat__delta" id="dt-heat">same as today</div></div>
+        </div>
+      </section>
 
-      <div class="sim__stats reveal">
-        <div><div class="stat__num" id="st-frost">${esc(base.frost_days)}</div><div class="stat__label">${icon(ICON.frost, 14)} Frost days a year</div><div class="stat__delta" id="dt-frost">&nbsp;</div></div>
-        <div><div class="stat__num" id="st-heat">${esc(base.heat_days)}</div><div class="stat__label">${icon(ICON.heat, 14)} Very hot days a year</div><div class="stat__delta" id="dt-heat">&nbsp;</div></div>
-      </div>
-
-      <ol class="rank-list reveal" id="rank">
-        ${base.ranking.map((id) => `<li class="rank-row" data-key="${esc(id)}">
-          <span class="rank-row__n">–</span>
-          <span class="rank-row__name">${esc(displayName(byId[id] ?? { id }))}<small>${esc(byId[id] ? rotationTag(byId[id]) : id)}</small></span>
-          <span class="rank-row__bar"><span style="width:0%"></span></span>
-          <span class="rank-row__score">0</span>
-          <span class="move same">–</span>
-        </li>`).join("")}
-      </ol>
-      <p class="caption">Pre-computed scenarios, not a forecast. Scores here do not use your priority sliders. ${provBadge(base.provenance)}</p>
-    </section>
-
-    ${nextHTML(ctx.next)}
+      <section class="panel reveal">
+        ${panelHead("Ranking in this scenario", provBadge(base.provenance))}
+        <ol class="rank-list" id="rank">
+          ${base.ranking.map((id) => `<li class="rank-row" data-key="${esc(id)}">
+            <span class="rank-row__n">–</span>
+            <span class="rank-row__name">${esc(displayName(byId[id] ?? { id }))}<small>${esc(byId[id] ? rotationTag(byId[id]) : id)}</small></span>
+            <span class="rank-row__bar"><span style="width:0%"></span></span>
+            <span class="rank-row__score">0</span>
+            <span class="move same">–</span>
+          </li>`).join("")}
+        </ol>
+        <div class="panel__foot">▲▼ = places moved vs today's climate · pre-computed scenarios, not a forecast · does not use your priority sliders</div>
+      </section>
+    </div>
   `;
 
+  el.querySelectorAll("#controls output").forEach((o) => o.classList.add("sim-out"));
   const list = el.querySelector("#rank");
   const delta = (id, now, ref) => {
     const d = now - ref;
     const node = el.querySelector(id);
-    node.className = `stat__delta ${d > 0 ? "up" : d < 0 ? "down" : ""}`;
+    node.className = `sim-stat__delta ${d > 0 ? "up" : d < 0 ? "down" : ""}`;
     node.textContent = d === 0 ? "same as today" : `${d > 0 ? "+" : "−"}${Math.abs(d)} vs today`;
   };
 
@@ -83,7 +82,6 @@ export function render(el, ctx) {
       const d = baseRank[id] - i;
       mv.className = `move ${d > 0 ? "up" : d < 0 ? "down" : "same"}`;
       mv.textContent = d > 0 ? `▲${d}` : d < 0 ? `▼${-d}` : "–";
-      mv.title = d === 0 ? "Same place as today" : `${Math.abs(d)} place(s) ${d > 0 ? "up" : "down"} vs today`;
     });
     if (animate) flipReorder(list, s.ranking);
     animateNumber(el.querySelector("#st-frost"), Number(s.frost_days), 0, 400);

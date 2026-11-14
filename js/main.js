@@ -1,8 +1,8 @@
-// App entry: loads data, builds navigation, routes between the 6 sections.
+// App entry: loads data, builds navigation (sidebar + phone tab bar), routes between the 6 sections.
 import { SECTIONS, DEFAULT_SECTION, HIDE_MOCK_STRIP } from "./config.js";
 import { loadAll, anyMock } from "./data.js";
 import { esc, icon } from "./ui.js";
-import { revealIn, watchHeader, moveNavIndicator } from "./motion.js";
+import { revealIn } from "./motion.js";
 import { initTheme } from "./theme.js";
 import * as field from "./views/field.js";
 import * as risks from "./views/risks.js";
@@ -13,17 +13,21 @@ import * as about from "./views/about.js";
 
 // Section id -> view module ({ render(el, ctx) -> optional cleanup fn }).
 const VIEWS = { field, risks, rotations, whatif, data: sources, about };
+const WELCOME_KEY = "deepkore-welcome-seen";
 
 const main = document.getElementById("main");
-const navList = document.getElementById("nav-list");
+const navLists = [document.getElementById("nav-list"), document.getElementById("tab-list")];
 let ctx = null;
 let cleanup = null;
 
 function buildNav() {
-  navList.innerHTML = SECTIONS.map(
+  const html = SECTIONS.map(
     (s) => `<li><a href="#/${s.id}" data-id="${s.id}">${icon(s.icon, 22)}
-      <span class="nav-full">${esc(s.title)}</span><span class="nav-short">${esc(s.short)}</span></a></li>`
+      <span class="nav-full">${esc(s.nav ?? s.title)}</span><span class="nav-short">${esc(s.short)}</span></a></li>`
   ).join("");
+  navLists.forEach((ul) => (ul.innerHTML = html));
+  // tab bar shows short labels
+  navLists[1].querySelectorAll(".nav-short").forEach((n) => (n.style.display = "inline"));
 }
 
 function currentId() {
@@ -36,11 +40,12 @@ function route() {
   const index = SECTIONS.findIndex((s) => s.id === id);
   const section = SECTIONS[index];
 
-  navList.querySelectorAll("a").forEach((a) => {
-    if (a.dataset.id === id) a.setAttribute("aria-current", "page");
-    else a.removeAttribute("aria-current");
-  });
-  moveNavIndicator(navList);
+  navLists.forEach((ul) =>
+    ul.querySelectorAll("a").forEach((a) => {
+      if (a.dataset.id === id) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    })
+  );
   document.title = `${section.title} · DeepKore`;
 
   if (typeof cleanup === "function") cleanup();
@@ -48,16 +53,13 @@ function route() {
   main.innerHTML = "";
   if (!ctx) return;
 
-  cleanup = VIEWS[id].render(main, {
-    ...ctx,
-    section,
-    sectionIndex: index,
-    sectionCount: SECTIONS.length,
-    next: SECTIONS[index + 1] ?? null,
-  });
+  const view = document.createElement("div");
+  view.className = "view";
+  main.appendChild(view);
+  cleanup = VIEWS[id].render(view, { ...ctx, section, sectionIndex: index, next: SECTIONS[index + 1] ?? null });
   window.scrollTo({ top: 0, behavior: "instant" });
-  revealIn(main);
-  main.querySelector("h1")?.focus({ preventScroll: true });
+  revealIn(view);
+  view.querySelector("h1")?.focus({ preventScroll: true });
 }
 
 function showDataWarning(problems) {
@@ -69,27 +71,38 @@ function showDataWarning(problems) {
   console.warn("DeepKore data contract problems:", problems);
 }
 
+function initWelcome() {
+  const dlg = document.getElementById("welcome");
+  if (!dlg?.showModal) return;
+  const open = () => { if (!dlg.open) dlg.showModal(); };
+  document.querySelectorAll(".js-help").forEach((b) => b.addEventListener("click", open));
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); }); // tap outside closes
+  dlg.addEventListener("close", () => { try { localStorage.setItem(WELCOME_KEY, "1"); } catch { /* ignore */ } });
+  let seen = false;
+  try { seen = localStorage.getItem(WELCOME_KEY) === "1"; } catch { /* ignore */ }
+  if (!seen && !new URLSearchParams(location.search).has("nowelcome")) setTimeout(open, 400);
+}
+
 async function start() {
   buildNav();
   initTheme();
-  watchHeader(document.getElementById("app-header"));
   window.addEventListener("hashchange", route);
-  window.addEventListener("resize", () => moveNavIndicator(navList));
-  document.fonts?.ready.then(() => moveNavIndicator(navList));
   try {
     const { data, problems } = await loadAll();
     ctx = { data, problems };
-    document.getElementById("mock-strip").hidden = HIDE_MOCK_STRIP || !anyMock(data);
+    const mock = !HIDE_MOCK_STRIP && anyMock(data);
+    document.querySelectorAll(".js-mock").forEach((p) => (p.hidden = !mock));
     showDataWarning(problems);
   } catch (err) {
     console.error(err);
-    main.innerHTML = `<section class="hero"><h1 tabindex="-1">Could not load the data</h1>
-      <p class="hero__lead">${esc(err.message)}</p>
-      <p class="hero__lead">If you opened <code>index.html</code> directly from disk, serve the folder instead:
-      <code>python3 -m http.server 8000</code> and open <code>http://localhost:8000</code>.</p></section>`;
+    main.innerHTML = `<div class="view"><div class="panel"><h1 tabindex="-1">Could not load the data</h1>
+      <p class="muted">${esc(err.message)}</p>
+      <p class="muted">If you opened <code>index.html</code> directly from disk, serve the folder instead:
+      <code>python3 -m http.server 8000</code> and open <code>http://localhost:8000</code>.</p></div></div>`;
     return;
   }
   route();
+  initWelcome();
 }
 
 start();

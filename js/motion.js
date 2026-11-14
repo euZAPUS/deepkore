@@ -27,34 +27,6 @@ export function revealIn(root) {
   items.forEach((el) => observer.observe(el));
 }
 
-// Glass header gets a hairline once the page scrolls.
-export function watchHeader(header) {
-  const update = () => header.classList.toggle("is-scrolled", window.scrollY > 4);
-  window.addEventListener("scroll", update, { passive: true });
-  update();
-}
-
-// Pill that slides behind the active nav link (desktop / tablet).
-export function moveNavIndicator(list) {
-  let pill = list.querySelector(".nav-indicator");
-  if (!pill) {
-    pill = document.createElement("li");
-    pill.className = "nav-indicator";
-    pill.setAttribute("aria-hidden", "true");
-    list.prepend(pill);
-  }
-  const active = list.querySelector('a[aria-current="page"]');
-  if (!active) {
-    pill.style.opacity = "0";
-    return;
-  }
-  const a = active.getBoundingClientRect();
-  const l = list.getBoundingClientRect();
-  pill.style.width = `${a.width}px`;
-  pill.style.transform = `translateX(${a.left - l.left}px)`;
-  pill.style.opacity = "1";
-}
-
 // Re-order children of `container` (each has data-key) to match `keys`, animating the move (FLIP).
 export function flipReorder(container, keys) {
   const items = new Map([...container.children].map((el) => [el.dataset.key, el]));

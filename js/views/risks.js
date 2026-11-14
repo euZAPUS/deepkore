@@ -1,13 +1,13 @@
-// 02 Risk calendar: soil moisture now, when each hazard peaks, 52-week calendar, climate context.
+// 02 Risk calendar: four headline tiles, a 52-week calendar, erosion window and climate chart.
 import { isMock } from "../data.js";
-import { esc, provBadge, heroHTML, nextHTML, blockHead, icon, ICON, css, segmentedHTML, bindSegmented, animateNumber } from "../ui.js";
+import { esc, provBadge, viewHead, panelHead, icon, ICON, css, segmentedHTML, bindSegmented, animateNumber } from "../ui.js";
 
 const REF_YEAR = 2025; // non-leap reference year to turn week numbers into dates
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const HAZARDS = [
-  { key: "p_frost", label: "Frost", color: "var(--h-frost)", cssVar: "--h-frost", icon: ICON.frost, dataset: "NASA POWER" },
-  { key: "p_heat", label: "Extreme heat", color: "var(--h-heat)", cssVar: "--h-heat", icon: ICON.heat, dataset: "NASA POWER" },
-  { key: "p_extreme_rain", label: "Heavy rain", color: "var(--h-rain)", cssVar: "--h-rain", icon: ICON.rain, dataset: "GPM IMERG" },
+  { key: "p_frost", label: "Frost", color: "var(--h-frost)", icon: ICON.frost, dataset: "NASA POWER" },
+  { key: "p_heat", label: "Extreme heat", color: "var(--h-heat)", icon: ICON.heat, dataset: "NASA POWER" },
+  { key: "p_extreme_rain", label: "Heavy rain", color: "var(--h-rain)", icon: ICON.rain, dataset: "GPM IMERG" },
 ];
 
 /* ---------- week helpers ---------- */
@@ -44,97 +44,78 @@ export function render(el, ctx) {
   const bare = new Set((rw.bare_months || []).map(Number));
   const today = todayWeek();
   const sm = rw.soil_moisture_now || {};
+  const dry = (sm.anomaly_pct || 0) < 0;
   const windows = Object.fromEntries(HAZARDS.map((h) => [h.key, riskWindow(weeks.map((w) => w[h.key]))]));
-
-  // Heavy rain while the soil is bare = erosion window
   const rainW = windows.p_extreme_rain;
   const overlap = weeks.filter((w) => bare.has(weekMonth(w.week)) && w.p_extreme_rain >= rainW.thr).map((w) => w.week);
-
-  const usual = sm.value / (1 + (sm.anomaly_pct || 0) / 100);
-  const scaleMax = 0.5; // m3/m3, top of the meter
-  const dry = (sm.anomaly_pct || 0) < 0;
+  const derived = isMock(rw.provenance) ? rw.provenance : "Derived";
 
   el.innerHTML = `
-    ${heroHTML(ctx, "When frost, extreme heat and heavy rain usually hit your field, so you can prepare before they arrive.")}
+    ${viewHead("Risk calendar", "When frost, extreme heat and heavy rain usually hit your field.")}
+    <div class="view-body g-risks">
+      <section class="panel stat stat--soil reveal" style="--hc:var(--c-water)">
+        <div class="stat__top"><span class="stat__icon">${icon('<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>', 19)}</span><span class="stat__label">Soil moisture now</span></div>
+        <div class="stat__big"><span id="sm-num">0</span><small>%</small></div>
+        <p class="stat__sub ${dry ? "is-dry" : "is-wet"}">${dry ? "↓" : "↑"} ${Math.abs(sm.anomaly_pct)}% ${dry ? "drier" : "wetter"} than usual</p>
+        <div class="panel__foot">${esc(sm.date)} · ${provBadge(rw.provenance, "SMAP")}</div>
+      </section>
+      ${HAZARDS.map((h) => {
+        const w = windows[h.key];
+        return `<section class="panel stat reveal" style="--hc:${h.color}">
+          <div class="stat__top"><span class="stat__icon">${icon(h.icon, 19)}</span><span class="stat__label">${esc(h.label)}</span></div>
+          <div class="stat__big">${weekRange(w.start).from} – ${weekRange(w.end).to}</div>
+          <p class="stat__sub">Peak ~${weekRange(w.peak).from} · max ${pct(w.max)}/week</p>
+          <div class="panel__foot">${provBadge(rw.provenance, h.dataset)}</div>
+        </section>`;
+      }).join("")}
 
-    <section class="moisture reveal">
-      <p class="hero__eyebrow">Soil moisture now</p>
-      <div class="moisture__num"><span id="sm-num">0</span><small>%</small></div>
-      <p class="muted small">${esc(sm.value)} m³ of water per m³ of soil (top 5 cm)</p>
-      <p class="moisture__anom ${dry ? "is-dry" : "is-wet"}">${icon(dry ? ICON.arrowDown : ICON.arrowUp, 18)} ${Math.abs(sm.anomaly_pct)}% ${dry ? "drier" : "wetter"} than usual for this time of year</p>
-      <div class="meter" aria-hidden="true">
-        <span class="meter__now" style="width:0%"></span>
-        <span class="meter__usual" style="left:${Math.min(100, (usual / scaleMax) * 100)}%"></span>
-      </div>
-      <div class="meter__legend"><span><i style="background:var(--c-water)"></i>Now</span><span><i style="background:var(--text)"></i>Usual</span></div>
-      <p class="caption">Measured ${esc(sm.date)} · ${provBadge(rw.provenance, "SMAP")}</p>
-    </section>
-
-    <section class="block">
-      ${blockHead("When to watch out", `The weeks each risk is most likely, from records for ${esc(ctx.data.parcel?.period ?? "past years")}.`)}
-      <div class="hazards">
-        ${HAZARDS.map((h) => {
-          const w = windows[h.key];
-          return `<div class="hazard reveal" style="--hc:${h.color}">
-            <div class="hazard__icon">${icon(h.icon, 26)}</div>
-            <h3>${esc(h.label)}</h3>
-            <p class="hazard__when">${weekRange(w.start).from} – ${weekRange(w.end).to}</p>
-            <p class="hazard__peak">Peak around ${weekRange(w.peak).from} · up to ${pct(w.max)} chance in a week</p>
-            <p class="caption" style="margin-top:8px">${provBadge(rw.provenance, h.dataset)}</p>
-          </div>`;
-        }).join("")}
-      </div>
-      ${overlap.length ? `<div class="insight reveal">${icon(ICON.warn, 22)}<div>
-        <p><b>Erosion window: ${weekRange(overlap[0]).from} – ${weekRange(overlap[overlap.length - 1]).to}.</b>
-        Heavy rain becomes likely while your soil is still bare in the current rotation. A cover crop or earlier sowing would protect it.</p>
-        ${provBadge(isMock(rw.provenance) ? rw.provenance : "Derived", "GPM IMERG + rotation calendar")}</div></div>` : ""}
-    </section>
-
-    <section class="block">
-      ${blockHead("Your year, week by week", "Darker means more likely. Slide your finger or mouse across to see each week.")}
-      <div class="cal reveal" id="cal">
-        <div class="cal__grid">
-          ${HAZARDS.map((h) => {
-            const max = windows[h.key].max || 1;
-            return `<div class="cal__label" style="--rc:${h.color}"><i></i>${esc(h.label)}</div>` +
-              weeks.map((w) => `<div class="cal__cell${w.week === today ? " is-today" : ""}" data-w="${w.week}" style="--rc:${h.color};--v:${Math.round(12 + (w[h.key] / max) * 88)}%"></div>`).join("");
-          }).join("")}
-          <div class="cal__label" style="--rc:var(--c-soil)"><i></i>Bare soil</div>
-          ${weeks.map((w) => `<div class="cal__cell${w.week === today ? " is-today" : ""}" data-w="${w.week}" style="--rc:var(--c-soil);--v:${bare.has(weekMonth(w.week)) ? 75 : 0}%"></div>`).join("")}
+      <section class="panel calendar reveal">
+        ${panelHead("Week by week", '<div class="readout" id="readout" aria-live="polite"></div>')}
+        <div class="cal" id="cal">
+          <div class="cal__grid">
+            ${HAZARDS.map((h) => {
+              const max = windows[h.key].max || 1;
+              return `<div class="cal__label" style="--rc:${h.color}"><i></i>${esc(h.label)}</div>` +
+                weeks.map((w) => `<div class="cal__cell${w.week === today ? " is-today" : ""}" data-w="${w.week}" style="--rc:${h.color};--v:${Math.round(12 + (w[h.key] / max) * 88)}%"></div>`).join("");
+            }).join("")}
+            <div class="cal__label" style="--rc:var(--c-soil)"><i></i>Bare soil</div>
+            ${weeks.map((w) => `<div class="cal__cell${w.week === today ? " is-today" : ""}" data-w="${w.week}" style="--rc:var(--c-soil);--v:${bare.has(weekMonth(w.week)) ? 75 : 0}%"></div>`).join("")}
+          </div>
+          <div class="cal__months"><span></span>
+            ${MONTHS.map((m, i) => {
+              const start = monthStartWeek(i);
+              const end = i < 11 ? monthStartWeek(i + 1) : 53;
+              return `<span style="grid-column:${start + 1} / ${end + 1}"><span class="m-long">${m}</span><span class="m-short">${m[0]}</span></span>`;
+            }).join("")}
+          </div>
         </div>
-        <div class="cal__months"><span></span>
-          ${MONTHS.map((m, i) => {
-            const start = monthStartWeek(i);
-            const end = i < 11 ? monthStartWeek(i + 1) : 53;
-            return `<span style="grid-column:${start + 1} / ${end + 1}"><span class="m-long">${m}</span><span class="m-short">${m[0]}</span></span>`;
-          }).join("")}
-        </div>
-        <div class="cal__readout" id="readout" aria-live="polite"></div>
-        <p class="caption">Outlined week = today · Bare soil from the current rotation · ${provBadge(rw.provenance, "NASA POWER · GPM IMERG")}</p>
-      </div>
-    </section>
+        <div class="panel__foot">Darker = more likely · slide across to read each week · green outline = today · ${provBadge(rw.provenance, "NASA POWER · GPM IMERG")}</div>
+      </section>
 
-    <section class="block">
-      ${blockHead("Your climate", "Averages for your field over " + esc(climate?.trends?.years?.[0] ?? "") + "–" + esc(climate?.trends?.years?.at?.(-1) ?? "") + ".")}
-      <div class="center reveal">${segmentedHTML("chart-mode", [
-        { value: "water", label: "Water" },
-        { value: "temp", label: "Temperature" },
-        { value: "trend", label: "20-year trend" },
-      ], "water", "Climate chart")}</div>
-      <div class="chart-box reveal"><canvas id="climate-chart" aria-label="Climate chart"></canvas></div>
-      <p class="caption" id="chart-caption"></p>
-    </section>
+      <section class="panel climate reveal">
+        ${panelHead("Your climate", segmentedHTML("chart-mode", [
+          { value: "water", label: "Water" },
+          { value: "temp", label: "Temperature" },
+          { value: "trend", label: "Trend" },
+        ], "water", "Climate chart"))}
+        <div class="chart-box"><canvas id="climate-chart" aria-label="Climate chart"></canvas></div>
+        <div class="panel__foot" id="chart-caption"></div>
+      </section>
 
-    ${nextHTML(ctx.next)}
+      <section class="panel erosion reveal" style="--hc:var(--c-erosion)">
+        <div class="stat__top"><span class="stat__icon">${icon(ICON.warn, 19)}</span><span class="stat__label">Erosion window</span></div>
+        ${overlap.length
+          ? `<div class="stat__big">${weekRange(overlap[0]).from} – ${weekRange(overlap.at(-1)).to}</div>
+             <p>Heavy rain becomes likely while the soil is still bare in your current rotation. A cover crop or earlier sowing would protect it.</p>`
+          : `<div class="stat__big">No overlap</div><p>Heavy-rain weeks do not fall on bare soil in your current rotation.</p>`}
+        <div class="panel__foot">${provBadge(derived, "GPM IMERG + rotation calendar")}</div>
+      </section>
+    </div>
   `;
 
-  /* ---- soil moisture animation ---- */
-  requestAnimationFrame(() => {
-    animateNumber(el.querySelector("#sm-num"), sm.value * 100, 0, 900);
-    el.querySelector(".meter__now").style.width = `${Math.min(100, (sm.value / scaleMax) * 100)}%`;
-  });
+  requestAnimationFrame(() => animateNumber(el.querySelector("#sm-num"), sm.value * 100, 0, 900));
 
-  /* ---- calendar readout ---- */
+  /* ---- calendar: scrub with finger or mouse ---- */
   const readout = el.querySelector("#readout");
   const cal = el.querySelector("#cal");
   const select = (wk) => {
@@ -142,11 +123,10 @@ export function render(el, ctx) {
     if (!w) return;
     cal.querySelectorAll(".is-sel").forEach((c) => c.classList.remove("is-sel"));
     cal.querySelectorAll(`[data-w="${wk}"]`).forEach((c) => c.classList.add("is-sel"));
-    readout.innerHTML = `<strong>${wk === today ? "This week · " : ""}Week ${wk} · ${weekRange(wk).label}</strong>
-      <div class="vals"><span>Frost <b>${pct(w.p_frost)}</b></span><span>Extreme heat <b>${pct(w.p_heat)}</b></span>
-      <span>Heavy rain <b>${pct(w.p_extreme_rain)}</b></span><span>Bare soil <b>${bare.has(weekMonth(wk)) ? "yes" : "no"}</b></span></div>`;
+    readout.innerHTML = `<strong>${wk === today ? "This week" : `Week ${wk}`} · ${weekRange(wk).label}</strong>
+      <span>Frost <b>${pct(w.p_frost)}</b></span><span>Heat <b>${pct(w.p_heat)}</b></span>
+      <span>Heavy rain <b>${pct(w.p_extreme_rain)}</b></span><span>Bare soil <b>${bare.has(weekMonth(wk)) ? "yes" : "no"}</b></span>`;
   };
-  // Scrub: the horizontal position picks the week (easy on phones where a week is ~5 px wide).
   const grid = cal.querySelector(".cal__grid");
   const firstRow = [...grid.querySelectorAll(".cal__cell")].slice(0, 52);
   const weekAt = (x) => {
@@ -159,6 +139,7 @@ export function render(el, ctx) {
   const pick = (e) => { const wk = weekAt(e.clientX); if (wk) select(wk); };
   grid.addEventListener("pointerdown", (e) => { scrubbing = true; pick(e); });
   grid.addEventListener("pointermove", (e) => { if (scrubbing || e.pointerType === "mouse") pick(e); });
+  grid.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") select(today); });
   const stop = () => (scrubbing = false);
   window.addEventListener("pointerup", stop);
   window.addEventListener("pointercancel", stop);
@@ -171,28 +152,28 @@ export function render(el, ctx) {
   const draw = () => {
     chart?.destroy();
     if (!window.Chart || !climate) return;
-    const c = (v) => css(v);
     Chart.defaults.font.family = css("--font");
-    Chart.defaults.color = c("--text-2");
+    Chart.defaults.color = css("--text-2");
     const m = climate.monthly;
     const t = climate.trends;
     const line = (label, data, color, extra = {}) => ({ type: "line", label, data, borderColor: color, backgroundColor: color, borderWidth: 2.5, tension: 0.35, pointRadius: 0, pointHoverRadius: 5, ...extra });
     let data, yTitle;
+    const years = `${t.years[0]}–${t.years.at(-1)}`;
     if (mode === "water") {
       data = { labels: MONTHS, datasets: [
-        { type: "bar", label: "Rain (mm)", data: m.precip_mm, backgroundColor: c("--c-water") + "cc", borderRadius: 6, maxBarThickness: 28 },
-        line("Crop water demand, ET0 (mm)", m.et0, c("--wheat"), { borderDash: [6, 5] }),
+        { type: "bar", label: "Rain", data: m.precip_mm, backgroundColor: css("--c-water") + "cc", borderRadius: 6, maxBarThickness: 26 },
+        line("Crop water demand (ET0)", m.et0, css("--wheat"), { borderDash: [6, 5] }),
       ] };
       yTitle = "mm per month";
-      caption.innerHTML = `When the dashed line is above the bars, crops need more water than the rain gives. ${provBadge(climate.provenance, "NASA POWER")}`;
+      caption.innerHTML = `Dashed line above the bars = crops need more water than the rain gives · ${years} · ${provBadge(climate.provenance, "NASA POWER")}`;
     } else if (mode === "temp") {
-      data = { labels: MONTHS, datasets: [line("Max temperature (°C)", m.tmax, c("--h-heat")), line("Min temperature (°C)", m.tmin, c("--h-frost"))] };
+      data = { labels: MONTHS, datasets: [line("Max °C", m.tmax, css("--h-heat")), line("Min °C", m.tmin, css("--h-frost"))] };
       yTitle = "°C";
-      caption.innerHTML = `Monthly average of daily highs and lows. ${provBadge(climate.provenance, "NASA POWER")}`;
+      caption.innerHTML = `Monthly average of daily highs and lows · ${years} · ${provBadge(climate.provenance, "NASA POWER")}`;
     } else {
-      data = { labels: t.years, datasets: [line("Frost days per year", t.frost_days, c("--h-frost"), { pointRadius: 2 }), line("Very hot days per year", t.heat_days, c("--h-heat"), { pointRadius: 2 })] };
-      yTitle = "days";
-      caption.innerHTML = `Count of days per year. ${provBadge(climate.provenance, "NASA POWER")}`;
+      data = { labels: t.years, datasets: [line("Frost days", t.frost_days, css("--h-frost"), { pointRadius: 2 }), line("Very hot days", t.heat_days, css("--h-heat"), { pointRadius: 2 })] };
+      yTitle = "days per year";
+      caption.innerHTML = `Days per year · ${provBadge(climate.provenance, "NASA POWER")}`;
     }
     chart = new Chart(el.querySelector("#climate-chart"), {
       type: "bar",
@@ -201,12 +182,12 @@ export function render(el, ctx) {
         responsive: true, maintainAspectRatio: false, interaction: { mode: "index", intersect: false },
         animation: { duration: 700, easing: "easeOutQuart" },
         plugins: {
-          legend: { position: "bottom", labels: { usePointStyle: true, pointStyle: "circle", boxWidth: 8, boxHeight: 8, padding: 18 } },
-          tooltip: { backgroundColor: c("--tile-raised"), titleColor: c("--text"), bodyColor: c("--text-2"), borderColor: c("--sep"), borderWidth: 1, padding: 12, cornerRadius: 12, boxPadding: 4, usePointStyle: true },
+          legend: { position: "top", align: "end", labels: { usePointStyle: true, pointStyle: "circle", boxWidth: 7, boxHeight: 7, padding: 14 } },
+          tooltip: { backgroundColor: css("--panel"), titleColor: css("--text"), bodyColor: css("--text-2"), borderColor: css("--sep"), borderWidth: 1, padding: 12, cornerRadius: 12, boxPadding: 4, usePointStyle: true },
         },
         scales: {
           x: { grid: { display: false }, border: { display: false }, ticks: { maxRotation: 0, autoSkipPadding: 8 } },
-          y: { grid: { color: c("--sep") }, border: { display: false }, title: { display: true, text: yTitle } },
+          y: { grid: { color: css("--sep") }, border: { display: false }, title: { display: true, text: yTitle } },
         },
       },
     });
