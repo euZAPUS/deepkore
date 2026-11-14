@@ -1,58 +1,58 @@
-# Pitch script (2 minutes, 7 slides, 3 speakers)
+# Guion del pitch (2 minutos, 7 diapositivas, 3 personas)
 
-Open https://euzapus.github.io/deepkore/pitch/ (or `pitch/index.html` from the repo). **F** = full screen, **← →** = navigate.
-One person (Speaker 2 is a good choice) holds the clicker for the whole pitch, so nobody hunts for the keyboard.
-
----
-
-## Speaker 1 · The problem (≈40 s) · slides 1–3
-
-**Slide 1 · Question**
-> "How long does it take to form one centimetre of fertile soil?"
-
-*(pause two seconds)*
-
-**Slide 2 · Up to 1,000 years**
-> "Up to a thousand years, according to the FAO. And one storm on bare soil can wash it away in an afternoon.
-> In rainfed Andalusia, the soil stays bare after harvest, right when the autumn storms arrive.
-> And farmers still decide by eye, even though the data exists."
-
-**Slide 3 · DeepKore**
-> "That's why we built DeepKore: choose the rotation that protects your soil, and prepare before the risk arrives.
-> [Name 2] will show you how."
+Abrir https://euzapus.github.io/deepkore/pitch/ (o `pitch/index.html` del repo). **F** = pantalla completa, **← →** = avanzar.
+Una sola persona lleva el mando todo el pitch (mejor la 2, que está en medio) para no ir buscando el teclado.
 
 ---
 
-## Speaker 2 · The solution (≈45 s) · slides 4–5
+## Persona 1 · El problema (≈40 s) · diapositivas 1–3
 
-**Slide 4 · The data**
-> "DeepKore uses three NASA sources: POWER tells us when it freezes and when heat peaks,
-> GPM tells us which weeks bring storms, and SMAP measures soil moisture right now.
-> Our pilot field is in Antequera, Málaga."
+**Diapositiva 1 · La pregunta**
+> "¿Cuánto tarda en formarse un centímetro de suelo fértil?"
 
-**Slide 5 · The app**
-> "The farmer just moves four sliders: water, soil, income and erosion.
-> DeepKore ranks their current rotation against three alternatives, shows a week-by-week risk calendar
-> and a climate simulator. It runs on a phone, and it's free.
-> [Name 3], what does that mean for a real farmer?"
+*(dos segundos de silencio)*
 
----
+**Diapositiva 2 · Hasta 1.000 años**
+> "Hasta mil años, según la FAO. Y una sola tormenta sobre suelo desnudo puede llevárselo en una tarde.
+> En el secano andaluz, el suelo se queda desnudo después de la cosecha, justo cuando llegan las tormentas de otoño.
+> Y el agricultor sigue decidiendo a ojo, aunque los datos existen."
 
-## Speaker 3 · The impact (≈35 s) · slides 6–7
-
-**Slide 6 · Result**
-> "This is the result: the best rotation for this farmer gains soil health and cuts erosion,
-> at the cost of some income. The farmer chooses that trade-off.
-> DeepKore supports, it never replaces: every number shows where it comes from."
-
-**Slide 7 · Close + QR**
-> "Scan the code and try it now."
-> *(slowly)* "Soil takes a thousand years to form. Let's protect it in time. Thank you."
+**Diapositiva 3 · DeepKore**
+> "Por eso hemos creado DeepKore: elige la rotación que protege tu suelo y prepárate antes de que llegue el riesgo.
+> [Nombre 2] os enseña cómo."
 
 ---
 
-**Rehearse with a timer:** 40 + 45 + 35 = 2:00. If you run long, cut the last sentence of slide 2 first.
+## Persona 2 · La solución (≈45 s) · diapositivas 4–5
 
-**Before presenting:** slide 6 uses sample numbers (pill "Sample data"), and the app screenshots in
-`pitch/img/` show MOCK data. When the real data is in, update `DECK` at the top of the `<script>` in
-`pitch/index.html` (set `mock: false`) and retake the screenshots.
+**Diapositiva 4 · Los datos**
+> "DeepKore usa tres fuentes de la NASA: POWER nos dice cuándo hiela y cuándo aprieta el calor,
+> GPM nos dice qué semanas traen tormentas, y SMAP mide la humedad del suelo ahora mismo.
+> Nuestra parcela piloto está en Antequera, Málaga."
+
+**Diapositiva 5 · La app**
+> "El agricultor solo mueve cuatro barras: agua, suelo, dinero y erosión.
+> DeepKore compara su rotación actual con tres alternativas, le enseña un calendario de riesgos semana a semana
+> y un simulador de clima. Funciona en el móvil y es gratis.
+> [Nombre 3], ¿y esto qué significa para un agricultor de verdad?"
+
+---
+
+## Persona 3 · El impacto (≈35 s) · diapositivas 6–7
+
+**Diapositiva 6 · El resultado**
+> "Este es el resultado: la mejor rotación para este agricultor gana salud del suelo y reduce la erosión,
+> a cambio de algo de dinero. Ese equilibrio lo elige él.
+> DeepKore ayuda, nunca sustituye: cada dato dice de dónde viene."
+
+**Diapositiva 7 · Cierre y QR**
+> "Escanead el código y probadla ahora."
+> *(despacio)* "El suelo tarda mil años en formarse. Protejámoslo a tiempo. Gracias."
+
+---
+
+**Ensayad con cronómetro:** 40 + 45 + 35 = 2:00. Si os pasáis, quitad primero la última frase de la diapositiva 2.
+
+**Antes de presentar:** la diapositiva 6 lleva números de ejemplo (pastilla "Sample data") y las capturas de
+`pitch/img/` son con datos MOCK. Cuando estén los datos reales, cambiar `DECK` al principio del `<script>` de
+`pitch/index.html` (poner `mock: false`) y repetir las capturas.
