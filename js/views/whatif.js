@@ -1,7 +1,7 @@
 // 04 What-if simulator: rain / temperature sliders pick the nearest pre-computed scenario.
 import { nearestScenario } from "../scoring.js";
 import { flipReorder } from "../motion.js";
-import { esc, provBadge, viewHead, panelHead, sliderHTML, bindSliders, animateNumber, displayName, rotationTag, icon, ICON } from "../ui.js";
+import { esc, provBadge, datasetOf, viewHead, panelHead, sliderHTML, bindSliders, animateNumber, displayName, rotationTag, icon, ICON } from "../ui.js";
 
 const PRESETS = [
   { label: "Today's climate", rain: 0, temp: 0 },
@@ -45,7 +45,7 @@ export function render(el, ctx) {
       </section>
 
       <section class="panel reveal">
-        ${panelHead("Ranking in this scenario", provBadge(base.provenance))}
+        ${panelHead("Ranking in this scenario", provBadge(base.provenance, datasetOf(base)))}
         <ol class="rank-list" id="rank">
           ${base.ranking.map((id) => `<li class="rank-row" data-key="${esc(id)}">
             <span class="rank-row__n">–</span>

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "python3 -m http.server 8000",
     "test": "node --test tests/scoring.test.mjs",
+    "data": "node pipeline/build_power_data.mjs && node pipeline/build_rotations.mjs",
     "validate": "node tools/validate_data.mjs",
     "validate:mock": "node tools/validate_data.mjs data/mock",
     "mock": "python3 tools/make_mock_data.py"

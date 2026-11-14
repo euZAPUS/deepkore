@@ -4,7 +4,9 @@
 // (Normally not needed: the strip disappears by itself once no file says "MOCK".)
 export const HIDE_MOCK_STRIP = false;
 
-export const DATA_FILES = ["parcel", "climate", "risk_windows", "rotations", "scenarios"];
+export const DATA_FILES = ["parcel", "climate", "risk_windows", "rotations", "scenarios", "validation"];
+// Optional files: if missing, nothing waits for them (the panel that uses them is simply hidden).
+export const OPTIONAL_FILES = ["validation"];
 
 const ICONS = {
   field: '<path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
@@ -36,8 +38,8 @@ export const SECTIONS = [
     files: ["risk_windows", "climate"],
     intro: "When in the year frost, extreme heat and heavy rain are most likely, and how wet your soil is now.",
     planned: [
-      "52-week calendar: chance of frost, extreme heat and heavy rain (NASA POWER / GPM IMERG history)",
-      "\"Soil moisture now\" card with its anomaly (SMAP)",
+      "52-week calendar: chance of frost, extreme heat and heavy rain (NASA POWER history)",
+      "\"Soil moisture now\" card with its anomaly (NASA POWER root-zone wetness)",
     ],
   },
   {

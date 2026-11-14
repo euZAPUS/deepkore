@@ -71,7 +71,9 @@ export function validateRotations(list) {
     need(e, isStr(r.id) && isStr(r.name), `${tag}: id and name expected`);
     need(e, isArr(r.sequence), `${tag}.sequence: array expected`);
     for (const k of CRITERIA) {
-      need(e, r.scores && isNum(r.scores[k]), `${tag}.scores.${k}: number expected`);
+      // income may be null: not scored yet (no verified local prices or yields)
+      const ok = r.scores && (isNum(r.scores[k]) || (k === "income" && r.scores[k] === null));
+      need(e, ok, `${tag}.scores.${k}: number expected${k === "income" ? " (or null)" : ""}`);
     }
     for (const k of ["evidence", "benefits", "gaps", "risks"]) {
       need(e, isArr(r[k]), `${tag}.${k}: array expected`);
@@ -96,10 +98,25 @@ export function validateScenarios(list) {
   return e;
 }
 
+export function validateValidation(v) {
+  const e = [];
+  need(e, isObj(v), "validation: must be an object");
+  if (!isObj(v)) return e;
+  need(e, isStr(v.headline), "validation.headline: string expected");
+  need(e, isArr(v.rain_since_october) && v.rain_since_october.length > 0, "validation.rain_since_october: non-empty array expected");
+  (v.rain_since_october || []).forEach((r, i) => {
+    need(e, isStr(r.month) && isNum(r.cum_mm) && isNum(r.base_median) && isNum(r.base_p20), `validation.rain_since_october[${i}]: {month, cum_mm, base_median, base_p20} expected`);
+  });
+  need(e, v.limits === undefined || isArr(v.limits), "validation.limits: array expected");
+  need(e, v.provenance !== undefined, "validation.provenance: missing");
+  return e;
+}
+
 export const VALIDATORS = {
   parcel: validateParcel,
   climate: validateClimate,
   risk_windows: validateRiskWindows,
   rotations: validateRotations,
   scenarios: validateScenarios,
+  validation: validateValidation,
 };

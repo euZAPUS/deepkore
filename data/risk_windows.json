@@ -1,0 +1,396 @@
+{
+  "weeks": [
+    {
+      "week": 1,
+      "p_frost": 0.12,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 2,
+      "p_frost": 0.16,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 3,
+      "p_frost": 0.12,
+      "p_heat": 0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 4,
+      "p_frost": 0.2,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 5,
+      "p_frost": 0.36,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 6,
+      "p_frost": 0.16,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 7,
+      "p_frost": 0.2,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 8,
+      "p_frost": 0.12,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 9,
+      "p_frost": 0.16,
+      "p_heat": 0,
+      "p_extreme_rain": 0.2
+    },
+    {
+      "week": 10,
+      "p_frost": 0.16,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 11,
+      "p_frost": 0.04,
+      "p_heat": 0,
+      "p_extreme_rain": 0.12
+    },
+    {
+      "week": 12,
+      "p_frost": 0.08,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 13,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.16
+    },
+    {
+      "week": 14,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 15,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 16,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 17,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 18,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 19,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 20,
+      "p_frost": 0,
+      "p_heat": 0.04,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 21,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 22,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 23,
+      "p_frost": 0,
+      "p_heat": 0.08,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 24,
+      "p_frost": 0,
+      "p_heat": 0.16,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 25,
+      "p_frost": 0,
+      "p_heat": 0.28,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 26,
+      "p_frost": 0,
+      "p_heat": 0.52,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 27,
+      "p_frost": 0,
+      "p_heat": 0.56,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 28,
+      "p_frost": 0,
+      "p_heat": 0.68,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 29,
+      "p_frost": 0,
+      "p_heat": 0.64,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 30,
+      "p_frost": 0,
+      "p_heat": 0.88,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 31,
+      "p_frost": 0,
+      "p_heat": 0.84,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 32,
+      "p_frost": 0,
+      "p_heat": 0.88,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 33,
+      "p_frost": 0,
+      "p_heat": 0.64,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 34,
+      "p_frost": 0,
+      "p_heat": 0.64,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 35,
+      "p_frost": 0,
+      "p_heat": 0.4,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 36,
+      "p_frost": 0,
+      "p_heat": 0.2,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 37,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 38,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 39,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 40,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 41,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 42,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.12
+    },
+    {
+      "week": 43,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    },
+    {
+      "week": 44,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.2
+    },
+    {
+      "week": 45,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.12
+    },
+    {
+      "week": 46,
+      "p_frost": 0.04,
+      "p_heat": 0,
+      "p_extreme_rain": 0.16
+    },
+    {
+      "week": 47,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.16
+    },
+    {
+      "week": 48,
+      "p_frost": 0.08,
+      "p_heat": 0,
+      "p_extreme_rain": 0.24
+    },
+    {
+      "week": 49,
+      "p_frost": 0.08,
+      "p_heat": 0,
+      "p_extreme_rain": 0.2
+    },
+    {
+      "week": 50,
+      "p_frost": 0.08,
+      "p_heat": 0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 51,
+      "p_frost": 0.08,
+      "p_heat": 0,
+      "p_extreme_rain": 0.16
+    },
+    {
+      "week": 52,
+      "p_frost": 0.04,
+      "p_heat": 0,
+      "p_extreme_rain": 0.08
+    }
+  ],
+  "n_years": 25,
+  "period": "2001-2025",
+  "method": "Share of years in which at least one day of that week met the rule.",
+  "thresholds": {
+    "frost": {
+      "variable": "T2M_MIN",
+      "rule": "daily minimum below",
+      "value": 0,
+      "unit": "°C",
+      "source": "TBD: common frost definition; team to cite"
+    },
+    "heat": {
+      "variable": "T2M_MAX",
+      "rule": "daily maximum at or above",
+      "value": 35,
+      "unit": "°C",
+      "source": "TBD: close to the local 95th percentile of daily max 2001-2025 (35.2 °C); team to cite a crop heat-stress threshold"
+    },
+    "extreme_rain": {
+      "variable": "PRECTOTCORR",
+      "rule": "daily rain at or above",
+      "value": 20,
+      "unit": "mm/day",
+      "source": "TBD: close to the local 95th percentile of wet-day rain 2001-2025 (21.9 mm); team to cite"
+    },
+    "soil_alert": {
+      "percentile": 20,
+      "run_days": 14,
+      "source": "TBD: percentile class used by drought monitors; team to cite"
+    }
+  },
+  "datasets": {
+    "p_frost": "NASA POWER",
+    "p_heat": "NASA POWER",
+    "p_extreme_rain": "NASA POWER"
+  },
+  "soil_moisture_now": {
+    "value": 0.47,
+    "unit": "root-zone wetness, 0-1",
+    "anomaly_pct": -10,
+    "percentile": 0,
+    "median_same_season": 0.52,
+    "date": "2026-11-11",
+    "source": "NASA POWER GWETROOT (model-based root-zone soil wetness)",
+    "dataset": "NASA POWER",
+    "provenance": "derived",
+    "surface": {
+      "value": 0.58,
+      "anomaly_pct": 12,
+      "percentile": 76,
+      "source": "NASA POWER GWETTOP"
+    }
+  },
+  "bare_months": [
+    1,
+    2,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "provenance": "derived",
+  "generated_at": "2026-11-14",
+  "bare_months_share": [
+    0.5,
+    0.5,
+    0,
+    0,
+    0,
+    0,
+    0.5,
+    0.5,
+    0.5,
+    1,
+    0.5,
+    0.5
+  ],
+  "bare_months_source": "crop calendar (TBD), not satellite-observed"
+}

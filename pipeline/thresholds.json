@@ -1,0 +1,6 @@
+{
+  "frost": { "variable": "T2M_MIN", "rule": "daily minimum below", "value": 0, "unit": "°C", "source": "TBD: common frost definition; team to cite" },
+  "heat": { "variable": "T2M_MAX", "rule": "daily maximum at or above", "value": 35, "unit": "°C", "source": "TBD: close to the local 95th percentile of daily max 2001-2025 (35.2 °C); team to cite a crop heat-stress threshold" },
+  "extreme_rain": { "variable": "PRECTOTCORR", "rule": "daily rain at or above", "value": 20, "unit": "mm/day", "source": "TBD: close to the local 95th percentile of wet-day rain 2001-2025 (21.9 mm); team to cite" },
+  "soil_alert": { "percentile": 20, "run_days": 14, "source": "TBD: percentile class used by drought monitors; team to cite" }
+}

@@ -1,5 +1,6 @@
 // Weighted ranking, computed in the browser.
 // total = sum(scores[criterion] * weight) / sum(weights)
+// A criterion whose score is not a number (e.g. income: null, not scored yet) is left out.
 
 export function weightedTotal(scores, weights) {
   let num = 0;
@@ -34,3 +35,13 @@ export function nearestScenario(scenarios, rainPct, tempDelta) {
   }
   return best;
 }
+
+// True if at least one rotation has a numeric score for this criterion.
+export function isScored(rotations, key) {
+  return (rotations || []).some((r) => typeof r?.scores?.[key] === "number");
+}
+
+export const NOT_SCORED_NOTE = {
+  income: "Income: not scored yet (no verified local prices or yields)",
+};
+export const notScoredNote = (key, label) => NOT_SCORED_NOTE[key] ?? `${label}: not scored yet`;

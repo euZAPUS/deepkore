@@ -1,10 +1,10 @@
 // 01 My field: one screen with map, priorities, limits and the live best match.
 import { CRITERIA_META } from "../config.js";
 import { store } from "../store.js";
-import { rankRotations } from "../scoring.js";
+import { rankRotations, isScored, notScoredNote } from "../scoring.js";
 import { currentTheme } from "../theme.js";
 import {
-  esc, provBadge, viewHead, panelHead, sliderHTML, bindSliders, levelWord,
+  esc, provBadge, datasetOf, viewHead, panelHead, sliderHTML, bindSliders, levelWord,
   segmentedHTML, bindSegmented, ringHTML, setRing, displayName, rotationTag,
 } from "../ui.js";
 
@@ -41,15 +41,16 @@ export function render(el, ctx) {
         <div class="map-card">
           <strong>${esc(parcel.name)}</strong>
           <span>${Math.abs(lat).toFixed(2)}° ${lat >= 0 ? "N" : "S"}, ${Math.abs(lon).toFixed(2)}° ${lon >= 0 ? "E" : "W"} · Antequera, Málaga · approx. location</span>
-          <div class="chips"><span class="chip">Data ${esc(parcel.period)}</span>${provBadge(parcel.provenance)}</div>
+          <div class="chips"><span class="chip">Data ${esc(parcel.period)}</span>${provBadge(parcel.provenance, datasetOf(parcel))}</div>
         </div>
       </section>
 
       <section class="panel reveal">
         ${panelHead("What matters most to you?", '<button class="btn-text" id="reset">Reset</button>')}
         <div class="sliders" id="weights">
-          ${CRITERIA_META.map((c) =>
-            sliderHTML({ id: `w-${c.key}`, key: c.key, label: c.label, color: c.color, value: st.weights[c.key], output: `${levelWord(st.weights[c.key])} · ${st.weights[c.key]}` })
+          ${CRITERIA_META.map((c) => isScored(rotations, c.key)
+            ? sliderHTML({ id: `w-${c.key}`, key: c.key, label: c.label, color: c.color, value: st.weights[c.key], output: `${levelWord(st.weights[c.key])} · ${st.weights[c.key]}` })
+            : `<p class="note">${esc(notScoredNote(c.key, c.label))}</p>`
           ).join("")}
         </div>
       </section>
@@ -107,7 +108,7 @@ export function render(el, ctx) {
   const updateBest = () => {
     const top = rankRotations(rotations, store.get().weights)[0];
     el.querySelector("#best-name").textContent = displayName(top.rotation);
-    el.querySelector("#best-sub").innerHTML = `${esc(rotationTag(top.rotation))} · match score /100 · ${provBadge(top.rotation.provenance)}`;
+    el.querySelector("#best-sub").innerHTML = `${esc(rotationTag(top.rotation))} · match score /100 · ${provBadge(top.rotation.provenance, datasetOf(top.rotation))}`;
     setRing(ring, top.total);
   };
   requestAnimationFrame(updateBest);
@@ -122,6 +123,7 @@ export function render(el, ctx) {
     el.querySelector('#mode button[data-value="rainfed"]').click();
     const w = store.get().weights;
     el.querySelectorAll("#weights input").forEach((i) => {
+      if (!(i.dataset.key in w)) return;
       i.value = w[i.dataset.key];
       i.dispatchEvent(new Event("input"));
     });

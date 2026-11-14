@@ -1,0 +1,27 @@
+{
+  "name": "Vega de Antequera pilot field (rainfed)",
+  "lat": 37.02,
+  "lon": -4.56,
+  "elevation_m_power": 520.31,
+  "period": "2001-2025",
+  "provenance": "derived",
+  "generated_at": "2026-11-14",
+  "sources": [
+    {
+      "id": "nasa-power",
+      "dataset": "NASA POWER Daily API (Agroclimatology community)",
+      "provider": "NASA Langley Research Center",
+      "url": "https://power.larc.nasa.gov/",
+      "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M_MAX,T2M_MIN,T2M,PRECTOTCORR,ALLSKY_SFC_SW_DWN,WS2M,RH2M,GWETROOT,GWETTOP&community=AG&longitude=-4.56&latitude=37.02&start=20010101&end=20251231&format=JSON",
+      "version": "API v2.10.3; inputs MERRA2, SYN1DEG, POWER",
+      "accessed": "2026-11-14",
+      "resolution": "Native resolution of its inputs (about 0.5° x 0.625° for MERRA-2 meteorology, 1° for SYN1deg solar): one grid cell covers far more than one field",
+      "coverage": "Daily, 2001-01-01 to latest available day",
+      "license": "NASA open data. Acknowledgement requested: \"These data were obtained from the NASA Langley Research Center POWER Project funded through the NASA Earth Science Directorate Applied Science Program.\"",
+      "variables": "T2M_MAX (C), T2M_MIN (C), T2M (C), PRECTOTCORR (mm/day), ALLSKY_SFC_SW_DWN (MJ/m^2/day), WS2M (m/s), RH2M (%), GWETROOT (1), GWETTOP (1)",
+      "role": "Weekly frost, extreme-heat and heavy-rain frequency; monthly rain, temperature and reference evapotranspiration (FAO-56); root-zone soil wetness now; dry-year check (2023).",
+      "provenance": "derived",
+      "limits": "Model and satellite-based reanalysis, not a weather station on the field. Root-zone wetness (GWETROOT) is a model output, 0 = dry, 1 = saturated, not volumetric moisture."
+    }
+  ]
+}

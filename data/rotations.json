@@ -1,0 +1,206 @@
+[
+  {
+    "id": "current",
+    "name": "Current: Durum wheat - Sunflower",
+    "sequence": [
+      "Durum wheat",
+      "Sunflower"
+    ],
+    "scores": {
+      "water": 44,
+      "soil": 50,
+      "income": null,
+      "erosion": 59,
+      "risk_resilience": 76
+    },
+    "confidence": "low",
+    "why": "This is what the field grows today. It is the baseline the other options are compared against.",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: rain in the growing months covers 66% (Durum wheat), 22% (Sunflower) of the crop water need (Kc x ET0).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: average weekly chance of the main hazard in the sensitive weeks: Durum wheat heat 0% (Apr-May), Sunflower heat 48% (Jun-Jul).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: 41% of the year's heavy-rain frequency (days of 20 mm or more) falls while this rotation leaves the soil bare (bare in some or all years: Jan, Feb, Jul, Aug, Sep, Oct, Nov, Dec).",
+        "provenance": "derived"
+      }
+    ],
+    "benefits": [
+      "Known crops, machinery and buyers"
+    ],
+    "gaps": [
+      "No field-level yield records used",
+      "Market prices not included"
+    ],
+    "risks": [
+      "Soil left bare from July to October",
+      "Sunflower exposed to summer heat"
+    ],
+    "pac_eligible": "TBD",
+    "provenance": "derived",
+    "dataset": "NASA POWER",
+    "method": "pipeline/build_rotations.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "generated_at": "2026-11-14"
+  },
+  {
+    "id": "A",
+    "name": "A: Durum wheat - Chickpea",
+    "sequence": [
+      "Durum wheat",
+      "Chickpea"
+    ],
+    "scores": {
+      "water": 60,
+      "soil": 75,
+      "income": null,
+      "erosion": 64,
+      "risk_resilience": 100
+    },
+    "confidence": "low",
+    "why": "A legume replaces sunflower: it adds nitrogen to the soil and uses less water in summer.",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: rain in the growing months covers 66% (Durum wheat), 54% (Chickpea) of the crop water need (Kc x ET0).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: average weekly chance of the main hazard in the sensitive weeks: Durum wheat heat 0% (Apr-May), Chickpea heat 0% (Apr-May).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: 36% of the year's heavy-rain frequency (days of 20 mm or more) falls while this rotation leaves the soil bare (bare in some or all years: Jul, Aug, Sep, Oct, Nov, Dec).",
+        "provenance": "derived"
+      }
+    ],
+    "benefits": [
+      "Less nitrogen fertiliser for the next wheat",
+      "Lower summer water demand"
+    ],
+    "gaps": [
+      "Local chickpea yields not checked",
+      "Soil type map not included"
+    ],
+    "risks": [
+      "Chickpea is sensitive to heat at flowering",
+      "Fungal disease in wet springs"
+    ],
+    "pac_eligible": "TBD",
+    "provenance": "derived",
+    "dataset": "NASA POWER",
+    "method": "pipeline/build_rotations.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "generated_at": "2026-11-14"
+  },
+  {
+    "id": "B",
+    "name": "B: Barley - Vetch - Durum wheat",
+    "sequence": [
+      "Barley",
+      "Vetch (forage / green manure)",
+      "Durum wheat"
+    ],
+    "scores": {
+      "water": 69,
+      "soil": 50,
+      "income": null,
+      "erosion": 87,
+      "risk_resilience": 95
+    },
+    "confidence": "low",
+    "why": "A three-year cycle with a vetch year that covers the soil and rebuilds organic matter.",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: rain in the growing months covers 72% (Barley), 66% (Durum wheat) of the crop water need (Kc x ET0). Not scored for water: Vetch (forage / green manure) (no FAO-56 Kc).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: average weekly chance of the main hazard in the sensitive weeks: Barley heat 0% (Apr), Vetch (forage / green manure) frost 14% (Feb-Mar), Durum wheat heat 0% (Apr-May).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: 13% of the year's heavy-rain frequency (days of 20 mm or more) falls while this rotation leaves the soil bare (bare in some or all years: May, Jun, Jul, Aug, Sep, Oct).",
+        "provenance": "derived"
+      }
+    ],
+    "benefits": [
+      "Soil covered for longer",
+      "Barley avoids the worst summer heat"
+    ],
+    "gaps": [
+      "Forage demand and price not checked",
+      "Livestock link not modelled"
+    ],
+    "risks": [
+      "Needs a buyer or use for the forage"
+    ],
+    "pac_eligible": "TBD",
+    "provenance": "derived",
+    "dataset": "NASA POWER",
+    "method": "pipeline/build_rotations.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "generated_at": "2026-11-14"
+  },
+  {
+    "id": "C",
+    "name": "C: Wheat - Sunflower - Chickpea + cover crop",
+    "sequence": [
+      "Durum wheat",
+      "Sunflower",
+      "Chickpea",
+      "Winter cover crop"
+    ],
+    "scores": {
+      "water": 47,
+      "soil": 50,
+      "income": null,
+      "erosion": 57,
+      "risk_resilience": 87
+    },
+    "confidence": "low",
+    "why": "Keeps the familiar crops but adds a legume and a winter cover crop.",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: rain in the growing months covers 66% (Durum wheat), 22% (Sunflower), 54% (Chickpea) of the crop water need (Kc x ET0). Not scored for water: Winter cover crop (no FAO-56 Kc).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: average weekly chance of the main hazard in the sensitive weeks: Durum wheat heat 0% (Apr-May), Sunflower heat 48% (Jun-Jul), Chickpea heat 0% (Apr-May), Winter cover crop frost 4% (Nov-Dec).",
+        "provenance": "derived"
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "NASA POWER 2001-2025: 43% of the year's heavy-rain frequency (days of 20 mm or more) falls while this rotation leaves the soil bare (bare in some or all years: Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec).",
+        "provenance": "derived"
+      }
+    ],
+    "benefits": [
+      "Familiar crops stay in the plan"
+    ],
+    "gaps": [
+      "Cover crop seed cost not included",
+      "Few local trials in rainfed soils"
+    ],
+    "risks": [
+      "Cover crop may fail in a dry autumn",
+      "More field operations and planning"
+    ],
+    "pac_eligible": "TBD",
+    "provenance": "derived",
+    "dataset": "NASA POWER",
+    "method": "pipeline/build_rotations.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "generated_at": "2026-11-14"
+  }
+]

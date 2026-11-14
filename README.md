@@ -32,16 +32,16 @@ farmer's decision; it does not make it.
 
 | Dataset | What it gives DeepKore |
 |---|---|
-| [NASA POWER](https://power.larc.nasa.gov/) | Daily temperature, rain and ET0: climate summary, frost and heat windows |
-| [GPM IMERG](https://gpm.nasa.gov/data/imerg) | Heavy-rain probability per week |
-| [SMAP](https://smap.jpl.nasa.gov/) | Current soil moisture and its anomaly |
+| [NASA POWER](https://power.larc.nasa.gov/) | Daily temperature, rain, ET0 (FAO-56) and root-zone soil wetness, 2001-2025: climate summary, weekly frost / heat / heavy-rain chances, soil wetness now, rotation and scenario scores, dry 2022-23 check |
+
+GPM IMERG and SMAP are not used yet.
 
 Every number in the app carries a provenance label: **Observed**, **Derived**, **AI-inferred**,
 **Simulated** or **MOCK**, plus the NASA dataset behind it.
 
-> 🚧 **Current status:** the real data files are being produced by the team's data pipeline. Until they
-> are in `/data`, each screen shows *Waiting for NASA data*. To preview the full design with placeholder
-> (MOCK) data, add `?mock` to the URL: <https://euzapus.github.io/deepkore/?mock>
+> **Current status:** `/data` holds real files built from NASA POWER by `pipeline/` (see
+> [pipeline/README.md](pipeline/README.md)). To preview the placeholder (MOCK) design instead, add `?mock`
+> to the URL: <https://euzapus.github.io/deepkore/?mock>
 
 ---
 
