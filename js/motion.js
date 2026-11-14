@@ -54,3 +54,19 @@ export function moveNavIndicator(list) {
   pill.style.transform = `translateX(${a.left - l.left}px)`;
   pill.style.opacity = "1";
 }
+
+// Re-order children of `container` (each has data-key) to match `keys`, animating the move (FLIP).
+export function flipReorder(container, keys) {
+  const items = new Map([...container.children].map((el) => [el.dataset.key, el]));
+  const before = new Map([...items].map(([k, el]) => [k, el.getBoundingClientRect().top]));
+  keys.forEach((k) => items.get(k) && container.appendChild(items.get(k)));
+  if (reduce()) return;
+  items.forEach((el, k) => {
+    const dy = before.get(k) - el.getBoundingClientRect().top;
+    if (Math.abs(dy) < 1) return;
+    el.animate([{ transform: `translateY(${dy}px)` }, { transform: "none" }], {
+      duration: 600,
+      easing: "cubic-bezier(.22,.8,.2,1)",
+    });
+  });
+}

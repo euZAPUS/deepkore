@@ -84,3 +84,12 @@ export const SECTIONS = [
 ].map((s) => ({ ...s, icon: ICONS[s.id] }));
 
 export const DEFAULT_SECTION = "field";
+
+// The four priorities the user weighs (plus risk resilience, shown for information).
+export const CRITERIA_META = [
+  { key: "water", label: "Water", hint: "Use less water", color: "var(--c-water)" },
+  { key: "soil", label: "Soil health", hint: "Build organic matter and nutrients", color: "var(--c-soil)" },
+  { key: "income", label: "Income", hint: "Earn more from the field", color: "var(--c-income)" },
+  { key: "erosion", label: "Erosion", hint: "Keep the soil from washing away", color: "var(--c-erosion)" },
+];
+export const RESILIENCE_META = { key: "risk_resilience", label: "Risk resilience", color: "var(--c-resilience)" };

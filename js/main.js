@@ -4,18 +4,15 @@ import { loadAll, anyMock } from "./data.js";
 import { esc, icon } from "./ui.js";
 import { revealIn, watchHeader, moveNavIndicator } from "./motion.js";
 import { initTheme } from "./theme.js";
-import * as placeholder from "./views/placeholder.js";
+import * as field from "./views/field.js";
+import * as risks from "./views/risks.js";
+import * as rotations from "./views/rotations.js";
+import * as whatif from "./views/whatif.js";
+import * as sources from "./views/sources.js";
+import * as about from "./views/about.js";
 
 // Section id -> view module ({ render(el, ctx) -> optional cleanup fn }).
-// Real views replace the placeholder as they are built.
-const VIEWS = {
-  field: placeholder,
-  risks: placeholder,
-  rotations: placeholder,
-  whatif: placeholder,
-  data: placeholder,
-  about: placeholder,
-};
+const VIEWS = { field, risks, rotations, whatif, data: sources, about };
 
 const main = document.getElementById("main");
 const navList = document.getElementById("nav-list");
