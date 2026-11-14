@@ -1,16 +1,17 @@
-# Guion del pitch (2 minutos, 7 diapositivas)
+# Pitch script (2 minutes, 7 slides, English)
 
-Abrir https://euzapus.github.io/deepkore/pitch/ (o `pitch/index.html` del repo). **F** = pantalla completa, **← →** = navegar.
+Open https://euzapus.github.io/deepkore/pitch/ (or `pitch/index.html` from the repo). **F** = full screen, **← →** = navigate.
 
-| # | Diapositiva | Qué decir (idea, no leer) | s |
+| # | Slide | What to say (key idea, don't read) | s |
 |---|---|---|---|
-| 1 | Pregunta | Lanza la pregunta. Dos segundos de silencio. | 8 |
-| 2 | Hasta 1.000 años | La FAO dice que 1 cm de suelo tarda hasta mil años. En Antequera el suelo queda desnudo tras la cosecha, justo cuando llegan las tormentas de otoño. Y se decide a ojo, aunque los datos existen. | 20 |
-| 3 | DeepKore | Somos DeepKore: elige la rotación que protege tu suelo y prepárate antes del riesgo. | 10 |
-| 4 | Los datos | Usamos tres fuentes NASA: POWER para heladas y calor, GPM para tormentas, SMAP para la humedad del suelo ahora. | 20 |
-| 5 | La app | El agricultor mueve cuatro barras (agua, suelo, dinero, erosión) y DeepKore ordena las rotaciones; calendario de riesgos semana a semana y simulador de clima. En el móvil y gratis. | 25 |
-| 6 | Resultado | Su rotación de hoy frente a la mejor para él: más suelo y menos erosión a cambio de algo de ingresos. Apoya, no sustituye: cada dato dice de dónde viene. | 22 |
-| 7 | Cierre + QR | "Escaneadlo y probadlo." Frase final despacio. "Gracias." | 15 |
+| 1 | Question | "How long does it take to form one centimetre of fertile soil?" Pause two seconds. | 8 |
+| 2 | Up to 1,000 years | "Up to a thousand years, says the FAO. And one storm on bare soil can wash it away in an afternoon. In rainfed Andalusia the soil stays bare after harvest, right when autumn storms arrive. Farmers decide by eye, even though the data exists." | 20 |
+| 3 | DeepKore | "This is DeepKore: choose the rotation that protects your soil, and prepare before the risk arrives." | 10 |
+| 4 | The data | "We use three NASA sources: POWER for frost and heat, GPM for storms, and SMAP for soil moisture right now. Our pilot field is in Antequera, Málaga." | 20 |
+| 5 | The app | "The farmer moves four sliders: water, soil, income, erosion. DeepKore ranks the current rotation against three alternatives, shows a week-by-week risk calendar and a climate simulator. It runs on a phone and it's free." | 25 |
+| 6 | Result | "Here, the best rotation for this farmer gains soil health and cuts erosion, at the cost of some income. The farmer chooses that trade-off. DeepKore supports, never replaces: every number shows where it comes from." | 22 |
+| 7 | Close + QR | "Scan it and try it now." Then slowly: "Soil takes a thousand years to form. Let's protect it in time. Thank you." | 15 |
 
-**Antes de presentar:** los números de la diapositiva 6 son de ejemplo (pastilla "Datos de ejemplo").
-Cuando estén los datos reales, cambiar `DECK` al principio del `<script>` de `pitch/index.html` y poner `mock: false`.
+**Before presenting:** slide 6 uses sample numbers (pill "Sample data"), and the app screenshots in
+`pitch/img/` show MOCK data. When the real data is in, update `DECK` at the top of the `<script>` in
+`pitch/index.html` (set `mock: false`) and retake the screenshots.

@@ -93,10 +93,10 @@ data/                 Real data files go here (see data/README.md)
 data/mock/            Placeholder (MOCK) files, used only with ?mock in the URL
 tools/                make_mock_data.py (placeholder data), validate_data.mjs
 tests/                Unit tests for the scoring
-vendor/               Leaflet 1.9.4, Chart.js 4.4.7, Inter font (no CDN needed)
+vendor/               Leaflet 1.9.4, Chart.js 4.4.7, Inter font, QR generator (no CDN needed)
 manifest.webmanifest  Lets phones install the app (Add to Home Screen)
 AI_USAGE_LOG.md       Log of AI use, for the AI declaration
-pitch/                Pitch deck (index.html, Spanish) and speaker notes (GUION.md)
+pitch/                Pitch deck (index.html, English, 7 slides) and speaker notes (GUION.md)
 ```
 
 ## Data contract

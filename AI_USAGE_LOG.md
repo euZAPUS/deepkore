@@ -12,6 +12,7 @@ required by NASA Space Apps. One row per working step. Humans review every chang
 | 4 | 2026-11-14 | Claude Code (Anthropic) | ZAP | Re-laid out the app as panels (sidebar on desktop, tab bar on phones) so each screen fits one view; rotations became list + detail with tabs and 'vs current' differences; added a first-visit welcome sheet; map gets satellite/map views with automatic fallback to OpenStreetMap. | ZAP reviews on laptop and phone |
 | 5 | 2026-11-14 | Claude Code (Anthropic) | ZAP | Added a soft animated background and glass (translucent) panels; moved placeholder data to data/mock so the public app waits for the real files ('Waiting for NASA data' screens, preview with ?mock). | ZAP reviews |
 | 6 | 2026-11-14 | Claude Code (Anthropic) | ZAP | Built the pitch deck (pitch/index.html), later cut to 7 slides for a 2-minute pitch: 3D soil core and satellite (three.js), animations, QR to the app, speaker notes. Inspired by the team's previous hackathon deck. Comparison numbers are MOCK until real data arrives. | ZAP reviews and rehearses |
+| 7 | 2026-11-14 | Claude Code (Anthropic) | ZAP | Translated the pitch deck to English; replaced the 3D soil model with real app screenshots in laptop/phone frames and an animated Earth with three orbiting NASA sources. | ZAP reviews |
 
 ## Notes for the declaration
 
