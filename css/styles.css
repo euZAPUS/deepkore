@@ -262,6 +262,17 @@ h1[tabindex="-1"]:focus { outline: none; }
 .segmented button { position: relative; z-index: 1; border: 0; background: none; cursor: pointer; white-space: nowrap; padding: 6px 14px; border-radius: 8px; font-size: .84rem; font-weight: 500; color: var(--text-2); transition: color .2s; }
 .segmented button[aria-checked="true"] { color: var(--text); font-weight: 600; }
 
+/* compact select ("What do you grow now?"), same surface as the segmented control */
+.pick { position: relative; display: inline-flex; align-items: center; max-width: 100%; width: 100%; }
+.pick select {
+  appearance: none; -webkit-appearance: none; width: 100%; min-height: 44px; padding: 8px 38px 8px 14px; border: 0; border-radius: 10px;
+  background: var(--seg-bg); color: var(--text); font: inherit; font-size: .95rem; font-weight: 600; cursor: pointer; text-overflow: ellipsis;
+}
+.pick select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pick .ico { position: absolute; right: 12px; pointer-events: none; color: var(--text-2); fill: none; stroke: currentColor; stroke-width: 2; }
+.pick option { color: #1d1d1f; background: #fff; }
+.grow-now { display: grid; gap: 10px; margin-top: 4px; }
+
 /* sliders */
 .sliders { display: grid; gap: 10px; }
 .slider__top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }

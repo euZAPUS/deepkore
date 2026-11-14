@@ -1,13 +1,14 @@
 // 01 My field: map (pick the field, set its size), priorities, limits, field totals and the live best match.
 import { CRITERIA_META } from "../config.js";
 import { store } from "../store.js";
-import { rankRotations, isScored, notScoredNote } from "../scoring.js";
+import { isScored, notScoredNote } from "../scoring.js";
 import { currentTheme } from "../theme.js";
 import { ANDALUCIA_PROVINCES, provinceAt } from "../andalucia.js";
 import { roundCoord } from "../live.js";
+import { currentOptions, resolveCurrent, compareSet } from "../choice.js";
 import {
   esc, provBadge, datasetOf, viewHead, panelHead, sliderHTML, bindSliders, levelWord,
-  segmentedHTML, bindSegmented, ringHTML, setRing, displayName, rotationTag,
+  segmentedHTML, bindSegmented, ringHTML, setRing, displayName, rotationTag, selectHTML,
 } from "../ui.js";
 
 const MODES = [
@@ -72,6 +73,14 @@ export function render(el, ctx) {
       </section>
 
       <section class="panel reveal">
+        ${panelHead("What do you grow now?")}
+        <div class="grow-now" id="grow-now">
+          ${selectHTML("current-rot", currentOptions(rotations).map((r) => ({ value: r.id, label: displayName(r) })), resolveCurrent(rotations, st.current_rotation)?.id, "What do you grow now?")}
+        </div>
+        <p class="slider__hint">DeepKore compares this rotation with the alternatives in Compare rotations and What-if.</p>
+      </section>
+
+      <section class="panel reveal">
         ${panelHead("What matters most to you?", '<button class="btn-text" id="reset">Reset</button>')}
         <div class="sliders" id="weights">
           ${CRITERIA_META.map((c) => isScored(rotations, c.key)
@@ -99,7 +108,7 @@ export function render(el, ctx) {
             <h3 id="best-name"></h3>
             <p class="best__sub" id="best-sub"></p>
           </div>
-          <a class="btn" href="#/rotations">Compare all 4 rotations</a>
+          <a class="btn" href="#/rotations">Compare rotations</a>
         </div>
       </section>
     </div>
@@ -213,10 +222,11 @@ export function render(el, ctx) {
 
   /* ---- field totals ---- */
   const totalsEl = el.querySelector("#totals");
-  const current = rotations.find((r) => r.id === "current");
+  let current = resolveCurrent(rotations, st.current_rotation);
   const renderTotals = () => {
     const ha = store.get().area_ha;
-    const best = rankRotations(rotations, store.get().weights)[0].rotation;
+    const set = compareSet(rotations, store.get().weights, current.id);
+    const best = set.currentIsBest ? current : set.best.rotation;
     const yearRain = climate ? climate.monthly.precip_mm.reduce((s, v) => s + v, 0) : null;
     const water = (r) => (r?.water_balance || []).map((w) => `<li><b>${esc(w.crop)}</b> <span class="muted">${span(w.months)}</span>
         <span>${w.need_mm === null ? "water need not computed (no FAO-56 Kc)" : `needs ≈ ${fmt(m3(w.need_mm, ha))} m³ · rain ≈ ${fmt(m3(w.rain_mm, ha))} m³`}</span></li>`).join("");
@@ -231,10 +241,10 @@ export function render(el, ctx) {
     totalsEl.innerHTML = `
       <dl class="kv">
         ${yearRain !== null ? `<div><dt>Rain on your field</dt><dd>≈ <b>${fmt(m3(yearRain, ha))} m³</b> per year <span class="muted">(${fmt(yearRain)} mm, mean ${esc(parcel.period)})</span></dd></div>` : ""}
-        <div><dt>Net margin, current rotation</dt><dd>${income(current)}</dd></div>
-        ${best.id !== "current" ? `<div><dt>Net margin, best match (${esc(rotationTag(best))})</dt><dd>${income(best)}</dd></div>` : ""}
+        <div><dt>Net margin, your current rotation (${esc(displayName(current))})</dt><dd>${income(current)}</dd></div>
+        ${best.id !== current.id ? `<div><dt>Net margin, best match (${esc(displayName(best))})</dt><dd>${income(best)}</dd></div>` : ""}
       </dl>
-      <h3 class="totals__sub">Water in the growing months, current rotation</h3>
+      <h3 class="totals__sub">Water in the growing months, your current rotation</h3>
       <ul class="wb-list">${water(current)}</ul>
       <p class="small muted">Water need = Kc × ET0 (FAO-56) over the growing months, rainfed, no soil storage. Net margin = MAPA ECREA, Andalucía rainfed, 2018-2020 (euro/ha, without decoupled payments); it is the base of the income score. 1 mm on 1 ha = 10 m³.</p>`;
   };
@@ -242,9 +252,10 @@ export function render(el, ctx) {
   /* ---- best match ---- */
   const ring = el.querySelector(".best .ring");
   const updateBest = () => {
-    const top = rankRotations(rotations, store.get().weights)[0];
+    const set = compareSet(rotations, store.get().weights, current.id);
+    const top = set.currentIsBest ? set.shown.find((x) => x.isCurrent) : set.best;
     el.querySelector("#best-name").textContent = displayName(top.rotation);
-    el.querySelector("#best-sub").innerHTML = `${esc(rotationTag(top.rotation))} · match score /100 · ${provBadge(top.rotation.provenance, datasetOf(top.rotation))}`;
+    el.querySelector("#best-sub").innerHTML = `${esc(set.currentIsBest ? "Your current rotation already ranks first for your priorities" : rotationTag(top.rotation, current.id))} · match score /100 · ${provBadge(top.rotation.provenance, datasetOf(top.rotation))}`;
     setRing(ring, top.total);
     renderTotals();
   };
@@ -277,6 +288,11 @@ export function render(el, ctx) {
       i.value = w[i.dataset.key];
       i.dispatchEvent(new Event("input"));
     });
+  });
+  el.querySelector("#current-rot").addEventListener("change", (e) => {
+    store.set({ current_rotation: e.target.value });
+    current = resolveCurrent(rotations, e.target.value);
+    updateBest();
   });
   bindSegmented(el.querySelector("#mode"), (m) => {
     store.set({ mode: m });

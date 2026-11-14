@@ -168,8 +168,19 @@ export function displayName(rotation) {
   return String(rotation.name ?? rotation.id).replace(/^\s*(current|[A-Z])\s*:\s*/i, "");
 }
 
-export function rotationTag(rotation) {
-  return rotation.id === "current" ? "Your current rotation" : `Option ${rotation.id}`;
+// currentId: the rotation the user grows today (store.current_rotation resolved by js/choice.js).
+export function rotationTag(rotation, currentId = "current") {
+  if (rotation.id === currentId) return "Your current rotation";
+  if (rotation.custom) return "Your rotation";
+  return /^[A-Z]$/.test(rotation.id) ? `Option ${rotation.id}` : "Alternative";
+}
+
+/* ---------- compact select (same look as the segmented control) ---------- */
+// options: [{ value, label }]
+export function selectHTML(id, options, value, label) {
+  return `<span class="pick"><select id="${id}" aria-label="${esc(label)}">${options
+    .map((o) => `<option value="${esc(o.value)}"${o.value === value ? " selected" : ""}>${esc(o.label)}</option>`)
+    .join("")}</select>${icon(ICON.chevron, 16)}</span>`;
 }
 
 export function sequenceHTML(seq = []) {
