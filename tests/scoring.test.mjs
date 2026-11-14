@@ -32,3 +32,18 @@ test("nearestScenario picks the closest grid point", () => {
   assert.equal(nearestScenario(grid, -18, 1.2), grid[1]);
   assert.equal(nearestScenario(grid, 5, 0), grid[0]);
 });
+
+import { isScored, notScoredNote } from "../js/scoring.js";
+
+test("isScored needs a number in every rotation", () => {
+  const rots = [{ scores: { income: 10, water: 1 } }, { scores: { income: null, water: 2 } }];
+  assert.equal(isScored(rots, "water"), true);
+  assert.equal(isScored(rots, "income"), false);
+  assert.equal(isScored([], "water"), false);
+});
+
+test("income note says how many rotations have a net margin", () => {
+  const rots = [{ income: { eur_ha_year: 45 } }, { income: { eur_ha_year: null } }];
+  assert.match(notScoredNote("income", "Income", rots), /1 of 2 rotations/);
+  assert.equal(notScoredNote("income", "Income", []), "Income: not scored yet (no verified local prices or yields)");
+});

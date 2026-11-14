@@ -35,6 +35,20 @@ function validationHTML(v) {
   </section>`;
 }
 
+// Non-NASA data: MAPA ECREA net margins used for the income figures (not in the ranking).
+function incomeSourcesHTML(rotations) {
+  const docs = new Map();
+  let inc = null;
+  (rotations || []).forEach((r) => (r.income?.documents || []).forEach((d) => { docs.set(d.url, d.id); inc = r.income; }));
+  if (!docs.size) return "";
+  return `<section class="panel reveal">
+    ${panelHead("Other data: farm income", provBadge("derived", "MAPA ECREA"))}
+    <p class="small">Net margin per hectare (margen neto, without decoupled payments) of rainfed crops in Andalucía, from the Spanish Ministry of Agriculture's cost and income studies (ECREA 2.0, farm accounting network RECAN). Shown next to each rotation; not in the ranking.</p>
+    <ul class="val-limits">${[...docs].map(([url, id]) => `<li><a href="${esc(url)}" target="_blank" rel="noopener">${esc(id.replace("_", " "))}</a></li>`).join("")}</ul>
+    <p class="small muted">${inc?.accessed ? `Accessed ${esc(inc.accessed)}. ` : ""}Sample farms, 2018-2020 prices, regional averages: not your field's yields or prices. Chickpea uses ECREA's lentils-chickpeas-vetches group.</p>
+  </section>`;
+}
+
 export function render(el, ctx) {
   const { parcel, validation } = ctx.data;
   const sources = parcel.sources || [];
@@ -62,6 +76,8 @@ export function render(el, ctx) {
           </li>`).join("")}
         </ul>
       </section>
+
+      ${incomeSourcesHTML(ctx.data.rotations)}
 
       <section class="panel reveal">
         ${panelHead("What the labels mean")}

@@ -8,6 +8,7 @@ Builds the real files in `/data` from NASA POWER. No login, no dependencies: Nod
 node pipeline/build_power_data.mjs     # downloads NASA POWER, writes parcel, climate, risk_windows, validation
 node pipeline/build_rotations.mjs      # writes rotations, scenarios, and bare_months in risk_windows
 node tools/validate_data.mjs           # checks every file against the data contract
+node tools/check_live_core.mjs         # checks the browser code path gives the same files (pilot field)
 ```
 
 (`npm run data` runs the first two.) `build_power_data.mjs --offline` reuses `pipeline/raw/power_daily.json`
@@ -23,8 +24,11 @@ wet-day p95 21.9 mm, 2023 rain 233 mm, March-May 2023 rain 61 mm (driest of 25 y
 | `config.json` | Pilot field (Vega de Antequera, 37.02 N, 4.56 W), base period 2001-2025 |
 | `thresholds.json` | Frost (Tmin < 0 °C), heat (Tmax ≥ 35 °C), heavy rain (≥ 20 mm/day), dry-soil alert (percentile 20, 14 days). Sources: TBD |
 | `agro_rules.json` | Per crop: sowing and harvest months, sensitive phase and its hazard, legume, family, FAO-56 Kc. Each value has a `source` |
+| `income_ecrea.json` | Net margin per hectare (MAPA ECREA 2.0, Andalucía rainfed), with year and document for each value |
 | `raw/power_daily.json` | Raw NASA POWER daily download (kept in the repo so results can be reproduced) |
 | `lib/power_core.mjs` | Pure functions: ET0 (FAO-56 Penman-Monteith), monthly climate, weekly chances, soil wetness, 2022-23 check |
+| `lib/rotations_core.mjs` | Pure functions: rotation scores, income, text edits, scenarios (used by `build_rotations.mjs` and the browser) |
+| `lib/power_files.mjs` | Pure functions: NASA POWER download and the parcel / climate / risk_windows / validation objects (browser copy of `build_power_data.mjs`) |
 | `../data/mock/rotations.json` | Texts of the four rotations (id, name, sequence, why, benefits, gaps, risks) |
 
 ## Outputs
@@ -58,7 +62,8 @@ of the sequence:
   frequency of the 12 months. Monthly frequency = mean weekly heavy-rain chance of that month.
 - **soil** = mean of (years with a legume / years) and (distinct botanical families / years). Unknown legume or
   family (cover crop, species not chosen) counts as no.
-- **income** = `null`. No verified local prices or yields. The app leaves it out of the ranking and says so.
+- **income** score = `null`. A score would need every rotation to have a net margin; today two do not (see below).
+  The app leaves income out of the ranking and says why.
 
 `confidence` = "low" if any value used is TBD, else "medium"; never "high". Today every rotation is "low"
 because the crop calendars are TBD. `pac_eligible` = "TBD".
@@ -67,6 +72,28 @@ because the crop calendars are TBD. `pac_eligible` = "TBD".
 kept, so ET0 rises with temperature). ET0, monthly climate, weekly chances, mean yearly frost and heat days and all
 scores are recomputed. Ranking = equal weights of water, soil, erosion, risk_resilience (income left out). The
 script stops if scenario (0, 0) does not reproduce `rotations.json` exactly.
+
+**Income (informative, not in the ranking).** `rotation.income.eur_ha_year` = mean over the crops of the sequence of
+each crop's mean ECREA net margin (margen neto, euro/ha) for Andalucía rainfed. `null` if any crop has no value
+(`missing` lists them). Values in `income_ecrea.json`, all read as text from the ECREA PDFs:
+
+| Crop | 2018 | 2020 | Note |
+|---|---|---|---|
+| Durum wheat ("Trigo duro secano") | 105.4 | 92.7 | |
+| Barley ("Cebada secano") | 126.8 | 77.5 | |
+| Sunflower ("Girasol secano") | – | −7.8 | 2018-2019 Andalucía tables are images |
+| Chickpea | – | 623.2 | ECREA group "Lentejas, garbanzos y vezas secano" |
+| Vetch (forage / green manure), winter cover crop | – | – | TBD |
+
+Result today: current rotation 45.7 €/ha/year, A 361.2, B and C null. Limits: sample farms (RECAN), 2018-2020 prices,
+regional averages, decoupled payments and opportunity costs left out. Other sources looked at: REDES TECO COP
+2017-2022 (figures are charts only), MAPA Anuario and price reports (not used: no per-hectare margin).
+
+**Field chosen on the map.** The app lets the user pick any point in Andalucía (outline: Natural Earth admin-1,
+public domain, `js/andalucia.js`). A Web Worker (`js/live/worker.js`) downloads NASA POWER for that point and runs
+`power_files.mjs` + `rotations_core.mjs`, so every screen shows that place. Results are cached on the device.
+`tools/check_live_core.mjs` checks this path reproduces `/data` exactly for the pilot field. The field size only
+draws the field and turns per-hectare values into totals (1 mm on 1 ha = 10 m³); the NASA POWER cell is tens of km wide.
 
 **bare_months** in `risk_windows.json`: months bare in at least one year of the current rotation's cycle
 (`bare_months_share` gives the share of years). `bare_months_source`: crop calendar (TBD), not satellite-observed.
@@ -88,6 +115,8 @@ data do not support are edited in `TEXT_EDITS` in `build_rotations.mjs`:
 - `agro_rules.json`, all crops: sowing months, harvest months, sensitive phase (months and hazard), legume, family.
 - `agro_rules.json`: Kc of vetch and winter cover crop (no row in FAO-56 Table 12); cover-crop legume and family
   (species not chosen); the 4-equal-stages Kc curve (FAO-56 Table 11 stage lengths not applied).
+- `income_ecrea.json`: net margin of vetch as forage / green manure and of the winter cover crop; chickpea uses a
+  three-legume group value.
 - Kc with a source (FAO-56 Table 12): durum wheat uses the "Winter Wheat, non-frozen soils" row (0.7 / 1.15 / 0.25);
   barley 0.3 / 1.15 / 0.25; sunflower 0.35 / 1.0 / 0.35 (mid range 1.0-1.15, rainfed lower value); chickpea
   0.4 / 1.0 / 0.35. Kc ini of single crops is the group value printed in the table.
@@ -99,4 +128,6 @@ data do not support are edited in `TEXT_EDITS` in `build_rotations.mjs`:
 - Weekly chances describe 2001-2025; they are not statements about next season.
 - Water ratios use mean monthly climate, rainfed, no soil water storage, no irrigation.
 - Drought is not a crop hazard in `risk_resilience` (there is no weekly drought chance); it enters through water.
-- No yields, prices, soil analysis or PAC rules. Scores are for comparing rotations, not promises.
+- No field yields or prices, no soil analysis or PAC rules. Net margins are regional ECREA averages, not the field's.
+  Scores are for comparing rotations, not promises.
+- Crop calendars are written for rainfed Andalucía, so the map only accepts points there.

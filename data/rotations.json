@@ -44,9 +44,83 @@
       "Sunflower exposed to summer heat"
     ],
     "pac_eligible": "TBD",
+    "income": {
+      "eur_ha_year": 45.7,
+      "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
+      "region": "Andalucía, secano",
+      "by_crop": [
+        {
+          "crop": "Durum wheat",
+          "eur_ha": 99.1,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Trigo duro secano",
+          "note": null
+        },
+        {
+          "crop": "Sunflower",
+          "eur_ha": -7.8,
+          "years": [
+            2020
+          ],
+          "ecrea_crop": "Girasol secano",
+          "note": "The 2018 and 2019 Andalucía tables are images in the PDFs and were not read."
+        }
+      ],
+      "missing": [],
+      "source": "MAPA ECREA 2.0 (RECAN), see pipeline/income_ecrea.json",
+      "documents": [
+        {
+          "id": "cereales_2018",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf"
+        },
+        {
+          "id": "cereales_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf"
+        },
+        {
+          "id": "oleaginosas_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/oleaginosas_tcm30-660334.pdf"
+        }
+      ],
+      "accessed": "2026-11-14"
+    },
+    "water_balance": [
+      {
+        "crop": "Durum wheat",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 562.8
+      },
+      {
+        "crop": "Sunflower",
+        "months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "rain_mm": 177,
+        "need_mm": 804.8
+      }
+    ],
     "provenance": "derived",
     "dataset": "NASA POWER",
-    "method": "pipeline/build_rotations.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
     "generated_at": "2026-11-14"
   },
   {
@@ -95,9 +169,82 @@
       "Fungal disease in wet springs"
     ],
     "pac_eligible": "TBD",
+    "income": {
+      "eur_ha_year": 361.2,
+      "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
+      "region": "Andalucía, secano",
+      "by_crop": [
+        {
+          "crop": "Durum wheat",
+          "eur_ha": 99.1,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Trigo duro secano",
+          "note": null
+        },
+        {
+          "crop": "Chickpea",
+          "eur_ha": 623.2,
+          "years": [
+            2020
+          ],
+          "ecrea_crop": "Lentejas, garbanzos y vezas secano",
+          "note": "ECREA reports lentils, chickpeas and vetches as one group; the group value is used for chickpea. One year only."
+        }
+      ],
+      "missing": [],
+      "source": "MAPA ECREA 2.0 (RECAN), see pipeline/income_ecrea.json",
+      "documents": [
+        {
+          "id": "cereales_2018",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf"
+        },
+        {
+          "id": "cereales_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf"
+        },
+        {
+          "id": "proteaginosos_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cultivos_proteaginosos_y_forrajeros_tcm30-660333.pdf"
+        }
+      ],
+      "accessed": "2026-11-14"
+    },
+    "water_balance": [
+      {
+        "crop": "Durum wheat",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 562.8
+      },
+      {
+        "crop": "Chickpea",
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 242.1,
+        "need_mm": 450.6
+      }
+    ],
     "provenance": "derived",
     "dataset": "NASA POWER",
-    "method": "pipeline/build_rotations.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
     "generated_at": "2026-11-14"
   },
   {
@@ -146,9 +293,104 @@
       "Needs a buyer or use for the forage"
     ],
     "pac_eligible": "TBD",
+    "income": {
+      "eur_ha_year": null,
+      "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
+      "region": "Andalucía, secano",
+      "by_crop": [
+        {
+          "crop": "Barley",
+          "eur_ha": 102.2,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Cebada secano",
+          "note": null
+        },
+        {
+          "crop": "Vetch (forage / green manure)",
+          "eur_ha": null,
+          "years": [],
+          "ecrea_crop": null,
+          "note": "TBD: the ECREA legume group covers vetch sold as grain, not vetch used as forage or green manure."
+        },
+        {
+          "crop": "Durum wheat",
+          "eur_ha": 99.1,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Trigo duro secano",
+          "note": null
+        }
+      ],
+      "missing": [
+        "Vetch (forage / green manure)"
+      ],
+      "source": "MAPA ECREA 2.0 (RECAN), see pipeline/income_ecrea.json",
+      "documents": [
+        {
+          "id": "cereales_2018",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf"
+        },
+        {
+          "id": "cereales_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf"
+        }
+      ],
+      "accessed": "2026-11-14"
+    },
+    "water_balance": [
+      {
+        "crop": "Barley",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 516.9
+      },
+      {
+        "crop": "Vetch (forage / green manure)",
+        "months": [
+          10,
+          11,
+          12,
+          1,
+          2,
+          3,
+          4
+        ],
+        "rain_mm": 396.1,
+        "need_mm": null
+      },
+      {
+        "crop": "Durum wheat",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 562.8
+      }
+    ],
     "provenance": "derived",
     "dataset": "NASA POWER",
-    "method": "pipeline/build_rotations.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
     "generated_at": "2026-11-14"
   },
   {
@@ -198,9 +440,130 @@
       "More field operations and planning"
     ],
     "pac_eligible": "TBD",
+    "income": {
+      "eur_ha_year": null,
+      "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
+      "region": "Andalucía, secano",
+      "by_crop": [
+        {
+          "crop": "Durum wheat",
+          "eur_ha": 99.1,
+          "years": [
+            2018,
+            2020
+          ],
+          "ecrea_crop": "Trigo duro secano",
+          "note": null
+        },
+        {
+          "crop": "Sunflower",
+          "eur_ha": -7.8,
+          "years": [
+            2020
+          ],
+          "ecrea_crop": "Girasol secano",
+          "note": "The 2018 and 2019 Andalucía tables are images in the PDFs and were not read."
+        },
+        {
+          "crop": "Chickpea",
+          "eur_ha": 623.2,
+          "years": [
+            2020
+          ],
+          "ecrea_crop": "Lentejas, garbanzos y vezas secano",
+          "note": "ECREA reports lentils, chickpeas and vetches as one group; the group value is used for chickpea. One year only."
+        },
+        {
+          "crop": "Winter cover crop",
+          "eur_ha": null,
+          "years": [],
+          "ecrea_crop": null,
+          "note": "TBD: a cover crop is not sold; its costs are not in ECREA."
+        }
+      ],
+      "missing": [
+        "Winter cover crop"
+      ],
+      "source": "MAPA ECREA 2.0 (RECAN), see pipeline/income_ecrea.json",
+      "documents": [
+        {
+          "id": "cereales_2018",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf"
+        },
+        {
+          "id": "cereales_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf"
+        },
+        {
+          "id": "oleaginosas_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/oleaginosas_tcm30-660334.pdf"
+        },
+        {
+          "id": "proteaginosos_2020",
+          "url": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cultivos_proteaginosos_y_forrajeros_tcm30-660333.pdf"
+        }
+      ],
+      "accessed": "2026-11-14"
+    },
+    "water_balance": [
+      {
+        "crop": "Durum wheat",
+        "months": [
+          11,
+          12,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 370.5,
+        "need_mm": 562.8
+      },
+      {
+        "crop": "Sunflower",
+        "months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "rain_mm": 177,
+        "need_mm": 804.8
+      },
+      {
+        "crop": "Chickpea",
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rain_mm": 242.1,
+        "need_mm": 450.6
+      },
+      {
+        "crop": "Winter cover crop",
+        "months": [
+          10,
+          11,
+          12,
+          1,
+          2
+        ],
+        "rain_mm": 277.2,
+        "need_mm": null
+      }
+    ],
     "provenance": "derived",
     "dataset": "NASA POWER",
-    "method": "pipeline/build_rotations.mjs with pipeline/agro_rules.json; see pipeline/README.md",
+    "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
     "generated_at": "2026-11-14"
   }
 ]

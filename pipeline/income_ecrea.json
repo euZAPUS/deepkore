@@ -1,0 +1,47 @@
+{
+  "about": "Net margin per hectare of rainfed (secano) crops in Andalucía, copied from MAPA ECREA 2.0 'Resultados técnico-económicos' (source: Red Contable Agraria Nacional, RECAN). Only values read as text from the PDFs are listed; tables printed as images were not read.",
+  "metric": "ECREA '16. Margen neto (15-8)', euro/ha: production value + coupled subsidies + other income, minus direct costs, machinery, hired labour, paid indirect costs and depreciation. Decoupled payments and opportunity costs (family labour, own land, own capital) are not included.",
+  "region": "Andalucía, secano",
+  "currency": "EUR, current prices of each year (not inflation-adjusted)",
+  "accessed": "2026-11-14",
+  "documents": {
+    "cereales_2018": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-650388.pdf",
+    "cereales_2020": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cereales_tcm30-660335.pdf",
+    "oleaginosas_2020": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/oleaginosas_tcm30-660334.pdf",
+    "proteaginosos_2020": "https://www.mapa.gob.es/es/ministerio/servicios/analisis-y-prospectiva/cultivos_proteaginosos_y_forrajeros_tcm30-660333.pdf"
+  },
+  "crops": {
+    "Durum wheat": {
+      "values": [
+        { "year": 2018, "eur_ha": 105.4, "ecrea_crop": "Trigo duro secano", "doc": "cereales_2018" },
+        { "year": 2020, "eur_ha": 92.7, "ecrea_crop": "Trigo duro secano", "doc": "cereales_2020" }
+      ]
+    },
+    "Barley": {
+      "values": [
+        { "year": 2018, "eur_ha": 126.8, "ecrea_crop": "Cebada secano", "doc": "cereales_2018" },
+        { "year": 2020, "eur_ha": 77.5, "ecrea_crop": "Cebada secano", "doc": "cereales_2020" }
+      ]
+    },
+    "Sunflower": {
+      "values": [
+        { "year": 2020, "eur_ha": -7.8, "ecrea_crop": "Girasol secano", "doc": "oleaginosas_2020" }
+      ],
+      "note": "The 2018 and 2019 Andalucía tables are images in the PDFs and were not read."
+    },
+    "Chickpea": {
+      "values": [
+        { "year": 2020, "eur_ha": 623.2, "ecrea_crop": "Lentejas, garbanzos y vezas secano", "doc": "proteaginosos_2020" }
+      ],
+      "note": "ECREA reports lentils, chickpeas and vetches as one group; the group value is used for chickpea. One year only."
+    },
+    "Vetch (forage / green manure)": {
+      "values": [],
+      "note": "TBD: the ECREA legume group covers vetch sold as grain, not vetch used as forage or green manure."
+    },
+    "Winter cover crop": {
+      "values": [],
+      "note": "TBD: a cover crop is not sold; its costs are not in ECREA."
+    }
+  }
+}
