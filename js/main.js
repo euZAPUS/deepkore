@@ -1,6 +1,6 @@
 // App entry: loads data, builds navigation (sidebar + phone tab bar), routes between the 6 sections.
 import { SECTIONS, DEFAULT_SECTION, HIDE_MOCK_STRIP } from "./config.js";
-import { loadAll, anyMock } from "./data.js";
+import { loadAll, anyMock, USING_MOCK } from "./data.js";
 import { esc, icon } from "./ui.js";
 import { revealIn } from "./motion.js";
 import { initTheme } from "./theme.js";
@@ -10,6 +10,7 @@ import * as rotations from "./views/rotations.js";
 import * as whatif from "./views/whatif.js";
 import * as sources from "./views/sources.js";
 import * as about from "./views/about.js";
+import * as waiting from "./views/waiting.js";
 
 // Section id -> view module ({ render(el, ctx) -> optional cleanup fn }).
 const VIEWS = { field, risks, rotations, whatif, data: sources, about };
@@ -56,7 +57,9 @@ function route() {
   const view = document.createElement("div");
   view.className = "view";
   main.appendChild(view);
-  cleanup = VIEWS[id].render(view, { ...ctx, section, sectionIndex: index, next: SECTIONS[index + 1] ?? null });
+  const ready = section.files.every((f) => ctx.data[f]);
+  const viewModule = ready ? VIEWS[id] : waiting; // a screen waits until all its data files exist
+  cleanup = viewModule.render(view, { ...ctx, section, sectionIndex: index, next: SECTIONS[index + 1] ?? null });
   window.scrollTo({ top: 0, behavior: "instant" });
   revealIn(view);
   view.querySelector("h1")?.focus({ preventScroll: true });
@@ -88,8 +91,8 @@ async function start() {
   initTheme();
   window.addEventListener("hashchange", route);
   try {
-    const { data, problems } = await loadAll();
-    ctx = { data, problems };
+    const { data, problems, missing } = await loadAll();
+    ctx = { data, problems, missing, usingMock: USING_MOCK };
     const mock = !HIDE_MOCK_STRIP && anyMock(data);
     document.querySelectorAll(".js-mock").forEach((p) => (p.hidden = !mock));
     showDataWarning(problems);

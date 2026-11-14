@@ -5,15 +5,15 @@ Every value produced here is invented to look plausible for a rainfed field in t
 Vega de Antequera (Malaga). None of it is a measurement. Every file is tagged
 "provenance": "MOCK" so the app shows the MOCK DATA strip until real files arrive.
 
-Usage:  python3 tools/make_mock_data.py          (writes into ./data)
-Delete or overwrite the outputs once the real JSON files are delivered.
+Usage:  python3 tools/make_mock_data.py          (writes into ./data/mock)
+Real files go in ./data; the app shows these only with ?mock in the URL.
 """
 import json
 import math
 import random
 from pathlib import Path
 
-OUT = Path(__file__).resolve().parent.parent / "data"
+OUT = Path(__file__).resolve().parent.parent / "data" / "mock"
 rng = random.Random(42)  # deterministic: same mock every run
 MOCK = "MOCK"
 

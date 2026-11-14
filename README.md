@@ -39,8 +39,9 @@ farmer's decision; it does not make it.
 Every number in the app carries a provenance label: **Observed**, **Derived**, **AI-inferred**,
 **Simulated** or **MOCK**, plus the NASA dataset behind it.
 
-> 🚧 **Current status:** the app is running on **MOCK placeholder data** while the real data pipeline is
-> finished. A red "MOCK DATA" strip is shown in the app for as long as any data file is tagged `MOCK`.
+> 🚧 **Current status:** the real data files are being produced by the team's data pipeline. Until they
+> are in `/data`, each screen shows *Waiting for NASA data*. To preview the full design with placeholder
+> (MOCK) data, add `?mock` to the URL: <https://euzapus.github.io/deepkore/?mock>
 
 ---
 
@@ -88,7 +89,8 @@ js/motion.js          Reveal and re-order animations
 js/store.js           User priorities and limits (remembered on the device)
 js/theme.js           Light / dark switch (fires a 'deepkore:theme' event for charts and map)
 js/views/             One module per screen
-data/                 parcel, climate, risk_windows, rotations, scenarios (.json)
+data/                 Real data files go here (see data/README.md)
+data/mock/            Placeholder (MOCK) files, used only with ?mock in the URL
 tools/                make_mock_data.py (placeholder data), validate_data.mjs
 tests/                Unit tests for the scoring
 vendor/               Leaflet 1.9.4, Chart.js 4.4.7, Inter font (no CDN needed)
@@ -106,8 +108,9 @@ AI_USAGE_LOG.md       Log of AI use, for the AI declaration
 | `rotations.json` | `[{id, name, sequence[], scores:{water, soil, income, erosion, risk_resilience}, confidence, why, evidence:[{dataset, fact}], benefits[], gaps[], risks[], pac_eligible, provenance}]` |
 | `scenarios.json` | `[{rain_pct, temp_delta, frost_days, heat_days, ranking[], scores:{id:total}, provenance:"synthetic"}]` |
 
-To replace the mock data: drop the real files into `/data`, run `npm run validate`, reload.
-The MOCK strip disappears by itself once no file says `MOCK`.
+Real files go in `/data` (see `data/README.md`); run `npm run validate`, push, reload: each screen fills in
+as soon as its files exist. Placeholder files live in `data/mock/` and are only used with `?mock` in the URL.
+The MOCK pill disappears by itself once no loaded file says `MOCK`.
 
 ## Credits and licences
 

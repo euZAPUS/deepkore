@@ -21,7 +21,7 @@ export const SECTIONS = [
     id: "field",
     title: "My field",
     short: "Field",
-    files: ["parcel"],
+    files: ["parcel", "rotations"],
     intro: "Where your field is, what matters most to you, and your limits.",
     planned: [
       "Map of the pilot field (Vega de Antequera, Málaga)",
@@ -55,7 +55,7 @@ export const SECTIONS = [
     id: "whatif",
     title: "What-if simulator",
     short: "What-if",
-    files: ["scenarios"],
+    files: ["scenarios", "rotations"],
     intro: "Move the rain and temperature sliders to see how the ranking could change.",
     planned: [
       "Rain slider (-40 % to +20 %) and temperature slider (0 to +3 °C)",
