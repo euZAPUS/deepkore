@@ -18,7 +18,7 @@ farmer's decision; it does not make it.
 
 **Pilot field.** Rainfed land in the Vega de Antequera (Málaga, Spain), approx. 37.02 N, -4.56 W.
 
-**Live demo:** <https://euzapus.github.io/deepkore/> · Code: <https://github.com/euZAPUS/deepkore>
+**Live demo:** <https://euzapus.github.io/deepkore/> · Pitch deck: <https://euzapus.github.io/deepkore/pitch/> · Code: <https://github.com/euZAPUS/deepkore>
 
 **How to use it (2 minutes).** A short welcome card explains the app on first visit (reopen it with the **?** button).
 1. **My field**: see the field on the map, set your priorities with the sliders and choose rainfed or irrigated.
@@ -96,6 +96,7 @@ tests/                Unit tests for the scoring
 vendor/               Leaflet 1.9.4, Chart.js 4.4.7, Inter font (no CDN needed)
 manifest.webmanifest  Lets phones install the app (Add to Home Screen)
 AI_USAGE_LOG.md       Log of AI use, for the AI declaration
+pitch/                Pitch deck (index.html, Spanish) and speaker notes (GUION.md)
 ```
 
 ## Data contract

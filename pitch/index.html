@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DeepKore Pitch</title>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<style>
+/* Concepto: un estudio de campo luminoso. Un testigo de suelo en 3D (capas de tierra, trigo encima,
+   una cuña cortada para ver el interior) vive detrás de paneles de cristal y cambia de vista entre
+   diapositivas; un satélite lo observa. La barra de progreso es un surco donde brota una planta por diapositiva. */
+@font-face{font-family:"Inter";src:url("../vendor/inter/inter-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
+:root{
+  --bg:#f3f7f1; --line:rgba(20,48,31,.10);
+  --ink:#14301f; --mut:#5d6b62;
+  --green:#2e9e4f; --greend:#1f7a3c; --leaf:#8cc63f; --wheat:#d9a520; --wheatd:#a87a0b; --sky:#3f8fd6; --clay:#c8643f; --soil:#7a5235;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+/* luz ambiente */
+#orbs{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+#orbs i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(80px);opacity:.5;animation:drift 28s ease-in-out infinite alternate}
+#orbs i:nth-child(1){background:#cdebd3;left:50%;top:-25%}
+#orbs i:nth-child(2){background:#cfe3f6;left:-20%;top:45%;animation-duration:34s;animation-delay:-8s}
+#orbs i:nth-child(3){background:#f6e3b4;left:35%;top:70%;opacity:.45;animation-duration:40s;animation-delay:-15s}
+@keyframes drift{to{transform:translate(-12vmax,10vmax) scale(1.15)}}
+
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;transition:opacity .7s}
+#gl.off{opacity:0}
+#ui{position:fixed;inset:0;pointer-events:none}
+
+/* diapositivas */
+.slide{position:absolute;inset:0;display:flex;align-items:center;
+  padding:clamp(44px,7vh,90px) max(clamp(16px,4.5vw,88px),env(safe-area-inset-right,0px)) clamp(80px,11vh,116px) max(clamp(16px,4.5vw,88px),env(safe-area-inset-left,0px));
+  opacity:0;visibility:hidden;transition:opacity .45s,visibility 0s .45s;perspective:1400px}
+.slide.on{opacity:1;visibility:visible;transition:opacity .45s}
+.slide.L{justify-content:flex-start}.slide.C{justify-content:center}.slide.R{justify-content:flex-end}
+.slide.B{align-items:flex-end;justify-content:center}
+.panel{pointer-events:auto;max-height:100%;overflow:auto;scrollbar-width:none;min-width:0}
+.panel::-webkit-scrollbar{display:none}
+.L .panel,.R .panel{width:min(46vw,740px)}
+.C .panel{width:min(100%,1320px)}
+.panel.narrow{width:min(36vw,560px)}
+.panel.slim{width:min(92vw,980px);text-align:center}
+.glass{padding:clamp(20px,2.4vw,40px);border-radius:28px;background:linear-gradient(160deg,rgba(255,255,255,.84),rgba(255,255,255,.56));
+  border:1px solid rgba(255,255,255,.9);box-shadow:0 30px 80px -30px rgba(20,48,31,.28),0 0 0 1px var(--line);
+  -webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4)}
+
+/* entradas */
+.a{opacity:0}
+.on .a{animation:rise .85s cubic-bezier(.2,.8,.2,1) calc(.2s + var(--i,0)*.08s) both}
+.on .card.a,.on .tile.a{animation:pop .9s cubic-bezier(.2,.9,.25,1.15) calc(.25s + var(--i,0)*.08s) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes pop{from{opacity:0;transform:translateY(34px) rotateX(22deg) scale(.94);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+
+.kk{font:700 clamp(.72rem,1vw,1rem)/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--greend);margin:0 0 clamp(12px,1.4vw,20px)}
+.kk::before{content:'● ';font-size:.7em;vertical-align:.15em}
+.kk.cl{color:var(--clay)}
+h1,h2,h3{margin:0;letter-spacing:-.03em;text-wrap:balance;color:var(--ink)}
+h1{font-size:clamp(3rem,8.5vw,8.6rem);line-height:.95;font-weight:900}
+h2{font-size:clamp(1.6rem,min(3.6vw,6.2vh),3.7rem);line-height:1.05;font-weight:850;margin-bottom:clamp(16px,2.2vw,32px)}
+h3{font-size:clamp(1.05rem,1.6vw,1.6rem);line-height:1.2;font-weight:750}
+p{margin:0}
+.grad{background:linear-gradient(95deg,var(--greend),var(--green),var(--leaf),var(--wheat),var(--greend));background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--greend);animation:shim 8s linear infinite}
+@keyframes shim{to{background-position:300% 0}}
+.sub{font-size:clamp(1.15rem,2.1vw,2.1rem);line-height:1.25;margin:clamp(12px,1.6vw,22px) 0;font-weight:700}
+.meta{margin-top:clamp(18px,2.6vw,36px);font:500 clamp(.72rem,.95vw,.95rem) var(--mono);color:var(--mut);letter-spacing:.04em;line-height:1.6}
+.src{margin-top:clamp(10px,1.2vw,16px);font:500 clamp(.68rem,.85vw,.85rem) var(--mono);color:var(--mut)}
+.lead2{font:700 clamp(1rem,min(1.6vw,2.8vh),1.6rem) var(--sans);color:var(--clay)}
+
+/* logo */
+.logo{display:flex;align-items:center;gap:clamp(12px,1.6vw,24px)}
+.logo svg{width:clamp(70px,9vw,150px);height:auto;filter:drop-shadow(0 16px 26px rgba(31,122,60,.25))}
+.on .logo svg{animation:breathe 5s ease-in-out infinite .9s}
+@keyframes breathe{50%{transform:scale(1.04)}}
+.logo .word{font-size:clamp(3rem,8vw,8rem);font-weight:900;letter-spacing:-.05em;line-height:.9}
+
+/* tarjetas */
+.grid{display:grid;gap:clamp(10px,1.2vw,20px)}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.card,.tile{--c:var(--green);position:relative;overflow:hidden;border-radius:24px;
+  background:linear-gradient(155deg,rgba(255,255,255,.66),rgba(255,255,255,.24) 55%,color-mix(in srgb,var(--c) 10%,rgba(255,255,255,.18)));
+  border:1px solid rgba(255,255,255,.78);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(20,48,31,.05),0 20px 44px -26px rgba(20,48,31,.38),0 0 0 1px rgba(20,48,31,.06);
+  padding:clamp(18px,2vw,34px);display:flex;flex-direction:column;gap:.7em;min-width:0;transform-style:preserve-3d;
+  -webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6)}
+.card>*,.tile>*{position:relative;z-index:1}
+.card::before,.tile::before{content:'';position:absolute;inset:-40% auto -40% -60%;width:45%;transform:rotate(18deg) translateX(-120%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);pointer-events:none;z-index:2}
+.on .card::before,.on .tile::before{animation:shine 1.4s cubic-bezier(.4,0,.2,1) calc(.9s + var(--i,0)*.08s) both}
+@keyframes shine{to{transform:rotate(18deg) translateX(520%)}}
+.card::after,.tile::after{content:'';position:absolute;right:-25%;top:-45%;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(var(--c),transparent 68%);opacity:.16;pointer-events:none}
+.c1{--c:var(--green)}.c2{--c:var(--sky)}.c3{--c:var(--wheat)}.c4{--c:var(--clay)}
+.grid>.card:nth-child(4n+2){--c:var(--sky)}.grid>.card:nth-child(4n+3){--c:var(--wheat)}.grid>.card:nth-child(4n+4){--c:var(--clay)}
+.card p{color:var(--mut);font-size:clamp(.88rem,1.15vw,1.18rem);line-height:1.4;font-weight:550}
+.ic{width:clamp(46px,4.4vw,74px);height:clamp(46px,4.4vw,74px);border-radius:20px;display:grid;place-items:center;flex:none;
+  color:#fff;background:linear-gradient(145deg,color-mix(in srgb,var(--c,var(--green)) 78%,#fff),var(--c,var(--green)));box-shadow:0 12px 24px -10px var(--c,var(--green))}
+.ic svg{width:52%;height:52%;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.on .ic svg{animation:bob 3.2s ease-in-out infinite}
+.grid>.card:nth-child(2) .ic svg{animation-delay:-.8s}.grid>.card:nth-child(3) .ic svg{animation-delay:-1.6s}.grid>.card:nth-child(4) .ic svg{animation-delay:-2.4s}
+@keyframes bob{50%{transform:translateY(-3px) scale(1.07)}}
+.lab{font:700 clamp(.66rem,.88vw,.88rem)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--c,var(--green)) 78%,#14301f)}
+.tall .card{min-height:clamp(150px,24vh,290px)}
+.tall .card h3{font-size:clamp(1.15rem,1.9vw,1.95rem);margin-top:auto}
+.step b{font:900 clamp(2.4rem,4.6vw,4.8rem)/1 var(--sans);color:var(--c);letter-spacing:-.04em}
+
+.rows{display:grid;gap:clamp(10px,1.2vw,18px)}
+.row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(12px,1.2vw,18px);align-items:center}
+.row .ic{width:clamp(38px,3.2vw,52px);height:clamp(38px,3.2vw,52px);border-radius:14px}
+.row h3{font-size:clamp(1rem,1.45vw,1.45rem)}
+.row p{color:var(--mut);font-size:clamp(.8rem,1vw,1rem);font-weight:550;margin-top:2px}
+.rows .row:nth-child(4n+2){--c:var(--sky)}.rows .row:nth-child(4n+3){--c:var(--wheat)}.rows .row:nth-child(4n+4){--c:var(--clay)}
+
+/* mosaico */
+.bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1vw,16px)}
+.panel.fit{height:100%;display:flex;flex-direction:column;overflow:hidden}
+.panel.fit .bento{flex:1;min-height:0;grid-template-rows:repeat(3,minmax(0,1fr))}
+.tile{padding:clamp(12px,1.3vw,22px);gap:.35em;justify-content:flex-end;min-height:0}
+.tile h3{font-size:clamp(.95rem,min(1.5vw,2.6vh),1.6rem)}
+.tile p{color:var(--mut);font-size:clamp(.72rem,min(.95vw,1.7vh),1rem);line-height:1.35;font-weight:550}
+.tile .ic{width:clamp(30px,min(3vw,5vh),50px);height:clamp(30px,min(3vw,5vh),50px);border-radius:14px;margin-bottom:auto}
+.w2{grid-column:span 2}.h2{grid-row:span 2}
+.tile.hero{background:linear-gradient(150deg,rgba(20,48,31,.94),rgba(31,122,60,.9) 60%,rgba(140,198,63,.85));color:#fff;border-color:rgba(255,255,255,.35)}
+.tile.hero h3{font-size:clamp(1.5rem,min(3.4vw,6vh),3.8rem);line-height:1;color:#fff}
+.tile.hero p{color:#dcefd9}
+.msl{display:grid;gap:clamp(8px,1.4vh,16px);margin-bottom:auto;width:100%}
+.msl div{display:grid;grid-template-columns:5.5em 1fr;align-items:center;gap:10px;font:600 clamp(.7rem,min(.9vw,1.6vh),.95rem) var(--sans);color:#e6f4e4}
+.msl s{position:relative;display:block;height:6px;border-radius:9px;background:rgba(255,255,255,.22);text-decoration:none}
+.msl s::before{content:'';position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:var(--k);width:var(--w);animation:sl 4.5s ease-in-out infinite alternate;animation-delay:var(--d)}
+.msl s::after{content:'';position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3);left:var(--w);animation:sk 4.5s ease-in-out infinite alternate;animation-delay:var(--d)}
+@keyframes sl{to{width:var(--w2)}}@keyframes sk{to{left:var(--w2)}}
+.heat{display:grid;grid-template-columns:repeat(26,1fr);gap:2px;margin-bottom:auto;width:100%}
+.heat i{aspect-ratio:1;border-radius:2px;background:var(--hc);opacity:var(--o);animation:hb 3s ease-in-out infinite;animation-delay:calc(var(--k) * -.06s)}
+@keyframes hb{50%{opacity:calc(var(--o) * .45)}}
+.rings{display:flex;gap:clamp(6px,.8vw,12px);margin-bottom:auto}
+.rings svg{width:clamp(34px,min(3.6vw,6vh),60px);height:auto;transform:rotate(-90deg)}
+.rings circle{fill:none;stroke-width:6;stroke-linecap:round}
+.rings .t{stroke:rgba(20,48,31,.1)}
+.rings .v{stroke:var(--green);stroke-dasharray:163;stroke-dashoffset:163}
+.on .rings .v{animation:ring 1.6s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(.9s + var(--k) * .15s)}
+@keyframes ring{to{stroke-dashoffset:var(--off)}}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:auto}
+.tags span{padding:.28em .65em;border-radius:999px;font:700 clamp(.62rem,min(.8vw,1.4vh),.82rem) var(--sans);color:var(--k);background:color-mix(in srgb,var(--k) 14%,transparent)}
+.big{font:900 clamp(1.6rem,min(3.4vw,6vh),4rem)/1 var(--sans);letter-spacing:-.04em;color:var(--c);margin-bottom:auto}
+
+/* año en la parcela */
+.tl{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.2vw,18px);padding-top:30px}
+.tl::before{content:'';position:absolute;left:0;right:0;top:10px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--sky),var(--wheat),var(--clay),var(--soil),var(--green));transform-origin:left;transform:scaleX(0)}
+.on .tl::before{animation:grow 1.6s cubic-bezier(.6,0,.2,1) .3s forwards}
+@keyframes grow{to{transform:scaleX(1)}}
+.tl .card{overflow:visible}
+.tl .card::after,.tl .card::before{display:none}
+.tl .card .pin{position:absolute;top:-27px;left:clamp(18px,2vw,34px);width:16px;height:16px;border-radius:50%;background:var(--c);box-shadow:0 0 0 5px #fff,0 0 0 6px color-mix(in srgb,var(--c) 40%,transparent)}
+.tl>.card:nth-child(1){--c:var(--sky)}.tl>.card:nth-child(2){--c:var(--wheat)}.tl>.card:nth-child(3){--c:var(--clay)}.tl>.card:nth-child(4){--c:var(--soil)}.tl>.card:nth-child(5){--c:var(--green)}
+.tl .t{font:800 clamp(1.1rem,min(2.2vw,4vh),2.3rem) var(--mono);color:var(--c)}
+.tl .say{font-size:clamp(.88rem,min(1.3vw,2.5vh),1.35rem);line-height:1.35;color:var(--ink);font-weight:700}
+.tl .say em{display:block;font-style:normal;color:var(--mut);font-weight:600;margin-top:.4em}
+
+/* comparador */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(12px,2vw,32px);align-items:stretch}
+.vs .card{gap:1em}
+.vs .card.best{--c:var(--green);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 30px 60px -28px rgba(31,122,60,.55),0 0 0 2px var(--green)}
+.vs .card.now{--c:var(--clay)}
+.vs .mid{display:grid;place-items:center;font:900 clamp(1.4rem,2.6vw,2.6rem) var(--sans);color:var(--mut)}
+.score{display:flex;align-items:center;gap:clamp(12px,1.4vw,20px)}
+.score svg{width:clamp(70px,8vw,120px);height:auto;transform:rotate(-90deg)}
+.score circle{fill:none;stroke-width:7;stroke-linecap:round}
+.score .t{stroke:rgba(20,48,31,.1)}
+.score .v{stroke:var(--c);stroke-dasharray:163;stroke-dashoffset:163}
+.on .score .v{animation:ring 1.8s cubic-bezier(.2,.8,.2,1) .6s forwards}
+.score b{font:900 clamp(2.4rem,4.4vw,4.6rem)/1 var(--sans);letter-spacing:-.04em;color:var(--c)}
+.score small{display:block;font:600 clamp(.7rem,.9vw,.9rem) var(--sans);color:var(--mut)}
+.seq{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;font:600 clamp(.72rem,.95vw,.95rem) var(--sans)}
+.seq span{padding:.3em .75em;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid var(--line)}
+.seq i{font-style:normal;color:var(--mut)}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.bars div{font:600 clamp(.72rem,.9vw,.92rem) var(--sans);color:var(--mut)}
+.bars div b{float:right;color:var(--ink)}
+.bars div b em{font-style:normal;margin-left:.35em}
+.bars .up{color:var(--green)}.bars .dn{color:var(--clay)}
+.bars s{display:block;height:7px;margin-top:5px;border-radius:9px;background:rgba(20,48,31,.08);text-decoration:none;overflow:hidden}
+.bars s::before{content:'';display:block;height:100%;width:0;border-radius:9px;background:var(--k)}
+.on .bars s::before{animation:fill 1.4s cubic-bezier(.2,.8,.2,1) .9s forwards}
+@keyframes fill{to{width:var(--w)}}
+.pill{display:inline-flex;align-items:center;gap:.4em;padding:.35em .8em;border-radius:999px;font:700 clamp(.66rem,.85vw,.85rem) var(--sans);background:rgba(200,100,63,.14);color:var(--clay)}
+.pill.g{background:rgba(46,158,79,.14);color:var(--greend)}
+
+/* retos */
+.retos .card{justify-content:space-between;min-height:clamp(170px,30vh,320px)}
+.retos .from{font:700 clamp(.8rem,1.05vw,1.05rem) var(--sans);color:var(--mut);text-decoration:line-through;text-decoration-color:var(--c)}
+.retos .arr svg{width:30px;height:30px;fill:none;stroke:var(--c);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transform:rotate(90deg)}
+.on .retos .arr svg{animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:rotate(90deg) translateX(5px)}}
+
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{padding:.4em .9em;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.75);font:600 clamp(.72rem,.95vw,.95rem) var(--sans);color:var(--ink)}
+.road{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,26px);padding-top:30px}
+.road::before{content:'';position:absolute;left:4%;right:4%;top:11px;height:4px;border-radius:4px;background:rgba(20,48,31,.1)}
+.road::after{content:'';position:absolute;left:4%;top:5px;width:16px;height:16px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px #fff,0 0 18px var(--green)}
+.on .road::after{animation:travel 4s cubic-bezier(.6,0,.4,1) .6s infinite}
+@keyframes travel{0%{left:4%}80%,100%{left:calc(96% - 16px)}}
+.road .card{min-height:clamp(150px,26vh,280px)}
+.road h3{font-size:clamp(1.4rem,2.6vw,2.6rem)}
+
+/* demo / QR */
+.demo{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,3vw,56px);align-items:center;text-align:left}
+.qr{width:clamp(160px,22vh,260px);aspect-ratio:1;padding:14px;border-radius:24px;background:#fff;box-shadow:0 30px 60px -28px rgba(20,48,31,.45),0 0 0 1px var(--line)}
+.qr svg{width:100%;height:100%;display:block}
+.url{font:700 clamp(1rem,1.8vw,1.8rem) var(--mono);color:var(--greend);word-break:break-all}
+
+/* etiquetas 3D */
+#labels{position:fixed;inset:0;pointer-events:none}
+.pl{position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;opacity:0;white-space:nowrap;will-change:transform;transition:opacity .35s}
+.pl i{width:11px;height:11px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(46,158,79,.3),0 0 0 6px #fff;flex:none}
+.pl em{font-style:normal;width:clamp(18px,3vw,50px);height:2px;background:linear-gradient(90deg,var(--green),transparent)}
+.pl span{font:700 clamp(.7rem,.9vw,.92rem) var(--sans);padding:.45em .85em;border-radius:12px;background:rgba(255,255,255,.92);color:var(--ink);box-shadow:0 8px 20px -10px rgba(20,48,31,.4),0 0 0 1px var(--line)}
+.pl span b{color:var(--greend)}
+.pl.sk i{background:var(--sky);box-shadow:0 0 0 4px rgba(63,143,214,.3),0 0 0 6px #fff}.pl.sk em{background:linear-gradient(90deg,var(--sky),transparent)}
+.pl.wh i{background:var(--wheat);box-shadow:0 0 0 4px rgba(217,165,32,.3),0 0 0 6px #fff}.pl.wh em{background:linear-gradient(90deg,var(--wheat),transparent)}
+.pl.left{flex-direction:row-reverse}.pl.left em{background:linear-gradient(270deg,var(--green),transparent)}
+
+/* HUD: surco con brotes */
+.hud{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;gap:16px;pointer-events:none;transition:opacity .4s;
+  padding:0 max(clamp(16px,4.5vw,88px),env(safe-area-inset-right,0px)) max(18px,env(safe-area-inset-bottom,0px)) max(clamp(16px,4.5vw,88px),env(safe-area-inset-left,0px))}
+.brand{display:flex;align-items:center;gap:8px;font:850 clamp(.85rem,1.05vw,1.05rem) var(--sans)}
+.brand svg{width:26px;height:26px}
+.furrow{position:relative;flex:1;height:44px;min-width:0}
+.furrow::before{content:'';position:absolute;left:0;right:0;bottom:6px;height:8px;border-radius:8px;background:linear-gradient(#9b7150,#6e4c33);box-shadow:inset 0 2px 2px rgba(0,0,0,.15)}
+.sprout{position:absolute;bottom:12px;width:22px;height:30px;margin-left:-11px;transform-origin:50% 100%;transform:scale(0);transition:transform .6s cubic-bezier(.2,.9,.25,1.4)}
+.sprout svg{width:100%;height:100%;overflow:visible}
+.sprout.grown{transform:scale(.62)}
+.sprout.now{transform:scale(1)}
+.sprout.now svg{animation:sway 2.4s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes sway{50%{transform:rotate(6deg)}}
+.seed{position:absolute;bottom:8px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:#c9a77f}
+.cnt{font:700 clamp(.75rem,.95vw,.95rem) var(--mono);font-variant-numeric:tabular-nums}
+.nav{display:flex;gap:8px;pointer-events:auto}
+.nav button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.85);color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.nav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
+#hint{position:fixed;top:max(18px,env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);padding:.6em 1.1em;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid var(--line);
+  font:500 .85rem var(--mono);color:var(--mut);transition:opacity .6s;pointer-events:none}
+#hint.gone{opacity:0}
+
+/* pregunta y cierre */
+.slide.blank{background:#fff}
+body.isblank .hud,body.isblank #hint{opacity:0}
+.q{pointer-events:auto;max-width:24ch;margin:0;text-align:center;font:900 clamp(2.2rem,min(5.6vw,9vh),5.8rem)/1.08 var(--sans);letter-spacing:-.04em;color:var(--ink);text-wrap:balance}
+.floaters{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.fl{position:absolute;opacity:0;transform:rotate(var(--r))}
+.fl svg{width:100%;height:100%;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.on .fl{animation:fin .8s cubic-bezier(.2,.9,.25,1.3) .4s forwards,ffloat 6s ease-in-out infinite}
+@keyframes fin{from{opacity:0;transform:rotate(var(--r)) scale(.4)}to{opacity:.6;transform:rotate(var(--r)) scale(1)}}
+@keyframes ffloat{0%,100%{translate:0 0}50%{translate:0 -14px}}
+.answer{font:900 clamp(3rem,min(8.4vw,15vh),9.5rem)/.92 var(--sans);letter-spacing:-.06em}
+.answer-sub{font-size:clamp(1.25rem,min(2.6vw,4.6vh),2.9rem)!important}
+.closing{font:900 clamp(2rem,min(4.6vw,8vh),4.8rem)/1.08 var(--sans);letter-spacing:-.04em;color:var(--ink);margin:0 0 clamp(18px,2.6vw,36px);text-wrap:balance}
+.closing span{display:inline-block;opacity:0}
+.on .closing span{animation:word .7s cubic-bezier(.2,.8,.2,1) calc(.3s + var(--w)*.26s) both}
+.closing .hl{color:var(--green)}
+@keyframes word{from{opacity:0;transform:translateY(.4em);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.slide[aria-label="Gracias"] h1{font-size:clamp(2.4rem,min(6vw,10vh),6.4rem)}
+.slide[aria-label="Gracias"] .a{animation-delay:calc(2.6s + (var(--i,0) - 9)*.15s)!important}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.a,.closing span{opacity:1}.fl{opacity:.5}}
+@media (max-width:900px),(max-aspect-ratio:1/1){
+  .slide{align-items:flex-end}
+  .L .panel,.R .panel,.panel.narrow{width:100%}
+  .g4,.g5,.tl,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .panel.fit .bento{grid-template-rows:none}
+  .road,.vs{grid-template-columns:1fr}.vs .mid{display:none}
+  .demo{grid-template-columns:1fr;justify-items:center;text-align:center}
+}
+@media (max-width:520px){.g3,.g4,.g5,.tl{grid-template-columns:1fr}.slide.C{align-items:flex-start}}
+</style>
+</head>
+<body>
+
+<div id="orbs" aria-hidden="true"><i></i><i></i><i></i></div>
+<canvas id="gl" class="off" aria-hidden="true"></canvas>
+
+<!-- etiquetas que siguen al modelo 3D (data-for = vista, data-part = ancla) -->
+<div id="labels" aria-hidden="true">
+  <div class="pl sk" data-for="data" data-part="sat"><i></i><em></em><span>Satélites y modelos <b>NASA</b></span></div>
+  <div class="pl" data-for="data" data-part="field"><i></i><em></em><span><b>NASA POWER</b> · clima de tu parcela</span></div>
+  <div class="pl sk left" data-for="data" data-part="beam"><i></i><em></em><span><b>GPM IMERG</b> · lluvia fuerte</span></div>
+  <div class="pl wh" data-for="data" data-part="moist"><i></i><em></em><span><b>SMAP</b> · humedad del suelo</span></div>
+  <div class="pl" data-for="layers" data-part="crop"><i></i><em></em><span>Cubierta: frena la erosión</span></div>
+  <div class="pl wh" data-for="layers" data-part="organic"><i></i><em></em><span>Materia orgánica: la parte fértil</span></div>
+  <div class="pl sk left" data-for="layers" data-part="moist"><i></i><em></em><span>Humedad · medida por <b>SMAP</b></span></div>
+  <div class="pl" data-for="layers" data-part="roots"><i></i><em></em><span>Raíces de leguminosa: fijan nitrógeno</span></div>
+</div>
+
+<main id="ui">
+
+<!-- 1 · Pregunta -->
+<section class="slide C blank" data-band="off" aria-label="Pregunta">
+  <div class="floaters" aria-hidden="true">
+    <i class="fl" style="left:7%;top:14%;width:7rem;height:7rem;--r:-14deg"><svg viewBox="0 0 24 24" stroke="#2e9e4f" stroke-width="1.6"><path d="M12 21V11M12 11c0-4 2.5-6.5 7-7-.6 4.4-3 6.8-7 7zM12 14c0-3-1.8-5-5.5-5.5.5 3.4 2.3 5.2 5.5 5.5z"/></svg></i>
+    <i class="fl" style="left:84%;top:16%;width:5.5rem;height:5.5rem;--r:12deg"><svg viewBox="0 0 24 24" stroke="#d9a520" stroke-width="1.6"><path d="M12 21V5M12 8l-3-2M12 8l3-2M12 12l-3-2M12 12l3-2M12 16l-3-2M12 16l3-2"/></svg></i>
+    <i class="fl" style="left:88%;top:68%;width:8rem;height:8rem;--r:-8deg"><svg viewBox="0 0 24 24" stroke="#7a5235" stroke-width="1.4"><path d="M3 10h18M3 15h18M3 20h18"/></svg></i>
+    <i class="fl" style="left:16%;top:72%;width:5rem;height:5rem;--r:10deg"><svg viewBox="0 0 24 24" stroke="#3f8fd6" stroke-width="1.6"><path d="M7 15a4 4 0 1 1 .9-7.9A6 6 0 0 1 19 9a4 4 0 0 1-1 6"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/></svg></i>
+    <i class="fl" style="left:50%;top:8%;width:3.5rem;height:3.5rem;--r:6deg"><svg viewBox="0 0 24 24" stroke="#2e9e4f" stroke-width="1.6"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></i>
+    <i class="fl" style="left:32%;top:86%;width:4rem;height:4rem;--r:-18deg"><svg viewBox="0 0 24 24" stroke="#d9a520" stroke-width="1.6"><path d="M12 21V11M12 11c0-4 2.5-6.5 7-7-.6 4.4-3 6.8-7 7z"/></svg></i>
+    <i class="fl" style="left:70%;top:84%;width:3.4rem;height:3.4rem;--r:20deg"><svg viewBox="0 0 24 24" stroke="#2e9e4f" stroke-width="1.6"><path d="M12 21V5M12 9l-3-2M12 9l3-2M12 13l-3-2M12 13l3-2"/></svg></i>
+  </div>
+  <p class="q a" style="--i:0">¿Cuánto tarda en formarse <span class="grad">1 cm</span> de suelo fértil?</p>
+</section>
+
+<!-- 2 · Respuesta + problema -->
+<section class="slide C" data-band="off" aria-label="El problema">
+  <div class="panel">
+    <p class="kk cl a" style="--i:0">El problema</p>
+    <p class="answer a" style="--i:1"><span class="grad">Hasta 1.000 años.</span></p>
+    <h2 class="a answer-sub" style="--i:2;margin-top:clamp(10px,1.4vw,20px)">Una tormenta sobre suelo desnudo puede llevárselo en una tarde.</h2>
+    <div class="grid g4">
+      <div class="card a" style="--i:3"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 10h18M3 15h18M3 20h18"/></svg></div><h3>Suelo desnudo</h3><p>Meses sin protección entre cosecha y siembra</p></div>
+      <div class="card a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 15a4 4 0 1 1 .9-7.9A6 6 0 0 1 19 9a4 4 0 0 1-1 6"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/></svg></div><h3>Tormentas de otoño</h3><p>Llegan justo cuando la tierra está al descubierto</p></div>
+      <div class="card a" style="--i:5"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"/></svg></div><h3>Más calor, menos agua</h3><p>El secano lo nota primero</p></div>
+      <div class="card a" style="--i:6"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Decidir a ojo</h3><p>Los datos existen, pero no llegan al campo</p></div>
+    </div>
+    <p class="src a" style="--i:7">Fuente: FAO, Año Internacional de los Suelos.</p>
+  </div>
+</section>
+
+<!-- 3 · Portada -->
+<section class="slide L" data-band="cover" aria-label="Portada">
+  <div class="panel">
+    <div class="logo a" style="--i:0">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/><rect x="4" y="25.5" width="24" height="3.5" rx="1.75" fill="#7a6247"/><path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/><path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/></svg>
+      <span class="word">Deep<span class="grad">Kore</span></span>
+    </div>
+    <p class="sub a" style="--i:1">Elige la rotación que protege tu suelo,<br>y prepárate antes de que llegue el riesgo.</p>
+    <p class="meta a" style="--i:2">NASA Space Apps Challenge 2026 · Málaga<br>Reto: Field Shift: Adapting Farms with NASA Data</p>
+  </div>
+</section>
+
+<!-- 4 · Solución -->
+<section class="slide C" data-band="off" aria-label="La solución">
+  <div class="panel">
+    <p class="kk a" style="--i:0">La solución</p>
+    <h2 class="a" style="--i:1">Datos de la NASA, <span class="grad">en el idioma del campo.</span></h2>
+    <div class="grid g3 tall">
+      <div class="card step a" style="--i:2"><b>1</b><h3>Dinos qué te importa</h3><p>Agua, salud del suelo, dinero o erosión. Cuatro barras, nada más.</p></div>
+      <div class="card step a" style="--i:3"><b>2</b><h3>Leemos los datos NASA</h3><p>Clima, lluvia fuerte y humedad del suelo de tu parcela.</p></div>
+      <div class="card step a" style="--i:4"><b>3</b><h3>Elige y prepárate</h3><p>La rotación que más te conviene y las semanas de riesgo del año.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Los datos (3D: satélite + haz) -->
+<section class="slide R" data-band="data" aria-label="Los datos">
+  <div class="panel glass narrow">
+    <p class="kk a" style="--i:0">Los datos</p>
+    <h2 class="a" style="--i:1">La NASA ya mira <span class="grad">tu parcela.</span></h2>
+    <div class="rows">
+      <div class="row a" style="--i:2"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4"/></svg></div><div><h3>NASA POWER</h3><p>Clima diario: cuándo hiela y cuándo aprieta el calor</p></div></div>
+      <div class="row a" style="--i:3"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 15a4 4 0 1 1 .9-7.9A6 6 0 0 1 19 9a4 4 0 0 1-1 6"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/></svg></div><div><h3>GPM IMERG</h3><p>Lluvia cada media hora: las semanas de tormenta</p></div></div>
+      <div class="row a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div><div><h3>SMAP</h3><p>Humedad del suelo, medida desde el espacio</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Bajo tus pies (3D: corte del suelo) -->
+<section class="slide B" data-band="layers" aria-label="Bajo tus pies">
+  <div class="panel glass slim">
+    <p class="kk a" style="--i:0">Por dentro</p>
+    <h2 class="a" style="--i:1;margin-bottom:clamp(8px,1vw,14px)">Lo que pasa <span class="grad">bajo tus pies</span></h2>
+    <p class="lead2 a" style="--i:2">Una buena rotación cubre el suelo, lo alimenta y guarda el agua.</p>
+  </div>
+</section>
+
+<!-- 7 · Todo lo que hace -->
+<section class="slide C" data-band="off" aria-label="La app">
+  <div class="panel fit">
+    <p class="kk a" style="--i:0">La app</p>
+    <h2 class="a" style="--i:1;margin-bottom:clamp(10px,1.4vw,20px)">Todo lo que hace <span class="grad">DeepKore</span></h2>
+    <div class="bento">
+      <div class="tile hero w2 h2 a" style="--i:2">
+        <div class="msl">
+          <div>Agua<s style="--k:#64d2ff;--w:70%;--w2:35%;--d:0s"></s></div>
+          <div>Suelo<s style="--k:#c4a77d;--w:60%;--w2:90%;--d:-1s"></s></div>
+          <div>Dinero<s style="--k:#ffd60a;--w:50%;--w2:75%;--d:-2s"></s></div>
+          <div>Erosión<s style="--k:#ff9f0a;--w:40%;--w2:80%;--d:-3s"></s></div>
+        </div>
+        <h3>Tus prioridades mandan.</h3><p>Mueves una barra y el ranking se reordena al momento.</p>
+      </div>
+      <div class="tile w2 a" style="--i:3"><div class="heat" id="mini-heat"></div><h3>Calendario de riesgos</h3><p>Helada, calor y lluvia fuerte, semana a semana</p></div>
+      <div class="tile c1 a" style="--i:4"><div class="rings"><svg viewBox="0 0 64 64" style="--k:0;--off:52"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26"/></svg><svg viewBox="0 0 64 64" style="--k:1;--off:72"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26"/></svg><svg viewBox="0 0 64 64" style="--k:2;--off:100"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26"/></svg></div><h3>4 rotaciones</h3><p>La tuya y 3 alternativas</p></div>
+      <div class="tile c4 a" style="--i:5"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><h3>¿Y si llueve menos?</h3><p>Simulador de clima</p></div>
+      <div class="tile c3 a" style="--i:6"><div class="tags"><span style="--k:#248a3d">Observed</span><span style="--k:#0071e3">Derived</span><span style="--k:#af52de">AI-inferred</span><span style="--k:#c93400">Simulated</span></div><h3>Cada dato dice de dónde viene</h3></div>
+      <div class="tile c4 a" style="--i:7"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Ventana de erosión</h3><p>Tormenta + suelo desnudo</p></div>
+      <div class="tile c2 a" style="--i:8"><div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.5h4"/></svg></div><h3>En el móvil</h3><p>Se instala como una app</p></div>
+      <div class="tile c1 a" style="--i:9"><div class="big">0 €</div><h3>Datos abiertos</h3><p>NASA + código abierto</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · Un año en tu parcela -->
+<section class="slide C" data-band="off" aria-label="Un año en tu parcela">
+  <div class="panel">
+    <p class="kk a" style="--i:0">Un año con DeepKore</p>
+    <h2 class="a" style="--i:1">Prepárate <span class="grad">antes del riesgo</span></h2>
+    <div class="tl">
+      <div class="card a" style="--i:2"><span class="pin"></span><span class="t">ENE</span><p class="say">Semanas de helada.<em>Protege lo que esté en flor.</em></p></div>
+      <div class="card a" style="--i:3"><span class="pin"></span><span class="t">JUL</span><p class="say">Golpe de calor.<em>El girasol sufre en floración.</em></p></div>
+      <div class="card a" style="--i:4"><span class="pin"></span><span class="t">OCT</span><p class="say">Tormentas con suelo desnudo.<em>Siembra una cubierta.</em></p></div>
+      <div class="card a" style="--i:5"><span class="pin"></span><span class="t">NOV</span><p class="say">Suelo más seco de lo normal.<em>Espera antes de sembrar.</em></p></div>
+      <div class="card a" style="--i:6"><span class="pin"></span><span class="t">AÑO 2</span><p class="say">Entra una leguminosa.<em>Menos abono para el trigo.</em></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · Comparador -->
+<section class="slide C" data-band="off" aria-label="Comparador">
+  <div class="panel">
+    <p class="kk a" style="--i:0">El resultado <span class="pill" id="vs-pill" hidden>Datos de ejemplo</span></p>
+    <h2 class="a" style="--i:1">Tu rotación de hoy <span class="grad">vs la mejor para ti</span></h2>
+    <div class="vs" id="vs"></div>
+  </div>
+</section>
+
+<!-- 10 · Confianza -->
+<section class="slide C" data-band="off" aria-label="Confianza">
+  <div class="panel">
+    <p class="kk a" style="--i:0">Confianza</p>
+    <h2 class="a" style="--i:1">Apoya al agricultor. <span class="grad">No lo sustituye.</span></h2>
+    <div class="grid g4 tall">
+      <div class="card a" style="--i:2"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Procedencia</h3><p>Cada número dice si es observado, calculado, de IA o simulado</p></div>
+      <div class="card a" style="--i:3"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg></div><h3>Lagunas a la vista</h3><p>Lo que los datos no saben, lo decimos</p></div>
+      <div class="card a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Riesgos que revisar</h3><p>Cada rotación trae su lista para el técnico</p></div>
+      <div class="card a" style="--i:5"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></svg></div><h3>Tu agrónomo decide</h3><p>Un aviso fijo en toda la app lo recuerda</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · Retos -->
+<section class="slide C" data-band="off" aria-label="Retos">
+  <div class="panel">
+    <p class="kk cl a" style="--i:0">Lo que aprendimos</p>
+    <h2 class="a" style="--i:1">Retos <span class="grad">→ soluciones</span></h2>
+    <div class="grid g5 retos">
+      <div class="card a" style="--i:2"><span class="from">Píxeles de 50 km</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Lo decimos claro en Límites</h3></div>
+      <div class="card a" style="--i:3"><span class="from">Datos complicados</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Cuatro barras y un calendario</h3></div>
+      <div class="card a" style="--i:4"><span class="from">La IA puede inventar</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Etiqueta en cada dato</h3></div>
+      <div class="card a" style="--i:5"><span class="from">Mala cobertura en el campo</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Web ligera e instalable</h3></div>
+      <div class="card a" style="--i:6"><span class="from">Reglas PAC que cambian</span><span class="arr"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><h3>Orientativo, a revisar</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · Para quién -->
+<section class="slide C" data-band="off" aria-label="Para quién">
+  <div class="panel">
+    <p class="kk a" style="--i:0">Impacto</p>
+    <h2 class="a" style="--i:1">Gratis hoy. <span class="grad">Global mañana.</span></h2>
+    <div class="grid g3">
+      <div class="card c1 a" style="--i:2"><span class="lab">Para quién</span><h3>Agricultores de secano, cooperativas y técnicos</h3></div>
+      <div class="card c2 a" style="--i:3"><span class="lab">Coste</span><h3>Datos abiertos de la NASA y una web estática</h3></div>
+      <div class="card c3 a" style="--i:4"><span class="lab">Escala</span><h3>Los datos son globales: vale para cualquier parcela</h3></div>
+      <div class="card c4 a" style="--i:5"><span class="lab">Canales</span><h3>Cooperativas y oficinas comarcales agrarias</h3></div>
+      <div class="card c1 a" style="--i:6"><span class="lab">Valor</span><h3>Menos erosión, menos abono, decisiones con datos</h3></div>
+      <div class="card c2 a" style="--i:7"><span class="lab">Aliados</span><h3>Administraciones, centros de investigación y la PAC</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · Roadmap -->
+<section class="slide C" data-band="off" aria-label="Roadmap">
+  <div class="panel">
+    <p class="kk a" style="--i:0">Roadmap</p>
+    <h2 class="a" style="--i:1">De una parcela <span class="grad">a cualquier campo</span></h2>
+    <div class="road">
+      <div class="card c1 a" style="--i:2"><span class="lab">Hoy</span><h3>Prototipo</h3><div class="chips"><span class="chip">Antequera</span><span class="chip">3 datasets NASA</span><span class="chip">Web app</span></div></div>
+      <div class="card c2 a" style="--i:3"><span class="lab">Después</span><h3>Piloto</h3><div class="chips"><span class="chip">Cooperativas de Málaga</span><span class="chip">Tu parcela dibujada</span><span class="chip">Pendiente y vegetación</span></div></div>
+      <div class="card c4 a" style="--i:4"><span class="lab">Futuro</span><h3>Escala</h3><div class="chips"><span class="chip">Cualquier parcela</span><span class="chip">Avisos al móvil</span><span class="chip">Más cultivos</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · Demo -->
+<section class="slide C" data-band="off" aria-label="Pruébala">
+  <div class="panel slim">
+    <p class="kk a" style="--i:0">Demo</p>
+    <h2 class="a" style="--i:1">Pruébala <span class="grad">ahora mismo.</span></h2>
+    <div class="demo a" style="--i:2">
+      <div class="qr" id="qr" role="img" aria-label="Código QR de la app"></div>
+      <div>
+        <p class="url" id="app-url"></p>
+        <p class="meta" style="margin-top:12px">Móvil u ordenador · sin registro · se instala como app</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 · Cierre -->
+<section class="slide L" data-band="cover" aria-label="Gracias">
+  <div class="panel">
+    <p class="closing"><span style="--w:0">El</span> <span style="--w:1">suelo</span> <span style="--w:2">tarda</span> <span style="--w:3">mil</span> <span style="--w:4">años</span> <span style="--w:5">en</span> <span style="--w:6">formarse.</span> <span class="hl" style="--w:7">Protejámoslo</span> <span class="hl" style="--w:8">a</span> <span class="hl" style="--w:9">tiempo.</span></p>
+    <p class="kk a" style="--i:9">DeepKore · Datos de la NASA para el campo</p>
+    <h1 class="a" style="--i:11">Gracias<span class="grad">.</span></h1>
+  </div>
+</section>
+
+</main>
+
+<div class="hud">
+  <span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/><rect x="4" y="25.5" width="24" height="3.5" rx="1.75" fill="#7a6247"/><path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/><path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/></svg><span>Deep<span style="color:var(--green)">Kore</span></span></span>
+  <div class="furrow" id="furrow" aria-hidden="true"></div>
+  <span class="cnt" id="cnt">01 / 15</span>
+  <div class="nav">
+    <button type="button" id="prev" aria-label="Diapositiva anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button type="button" id="next" aria-label="Diapositiva siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
+<div id="hint">← → para navegar · F pantalla completa</div>
+
+<script src="../vendor/three/three.min.js"></script>
+<script src="../vendor/qrcode/qrcode.js"></script>
+<script>
+/* ===================== Datos del comparador =====================
+   EJEMPLO (MOCK) hasta tener rotations.json real. Cuando llegue, sustituir estos números
+   por los de la app (Compare rotations) y poner mock:false. */
+const DECK = {
+  appUrl: "https://euzapus.github.io/deepkore/",
+  mock: true,
+  now:  { name: "Trigo duro – Girasol", tag: "Tu rotación actual", seq: ["Trigo duro", "Girasol"], score: 44,
+          scores: { Agua: 45, Suelo: 35, Dinero: 72, Erosión: 30 } },
+  best: { name: "Cebada – Veza – Trigo", tag: "La mejor para tus prioridades", seq: ["Cebada", "Veza", "Trigo duro"], score: 68,
+          scores: { Agua: 70, Suelo: 78, Dinero: 45, Erosión: 72 } },
+};
+
+(function () {
+  const slides = [...document.querySelectorAll(".slide")];
+  const N = slides.length;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let cur = 0;
+
+  /* ---------- comparador ---------- */
+  const C = 2 * Math.PI * 26;
+  const COLORS = { Agua: "#0a84c9", Suelo: "#a2845e", Dinero: "#c98a00", Erosión: "#e0620d" };
+  const card = (r, cls, other) => `
+    <div class="card ${cls} a" style="--i:${cls === "best" ? 4 : 2}">
+      <span class="lab">${r.tag}</span>
+      <div class="score"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:${C * (1 - r.score / 100)}"/></svg>
+        <div><b>${r.score}</b><small>de 100 para tus prioridades</small></div></div>
+      <h3>${r.name}</h3>
+      <div class="seq">${r.seq.map((s) => `<span>${s}</span>`).join("<i>›</i>")}<i>↺</i></div>
+      <div class="bars">${Object.entries(r.scores).map(([k, v]) => {
+        const d = other ? v - other.scores[k] : 0;
+        return `<div>${k}<b>${v}${other && d ? `<em class="${d > 0 ? "up" : "dn"}">${d > 0 ? "+" : "−"}${Math.abs(d)}</em>` : ""}</b><s style="--k:${COLORS[k]};--w:${v}%"></s></div>`;
+      }).join("")}</div>
+    </div>`;
+  document.getElementById("vs").innerHTML = card(DECK.now, "now") + `<div class="mid a" style="--i:3">→</div>` + card(DECK.best, "best", DECK.now);
+  document.getElementById("vs-pill").hidden = !DECK.mock;
+
+  /* ---------- mini calendario (decorativo) ---------- */
+  const heat = document.getElementById("mini-heat");
+  const bump = (w, c, s) => Math.exp(-Math.pow(Math.min(Math.abs(w - c), 52 - Math.abs(w - c)) / s, 2));
+  let html = "";
+  [["#32ade6", 3, 6], ["#ff3b30", 30, 4.5], ["#5856d6", 45, 4]].forEach(([col, c, s]) => {
+    for (let w = 0; w < 52; w += 2) html += `<i style="--hc:${col};--o:${(0.12 + 0.88 * bump(w, c, s)).toFixed(2)};--k:${w}"></i>`;
+  });
+  heat.innerHTML = html;
+
+  /* ---------- QR ---------- */
+  document.getElementById("app-url").textContent = DECK.appUrl.replace(/^https?:\/\//, "");
+  try {
+    const q = qrcode(0, "M"); q.addData(DECK.appUrl); q.make();
+    const n = q.getModuleCount();
+    let d = "";
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c} ${r}h1v1h-1z`;
+    document.getElementById("qr").innerHTML = `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><path d="${d}" fill="#14301f"/></svg>`;
+  } catch (e) { document.getElementById("qr").textContent = DECK.appUrl; }
+
+  /* ---------- surco de progreso ---------- */
+  const furrow = document.getElementById("furrow");
+  const SPROUT = '<svg viewBox="0 0 22 30"><path d="M11 30V14" stroke="#2e9e4f" stroke-width="2.4" stroke-linecap="round"/><path d="M11 16c0-6 3-9.5 9-10.5-.8 6-4 9.5-9 10.5z" fill="#34c759"/><path d="M11 19c0-5-2.4-8-7.5-9 .7 5 3.3 8 7.5 9z" fill="#28a745"/></svg>';
+  const sprouts = slides.map((_, i) => {
+    const x = `${(i / (N - 1)) * 96 + 2}%`;
+    const seed = document.createElement("i"); seed.className = "seed"; seed.style.left = x; furrow.appendChild(seed);
+    const s = document.createElement("span"); s.className = "sprout"; s.style.left = x; s.innerHTML = SPROUT; furrow.appendChild(s);
+    return s;
+  });
+
+  /* ---------- navegación ---------- */
+  const cnt = document.getElementById("cnt");
+  function go(i, fromHash) {
+    i = Math.max(0, Math.min(N - 1, i));
+    slides[cur].classList.remove("on");
+    cur = i;
+    // reinicia animaciones de entrada
+    const s = slides[cur];
+    s.classList.remove("on"); void s.offsetWidth; s.classList.add("on");
+    document.body.classList.toggle("isblank", s.classList.contains("blank"));
+    cnt.textContent = `${String(cur + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`;
+    sprouts.forEach((sp, k) => { sp.classList.toggle("grown", k < cur); sp.classList.toggle("now", k === cur); });
+    if (!fromHash) history.replaceState(null, "", `#${cur + 1}`);
+    scene.setBand(s.dataset.band || "off");
+  }
+  const next = () => go(cur + 1), prev = () => go(cur - 1);
+  document.getElementById("next").addEventListener("click", next);
+  document.getElementById("prev").addEventListener("click", prev);
+  addEventListener("keydown", (e) => {
+    if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); next(); }
+    else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); prev(); }
+    else if (e.key === "Home") go(0);
+    else if (e.key === "End") go(N - 1);
+    else if (e.key === "f" || e.key === "F") {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.();
+    }
+  });
+  let tx = null;
+  addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; }, { passive: true });
+  addEventListener("touchend", (e) => {
+    if (tx == null) return;
+    const dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
+  });
+  setTimeout(() => document.getElementById("hint").classList.add("gone"), 4500);
+
+  /* ===================== Escena 3D: testigo de suelo ===================== */
+  const scene = (function () {
+    const canvas = document.getElementById("gl");
+    const labels = [...document.querySelectorAll(".pl")];
+    const api = { setBand() {} };
+    if (!window.THREE) return api;
+    let renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); } catch (e) { return api; }
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const sc = new THREE.Scene();
+    const cam = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+    sc.add(new THREE.HemisphereLight(0xffffff, 0xcbb89a, 0.95));
+    const sun = new THREE.DirectionalLight(0xffffff, 0.75); sun.position.set(4, 9, 6); sc.add(sun);
+
+    const root = new THREE.Group(); sc.add(root);
+    const core = new THREE.Group(); root.add(core);
+    const R = 1.25, CUT = Math.PI / 2, T0 = CUT / 2, TL = Math.PI * 2 - CUT;
+    const LAYERS = [
+      { h: 0.34, c: 0x4a3324, f: 0x5d4230 },   // horizonte orgánico
+      { h: 0.62, c: 0x6e4c33, f: 0x84603f },   // suelo
+      { h: 0.55, c: 0x9a7650, f: 0xae8a62 },   // subsuelo
+      { h: 0.45, c: 0x8f8a82, f: 0xa29d95 },   // roca madre
+    ];
+    const anchors = {};
+    const anchor = (name, x, y, z, parent = core) => { const o = new THREE.Object3D(); o.position.set(x, y, z); parent.add(o); anchors[name] = o; };
+    const faceDir = (a) => new THREE.Vector3(Math.sin(a), 0, Math.cos(a));
+    let y = 0;
+    LAYERS.forEach((L, i) => {
+      const side = new THREE.MeshStandardMaterial({ color: L.c, roughness: 0.95, flatShading: true });
+      const top = i === 0 ? new THREE.MeshStandardMaterial({ color: 0x4f8a34, roughness: 0.9 }) : side;
+      const g = new THREE.CylinderGeometry(R, R, L.h, 72, 1, false, T0, TL);
+      const m = new THREE.Mesh(g, [side, top, side]); m.position.y = y - L.h / 2; core.add(m);
+      const faceMat = new THREE.MeshStandardMaterial({ color: L.f, roughness: 1, side: THREE.DoubleSide });
+      [T0, T0 + TL].forEach((a) => {
+        const p = new THREE.Mesh(new THREE.PlaneGeometry(R, L.h), faceMat);
+        p.position.copy(faceDir(a).multiplyScalar(R / 2)); p.position.y = y - L.h / 2; p.rotation.y = a - Math.PI / 2; core.add(p);
+      });
+      L.y0 = y; y -= L.h;
+    });
+    const TOP = 0;
+    // detalles en las caras del corte: piedras, gotas de humedad, raíces
+    const faceA = T0, faceB = T0 + TL;
+    const onFace = (a, r, yy, off = 0.012) => {
+      const d = faceDir(a); const n = new THREE.Vector3(Math.cos(a), 0, -Math.sin(a)); // normal del plano
+      const s = a === faceA ? -1 : 1;
+      return d.multiplyScalar(r).add(n.multiplyScalar(off * s)).setY(yy);
+    };
+    const rnd = (() => { let s = 7; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
+    const stoneMat = new THREE.MeshStandardMaterial({ color: 0xb9b2a6, roughness: 1, flatShading: true });
+    for (let k = 0; k < 26; k++) {
+      const a = rnd() < 0.5 ? faceA : faceB, L = LAYERS[2 + Math.floor(rnd() * 2)];
+      const st = new THREE.Mesh(new THREE.IcosahedronGeometry(0.03 + rnd() * 0.05, 0), stoneMat);
+      st.position.copy(onFace(a, 0.15 + rnd() * (R - 0.25), L.y0 - 0.06 - rnd() * (L.h - 0.12), 0.01)); core.add(st);
+    }
+    const dropMat = new THREE.MeshStandardMaterial({ color: 0x4aa3e8, roughness: 0.3, emissive: 0x1a5f9c, emissiveIntensity: 0.25 });
+    const drops = [];
+    for (let k = 0; k < 22; k++) {
+      const a = rnd() < 0.5 ? faceA : faceB, L = LAYERS[1];
+      const dp = new THREE.Mesh(new THREE.SphereGeometry(0.025, 10, 8), dropMat);
+      dp.position.copy(onFace(a, 0.12 + rnd() * (R - 0.2), L.y0 - 0.05 - rnd() * (L.h - 0.1), 0.02)); dp.userData.p = rnd() * 6; core.add(dp); drops.push(dp);
+    }
+    const rootMat = new THREE.LineBasicMaterial({ color: 0xf1e2c2 });
+    [faceA, faceB].forEach((a) => {
+      for (let k = 0; k < 7; k++) {
+        const r0 = 0.15 + rnd() * (R - 0.3), depth = 0.35 + rnd() * 0.65, pts = [];
+        for (let j = 0; j <= 10; j++) { const t = j / 10; pts.push(onFace(a, Math.max(0.05, Math.min(R - 0.05, r0 + Math.sin(t * 6 + k) * 0.05 * t)), TOP - t * depth, 0.015)); }
+        core.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), rootMat));
+        // nódulos de nitrógeno en las raíces
+        const nod = new THREE.Mesh(new THREE.SphereGeometry(0.018, 8, 6), new THREE.MeshStandardMaterial({ color: 0xffb4a0 }));
+        nod.position.copy(pts[6]); core.add(nod);
+      }
+    });
+    // trigo encima (instanciado)
+    const NST = 340;
+    const stalks = new THREE.InstancedMesh(new THREE.ConeGeometry(0.018, 0.34, 5), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.8 }), NST);
+    const base = [], dummy = new THREE.Object3D(), col = new THREE.Color();
+    for (let k = 0; k < NST; k++) {
+      const r = Math.sqrt(rnd()) * (R - 0.06), th = T0 + rnd() * TL;
+      base.push({ x: Math.sin(th) * r, z: Math.cos(th) * r, h: 0.75 + rnd() * 0.5, p: rnd() * 6.28 });
+      col.set(rnd() < 0.55 ? 0x7cbf45 : rnd() < 0.5 ? 0x9ccc4a : 0xd9b44a); stalks.setColorAt(k, col);
+    }
+    core.add(stalks);
+    anchor("crop", 0.0, TOP + 0.3, 0.55);
+    anchor("organic", ...onFace(faceA, R * 0.62, -0.17).toArray());
+    anchor("moist", ...onFace(faceB, R * 0.6, LAYERS[1].y0 - 0.3).toArray());
+    anchor("roots", ...onFace(faceA, R * 0.55, -0.72).toArray());
+    anchor("field", -0.5, TOP + 0.25, -0.4);
+
+    // satélite + haz
+    const sat = new THREE.Group(); root.add(sat);
+    const gold = new THREE.MeshStandardMaterial({ color: 0xf2c94c, metalness: 0.25, roughness: 0.35, emissive: 0x6b4e00, emissiveIntensity: 0.25 });
+    const blue = new THREE.MeshStandardMaterial({ color: 0x2a5fa8, metalness: 0.3, roughness: 0.4, emissive: 0x0b2a55, emissiveIntensity: 0.4 });
+    sat.add(new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.2, 0.2), gold));
+    [-1, 1].forEach((s) => { const pn = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.015, 0.22), blue); pn.position.x = s * 0.4; pn.rotation.x = 0.55; sat.add(pn); });
+    const dish = new THREE.Mesh(new THREE.ConeGeometry(0.08, 0.08, 16, 1, true), new THREE.MeshStandardMaterial({ color: 0xeeeeee, side: THREE.DoubleSide })); dish.position.y = -0.14; dish.rotation.x = Math.PI; sat.add(dish);
+    anchor("sat", 0.3, 0.12, 0, sat);
+    const beamH = 2.2;
+    const beam = new THREE.Mesh(new THREE.ConeGeometry(1.05, beamH, 40, 1, true),
+      new THREE.MeshBasicMaterial({ color: 0x34c759, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false }));
+    root.add(beam);
+    anchor("beam", 0.6, 0.9, 0.2, root);
+
+    // vistas por diapositiva
+    const VIEWS = {
+      cover:  { x: 1.8, y: 0.35, cam: [0, 2.0, 8.6], look: [0, -0.35, 0], spin: true, beam: 0 },
+      data:   { x: -1.7, y: -0.4, cam: [0, 2.4, 8.2], look: [0, 0.2, 0], spin: true, beam: 0.22 },
+      layers: { x: 0, y: 0.95, cam: [0, 1.3, 5.9], look: [0, 0.05, 0], spin: false, rot: 0, beam: 0 },
+      off:    { x: 0, y: 0, cam: [0, 2.0, 7.6], look: [0, -0.35, 0], spin: true, beam: 0 },
+    };
+    let band = "off", view = VIEWS.off;
+    const camPos = new THREE.Vector3(...view.cam), look = new THREE.Vector3(...view.look);
+    let rotY = 0, satT = 0;
+    api.setBand = (b) => { band = VIEWS[b] ? b : "off"; view = VIEWS[band]; canvas.classList.toggle("off", band === "off"); };
+
+    function resize() {
+      const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix();
+    }
+    addEventListener("resize", resize); resize();
+
+    const v = new THREE.Vector3();
+    const lerp = (a, b, k) => a + (b - a) * k;
+    let last = performance.now();
+    function frame(now) {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      const t = now / 1000, k = 1 - Math.pow(0.0025, dt);
+      // narrow screens: center the model
+      const narrow = innerWidth < 900 || innerWidth / innerHeight < 1;
+      root.position.x = lerp(root.position.x, narrow ? 0 : view.x, k);
+      root.position.y = lerp(root.position.y, narrow ? view.y + 0.9 : view.y, k);
+      camPos.lerp(v.set(...view.cam), k); look.lerp(v.set(...view.look), k);
+      cam.position.copy(camPos); cam.lookAt(look);
+      if (view.spin) rotY += dt * (reduce ? 0 : 0.22);
+      else { const target = Math.round(rotY / (Math.PI * 2)) * Math.PI * 2 + view.rot; rotY = lerp(rotY, target, k); }
+      core.rotation.y = rotY;
+      // trigo que se mece
+      for (let i = 0; i < NST; i++) {
+        const b = base[i];
+        dummy.position.set(b.x, TOP + 0.17 * b.h, b.z); dummy.scale.set(1, b.h, 1);
+        dummy.rotation.set(reduce ? 0 : Math.sin(t * 1.6 + b.p) * 0.12, 0, reduce ? 0 : Math.cos(t * 1.3 + b.p) * 0.1);
+        dummy.updateMatrix(); stalks.setMatrixAt(i, dummy.matrix);
+      }
+      stalks.instanceMatrix.needsUpdate = true;
+      drops.forEach((d) => d.scale.setScalar(0.85 + 0.25 * Math.sin(t * 2 + d.userData.p)));
+      // órbita del satélite
+      satT += dt * (reduce ? 0 : 0.35);
+      const orbit = band === "data" ? 0.0 : satT;
+      sat.position.set(Math.sin(orbit) * 1.6, 2.3 + Math.sin(t * 0.8) * 0.05, Math.cos(orbit) * 0.9 - 0.3);
+      sat.rotation.set(0, -orbit * 0.6, Math.sin(t * 0.7) * 0.08);
+      beam.position.set(sat.position.x, sat.position.y - beamH / 2 - 0.12, sat.position.z);
+      beam.material.opacity = lerp(beam.material.opacity, view.beam * (0.75 + 0.25 * Math.sin(t * 3)), k);
+      renderer.render(sc, cam);
+      // etiquetas
+      labels.forEach((el) => {
+        const a = anchors[el.dataset.part];
+        const show = el.dataset.for === band && a;
+        if (!show) { el.style.opacity = 0; return; }
+        a.getWorldPosition(v); v.project(cam);
+        const x = (v.x * 0.5 + 0.5) * innerWidth, yy = (-v.y * 0.5 + 0.5) * innerHeight;
+        const left = el.classList.contains("left");
+        el.style.transform = `translate(${left ? x - el.offsetWidth + 6 : x - 6}px, ${yy - el.offsetHeight / 2}px)`;
+        el.style.opacity = narrow && el.dataset.for === "data" ? 0 : 1;
+      });
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    return api;
+  })();
+
+  const start = parseInt(location.hash.slice(1), 10);
+  go(Number.isFinite(start) ? start - 1 : 0, true);
+  addEventListener("hashchange", () => { const n = parseInt(location.hash.slice(1), 10); if (Number.isFinite(n) && n - 1 !== cur) go(n - 1, true); });
+})();
+</script>
+</body>
+</html>
