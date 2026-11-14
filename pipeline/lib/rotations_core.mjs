@@ -286,6 +286,12 @@ export function buildScenarios({ days: baseDays, lat, elev, y0, y1, TH, RULES, I
     const clim = c.buildClimate(days, y0, y1, th);
     const weeks = c.buildWeeks(days, y0, y1, th);
     const scored = Object.fromEntries(texts.map((m) => [m.id, scoreRotation(m.sequence, clim.monthly, weeks, RULES, INCOME).scores]));
+    // Inputs of the scores, so the browser can score a rotation built by the user for this scenario (scenarioClimate).
+    const inputs = {
+      precip_mm: clim.monthly.precip_mm,
+      et0: clim.monthly.et0,
+      weeks: Object.fromEntries(["p_frost", "p_heat", "p_extreme_rain"].map((k) => [k, weeks.map((w) => w[k])])),
+    };
     const totals = Object.fromEntries(Object.entries(scored).map(([id, s]) => [id, totalScore(s)]));
     onProgress?.(i + 1, grid.length);
     return {
@@ -296,11 +302,73 @@ export function buildScenarios({ days: baseDays, lat, elev, y0, y1, TH, RULES, I
       ranking: Object.keys(totals).sort((a, b) => totals[b] - totals[a]),
       scores: totals,
       criteria: scored,
+      inputs,
       provenance: "simulated",
       dataset: "NASA POWER",
       method: `Daily NASA POWER ${period}: rain x (1 + rain_pct/100), Tmax and Tmin + temp_delta; ET0, weekly chances and scores recomputed. Ranking = equal weights of ${RANK_KEYS.join(", ")} (income left out: it does not change with climate in this model).`,
     };
   });
+}
+
+// { monthly, weeks } of a scenario, in the shape scoreRotation takes. null if the file has no inputs (older files).
+export function scenarioClimate(s) {
+  const i = s?.inputs;
+  if (!i?.precip_mm || !i?.et0 || !i?.weeks?.p_frost) return null;
+  return {
+    monthly: { precip_mm: i.precip_mm, et0: i.et0 },
+    weeks: i.weeks.p_frost.map((_, k) => ({ week: k + 1, p_frost: i.weeks.p_frost[k], p_heat: i.weeks.p_heat[k], p_extreme_rain: i.weeks.p_extreme_rain[k] })),
+  };
+}
+
+/* ---------- rotations built by the user (browser) ---------- */
+
+// Crops a user can pick: every crop in agro_rules.json (Fallow included).
+export const pickableCrops = (RULES) => Object.keys(RULES?.crops || {});
+
+// Same family in two consecutive crop years (the rotation repeats, so the last and the first are consecutive too).
+export function sameFamilyInARow(seq, RULES) {
+  const fam = seq.map((n) => RULES.crops[n]?.family?.value ?? null);
+  return fam.some((f, i) => f !== null && fam.length > 1 && f === fam[(i + 1) % fam.length]);
+}
+
+// A rotation built by the user from crops in agro_rules.json, scored with the same formulas as the others.
+// Throws (message for the user) if a crop is unknown, everything is fallow, or the calendars do not give one crop per year.
+export function buildCustomRotation({ id, sequence, monthly, weeks, RULES, TH, INCOME, period, today }) {
+  const unknown = sequence.filter((n) => !RULES.crops[n]);
+  if (unknown.length) throw new Error(`No rules for ${unknown.join(", ")}.`);
+  if (sequence.every((n) => isBare(RULES.crops[n]))) throw new Error("Add at least one crop that is not fallow.");
+  let res;
+  try {
+    res = scoreRotation(sequence, monthly, weeks, RULES, INCOME);
+  } catch (err) {
+    if (/cycle/.test(err.message)) throw new Error("With our crop calendars these crops do not fit one crop per year in this order. Try another order.");
+    throw err;
+  }
+  const { scores, detail } = res;
+  return {
+    id,
+    name: `Your rotation: ${sequence.join(" – ")}`,
+    sequence: [...sequence],
+    custom: true,
+    can_be_current: true,
+    scores,
+    confidence: "low",
+    why: "Built by you from crops in our rule table.",
+    evidence: evidence(detail, period, TH),
+    benefits: [],
+    gaps: ["Built from the crop rules only: no texts reviewed by the team"],
+    risks: [],
+    same_family_in_a_row: sameFamilyInARow(sequence, RULES),
+    pac_eligible: "TBD",
+    income: rotationIncome(sequence, INCOME),
+    bare_months: bareMonths(detail.bareShare),
+    bare_months_share: detail.bareShare.map((b) => Math.round(b * 100) / 100),
+    water_balance: detail.water.map((x) => ({ crop: x.crop, months: x.months, rain_mm: round(x.rain, 1), need_mm: x.need === null ? null : round(x.need, 1) })),
+    provenance: "derived",
+    dataset: "NASA POWER",
+    method: "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json, in your browser",
+    generated_at: today,
+  };
 }
 
 // Throws if the (0, 0) scenario does not reproduce the rotation scores exactly.

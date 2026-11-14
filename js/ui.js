@@ -164,8 +164,9 @@ export function animateNumber(el, to, decimals = 0, ms = 700) {
 }
 
 /* ---------- rotations helpers ---------- */
+// Without the "A:" / "Current:" prefix; " - " between crops shown as an en dash, as in the rest of the app.
 export function displayName(rotation) {
-  return String(rotation.name ?? rotation.id).replace(/^\s*(current|[A-Z])\s*:\s*/i, "");
+  return String(rotation.name ?? rotation.id).replace(/^\s*(current|[A-Z])\s*:\s*/i, "").replace(/ - /g, " – ");
 }
 
 // currentId: the rotation the user grows today (store.current_rotation resolved by js/choice.js).

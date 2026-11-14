@@ -122,12 +122,13 @@ export function render(el, ctx) {
       <div class="detail__top">
         <div>
           <p class="detail__tag">#${pos + 1} · ${esc(rotationTag(r, current.id))} · <b>${Math.round(total)}/100</b>${vs ? ` <span class="bar__delta ${diff > 0 ? "up" : diff < 0 ? "down" : ""}">${diff > 0 ? "+" : diff < 0 ? "−" : "±"}${Math.abs(diff)}</span> vs your current rotation` : ""} ${pos === 0 ? '<span class="pill">Best match</span>' : ""}</p>
-          <h2>${esc(displayName(r))}</h2>
+          <h2>${esc(displayName(r))}${r.custom ? ' <span class="chip">Your rotation</span>' : ""}</h2>
           ${sequenceHTML(r.sequence)}
         </div>
         <div class="detail__score">${ringHTML(84)}<div>Match score</div></div>
       </div>
       <p class="detail__why">${esc(r.why)} ${provBadge(r.provenance, datasetOf(r))}</p>
+      ${r.same_family_in_a_row ? `<p class="note" style="margin-top:0">${icon(ICON.warn, 15)} Same crop family two years in a row</p>` : ""}
       <div class="bars">
         ${ALL_CRITERIA.filter((c) => !unscored.includes(c)).map((c) => {
           const v = Number(r.scores?.[c.key]) || 0;

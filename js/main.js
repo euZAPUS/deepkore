@@ -6,6 +6,7 @@ import { revealIn } from "./motion.js";
 import { initTheme } from "./theme.js";
 import { store } from "./store.js";
 import { analyse, loadCached, cancelAnalysis } from "./live.js";
+import { loadRules, withCustom } from "./custom.js";
 import * as field from "./views/field.js";
 import * as risks from "./views/risks.js";
 import * as rotations from "./views/rotations.js";
@@ -39,7 +40,8 @@ function currentId() {
   return SECTIONS.some((s) => s.id === id) ? id : DEFAULT_SECTION;
 }
 
-function route() {
+// keepScroll: re-render the same screen in place (e.g. after adding a rotation of your own).
+function route({ keepScroll = false } = {}) {
   const id = currentId();
   const index = SECTIONS.findIndex((s) => s.id === id);
   const section = SECTIONS[index];
@@ -62,7 +64,15 @@ function route() {
   main.appendChild(view);
   const ready = section.files.every((f) => ctx.data[f]);
   const viewModule = ready ? VIEWS[id] : waiting; // a screen waits until all its data files exist
-  cleanup = viewModule.render(view, { ...ctx, section, sectionIndex: index, next: SECTIONS[index + 1] ?? null });
+  // the screens get the data plus the rotations the user built (js/custom.js); ctx.data stays as loaded
+  const y = window.scrollY;
+  const data = withCustom(ctx.data, ctx.rules, store.get().custom_rotations);
+  cleanup = viewModule.render(view, { ...ctx, data, section, sectionIndex: index, next: SECTIONS[index + 1] ?? null });
+  if (keepScroll) {
+    view.querySelectorAll(".reveal").forEach((r) => r.classList.add("is-in"));
+    window.scrollTo({ top: y, behavior: "instant" });
+    return;
+  }
   window.scrollTo({ top: 0, behavior: "instant" });
   revealIn(view);
   view.querySelector("h1")?.focus({ preventScroll: true });
@@ -168,11 +178,11 @@ async function setLocation(loc, { refresh = false } = {}) {
 async function start() {
   buildNav();
   initTheme();
-  window.addEventListener("hashchange", route);
+  window.addEventListener("hashchange", () => route());
   try {
-    const { data, problems, missing } = await loadAll();
+    const [{ data, problems, missing }, rules] = await Promise.all([loadAll(), USING_MOCK ? null : loadRules()]);
     baseData = data;
-    ctx = { data, problems, missing, usingMock: USING_MOCK, setLocation };
+    ctx = { data, problems, missing, rules, usingMock: USING_MOCK, setLocation, refresh: () => route({ keepScroll: true }) };
     const mock = !HIDE_MOCK_STRIP && anyMock(data);
     document.querySelectorAll(".js-mock").forEach((p) => (p.hidden = !mock));
     showDataWarning(problems);

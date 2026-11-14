@@ -21,7 +21,7 @@ farmer's decision; it does not make it.
 **Live demo:** <https://euzapus.github.io/deepkore/> · Pitch deck: <https://euzapus.github.io/deepkore/pitch/> · Code: <https://github.com/euZAPUS/deepkore>
 
 **How to use it (2 minutes).** A short welcome card explains the app on first visit (reopen it with the **?** button).
-1. **My field**: see the field on the map, tell DeepKore **What do you grow now?** (your current rotation; it is remembered on this device), set your priorities with the sliders and choose rainfed or irrigated.
+1. **My field**: see the field on the map, tell DeepKore **What do you grow now?** (your current rotation; it is remembered on this device; with **Build your own…** you can put together up to 3 rotations of your own from the crops in our rule table, scored in your browser with the same formulas), set your priorities with the sliders and choose rainfed or irrigated.
 2. **Risk calendar**: check in which weeks of the year frost, extreme heat or heavy rain are most likely, and how wet the soil is now.
 3. **Compare rotations**: your current rotation next to the three best alternatives for your priorities (the list re-orders as you move the sliders). Pick one to see why, the evidence, benefits, gaps, risks and how it compares with your current rotation (green / red differences).
 4. **What-if simulator**: move the rain and temperature sliders and watch the ranking of the same four rotations change (simulated scenario, weighted with your priorities).

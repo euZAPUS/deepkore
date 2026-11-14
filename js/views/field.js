@@ -6,9 +6,11 @@ import { currentTheme } from "../theme.js";
 import { ANDALUCIA_PROVINCES, provinceAt } from "../andalucia.js";
 import { roundCoord } from "../live.js";
 import { currentOptions, resolveCurrent, compareSet } from "../choice.js";
+import { BUILD_VALUE, MIN_CROPS, MAX_CROPS, canBuild, cropOptions, buildOne, nextCustomId, removeCustomPatch } from "../custom.js";
+import { MAX_CUSTOM } from "../store.js";
 import {
   esc, provBadge, datasetOf, viewHead, panelHead, sliderHTML, bindSliders, levelWord,
-  segmentedHTML, bindSegmented, ringHTML, setRing, displayName, rotationTag, selectHTML,
+  segmentedHTML, bindSegmented, ringHTML, setRing, displayName, rotationTag, selectHTML, icon, ICON,
 } from "../ui.js";
 
 const MODES = [
@@ -48,6 +50,17 @@ export function render(el, ctx) {
   const custom = !!st.location && !ctx.usingMock && roundCoord(lat) === roundCoord(st.location.lat) && roundCoord(lon) === roundCoord(st.location.lon);
   const province = custom ? st.location.province : provinceAt(lat, lon);
   const canPick = !ctx.usingMock && typeof ctx.setLocation === "function";
+  const building = canBuild(ctx.data, ctx.rules) && typeof ctx.refresh === "function";
+  const customs = st.custom_rotations.filter((c) => rotations.some((r) => r.id === c.id));
+  const growOptions = [
+    ...currentOptions(rotations).map((r) => ({ value: r.id, label: displayName(r) })),
+    ...(building ? [{ value: BUILD_VALUE, label: "Build your own…" }] : []),
+  ];
+  const crops = building ? cropOptions(ctx.rules) : [];
+  const cropSelect = (i) => `<span class="pick pick--small"><select id="build-${i}" aria-label="Crop, year ${i + 1}">
+    ${i >= MIN_CROPS ? '<option value="">— (none)</option>' : ""}
+    ${crops.map((c) => `<option value="${esc(c)}"${i < MIN_CROPS && crops[i] === c ? " selected" : ""}>${esc(c)}</option>`).join("")}
+  </select>${icon(ICON.chevron, 14)}</span>`;
 
   el.innerHTML = `
     ${viewHead("My field", "Pick your field on the map, set its size and what matters to you. DeepKore ranks the rotations for that place.")}
@@ -75,7 +88,18 @@ export function render(el, ctx) {
       <section class="panel reveal">
         ${panelHead("What do you grow now?")}
         <div class="grow-now" id="grow-now">
-          ${selectHTML("current-rot", currentOptions(rotations).map((r) => ({ value: r.id, label: displayName(r) })), resolveCurrent(rotations, st.current_rotation)?.id, "What do you grow now?")}
+          ${selectHTML("current-rot", growOptions, resolveCurrent(rotations, st.current_rotation)?.id, "What do you grow now?")}
+          ${building ? `<div class="build" id="build" hidden>
+            <p class="small muted">Your crops in order, one per year (the rotation then repeats).</p>
+            <div class="build__row">${Array.from({ length: MAX_CROPS }, (_, i) => cropSelect(i)).join("")}</div>
+            <div class="build__actions"><button type="button" class="btn btn--small" id="build-add">Add</button>
+              <span class="small muted">Missing your crop? New crops need verified data first.</span></div>
+            <p class="note" id="build-msg" role="status" hidden></p>
+          </div>` : ""}
+          ${customs.length ? `<ul class="mine" aria-label="Your rotations">${customs.map((c) => {
+            const r = rotations.find((x) => x.id === c.id);
+            return `<li><span>${esc(displayName(r))}</span><button type="button" class="mine__del" data-id="${esc(c.id)}" aria-label="Delete ${esc(displayName(r))}" title="Delete">×</button></li>`;
+          }).join("")}</ul>` : ""}
         </div>
         <p class="slider__hint">DeepKore compares this rotation with the alternatives in Compare rotations and What-if.</p>
       </section>
@@ -289,11 +313,46 @@ export function render(el, ctx) {
       i.dispatchEvent(new Event("input"));
     });
   });
+  const buildBox = el.querySelector("#build");
   el.querySelector("#current-rot").addEventListener("change", (e) => {
+    if (e.target.value === BUILD_VALUE) {
+      buildBox.hidden = false;
+      buildBox.querySelector("select")?.focus();
+      return;
+    }
+    if (buildBox) buildBox.hidden = true;
     store.set({ current_rotation: e.target.value });
     current = resolveCurrent(rotations, e.target.value);
     updateBest();
   });
+  const say = (msg) => {
+    const m = el.querySelector("#build-msg");
+    m.textContent = msg;
+    m.hidden = !msg;
+  };
+  el.querySelector("#build-add")?.addEventListener("click", () => {
+    const sequence = Array.from({ length: MAX_CROPS }, (_, i) => el.querySelector(`#build-${i}`).value).filter(Boolean);
+    const mine = store.get().custom_rotations;
+    const same = mine.find((c) => c.sequence.join("|") === sequence.join("|"));
+    if (same) {
+      store.set({ current_rotation: same.id });
+      ctx.refresh();
+      return;
+    }
+    const id = nextCustomId(mine, MAX_CUSTOM);
+    if (!id) return say(`You can keep up to ${MAX_CUSTOM} rotations of your own. Delete one first.`);
+    try {
+      buildOne(ctx.data, ctx.rules, { id, sequence });
+    } catch (err) {
+      return say(err.message);
+    }
+    store.set({ custom_rotations: [...mine, { id, sequence }], current_rotation: id });
+    ctx.refresh();
+  });
+  el.querySelectorAll(".mine__del").forEach((b) => b.addEventListener("click", () => {
+    store.set(removeCustomPatch(store.get(), b.dataset.id));
+    ctx.refresh();
+  }));
   bindSegmented(el.querySelector("#mode"), (m) => {
     store.set({ mode: m });
     el.querySelector("#mode-note").hidden = m !== "irrigated";

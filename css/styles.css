@@ -272,6 +272,19 @@ h1[tabindex="-1"]:focus { outline: none; }
 .pick .ico { position: absolute; right: 12px; pointer-events: none; color: var(--text-2); fill: none; stroke: currentColor; stroke-width: 2; }
 .pick option { color: #1d1d1f; background: #fff; }
 .grow-now { display: grid; gap: 10px; margin-top: 4px; }
+.pick--small select { font-size: .86rem; font-weight: 500; padding: 8px 32px 8px 12px; }
+.pick--small .ico { right: 10px; }
+.build { display: grid; gap: 8px; }
+.build[hidden] { display: none; }
+.build__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.build__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.build__actions .btn { min-height: 44px; }
+.build .note { margin-top: 0; }
+.mine { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.mine li { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-left: 12px; border-radius: 10px; background: var(--seg-bg); font-size: .88rem; font-weight: 500; }
+.mine li span { min-width: 0; overflow-wrap: anywhere; }
+.mine__del { flex: none; width: 44px; height: 44px; border: 0; border-radius: 10px; background: none; color: var(--text-2); font-size: 1.3rem; line-height: 1; cursor: pointer; }
+.mine__del:hover { color: var(--h-heat); }
 
 /* sliders */
 .sliders { display: grid; gap: 10px; }
