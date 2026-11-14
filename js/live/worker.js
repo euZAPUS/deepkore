@@ -1,8 +1,12 @@
 // Web Worker: builds every data file for a field chosen on the map, in the browser.
 // Downloads NASA POWER for (lat, lon) and runs the same code as the pipeline
 // (pipeline/lib/power_files.mjs + rotations_core.mjs; tools/check_live_core.mjs checks they match).
-import { downloadPower, buildPowerFiles } from "../../pipeline/lib/power_files.mjs";
-import * as r from "../../pipeline/lib/rotations_core.mjs";
+// Modules are loaded with the app's version in the URL, so a browser never mixes old cached code with new data.
+const V = new URL(import.meta.url).searchParams.get("v") || "0";
+const modules = Promise.all([
+  import(new URL(`../../pipeline/lib/power_files.mjs?v=${V}`, import.meta.url)),
+  import(new URL(`../../pipeline/lib/rotations_core.mjs?v=${V}`, import.meta.url)),
+]);
 
 const BASE = new URL("../../", import.meta.url);
 const getJson = async (path) => {
@@ -14,6 +18,7 @@ const progress = (stage, done, total) => self.postMessage({ type: "progress", st
 
 self.onmessage = async ({ data: { lat, lon, name, eventName } }) => {
   try {
+    const [{ downloadPower, buildPowerFiles }, r] = await modules;
     const [CFG, TH, RULES, INCOME, texts] = await Promise.all(
       ["pipeline/config.json", "pipeline/thresholds.json", "pipeline/agro_rules.json", "pipeline/income_ecrea.json", "data/mock/rotations.json"].map(getJson)
     );

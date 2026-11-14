@@ -118,34 +118,34 @@ function liveStatus(text, { busy = false, error = false, cancel = false } = {}) 
   });
 }
 
-let pendingPrev = null;
-let pendingLoc = null;
-// After a failed or cancelled analysis: back to the field shown before (pilot field if none).
+// The field whose data are on screen (null = pilot). After a failed or cancelled analysis the
+// stored location goes back to it, so the location and the data shown always agree.
+let shownLoc = null;
 function revertLocation() {
-  store.set({ location: pendingPrev === pendingLoc ? null : pendingPrev });
-  pendingLoc = null;
+  store.set({ location: shownLoc });
 }
-function useData(extra) {
+
+function useData(extra, loc) {
   ctx.data = { ...baseData, ...(extra || {}) };
+  shownLoc = extra ? loc : null;
   route();
 }
 
 // loc: null = back to the pilot field; else { lat, lon, province }.
 async function setLocation(loc, { refresh = false } = {}) {
   if (USING_MOCK) return;
-  pendingPrev = store.get().location;
-  pendingLoc = loc;
   if (!loc) {
     cancelAnalysis();
     store.set({ location: null });
     liveStatus(null);
-    useData(null);
+    useData(null, null);
     return;
   }
   store.set({ location: loc });
-  const cached = !refresh && loadCached(loc);
+  const cached = !refresh && (await loadCached(loc, baseData));
   if (cached) {
-    useData(cached);
+    liveStatus(null);
+    useData(cached, loc);
     return;
   }
   liveStatus(`${STAGES.download}…`, { busy: true, cancel: true });
@@ -155,7 +155,7 @@ async function setLocation(loc, { refresh = false } = {}) {
     );
     if (store.get().location !== loc) return; // superseded or cancelled
     liveStatus(null);
-    useData(data);
+    useData(data, loc);
   } catch (err) {
     console.error(err);
     if (store.get().location !== loc) return;
@@ -186,9 +186,14 @@ async function start() {
   }
   const loc = store.get().location;
   if (loc && !USING_MOCK) {
-    const cached = loadCached(loc);
-    if (cached) ctx.data = { ...baseData, ...cached };
-    else setLocation(loc); // shows the pilot field until the analysis is done
+    const cached = await loadCached(loc, baseData);
+    if (cached) {
+      ctx.data = { ...baseData, ...cached };
+      shownLoc = loc;
+    } else {
+      store.set({ location: null }); // pilot data on screen until the new analysis is done
+      setLocation(loc, { refresh: true }); // cache missing or outdated: recompute
+    }
   }
   route();
   initWelcome();

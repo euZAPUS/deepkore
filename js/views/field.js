@@ -43,7 +43,8 @@ export function render(el, ctx) {
   const st = store.get();
   const lat = Number(parcel.lat);
   const lon = Number(parcel.lon);
-  const custom = !!st.location && !ctx.usingMock;
+  // The data on screen are for the chosen field only once its analysis is done.
+  const custom = !!st.location && !ctx.usingMock && roundCoord(lat) === roundCoord(st.location.lat) && roundCoord(lon) === roundCoord(st.location.lon);
   const province = custom ? st.location.province : provinceAt(lat, lon);
   const canPick = !ctx.usingMock && typeof ctx.setLocation === "function";
 
