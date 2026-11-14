@@ -2,10 +2,10 @@
 // On phones the detail slides in from the right, like an iOS navigation push.
 import { CRITERIA_META, RESILIENCE_META } from "../config.js";
 import { store } from "../store.js";
-import { rankRotations } from "../scoring.js";
+import { rankRotations, isScored, notScoredNote } from "../scoring.js";
 import { flipReorder } from "../motion.js";
 import {
-  esc, provBadge, viewHead, panelHead, icon, ICON, sliderHTML, bindSliders, levelWord,
+  esc, provBadge, datasetOf, viewHead, panelHead, icon, ICON, sliderHTML, bindSliders, levelWord,
   ringHTML, setRing, displayName, rotationTag, sequenceHTML, segmentedHTML, bindSegmented,
 } from "../ui.js";
 
@@ -49,6 +49,8 @@ function tabHTML(r, tab) {
 
 export function render(el, ctx) {
   const { rotations } = ctx.data;
+  const scored = CRITERIA_META.filter((c) => isScored(rotations, c.key));
+  const unscored = ALL_CRITERIA.filter((c) => !isScored(rotations, c.key));
   const byId = Object.fromEntries(rotations.map((r) => [r.id, r]));
   const current = byId.current;
   let selected = null;
@@ -63,6 +65,7 @@ export function render(el, ctx) {
          ${panelHead("Your priorities", '<button class="btn-text" id="pop-done">Done</button>')}
          <div class="sliders" id="weights">
            ${CRITERIA_META.map((c) => {
+             if (!isScored(rotations, c.key)) return `<p class="note">${esc(notScoredNote(c.key, c.label))}</p>`;
              const v = store.get().weights[c.key];
              return sliderHTML({ id: `rw-${c.key}`, key: c.key, label: c.label, color: c.color, value: v, output: `${levelWord(v)} · ${v}` });
            }).join("")}
@@ -107,9 +110,9 @@ export function render(el, ctx) {
         </div>
         <div class="detail__score">${ringHTML(84)}<div>Match score</div></div>
       </div>
-      <p class="detail__why">${esc(r.why)} ${provBadge(r.provenance)}</p>
+      <p class="detail__why">${esc(r.why)} ${provBadge(r.provenance, datasetOf(r))}</p>
       <div class="bars">
-        ${ALL_CRITERIA.map((c) => {
+        ${ALL_CRITERIA.filter((c) => !unscored.includes(c)).map((c) => {
           const v = Number(r.scores?.[c.key]) || 0;
           const d = vs ? v - (Number(current.scores?.[c.key]) || 0) : 0;
           return `<div class="bar${c.key === RESILIENCE_META.key ? " bar--info" : ""}" style="--c:${c.color}">
@@ -117,6 +120,7 @@ export function render(el, ctx) {
             <div class="bar__track"><div class="bar__fill" data-w="${v}"></div></div></div>`;
         }).join("")}
       </div>
+      ${unscored.map((c) => `<p class="small muted">${esc(notScoredNote(c.key, c.label))}</p>`).join("")}
       ${vs ? '<p class="small muted" style="margin-top:-6px">Green / red numbers: difference with your current rotation.</p>' : ""}
       <div class="detail__meta">${confidenceHTML(r.confidence)}${pacHTML(r.pac_eligible)}</div>
       <div>${segmentedHTML("detail-tabs", TABS, tab, "Details")}</div>
@@ -142,7 +146,7 @@ export function render(el, ctx) {
 
   const update = (animate) => {
     const w = store.get().weights;
-    el.querySelector("#wchips").innerHTML = CRITERIA_META.map((c) => `<span class="wchip" style="--c:${c.color}"><i></i>${esc(c.label)} ${w[c.key]}</span>`).join("");
+    el.querySelector("#wchips").innerHTML = scored.map((c) => `<span class="wchip" style="--c:${c.color}"><i></i>${esc(c.label)} ${w[c.key]}</span>`).join("");
     ranked = rankRotations(rotations, w);
     ranked.forEach(({ rotation, total }, i) => {
       const row = list.querySelector(`.rot-row[data-id="${CSS.escape(rotation.id)}"]`);

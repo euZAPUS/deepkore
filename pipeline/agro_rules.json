@@ -1,0 +1,58 @@
+{
+  "about": "Crop rules used by pipeline/build_rotations.mjs. Months are 1-12. Every value has a source; values without a verified source say TBD and make the rotation confidence 'low'.",
+  "kc_reference": "FAO Irrigation and Drainage Paper 56 (Allen et al., 1998), Table 12, https://www.fao.org/4/x0490e/x0490e0b.htm. Kc ini of single crops is printed once per crop group in Table 12; the group value is used.",
+  "kc_stages": {
+    "value": "Growing months split into 4 equal stages: initial (Kc ini), development (linear ini to mid), mid-season (Kc mid), late (linear mid to end).",
+    "source": "TBD: simplification of the FAO-56 Kc curve; FAO-56 Table 11 stage lengths not applied, to verify"
+  },
+  "crops": {
+    "Durum wheat": {
+      "sow_months": { "value": [11, 12], "source": "TBD: general knowledge, to verify" },
+      "harvest_months": { "value": [6], "source": "TBD: general knowledge, to verify" },
+      "sensitive": { "value": { "phase": "flowering and grain filling", "months": [4, 5], "hazard": "heat" }, "source": "TBD: general knowledge, to verify" },
+      "legume": { "value": false, "source": "TBD: general knowledge, to verify" },
+      "family": { "value": "Poaceae", "source": "TBD: general knowledge, to verify" },
+      "kc": { "value": { "ini": 0.7, "mid": 1.15, "end": 0.25 }, "source": "FAO-56 Table 12, 'Winter Wheat, with non-frozen soils' (durum wheat has no row of its own). Kc end range 0.25-0.4; lower value used (footnote: higher value for hand-harvested crops)" }
+    },
+    "Sunflower": {
+      "sow_months": { "value": [3, 4], "source": "TBD: general knowledge, to verify" },
+      "harvest_months": { "value": [8, 9], "source": "TBD: general knowledge, to verify" },
+      "sensitive": { "value": { "phase": "flowering", "months": [6, 7], "hazard": "heat" }, "source": "TBD: general knowledge, to verify" },
+      "legume": { "value": false, "source": "TBD: general knowledge, to verify" },
+      "family": { "value": "Asteraceae", "source": "TBD: general knowledge, to verify" },
+      "kc": { "value": { "ini": 0.35, "mid": 1.0, "end": 0.35 }, "source": "FAO-56 Table 12, 'Sunflower' (Kc ini from the 'Oil Crops' group row). Kc mid range 1.0-1.15; lower value used (footnote: lower values for rainfed crops with less dense plant populations)" }
+    },
+    "Chickpea": {
+      "sow_months": { "value": [1, 2], "source": "TBD: general knowledge, to verify" },
+      "harvest_months": { "value": [6], "source": "TBD: general knowledge, to verify" },
+      "sensitive": { "value": { "phase": "flowering and pod filling", "months": [4, 5], "hazard": "heat" }, "source": "TBD: general knowledge, to verify" },
+      "legume": { "value": true, "source": "TBD: general knowledge, to verify" },
+      "family": { "value": "Fabaceae", "source": "TBD: general knowledge, to verify" },
+      "kc": { "value": { "ini": 0.4, "mid": 1.0, "end": 0.35 }, "source": "FAO-56 Table 12, 'Chick pea' (Kc ini from the 'Legumes (Leguminosae)' group row)" }
+    },
+    "Barley": {
+      "sow_months": { "value": [11, 12], "source": "TBD: general knowledge, to verify" },
+      "harvest_months": { "value": [5, 6], "source": "TBD: general knowledge, to verify" },
+      "sensitive": { "value": { "phase": "flowering", "months": [4], "hazard": "heat" }, "source": "TBD: general knowledge, to verify" },
+      "legume": { "value": false, "source": "TBD: general knowledge, to verify" },
+      "family": { "value": "Poaceae", "source": "TBD: general knowledge, to verify" },
+      "kc": { "value": { "ini": 0.3, "mid": 1.15, "end": 0.25 }, "source": "FAO-56 Table 12, 'Barley' (Kc ini from the 'Cereals' group row)" }
+    },
+    "Vetch (forage / green manure)": {
+      "sow_months": { "value": [10, 11], "source": "TBD: general knowledge, to verify" },
+      "harvest_months": { "value": [4], "source": "TBD: general knowledge (cut or incorporated), to verify" },
+      "sensitive": { "value": { "phase": "flowering", "months": [2, 3], "hazard": "frost" }, "source": "TBD: general knowledge, to verify" },
+      "legume": { "value": true, "source": "TBD: general knowledge, to verify" },
+      "family": { "value": "Fabaceae", "source": "TBD: general knowledge, to verify" },
+      "kc": { "value": null, "source": "TBD: vetch has no row in FAO-56 Table 12" }
+    },
+    "Winter cover crop": {
+      "sow_months": { "value": [10], "source": "TBD: general knowledge, to verify" },
+      "harvest_months": { "value": [2], "source": "TBD: general knowledge (terminated), to verify" },
+      "sensitive": { "value": { "phase": "establishment", "months": [11, 12], "hazard": "frost" }, "source": "TBD: general knowledge, to verify" },
+      "legume": { "value": null, "source": "TBD: species not chosen" },
+      "family": { "value": null, "source": "TBD: species not chosen" },
+      "kc": { "value": null, "source": "TBD: cover crops have no row in FAO-56 Table 12" }
+    }
+  }
+}

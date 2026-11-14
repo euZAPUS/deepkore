@@ -361,6 +361,14 @@ h1[tabindex="-1"]:focus { outline: none; }
 .erosion p { font-size: .9rem; }
 .chart-box { position: relative; flex: 1; height: clamp(170px, calc(100vh - 600px), 320px); }
 
+.how-count { grid-column: 1 / -1; display: grid; gap: 10px; }
+.table-wrap { overflow-x: auto; max-width: 100%; }
+.th-table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+.th-table th, .th-table td { text-align: left; padding: 8px 10px 8px 0; border-top: 1px solid var(--sep); vertical-align: top; overflow-wrap: anywhere; }
+.th-table thead th { border-top: 0; color: var(--text-3); font-weight: 600; font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; }
+.th-table tbody th { font-weight: 600; white-space: nowrap; }
+.th-table td { color: var(--text-2); }
+
 /* =================== 03 Compare rotations =================== */
 .g-rot { grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); align-items: start; }
 .rot-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
@@ -467,6 +475,14 @@ h1[tabindex="-1"]:focus { outline: none; }
 .lim-list li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; font-size: .88rem; }
 .lim-list .n { color: var(--text-3); font-weight: 600; }
 .lim-list p { color: var(--text-2); font-size: .82rem; margin-top: 1px; }
+.src .src__more { font-size: .8rem; margin-top: 6px; overflow-wrap: anywhere; }
+.src .src__more b { color: var(--text); font-weight: 600; }
+.chip { overflow-wrap: anywhere; }
+.g-data .validation { grid-column: 1 / -1; display: grid; gap: 10px; }
+.validation__headline { font-size: .98rem; font-weight: 500; color: var(--text); }
+.chart-box--val { flex: none; height: 260px; }
+.validation__sub { font-size: .9rem; margin-top: 4px; }
+.val-limits { margin: 0; padding-left: 18px; color: var(--text-2); font-size: .84rem; display: grid; gap: 4px; }
 
 .g-about { grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; }
 .g-about .how-panel { grid-column: 1 / -1; }
@@ -588,6 +604,8 @@ h1[tabindex="-1"]:focus { outline: none; }
   .how { grid-template-columns: 1fr; }
   .bars { grid-template-columns: 1fr 1fr; }
   .legend-list li { grid-template-columns: 86px 1fr; }
+  .th-table tbody th { white-space: normal; }
+  .chart-box--val { height: 220px; }
 
   /* rotations: list, then detail pushed in from the right like iOS */
   .rot-row__chev { display: block; }

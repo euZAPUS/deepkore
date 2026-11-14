@@ -1,0 +1,253 @@
+{
+  "event": "Dry 2022-23 season, pilot parcel (Vega de Antequera)",
+  "question": "Do NASA data show the 2023 drought clearly at this location, and when?",
+  "rain_since_october": [
+    {
+      "month": "2022-10",
+      "cum_mm": 7,
+      "base_median": 43,
+      "base_p20": 30,
+      "drier_base_years": 0,
+      "n_base_years": 21
+    },
+    {
+      "month": "2022-11",
+      "cum_mm": 25,
+      "base_median": 128,
+      "base_p20": 74,
+      "drier_base_years": 0,
+      "n_base_years": 21
+    },
+    {
+      "month": "2022-12",
+      "cum_mm": 140,
+      "base_median": 189,
+      "base_p20": 128,
+      "drier_base_years": 9,
+      "n_base_years": 21
+    },
+    {
+      "month": "2023-01",
+      "cum_mm": 157,
+      "base_median": 229,
+      "base_p20": 151,
+      "drier_base_years": 5,
+      "n_base_years": 21
+    },
+    {
+      "month": "2023-02",
+      "cum_mm": 184,
+      "base_median": 263,
+      "base_p20": 196,
+      "drier_base_years": 4,
+      "n_base_years": 21
+    },
+    {
+      "month": "2023-03",
+      "cum_mm": 193,
+      "base_median": 308,
+      "base_p20": 243,
+      "drier_base_years": 2,
+      "n_base_years": 21
+    },
+    {
+      "month": "2023-04",
+      "cum_mm": 193,
+      "base_median": 354,
+      "base_p20": 302,
+      "drier_base_years": 0,
+      "n_base_years": 21
+    },
+    {
+      "month": "2023-05",
+      "cum_mm": 245,
+      "base_median": 407,
+      "base_p20": 319,
+      "drier_base_years": 2,
+      "n_base_years": 21
+    },
+    {
+      "month": "2023-06",
+      "cum_mm": 283,
+      "base_median": 411,
+      "base_p20": 319,
+      "drier_base_years": 2,
+      "n_base_years": 21
+    },
+    {
+      "month": "2023-07",
+      "cum_mm": 283,
+      "base_median": 411,
+      "base_p20": 319,
+      "drier_base_years": 2,
+      "n_base_years": 21
+    },
+    {
+      "month": "2023-08",
+      "cum_mm": 283,
+      "base_median": 417,
+      "base_p20": 320,
+      "drier_base_years": 2,
+      "n_base_years": 21
+    }
+  ],
+  "spring_ranking": {
+    "year": 2023,
+    "months": [
+      3,
+      4,
+      5
+    ],
+    "n_years": 25,
+    "rain_mm": 61,
+    "rain_rank_driest": 1,
+    "rain_median_mm": 133,
+    "root_wetness_mean": 0.484,
+    "root_wetness_rank_lowest": 1
+  },
+  "soil_signal": {
+    "indicator": "NASA POWER GWETROOT, 14-day mean, percentile for the time of year",
+    "rule": "alert when below percentile 20 for 14 days in a row",
+    "rule_source": "TBD: percentile class used by drought monitors; team to cite",
+    "base_years": "2001-2021",
+    "points": [
+      {
+        "date": "2022-09-01",
+        "value": 0.46,
+        "percentile": 0
+      },
+      {
+        "date": "2022-09-15",
+        "value": 0.462,
+        "percentile": 34
+      },
+      {
+        "date": "2022-10-01",
+        "value": 0.466,
+        "percentile": 20
+      },
+      {
+        "date": "2022-10-15",
+        "value": 0.466,
+        "percentile": 10
+      },
+      {
+        "date": "2022-11-01",
+        "value": 0.469,
+        "percentile": 5
+      },
+      {
+        "date": "2022-11-15",
+        "value": 0.469,
+        "percentile": 0
+      },
+      {
+        "date": "2022-12-01",
+        "value": 0.488,
+        "percentile": 12
+      },
+      {
+        "date": "2022-12-15",
+        "value": 0.549,
+        "percentile": 49
+      },
+      {
+        "date": "2023-01-01",
+        "value": 0.554,
+        "percentile": 52
+      },
+      {
+        "date": "2023-01-15",
+        "value": 0.529,
+        "percentile": 19
+      },
+      {
+        "date": "2023-02-01",
+        "value": 0.528,
+        "percentile": 15
+      },
+      {
+        "date": "2023-02-15",
+        "value": 0.536,
+        "percentile": 25
+      },
+      {
+        "date": "2023-03-01",
+        "value": 0.521,
+        "percentile": 11
+      },
+      {
+        "date": "2023-03-15",
+        "value": 0.512,
+        "percentile": 11
+      },
+      {
+        "date": "2023-04-01",
+        "value": 0.484,
+        "percentile": 0
+      },
+      {
+        "date": "2023-04-15",
+        "value": 0.471,
+        "percentile": 0
+      },
+      {
+        "date": "2023-05-01",
+        "value": 0.468,
+        "percentile": 0
+      },
+      {
+        "date": "2023-05-15",
+        "value": 0.465,
+        "percentile": 0
+      },
+      {
+        "date": "2023-06-01",
+        "value": 0.508,
+        "percentile": 61
+      },
+      {
+        "date": "2023-06-15",
+        "value": 0.503,
+        "percentile": 75
+      },
+      {
+        "date": "2023-07-01",
+        "value": 0.471,
+        "percentile": 60
+      },
+      {
+        "date": "2023-07-15",
+        "value": 0.46,
+        "percentile": 0
+      },
+      {
+        "date": "2023-08-01",
+        "value": 0.46,
+        "percentile": 0
+      },
+      {
+        "date": "2023-08-15",
+        "value": 0.46,
+        "percentile": 0
+      }
+    ],
+    "alert_dates": [
+      "2022-10-15",
+      "2023-01-28",
+      "2023-03-10",
+      "2023-07-24"
+    ],
+    "days_below_threshold": 249,
+    "n_days": 365
+  },
+  "headline": "Rain since 1 October 2022 was 193 mm by the end of April 2023, against a usual 354 mm; drier than all 21 reference years. March-May 2023 had 61 mm (rank 1 driest of 25).",
+  "limits": [
+    "One event at one location.",
+    "Checks that the data show the drought, not crop yields or the outcome of any rotation.",
+    "GWETROOT stays near its dry floor every summer, so the soil percentile is low every July-October; read the autumn and spring part.",
+    "Grid cells are tens of km wide."
+  ],
+  "provenance": "derived",
+  "generated_at": "2026-11-14"
+}

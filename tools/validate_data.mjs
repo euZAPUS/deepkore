@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 // Check the JSON files in /data against the data contract.
 // Usage: node tools/validate_data.mjs [dataDir]
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { VALIDATORS } from "../js/contract.js";
+import { OPTIONAL_FILES } from "../js/config.js";
 
 const dir = process.argv[2] || join(dirname(fileURLToPath(import.meta.url)), "..", "data");
 let failed = false;
 
 for (const [name, validate] of Object.entries(VALIDATORS)) {
   const file = join(dir, `${name}.json`);
+  if (OPTIONAL_FILES.includes(name) && !existsSync(file)) {
+    console.log(`- ${name}.json: not present (optional)`);
+    continue;
+  }
   let data;
   try {
     data = JSON.parse(readFileSync(file, "utf8"));

@@ -5,10 +5,27 @@ import { esc, provBadge, viewHead, panelHead, icon, ICON, css, segmentedHTML, bi
 const REF_YEAR = 2025; // non-leap reference year to turn week numbers into dates
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const HAZARDS = [
-  { key: "p_frost", label: "Frost", color: "var(--h-frost)", icon: ICON.frost, dataset: "NASA POWER" },
-  { key: "p_heat", label: "Extreme heat", color: "var(--h-heat)", icon: ICON.heat, dataset: "NASA POWER" },
-  { key: "p_extreme_rain", label: "Heavy rain", color: "var(--h-rain)", icon: ICON.rain, dataset: "GPM IMERG" },
+  { key: "p_frost", label: "Frost", color: "var(--h-frost)", icon: ICON.frost },
+  { key: "p_heat", label: "Extreme heat", color: "var(--h-heat)", icon: ICON.heat },
+  { key: "p_extreme_rain", label: "Heavy rain", color: "var(--h-rain)", icon: ICON.rain },
 ];
+const DEFAULT_DATASET = "NASA POWER";
+const THRESHOLD_LABELS = { frost: "Frost day", heat: "Very hot day", extreme_rain: "Heavy-rain day", soil_alert: "Dry-soil alert" };
+
+// "TBD..." sources are shown as "Source to be confirmed".
+const sourceText = (src) => (!src || /^\s*TBD/i.test(String(src)) ? "Source to be confirmed" : String(src));
+
+function thresholdRows(th) {
+  return Object.entries(th || {}).map(([key, t]) => {
+    const pctRule = t.percentile !== undefined && t.value === undefined;
+    const rule = t.rule ?? (pctRule ? "root-zone wetness below percentile" : key);
+    const value = t.value ?? t.percentile;
+    const unit = t.unit ?? (pctRule ? `for the time of year${t.run_days !== undefined ? `, ${t.run_days} days in a row` : ""}` : "");
+    return `<tr><th scope="row">${esc(THRESHOLD_LABELS[key] ?? key)}</th>
+      <td>${esc(t.variable ? `${t.variable}: ` : "")}${esc(rule)} <b>${esc(value)}</b> ${esc(unit)}</td>
+      <td class="${/^\s*TBD/i.test(String(t.source ?? "TBD")) ? "muted" : ""}">${esc(sourceText(t.source))}</td></tr>`;
+  }).join("");
+}
 
 /* ---------- week helpers ---------- */
 const weekStart = (w) => new Date(Date.UTC(REF_YEAR, 0, 1 + (w - 1) * 7));
@@ -49,15 +66,19 @@ export function render(el, ctx) {
   const rainW = windows.p_extreme_rain;
   const overlap = weeks.filter((w) => bare.has(weekMonth(w.week)) && w.p_extreme_rain >= rainW.thr).map((w) => w.week);
   const derived = isMock(rw.provenance) ? rw.provenance : "Derived";
+  const ds = (key) => rw.datasets?.[key] ?? DEFAULT_DATASET;
+  const allDs = [...new Set(HAZARDS.map((h) => ds(h.key)))].join(" · ");
+  const smDataset = sm.dataset ?? DEFAULT_DATASET;
+  const smIndex = Number(sm.value); // 0 = dry, 1 = saturated
 
   el.innerHTML = `
     ${viewHead("Risk calendar", "When frost, extreme heat and heavy rain usually hit your field.")}
     <div class="view-body g-risks">
       <section class="panel stat stat--soil reveal" style="--hc:var(--c-water)">
         <div class="stat__top"><span class="stat__icon">${icon('<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>', 19)}</span><span class="stat__label">Soil moisture now</span></div>
-        <div class="stat__big"><span id="sm-num">0</span><small>%</small></div>
-        <p class="stat__sub ${dry ? "is-dry" : "is-wet"}">${dry ? "↓" : "↑"} ${Math.abs(sm.anomaly_pct)}% ${dry ? "drier" : "wetter"} than usual</p>
-        <div class="panel__foot">${esc(sm.date)} · ${provBadge(rw.provenance, "SMAP")}</div>
+        <div class="stat__big"><span id="sm-num">0</span><small> / 100 wetness</small></div>
+        <p class="stat__sub ${dry ? "is-dry" : "is-wet"}">${dry ? "↓" : "↑"} ${Math.abs(sm.anomaly_pct)}% ${dry ? "drier" : "wetter"} than usual for the time of year</p>
+        <div class="panel__foot">Index ${Number.isFinite(smIndex) ? smIndex.toFixed(2) : "–"}${sm.unit ? ` · ${esc(sm.unit)}` : ""} · ${esc(sm.date)} · ${provBadge(sm.provenance ?? rw.provenance, smDataset)}</div>
       </section>
       ${HAZARDS.map((h) => {
         const w = windows[h.key];
@@ -65,7 +86,7 @@ export function render(el, ctx) {
           <div class="stat__top"><span class="stat__icon">${icon(h.icon, 19)}</span><span class="stat__label">${esc(h.label)}</span></div>
           <div class="stat__big">${weekRange(w.start).from} – ${weekRange(w.end).to}</div>
           <p class="stat__sub">Peak ~${weekRange(w.peak).from} · max ${pct(w.max)}/week</p>
-          <div class="panel__foot">${provBadge(rw.provenance, h.dataset)}</div>
+          <div class="panel__foot">${provBadge(rw.provenance, ds(h.key))}</div>
         </section>`;
       }).join("")}
 
@@ -89,8 +110,18 @@ export function render(el, ctx) {
             }).join("")}
           </div>
         </div>
-        <div class="panel__foot">Darker = more likely · slide across to read each week · green outline = today · ${provBadge(rw.provenance, "NASA POWER · GPM IMERG")}</div>
+        <div class="panel__foot">Darker = more likely · slide across to read each week · green outline = today · ${provBadge(rw.provenance, allDs)}</div>
       </section>
+
+      ${rw.thresholds ? `<section class="panel how-count reveal">
+        ${panelHead("How we count")}
+        <p class="small muted">${esc(rw.method ?? "")}${rw.period ? ` Years ${esc(rw.period)}${rw.n_years ? ` (${esc(rw.n_years)} years)` : ""}.` : ""}</p>
+        <div class="table-wrap"><table class="th-table">
+          <thead><tr><th scope="col">What</th><th scope="col">Rule</th><th scope="col">Source</th></tr></thead>
+          <tbody>${thresholdRows(rw.thresholds)}</tbody>
+        </table></div>
+        ${rw.bare_months_source ? `<p class="small muted">Bare soil: ${esc(rw.bare_months_source)}.</p>` : ""}
+      </section>` : ""}
 
       <section class="panel climate reveal">
         ${panelHead("Your climate", segmentedHTML("chart-mode", [
@@ -108,12 +139,12 @@ export function render(el, ctx) {
           ? `<div class="stat__big">${weekRange(overlap[0]).from} – ${weekRange(overlap.at(-1)).to}</div>
              <p>Heavy rain becomes likely while the soil is still bare in your current rotation. A cover crop or earlier sowing would protect it.</p>`
           : `<div class="stat__big">No overlap</div><p>Heavy-rain weeks do not fall on bare soil in your current rotation.</p>`}
-        <div class="panel__foot">${provBadge(derived, "GPM IMERG + rotation calendar")}</div>
+        <div class="panel__foot">${provBadge(derived, `${ds("p_extreme_rain")} + crop calendar`)}</div>
       </section>
     </div>
   `;
 
-  requestAnimationFrame(() => animateNumber(el.querySelector("#sm-num"), sm.value * 100, 0, 900));
+  requestAnimationFrame(() => animateNumber(el.querySelector("#sm-num"), Number.isFinite(smIndex) ? smIndex * 100 : 0, 0, 900));
 
   /* ---- calendar: scrub with finger or mouse ---- */
   const readout = el.querySelector("#readout");

@@ -1,6 +1,6 @@
 // Loads /data/*.json (or /data/mock/*.json with ?mock in the URL) and checks them against the contract.
 // A missing file is not an error: the screens that need it show "Waiting for NASA data".
-import { DATA_FILES } from "./config.js";
+import { DATA_FILES, OPTIONAL_FILES } from "./config.js";
 import { VALIDATORS } from "./contract.js";
 
 export const USING_MOCK = new URLSearchParams(location.search).has("mock");
@@ -10,8 +10,10 @@ export async function loadAll() {
   const data = {};
   const problems = {};
   const missing = [];
+  // The mock set has no optional files (e.g. validation): do not request them.
+  const files = USING_MOCK ? DATA_FILES.filter((f) => !OPTIONAL_FILES.includes(f)) : DATA_FILES;
   await Promise.all(
-    DATA_FILES.map(async (name) => {
+    files.map(async (name) => {
       try {
         const res = await fetch(`${BASE}${name}.json`, { cache: "no-cache" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);

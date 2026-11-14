@@ -35,6 +35,13 @@ export function provBadge(prov, dataset) {
   }</span>`;
 }
 
+// Short dataset label for a data file: its own `dataset`, else the short names of parcel-style `sources`.
+export function datasetOf(obj) {
+  if (obj?.dataset) return obj.dataset;
+  const names = (obj?.sources || []).map((s) => s.short ?? (s.id === "nasa-power" ? "NASA POWER" : s.dataset)).filter(Boolean);
+  return names.length ? [...new Set(names)].join(" · ") : undefined;
+}
+
 export function icon(paths, size = 18) {
   return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true" class="ico">${paths}</svg>`;
 }
