@@ -18,7 +18,7 @@ farmer's decision; it does not make it.
 
 **Pilot field.** Rainfed land in the Vega de Antequera (Málaga, Spain), approx. 37.02 N, -4.56 W.
 
-**Live demo.** _Link will be added here once published on GitHub Pages._
+**Live demo:** <https://euzapus.github.io/deepkore/> · Code: <https://github.com/euZAPUS/deepkore>
 
 **How to use it (2 minutes).**
 1. **My field**: see the field on the map, set your priorities with the sliders and choose rainfed or irrigated.
