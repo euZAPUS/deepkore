@@ -22,8 +22,8 @@ farmer's decision; it does not make it.
 
 **How to use it (2 minutes).**
 1. **My field**: see the field on the map, set your priorities with the sliders and choose rainfed or irrigated.
-2. **Risk windows**: check in which weeks of the year frost, extreme heat or heavy rain are most likely, and how wet the soil is now.
-3. **Rotation comparison**: the four rotations re-order according to your priorities. Open a card to see why, evidence, benefits, gaps and risks.
+2. **Risk calendar**: check in which weeks of the year frost, extreme heat or heavy rain are most likely, and how wet the soil is now.
+3. **Compare rotations**: the four rotations re-order according to your priorities. Open a card to see why, evidence, benefits, gaps and risks.
 4. **What-if simulator**: move the rain and temperature sliders and watch the ranking change (simulated scenario).
 5. **Data & Limits**: every NASA dataset used, with link, resolution, licence and what it cannot tell you.
 6. **About / AI declaration**: who built it and how AI was used.

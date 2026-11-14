@@ -31,8 +31,8 @@ export const SECTIONS = [
   },
   {
     id: "risks",
-    title: "Risk windows",
-    short: "Risks",
+    title: "Risk calendar",
+    short: "Calendar",
     files: ["risk_windows", "climate"],
     intro: "When in the year frost, extreme heat and heavy rain are most likely, and how wet your soil is now.",
     planned: [
@@ -42,7 +42,7 @@ export const SECTIONS = [
   },
   {
     id: "rotations",
-    title: "Rotation comparison",
+    title: "Compare rotations",
     short: "Rotations",
     files: ["rotations"],
     intro: "Your current rotation next to three alternatives, ranked by your own priorities.",
