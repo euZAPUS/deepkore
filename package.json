@@ -1,0 +1,12 @@
+{
+  "name": "deepkore",
+  "private": true,
+  "type": "module",
+  "description": "DeepKore - crop rotation decision support with NASA data (NASA Space Apps 2026, Malaga). Static site: no build step, no dependencies.",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "test": "node --test tests/scoring.test.mjs",
+    "validate": "node tools/validate_data.mjs",
+    "mock": "python3 tools/make_mock_data.py"
+  }
+}

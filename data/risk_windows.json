@@ -1,0 +1,329 @@
+{
+  "weeks": [
+    {
+      "week": 1,
+      "p_frost": 0.42,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0.0
+    },
+    {
+      "week": 2,
+      "p_frost": 0.45,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 3,
+      "p_frost": 0.44,
+      "p_heat": 0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 4,
+      "p_frost": 0.43,
+      "p_heat": 0,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 5,
+      "p_frost": 0.42,
+      "p_heat": 0,
+      "p_extreme_rain": 0.0
+    },
+    {
+      "week": 6,
+      "p_frost": 0.35,
+      "p_heat": 0.02,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 7,
+      "p_frost": 0.28,
+      "p_heat": 0,
+      "p_extreme_rain": 0.0
+    },
+    {
+      "week": 8,
+      "p_frost": 0.22,
+      "p_heat": 0.0,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 9,
+      "p_frost": 0.16,
+      "p_heat": 0,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 10,
+      "p_frost": 0.12,
+      "p_heat": 0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 11,
+      "p_frost": 0.06,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0.02
+    },
+    {
+      "week": 12,
+      "p_frost": 0.04,
+      "p_heat": 0,
+      "p_extreme_rain": 0.03
+    },
+    {
+      "week": 13,
+      "p_frost": 0.05,
+      "p_heat": 0.0,
+      "p_extreme_rain": 0.05
+    },
+    {
+      "week": 14,
+      "p_frost": 0.03,
+      "p_heat": 0,
+      "p_extreme_rain": 0.05
+    },
+    {
+      "week": 15,
+      "p_frost": 0.02,
+      "p_heat": 0.0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 16,
+      "p_frost": 0.01,
+      "p_heat": 0,
+      "p_extreme_rain": 0.03
+    },
+    {
+      "week": 17,
+      "p_frost": 0.0,
+      "p_heat": 0.02,
+      "p_extreme_rain": 0.03
+    },
+    {
+      "week": 18,
+      "p_frost": 0,
+      "p_heat": 0.0,
+      "p_extreme_rain": 0.0
+    },
+    {
+      "week": 19,
+      "p_frost": 0.02,
+      "p_heat": 0.02,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 20,
+      "p_frost": 0.01,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 21,
+      "p_frost": 0.01,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 22,
+      "p_frost": 0.0,
+      "p_heat": 0.0,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 23,
+      "p_frost": 0,
+      "p_heat": 0.07,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 24,
+      "p_frost": 0.01,
+      "p_heat": 0.09,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 25,
+      "p_frost": 0.02,
+      "p_heat": 0.18,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 26,
+      "p_frost": 0,
+      "p_heat": 0.23,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 27,
+      "p_frost": 0.01,
+      "p_heat": 0.34,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 28,
+      "p_frost": 0.0,
+      "p_heat": 0.44,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 29,
+      "p_frost": 0,
+      "p_heat": 0.51,
+      "p_extreme_rain": 0.0
+    },
+    {
+      "week": 30,
+      "p_frost": 0.01,
+      "p_heat": 0.54,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 31,
+      "p_frost": 0.02,
+      "p_heat": 0.53,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 32,
+      "p_frost": 0.0,
+      "p_heat": 0.44,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 33,
+      "p_frost": 0,
+      "p_heat": 0.36,
+      "p_extreme_rain": 0
+    },
+    {
+      "week": 34,
+      "p_frost": 0,
+      "p_heat": 0.23,
+      "p_extreme_rain": 0.0
+    },
+    {
+      "week": 35,
+      "p_frost": 0,
+      "p_heat": 0.18,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 36,
+      "p_frost": 0,
+      "p_heat": 0.08,
+      "p_extreme_rain": 0.0
+    },
+    {
+      "week": 37,
+      "p_frost": 0,
+      "p_heat": 0.03,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 38,
+      "p_frost": 0.0,
+      "p_heat": 0.02,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 39,
+      "p_frost": 0.01,
+      "p_heat": 0,
+      "p_extreme_rain": 0.0
+    },
+    {
+      "week": 40,
+      "p_frost": 0,
+      "p_heat": 0.0,
+      "p_extreme_rain": 0.02
+    },
+    {
+      "week": 41,
+      "p_frost": 0.01,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0.05
+    },
+    {
+      "week": 42,
+      "p_frost": 0,
+      "p_heat": 0,
+      "p_extreme_rain": 0.07
+    },
+    {
+      "week": 43,
+      "p_frost": 0.02,
+      "p_heat": 0,
+      "p_extreme_rain": 0.09
+    },
+    {
+      "week": 44,
+      "p_frost": 0.01,
+      "p_heat": 0,
+      "p_extreme_rain": 0.11
+    },
+    {
+      "week": 45,
+      "p_frost": 0.02,
+      "p_heat": 0.02,
+      "p_extreme_rain": 0.12
+    },
+    {
+      "week": 46,
+      "p_frost": 0.06,
+      "p_heat": 0.0,
+      "p_extreme_rain": 0.1
+    },
+    {
+      "week": 47,
+      "p_frost": 0.1,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0.1
+    },
+    {
+      "week": 48,
+      "p_frost": 0.13,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0.06
+    },
+    {
+      "week": 49,
+      "p_frost": 0.16,
+      "p_heat": 0,
+      "p_extreme_rain": 0.04
+    },
+    {
+      "week": 50,
+      "p_frost": 0.21,
+      "p_heat": 0,
+      "p_extreme_rain": 0.03
+    },
+    {
+      "week": 51,
+      "p_frost": 0.28,
+      "p_heat": 0.01,
+      "p_extreme_rain": 0.01
+    },
+    {
+      "week": 52,
+      "p_frost": 0.35,
+      "p_heat": 0.02,
+      "p_extreme_rain": 0.02
+    }
+  ],
+  "soil_moisture_now": {
+    "value": 0.17,
+    "anomaly_pct": -21,
+    "date": "2026-11-12",
+    "source": "SMAP L3 soil moisture (enhanced) - MOCK value"
+  },
+  "bare_months": [
+    7,
+    8,
+    9,
+    10
+  ],
+  "provenance": "MOCK"
+}

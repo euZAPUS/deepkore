@@ -1,0 +1,169 @@
+[
+  {
+    "id": "current",
+    "name": "Current: Durum wheat - Sunflower",
+    "sequence": [
+      "Durum wheat",
+      "Sunflower"
+    ],
+    "scores": {
+      "water": 45,
+      "soil": 35,
+      "income": 72,
+      "erosion": 30,
+      "risk_resilience": 40
+    },
+    "confidence": "high",
+    "why": "This is what the field grows today. It is the baseline the other options are compared against.",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "[MOCK] Placeholder: summer maximum temperatures often above 35 °C during sunflower flowering."
+      },
+      {
+        "dataset": "GPM IMERG",
+        "fact": "[MOCK] Placeholder: heaviest rain weeks fall in autumn, when the soil is still bare."
+      }
+    ],
+    "benefits": [
+      "Known crops, machinery and buyers",
+      "Good income in average years"
+    ],
+    "gaps": [
+      "No field-level yield records used",
+      "Market prices not included"
+    ],
+    "risks": [
+      "Soil left bare from July to October",
+      "Sunflower exposed to summer heat"
+    ],
+    "pac_eligible": false,
+    "provenance": "MOCK"
+  },
+  {
+    "id": "A",
+    "name": "A: Durum wheat - Chickpea",
+    "sequence": [
+      "Durum wheat",
+      "Chickpea"
+    ],
+    "scores": {
+      "water": 62,
+      "soil": 64,
+      "income": 60,
+      "erosion": 50,
+      "risk_resilience": 58
+    },
+    "confidence": "medium",
+    "why": "A legume replaces sunflower: it adds nitrogen to the soil and uses less water in summer.",
+    "evidence": [
+      {
+        "dataset": "NASA POWER",
+        "fact": "[MOCK] Placeholder: spring rainfall usually covers chickpea needs in an average year."
+      },
+      {
+        "dataset": "SMAP",
+        "fact": "[MOCK] Placeholder: soil moisture is currently below normal for November."
+      }
+    ],
+    "benefits": [
+      "Less nitrogen fertiliser for the next wheat",
+      "Lower summer water demand"
+    ],
+    "gaps": [
+      "Local chickpea yields not checked",
+      "Soil type map not included"
+    ],
+    "risks": [
+      "Chickpea is sensitive to heat at flowering",
+      "Fungal disease in wet springs"
+    ],
+    "pac_eligible": true,
+    "provenance": "MOCK"
+  },
+  {
+    "id": "B",
+    "name": "B: Barley - Vetch - Durum wheat",
+    "sequence": [
+      "Barley",
+      "Vetch (forage / green manure)",
+      "Durum wheat"
+    ],
+    "scores": {
+      "water": 70,
+      "soil": 78,
+      "income": 45,
+      "erosion": 72,
+      "risk_resilience": 66
+    },
+    "confidence": "medium",
+    "why": "A three-year cycle with a vetch year that covers the soil and rebuilds organic matter.",
+    "evidence": [
+      {
+        "dataset": "GPM IMERG",
+        "fact": "[MOCK] Placeholder: autumn heavy-rain weeks coincide with vetch ground cover."
+      },
+      {
+        "dataset": "NASA POWER",
+        "fact": "[MOCK] Placeholder: barley ripens before the hottest weeks of the year."
+      }
+    ],
+    "benefits": [
+      "Soil covered for longer",
+      "Barley avoids the worst summer heat"
+    ],
+    "gaps": [
+      "Forage demand and price not checked",
+      "Livestock link not modelled"
+    ],
+    "risks": [
+      "Lower income in the vetch year",
+      "Needs a buyer or use for the forage"
+    ],
+    "pac_eligible": true,
+    "provenance": "MOCK"
+  },
+  {
+    "id": "C",
+    "name": "C: Wheat - Sunflower - Chickpea + cover crop",
+    "sequence": [
+      "Durum wheat",
+      "Sunflower",
+      "Chickpea",
+      "Winter cover crop"
+    ],
+    "scores": {
+      "water": 55,
+      "soil": 72,
+      "income": 58,
+      "erosion": 82,
+      "risk_resilience": 60
+    },
+    "confidence": "low",
+    "why": "Keeps the familiar crops but adds a legume and a cover crop so the soil is never bare in autumn.",
+    "evidence": [
+      {
+        "dataset": "GPM IMERG",
+        "fact": "[MOCK] Placeholder: a cover crop would protect the soil during the autumn heavy-rain peak."
+      },
+      {
+        "dataset": "SMAP",
+        "fact": "[MOCK] Placeholder: dry autumn soils may delay cover crop establishment."
+      }
+    ],
+    "benefits": [
+      "Strong protection against erosion",
+      "Familiar crops stay in the plan"
+    ],
+    "gaps": [
+      "Cover crop seed cost not included",
+      "Few local trials in rainfed soils"
+    ],
+    "risks": [
+      "Cover crop may fail in a dry autumn",
+      "More field operations and planning"
+    ],
+    "pac_eligible": true,
+    "provenance": "MOCK"
+  }
+]

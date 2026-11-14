@@ -1,0 +1,33 @@
+{
+  "name": "Vega de Antequera pilot field (rainfed)",
+  "lat": 37.02,
+  "lon": -4.56,
+  "period": "2005-2024",
+  "provenance": "MOCK",
+  "sources": [
+    {
+      "dataset": "NASA POWER (daily, Agroclimatology)",
+      "url": "https://power.larc.nasa.gov/",
+      "version": "TBC",
+      "resolution": "0.5° x 0.625° (meteorology)",
+      "license": "NASA open data, no restrictions (TBC)",
+      "role": "Temperature, precipitation and ET0: climate summary, frost and heat windows"
+    },
+    {
+      "dataset": "GPM IMERG (Final Run)",
+      "url": "https://gpm.nasa.gov/data/imerg",
+      "version": "TBC",
+      "resolution": "0.1°, 30 min",
+      "license": "NASA open data, no restrictions (TBC)",
+      "role": "Heavy-rain probability per week"
+    },
+    {
+      "dataset": "SMAP L3 soil moisture (enhanced)",
+      "url": "https://smap.jpl.nasa.gov/",
+      "version": "TBC",
+      "resolution": "9 km",
+      "license": "NASA open data, no restrictions (TBC)",
+      "role": "Current surface soil moisture and anomaly"
+    }
+  ]
+}

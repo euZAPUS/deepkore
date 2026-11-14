@@ -1,0 +1,534 @@
+[
+  {
+    "rain_pct": -40,
+    "temp_delta": 0,
+    "frost_days": 24,
+    "heat_days": 23,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 39.9,
+      "A": 55.0,
+      "B": 64.2,
+      "C": 62.0
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -40,
+    "temp_delta": 1,
+    "frost_days": 20,
+    "heat_days": 31,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 37.3,
+      "A": 53.0,
+      "B": 63.4,
+      "C": 60.4
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -40,
+    "temp_delta": 2,
+    "frost_days": 17,
+    "heat_days": 39,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 34.7,
+      "A": 51.0,
+      "B": 62.5,
+      "C": 58.8
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -40,
+    "temp_delta": 3,
+    "frost_days": 14,
+    "heat_days": 47,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 32.1,
+      "A": 49.0,
+      "B": 61.5,
+      "C": 57.2
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -30,
+    "temp_delta": 0,
+    "frost_days": 24,
+    "heat_days": 22,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 41.3,
+      "A": 56.0,
+      "B": 64.8,
+      "C": 63.1
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -30,
+    "temp_delta": 1,
+    "frost_days": 20,
+    "heat_days": 30,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 38.7,
+      "A": 54.0,
+      "B": 63.9,
+      "C": 61.5
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -30,
+    "temp_delta": 2,
+    "frost_days": 17,
+    "heat_days": 38,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 36.1,
+      "A": 52.0,
+      "B": 63.0,
+      "C": 59.9
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -30,
+    "temp_delta": 3,
+    "frost_days": 14,
+    "heat_days": 46,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 33.5,
+      "A": 50.0,
+      "B": 62.0,
+      "C": 58.3
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -20,
+    "temp_delta": 0,
+    "frost_days": 24,
+    "heat_days": 22,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 42.7,
+      "A": 57.0,
+      "B": 65.2,
+      "C": 64.3
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -20,
+    "temp_delta": 1,
+    "frost_days": 20,
+    "heat_days": 30,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 40.1,
+      "A": 55.0,
+      "B": 64.3,
+      "C": 62.7
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -20,
+    "temp_delta": 2,
+    "frost_days": 17,
+    "heat_days": 38,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 37.5,
+      "A": 53.0,
+      "B": 63.5,
+      "C": 61.1
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -20,
+    "temp_delta": 3,
+    "frost_days": 14,
+    "heat_days": 46,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 34.9,
+      "A": 51.0,
+      "B": 62.5,
+      "C": 59.5
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -10,
+    "temp_delta": 0,
+    "frost_days": 24,
+    "heat_days": 22,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 44.1,
+      "A": 58.0,
+      "B": 65.8,
+      "C": 65.5
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -10,
+    "temp_delta": 1,
+    "frost_days": 20,
+    "heat_days": 30,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 41.5,
+      "A": 56.0,
+      "B": 64.8,
+      "C": 63.9
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -10,
+    "temp_delta": 2,
+    "frost_days": 17,
+    "heat_days": 38,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 38.9,
+      "A": 54.0,
+      "B": 64.0,
+      "C": 62.3
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": -10,
+    "temp_delta": 3,
+    "frost_days": 14,
+    "heat_days": 46,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 36.3,
+      "A": 52.0,
+      "B": 63.0,
+      "C": 60.8
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 0,
+    "temp_delta": 0,
+    "frost_days": 24,
+    "heat_days": 21,
+    "ranking": [
+      "C",
+      "B",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 45.5,
+      "A": 59.0,
+      "B": 66.2,
+      "C": 66.8
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 0,
+    "temp_delta": 1,
+    "frost_days": 20,
+    "heat_days": 29,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 42.9,
+      "A": 57.0,
+      "B": 65.3,
+      "C": 65.2
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 0,
+    "temp_delta": 2,
+    "frost_days": 17,
+    "heat_days": 37,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 40.3,
+      "A": 55.0,
+      "B": 64.5,
+      "C": 63.5
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 0,
+    "temp_delta": 3,
+    "frost_days": 14,
+    "heat_days": 45,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 37.7,
+      "A": 53.0,
+      "B": 63.5,
+      "C": 62.0
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 10,
+    "temp_delta": 0,
+    "frost_days": 24,
+    "heat_days": 20,
+    "ranking": [
+      "C",
+      "B",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 46.9,
+      "A": 60.0,
+      "B": 66.8,
+      "C": 68.0
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 10,
+    "temp_delta": 1,
+    "frost_days": 20,
+    "heat_days": 28,
+    "ranking": [
+      "C",
+      "B",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 44.3,
+      "A": 58.0,
+      "B": 65.8,
+      "C": 66.4
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 10,
+    "temp_delta": 2,
+    "frost_days": 17,
+    "heat_days": 36,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 41.7,
+      "A": 56.0,
+      "B": 65.0,
+      "C": 64.8
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 10,
+    "temp_delta": 3,
+    "frost_days": 14,
+    "heat_days": 44,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 39.1,
+      "A": 54.0,
+      "B": 64.0,
+      "C": 63.2
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 20,
+    "temp_delta": 0,
+    "frost_days": 24,
+    "heat_days": 20,
+    "ranking": [
+      "C",
+      "B",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 48.3,
+      "A": 61.0,
+      "B": 67.2,
+      "C": 69.2
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 20,
+    "temp_delta": 1,
+    "frost_days": 20,
+    "heat_days": 28,
+    "ranking": [
+      "C",
+      "B",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 45.7,
+      "A": 59.0,
+      "B": 66.3,
+      "C": 67.6
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 20,
+    "temp_delta": 2,
+    "frost_days": 17,
+    "heat_days": 36,
+    "ranking": [
+      "C",
+      "B",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 43.1,
+      "A": 57.0,
+      "B": 65.5,
+      "C": 66.0
+    },
+    "provenance": "MOCK"
+  },
+  {
+    "rain_pct": 20,
+    "temp_delta": 3,
+    "frost_days": 14,
+    "heat_days": 44,
+    "ranking": [
+      "B",
+      "C",
+      "A",
+      "current"
+    ],
+    "scores": {
+      "current": 40.5,
+      "A": 55.0,
+      "B": 64.5,
+      "C": 64.4
+    },
+    "provenance": "MOCK"
+  }
+]
