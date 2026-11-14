@@ -2,6 +2,7 @@
 import { SECTIONS, DEFAULT_SECTION, HIDE_MOCK_STRIP } from "./config.js";
 import { loadAll, anyMock } from "./data.js";
 import { esc, icon } from "./ui.js";
+import { revealIn, watchHeader, moveNavIndicator } from "./motion.js";
 import * as placeholder from "./views/placeholder.js";
 
 // Section id -> view module ({ render(el, ctx) -> optional cleanup fn }).
@@ -16,12 +17,13 @@ const VIEWS = {
 };
 
 const main = document.getElementById("main");
+const navList = document.getElementById("nav-list");
 let ctx = null;
 let cleanup = null;
 
 function buildNav() {
-  document.getElementById("nav-list").innerHTML = SECTIONS.map(
-    (s) => `<li><a href="#/${s.id}" data-id="${s.id}">${icon(s.icon)}
+  navList.innerHTML = SECTIONS.map(
+    (s) => `<li><a href="#/${s.id}" data-id="${s.id}">${icon(s.icon, 22)}
       <span class="nav-full">${esc(s.title)}</span><span class="nav-short">${esc(s.short)}</span></a></li>`
   ).join("");
 }
@@ -33,12 +35,14 @@ function currentId() {
 
 function route() {
   const id = currentId();
-  const section = SECTIONS.find((s) => s.id === id);
+  const index = SECTIONS.findIndex((s) => s.id === id);
+  const section = SECTIONS[index];
 
-  document.querySelectorAll("#nav-list a").forEach((a) => {
+  navList.querySelectorAll("a").forEach((a) => {
     if (a.dataset.id === id) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
   });
+  moveNavIndicator(navList);
   document.title = `${section.title} · DeepKore`;
 
   if (typeof cleanup === "function") cleanup();
@@ -46,8 +50,15 @@ function route() {
   main.innerHTML = "";
   if (!ctx) return;
 
-  cleanup = VIEWS[id].render(main, { ...ctx, section });
-  window.scrollTo(0, 0);
+  cleanup = VIEWS[id].render(main, {
+    ...ctx,
+    section,
+    sectionIndex: index,
+    sectionCount: SECTIONS.length,
+    next: SECTIONS[index + 1] ?? null,
+  });
+  window.scrollTo({ top: 0, behavior: "instant" });
+  revealIn(main);
   main.querySelector("h1")?.focus({ preventScroll: true });
 }
 
@@ -62,7 +73,10 @@ function showDataWarning(problems) {
 
 async function start() {
   buildNav();
+  watchHeader(document.getElementById("app-header"));
   window.addEventListener("hashchange", route);
+  window.addEventListener("resize", () => moveNavIndicator(navList));
+  document.fonts?.ready.then(() => moveNavIndicator(navList));
   try {
     const { data, problems } = await loadAll();
     ctx = { data, problems };
@@ -70,10 +84,10 @@ async function start() {
     showDataWarning(problems);
   } catch (err) {
     console.error(err);
-    main.innerHTML = `<div class="card"><h1 tabindex="-1">Could not load the data</h1>
-      <p>${esc(err.message)}</p>
-      <p class="muted">If you opened <code>index.html</code> directly from disk, serve the folder instead:
-      <code>python3 -m http.server 8000</code> and open <code>http://localhost:8000</code>.</p></div>`;
+    main.innerHTML = `<section class="hero"><h1 tabindex="-1">Could not load the data</h1>
+      <p class="hero__lead">${esc(err.message)}</p>
+      <p class="hero__lead">If you opened <code>index.html</code> directly from disk, serve the folder instead:
+      <code>python3 -m http.server 8000</code> and open <code>http://localhost:8000</code>.</p></section>`;
     return;
   }
   route();

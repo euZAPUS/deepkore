@@ -6,6 +6,7 @@ required by NASA Space Apps. One row per working step. Humans review every chang
 | # | Date | Tool | Who | What the AI did | Human review |
 |---|---|---|---|---|---|
 | 0 | 2026-11-14 | Claude Code (Anthropic) | ZAP | Proposed and created the repository structure; wrote the MOCK data generator and the 5 placeholder JSON files; wrote the data-contract validator, the weighted-score function and its tests; built the base layout (navigation, MOCK strip, disclaimer); drafted this README. | ZAP reviews and tests locally |
+| 1 | 2026-11-14 | Claude Code (Anthropic) | ZAP | Redesigned the UI in an Apple-inspired style (neutral light/dark palette, large type, glass navigation, reveal animations), made it installable on phones (web manifest, icons), renamed screens 2-3. | ZAP reviews on laptop and phone |
 
 ## Notes for the declaration
 

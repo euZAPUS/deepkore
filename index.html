@@ -2,30 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>DeepKore</title>
   <meta name="description" content="DeepKore: compare crop rotations for your field using NASA data and your own priorities. Decision support only.">
-  <meta name="theme-color" content="#0e1411">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <!-- installable on phones (Add to Home Screen) -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="DeepKore">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="assets/icon-180.png">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="vendor/inter/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="app-header">
+  <header class="app-header" id="app-header">
     <div class="app-header__inner">
       <a class="brand" href="#/field" aria-label="DeepKore home">
         <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
-          <rect x="3" y="20" width="26" height="4" rx="2" fill="#8a6a4a"/>
-          <rect x="3" y="25" width="26" height="4" rx="2" fill="#5c4632"/>
-          <path d="M16 19c0-6 3-10 9-11-1 6-4 10-9 11z" fill="#7bd88f"/>
-          <path d="M16 19c0-5-2.5-8-7.5-9 .8 5 3.3 8 7.5 9z" fill="#4fb66a"/>
+          <rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/>
+          <rect x="4" y="25.5" width="24" height="3.5" rx="1.75" fill="#7a6247"/>
+          <path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/>
+          <path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/>
         </svg>
-        <span class="brand__text">
-          <span class="brand__name">DeepKore</span>
-          <span class="brand__tagline">Choose the rotation that protects your soil, and prepare before the risk arrives.</span>
-        </span>
+        <span>DeepKore</span>
       </a>
       <nav class="main-nav" aria-label="Sections">
         <ul id="nav-list"></ul>
@@ -33,29 +39,27 @@
     </div>
   </header>
 
-  <!-- MOCK strip: shown automatically while any data file has provenance "MOCK".
-       To force-hide it, set HIDE_MOCK_STRIP = true in js/config.js -->
-  <div id="mock-strip" class="mock-strip" hidden role="status">
-    <strong>MOCK DATA</strong>
-    <span>Placeholder numbers, not real measurements.</span>
-  </div>
-
-  <div class="disclaimer" role="note">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>
-    <span>Decision support only, always check with your local agronomist.</span>
+  <!-- One quiet line, on every screen.
+       The MOCK pill shows automatically while any data file has provenance "MOCK"
+       (force-hide: HIDE_MOCK_STRIP = true in js/config.js). -->
+  <div class="ribbon" role="note">
+    <span id="mock-strip" class="mock-pill" hidden title="Numbers are placeholders, not real measurements">MOCK DATA</span>
+    <span class="ribbon__text">Decision support only, always check with your local agronomist.</span>
   </div>
 
   <div id="data-warning" class="data-warning" hidden role="alert"></div>
 
   <main id="main" class="page" tabindex="-1">
-    <p class="loading">Loading field data…</p>
+    <p class="loading">Loading…</p>
   </main>
 
   <footer class="app-footer">
-    <p class="app-footer__tagline">Choose the rotation that protects your soil, and prepare before the risk arrives.</p>
-    <p>DeepKore · NASA Space Apps Challenge 2026 · Málaga</p>
-    <p>Decision support only, always check with your local agronomist.</p>
-    <p class="app-footer__small">Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · Data: NASA (see <a href="#/data">Data &amp; Limits</a>)</p>
+    <div class="app-footer__inner">
+      <p class="app-footer__tagline">Choose the rotation that protects your soil, and prepare before the risk arrives.</p>
+      <p>Decision support only, always check with your local agronomist.</p>
+      <p>DeepKore · NASA Space Apps Challenge 2026 · Málaga</p>
+      <p>Map © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors · Data: NASA (see <a href="#/data">Data &amp; Limits</a>)</p>
+    </div>
   </footer>
 
   <script src="vendor/leaflet/leaflet.js"></script>

@@ -1,36 +1,28 @@
 // Temporary screen used until each section gets its real view (next prompts).
 // Shows what the screen will contain and checks that its data files loaded.
-import { esc, provBadge } from "../ui.js";
-import { fileProvenance } from "../data.js";
+import { esc } from "../ui.js";
 
-export function render(el, { section, data, problems }) {
-  const files = section.files
+export function render(el, { section, sectionIndex, sectionCount, next, problems }) {
+  const status = section.files
     .map((name) => {
-      const issues = problems[name]?.length ?? 0;
-      return `<li>
-        <code>data/${esc(name)}.json</code>
-        <span>${issues ? `<span class="bad">${issues} contract issue(s)</span>` : '<span class="ok">Loaded ✓</span>'}
-        ${provBadge(fileProvenance(data[name]))}</span>
-      </li>`;
+      const bad = problems[name]?.length;
+      return `<span><i class="dot${bad ? " dot--bad" : ""}"></i>${esc(name)}.json ${bad ? `· ${bad} issue(s)` : "loaded"}</span>`;
     })
     .join("");
 
   el.innerHTML = `
-    <div class="page-head">
-      <p class="eyebrow">DeepKore</p>
-      <h1 tabindex="-1">${esc(section.title)}</h1>
-      <p>${esc(section.intro)}</p>
-    </div>
-    <div class="grid grid--2">
-      <section class="card">
-        <h2>Coming in this screen</h2>
-        <ul class="ticks">${section.planned.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
-      </section>
-      <section class="card">
-        <h2>Data used</h2>
-        ${files ? `<ul class="clean file-list">${files}</ul>` : '<p class="muted">This screen does not read data files.</p>'}
-      </section>
-    </div>
-    <div class="placeholder" style="margin-top:16px">Screen under construction</div>
+    <section class="hero">
+      <p class="hero__eyebrow reveal">${String(sectionIndex + 1).padStart(2, "0")} / ${String(sectionCount).padStart(2, "0")}</p>
+      <h1 class="reveal" tabindex="-1">${esc(section.title)}</h1>
+      <p class="hero__lead reveal">${esc(section.intro)}</p>
+    </section>
+
+    <ol class="steps">
+      ${section.planned.map((p, i) => `<li class="reveal"><span class="steps__n">${i + 1}</span><span>${esc(p)}</span></li>`).join("")}
+    </ol>
+
+    ${status ? `<div class="data-status reveal">${status}</div>` : ""}
+
+    ${next ? `<div class="next-step reveal"><p>Next</p><a class="link-arrow" href="#/${next.id}">${esc(next.title)}</a></div>` : ""}
   `;
 }

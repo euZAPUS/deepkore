@@ -62,6 +62,11 @@ npm test               # weighted-score unit tests
 npm run validate       # check /data/*.json against the data contract
 ```
 
+## Works everywhere
+
+Responsive from phone to desktop, light or dark following the device setting. On a phone it can be
+installed like an app: *Share → Add to Home Screen* (iPhone) or *Menu → Install app* (Android).
+
 ## Deploy (GitHub Pages)
 
 Settings → Pages → *Deploy from a branch* → `main` / `(root)`. All paths are relative and routing
@@ -78,11 +83,13 @@ js/data.js            Loads /data/*.json, detects MOCK provenance
 js/contract.js        Data contract checks (shared by app and tools/validate_data.mjs)
 js/scoring.js         total = sum(score × weight) / sum(weights); nearest scenario
 js/ui.js              Provenance badge and small helpers
+js/motion.js          Reveal animations, glass header, sliding nav indicator
 js/views/             One module per screen
 data/                 parcel, climate, risk_windows, rotations, scenarios (.json)
 tools/                make_mock_data.py (placeholder data), validate_data.mjs
 tests/                Unit tests for the scoring
-vendor/               Leaflet 1.9.4 and Chart.js 4.4.7 (no CDN needed)
+vendor/               Leaflet 1.9.4, Chart.js 4.4.7, Inter font (no CDN needed)
+manifest.webmanifest  Lets phones install the app (Add to Home Screen)
 AI_USAGE_LOG.md       Log of AI use, for the AI declaration
 ```
 
