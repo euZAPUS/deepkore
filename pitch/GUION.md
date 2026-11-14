@@ -42,10 +42,11 @@ Una sola persona lleva el mando todo el pitch para no ir buscando el teclado.
 
 ## Persona 3 · El impacto y el cierre (≈40 s) · diapositivas 7–8
 
-**7 · El resultado**
-> "Este es el resultado: la mejor rotación para este agricultor gana salud del suelo y reduce la erosión,
-> a cambio de algo de dinero. Ese equilibrio lo elige él.
-> DeepKore ayuda, nunca sustituye: cada dato dice de dónde viene, con sus lagunas y riesgos."
+**7 · El resultado** *(datos reales de NASA POWER 2001-2025)*
+> "Este es el resultado con datos reales: para este agricultor, la mejor rotación sube de 51 a 68 sobre 100.
+> Aprovecha mejor el agua de lluvia, protege mucho más el suelo de la erosión y aguanta mejor el clima.
+> El dinero aún no lo puntuamos porque no tenemos precios locales verificados, y lo decimos.
+> DeepKore ayuda, nunca sustituye: cada dato dice de dónde viene."
 
 **8 · Cierre y QR**
 > "Escanead el código y probadla ahora."
@@ -55,6 +56,5 @@ Una sola persona lleva el mando todo el pitch para no ir buscando el teclado.
 
 **Ensayad con cronómetro:** 50 + 30 + 40 = 2:00. Si os pasáis, quitad primero la última frase de la diapositiva 2.
 
-**Antes de presentar:** la diapositiva 7 lleva números de ejemplo (pastilla "Sample data") y las capturas de
-`pitch/img/` son con datos MOCK. Cuando estén los datos reales, cambiar `DECK` al principio del `<script>` de
-`pitch/index.html` (poner `mock: false`) y repetir las capturas.
+**Datos:** la diapositiva 7 y las capturas de `pitch/img/` ya usan los datos reales (NASA POWER 2001-2025).
+Si cambia `data/rotations.json`, actualizar `DECK` al principio del `<script>` de `pitch/index.html` y repetir las capturas.

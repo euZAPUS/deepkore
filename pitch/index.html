@@ -201,6 +201,7 @@ p{margin:0}
 .bars s::before{content:'';display:block;height:100%;width:0;border-radius:9px;background:var(--k)}
 .on .bars s::before{animation:fill 1.4s cubic-bezier(.2,.8,.2,1) .9s forwards}
 @keyframes fill{to{width:var(--w)}}
+.pill[hidden]{display:none}
 .pill{display:inline-flex;align-items:center;gap:.4em;padding:.35em .8em;border-radius:999px;font:700 clamp(.66rem,.85vw,.85rem) var(--sans);background:rgba(200,100,63,.14);color:var(--clay);letter-spacing:.04em}
 .trust{margin-top:clamp(14px,1.8vw,26px);font:550 clamp(.9rem,1.25vw,1.25rem)/1.4 var(--sans);color:var(--mut)}
 .trust b{color:var(--greend)}
@@ -428,15 +429,15 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
 <script src="../vendor/qrcode/qrcode.js"></script>
 <script>
 /* ===================== Result slide data =====================
-   SAMPLE (MOCK) until the real rotations.json exists. Replace these numbers with the
-   ones shown in the app (Compare rotations) and set mock:false. */
+   Numbers copied from the app (Compare rotations) with the default priorities.
+   If data/rotations.json changes, update them here. Income is not scored yet, so it is not shown. */
 const DECK = {
   appUrl: "https://euzapus.github.io/deepkore/",
-  mock: true,
-  now:  { name: "Durum wheat – Sunflower", tag: "Your current rotation", seq: ["Durum wheat", "Sunflower"], score: 44,
-          scores: { Water: 45, Soil: 35, Income: 72, Erosion: 30 } },
+  mock: false, // real data: data/rotations.json (NASA POWER 2001-2025), default priorities (water 70, soil 70, erosion 60)
+  now:  { name: "Durum wheat – Sunflower", tag: "Your current rotation", seq: ["Durum wheat", "Sunflower"], score: 51,
+          scores: { Water: 44, Soil: 50, Erosion: 59, Resilience: 76 } },
   best: { name: "Barley – Vetch – Durum wheat", tag: "Best for your priorities", seq: ["Barley", "Vetch", "Durum wheat"], score: 68,
-          scores: { Water: 70, Soil: 78, Income: 45, Erosion: 72 } },
+          scores: { Water: 69, Soil: 50, Erosion: 87, Resilience: 95 } },
 };
 
 (function () {
@@ -446,7 +447,7 @@ const DECK = {
 
   /* ---------- result cards ---------- */
   const C = 2 * Math.PI * 26;
-  const COLORS = { Water: "#0a84c9", Soil: "#a2845e", Income: "#c98a00", Erosion: "#e0620d" };
+  const COLORS = { Water: "#0a84c9", Soil: "#a2845e", Income: "#c98a00", Erosion: "#e0620d", Resilience: "#5856d6" };
   const card = (r, cls, other) => `
     <div class="card ${cls} a" style="--i:${cls === "best" ? 4 : 2}">
       <span class="lab">${r.tag}</span>
