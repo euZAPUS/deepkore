@@ -14,10 +14,17 @@ export function weightedTotal(scores, weights) {
   return den > 0 ? num / den : 0;
 }
 
+// Weights with every criterion that is not scored for all these rotations set to 0 (see isScored),
+// so no rotation is ranked on a criterion the others do not have.
+export function effectiveWeights(rotations, weights) {
+  return Object.fromEntries(Object.entries(weights || {}).map(([k, w]) => [k, isScored(rotations, k) ? w : 0]));
+}
+
 // Returns a new array of {rotation, total} sorted best first.
 export function rankRotations(rotations, weights) {
+  const w = effectiveWeights(rotations, weights);
   return rotations
-    .map((rotation) => ({ rotation, total: weightedTotal(rotation.scores, weights) }))
+    .map((rotation) => ({ rotation, total: weightedTotal(rotation.scores, w) }))
     .sort((a, b) => b.total - a.total);
 }
 

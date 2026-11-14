@@ -47,9 +47,9 @@ export const SECTIONS = [
     title: "Compare rotations",
     short: "Rotations",
     files: ["rotations"],
-    intro: "Your current rotation next to three alternatives, ranked by your own priorities.",
+    intro: "Your current rotation next to the three best alternatives, ranked by your own priorities.",
     planned: [
-      "4 cards (Current, A, B, C) ordered by your weighted score",
+      "Your current rotation and the 3 best alternatives, ordered by your weighted score",
       "Each card: why, evidence, benefits, gaps, risks, confidence, PAC eligible",
     ],
   },

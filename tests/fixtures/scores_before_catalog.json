@@ -1,0 +1,33 @@
+{
+  "about": "Scores of the 4 original rotations before pipeline/rotation_catalog.json was added (data/rotations.json at fb19a91). They must not change.",
+  "scores": {
+    "current": {
+      "water": 44,
+      "soil": 50,
+      "income": 7,
+      "erosion": 59,
+      "risk_resilience": 76
+    },
+    "A": {
+      "water": 60,
+      "soil": 75,
+      "income": 58,
+      "erosion": 64,
+      "risk_resilience": 100
+    },
+    "B": {
+      "water": 69,
+      "soil": 50,
+      "income": 11,
+      "erosion": 87,
+      "risk_resilience": 95
+    },
+    "C": {
+      "water": 47,
+      "soil": 50,
+      "income": 29,
+      "erosion": 57,
+      "risk_resilience": 87
+    }
+  }
+}

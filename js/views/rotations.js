@@ -2,7 +2,8 @@
 // On phones the detail slides in from the right, like an iOS navigation push.
 import { CRITERIA_META, RESILIENCE_META } from "../config.js";
 import { store } from "../store.js";
-import { rankRotations, isScored, notScoredNote } from "../scoring.js";
+import { isScored, notScoredNote } from "../scoring.js";
+import { resolveCurrent, compareSet } from "../choice.js";
 import { flipReorder } from "../motion.js";
 import {
   esc, provBadge, datasetOf, viewHead, panelHead, icon, ICON, sliderHTML, bindSliders, levelWord,
@@ -67,13 +68,13 @@ export function render(el, ctx) {
   const scored = CRITERIA_META.filter((c) => isScored(rotations, c.key));
   const unscored = ALL_CRITERIA.filter((c) => !isScored(rotations, c.key));
   const byId = Object.fromEntries(rotations.map((r) => [r.id, r]));
-  const current = byId.current;
+  const current = resolveCurrent(rotations, store.get().current_rotation);
   let selected = null;
   let tab = "evidence";
-  let ranked = [];
+  let ranked = []; // the rotations on screen: current + 3 best alternatives, best first (js/choice.js)
 
   el.innerHTML = `
-    ${viewHead("Compare rotations", "Your current rotation and three options, ranked by what matters to you.",
+    ${viewHead("Compare rotations", "Your current rotation and the three best alternatives, ranked by what matters to you.",
       `<div class="wchips" id="wchips"></div>
        <button class="btn btn--ghost" id="adjust-btn" aria-expanded="false" aria-controls="weights-pop">Adjust priorities</button>
        <div class="weights-pop" id="weights-pop" hidden>
@@ -90,16 +91,8 @@ export function render(el, ctx) {
     <div class="view-body g-rot">
       <section class="panel reveal">
         ${panelHead("Ranking")}
-        <ol class="rot-list" id="rot-list" role="listbox" aria-label="Rotations">
-          ${rotations.map((r) => `<li data-key="${esc(r.id)}">
-            <button class="rot-row" role="option" aria-selected="false" data-id="${esc(r.id)}">
-              <span class="rot-row__n">–</span>
-              <span><span class="rot-row__name">${esc(displayName(r))}</span>
-                <span class="rot-row__tag">${esc(rotationTag(r))}<span class="pill">Best match</span></span></span>
-              ${ringHTML(46)}
-              <span class="rot-row__chev">${icon(ICON.next, 18)}</span>
-            </button></li>`).join("")}
-        </ol>
+        <p class="note" id="first-note" hidden>Your current rotation already ranks first for your priorities</p>
+        <ol class="rot-list" id="rot-list" role="listbox" aria-label="Your current rotation and the best alternatives"></ol>
         <div class="panel__foot">Match score = your priorities × each rotation's scores (0–100).</div>
       </section>
 
@@ -108,18 +101,27 @@ export function render(el, ctx) {
   `;
 
   const list = el.querySelector("#rot-list");
+  const rowHTML = (r) => `<li data-key="${esc(r.id)}">
+    <button class="rot-row" role="option" aria-selected="false" data-id="${esc(r.id)}">
+      <span class="rot-row__n">–</span>
+      <span><span class="rot-row__name">${esc(displayName(r))}</span>
+        <span class="rot-row__tag">${esc(rotationTag(r, current.id))}<span class="pill">Best match</span></span></span>
+      ${ringHTML(46)}
+      <span class="rot-row__chev">${icon(ICON.next, 18)}</span>
+    </button></li>`;
   const detail = el.querySelector("#detail");
 
   const renderDetail = () => {
     const r = byId[selected];
     const pos = ranked.findIndex((x) => x.rotation.id === selected);
     const total = ranked[pos]?.total ?? 0;
-    const vs = r.id !== "current" && current;
+    const diff = ranked[pos]?.diff ?? 0;
+    const vs = r.id !== current.id && current;
     detail.innerHTML = `
       <button class="detail__back" id="back">${icon(ICON.back, 22)} Ranking</button>
       <div class="detail__top">
         <div>
-          <p class="detail__tag">#${pos + 1} · ${esc(rotationTag(r))} · <b>${Math.round(total)}/100</b> ${pos === 0 ? '<span class="pill">Best match</span>' : ""}</p>
+          <p class="detail__tag">#${pos + 1} · ${esc(rotationTag(r, current.id))} · <b>${Math.round(total)}/100</b>${vs ? ` <span class="bar__delta ${diff > 0 ? "up" : diff < 0 ? "down" : ""}">${diff > 0 ? "+" : diff < 0 ? "−" : "±"}${Math.abs(diff)}</span> vs your current rotation` : ""} ${pos === 0 ? '<span class="pill">Best match</span>' : ""}</p>
           <h2>${esc(displayName(r))}</h2>
           ${sequenceHTML(r.sequence)}
         </div>
@@ -137,7 +139,7 @@ export function render(el, ctx) {
       </div>
       ${incomeHTML(r)}
       ${unscored.map((c) => `<p class="small muted">${esc(notScoredNote(c.key, c.label, rotations))}</p>`).join("")}
-      ${vs ? '<p class="small muted" style="margin-top:-6px">Green / red numbers: difference with your current rotation.</p>' : ""}
+      ${vs ? `<p class="small muted" style="margin-top:-6px">Green / red numbers: difference with your current rotation (${esc(displayName(current))}).</p>` : ""}
       <div class="detail__meta">${confidenceHTML(r.confidence)}${pacHTML(r.pac_eligible)}</div>
       <div>${segmentedHTML("detail-tabs", TABS, tab, "Details")}</div>
       <div class="tabs-body" id="tab-body">${tabHTML(r, tab)}</div>
@@ -163,14 +165,24 @@ export function render(el, ctx) {
   const update = (animate) => {
     const w = store.get().weights;
     el.querySelector("#wchips").innerHTML = scored.map((c) => `<span class="wchip" style="--c:${c.color}"><i></i>${esc(c.label)} ${w[c.key]}</span>`).join("");
-    ranked = rankRotations(rotations, w);
+    const set = compareSet(rotations, w, current.id);
+    ranked = set.shown;
+    el.querySelector("#first-note").hidden = !set.currentIsBest;
+    const keys = ranked.map((r) => r.rotation.id);
+    const same = [...list.children].map((li) => li.dataset.key).sort().join() === [...keys].sort().join();
+    if (!same) {
+      // a different alternative entered the top 3: rebuild the rows
+      list.innerHTML = keys.map((k) => rowHTML(byId[k])).join("");
+      animate = false;
+    }
+    if (!keys.includes(selected)) selected = keys[0];
+    list.querySelectorAll(".rot-row").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.id === selected)));
     ranked.forEach(({ rotation, total }, i) => {
       const row = list.querySelector(`.rot-row[data-id="${CSS.escape(rotation.id)}"]`);
       row.querySelector(".rot-row__n").textContent = i + 1;
       row.classList.toggle("is-best", i === 0);
       setRing(row.querySelector(".ring"), total);
     });
-    const keys = ranked.map((r) => r.rotation.id);
     if (animate) flipReorder(list, keys);
     else keys.forEach((k) => list.appendChild(list.querySelector(`[data-key="${CSS.escape(k)}"]`)));
     renderDetail();
@@ -196,7 +208,7 @@ export function render(el, ctx) {
     t = setTimeout(() => update(true), 120);
   });
 
-  ranked = rankRotations(rotations, store.get().weights);
+  ranked = compareSet(rotations, store.get().weights, current.id).shown;
   selected = ranked[0].rotation.id;
   requestAnimationFrame(() => {
     update(false);

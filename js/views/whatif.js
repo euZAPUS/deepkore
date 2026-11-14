@@ -1,5 +1,7 @@
 // 04 What-if simulator: rain / temperature sliders pick the nearest pre-computed scenario.
 import { nearestScenario } from "../scoring.js";
+import { store } from "../store.js";
+import { resolveCurrent, compareSet, scenarioTotals } from "../choice.js";
 import { flipReorder } from "../motion.js";
 import { esc, provBadge, datasetOf, viewHead, panelHead, sliderHTML, bindSliders, animateNumber, displayName, rotationTag, icon, ICON } from "../ui.js";
 
@@ -25,7 +27,14 @@ export function render(el, ctx) {
   const rain = gridSteps(scenarios.map((s) => s.rain_pct));
   const temp = gridSteps(scenarios.map((s) => s.temp_delta));
   const base = nearestScenario(scenarios, 0, 0);
-  const baseRank = Object.fromEntries(base.ranking.map((id, i) => [id, i]));
+  // Same rotations as Compare rotations: your current one + the 3 best alternatives for your priorities today.
+  // Scenario totals = your priorities x the criteria recomputed for that climate (at 0 %, +0 °C = Compare rotations).
+  const weights = store.get().weights;
+  const current = resolveCurrent(rotations, store.get().current_rotation);
+  const ids = compareSet(rotations, weights, current.id).shown.map((x) => x.rotation.id);
+  const totalsOf = (s) => scenarioTotals(s, ids, weights, rotations);
+  const baseTotals = totalsOf(base);
+  const baseRank = Object.fromEntries(baseTotals.map((x, i) => [x.id, i]));
   let cur = { rain: 0, temp: 0 };
 
   el.innerHTML = `
@@ -47,15 +56,15 @@ export function render(el, ctx) {
       <section class="panel reveal">
         ${panelHead("Ranking in this scenario", provBadge(base.provenance, datasetOf(base)))}
         <ol class="rank-list" id="rank">
-          ${base.ranking.map((id) => `<li class="rank-row" data-key="${esc(id)}">
+          ${baseTotals.map(({ id }) => `<li class="rank-row" data-key="${esc(id)}">
             <span class="rank-row__n">–</span>
-            <span class="rank-row__name">${esc(displayName(byId[id] ?? { id }))}<small>${esc(byId[id] ? rotationTag(byId[id]) : id)}</small></span>
+            <span class="rank-row__name">${esc(displayName(byId[id] ?? { id }))}<small>${esc(byId[id] ? rotationTag(byId[id], current.id) : id)}</small></span>
             <span class="rank-row__bar"><span style="width:0%"></span></span>
             <span class="rank-row__score">0</span>
             <span class="move same">–</span>
           </li>`).join("")}
         </ol>
-        <div class="panel__foot">▲▼ = places moved vs today's climate · pre-computed scenarios, not a forecast · does not use your priority sliders</div>
+        <div class="panel__foot">Your current rotation and the 3 best alternatives for your priorities · ▲▼ = places moved vs today's climate · pre-computed scenarios, not a forecast</div>
       </section>
     </div>
   `;
@@ -71,10 +80,11 @@ export function render(el, ctx) {
 
   const update = (animate) => {
     const s = nearestScenario(scenarios, cur.rain, cur.temp);
-    s.ranking.forEach((id, i) => {
+    const totals = totalsOf(s);
+    totals.forEach(({ id, total }, i) => {
       const row = list.querySelector(`[data-key="${CSS.escape(id)}"]`);
       if (!row) return;
-      const score = Number(s.scores[id]) || 0;
+      const score = Math.round(total);
       row.querySelector(".rank-row__n").textContent = i + 1;
       row.querySelector(".rank-row__bar span").style.width = `${Math.max(0, Math.min(100, score))}%`;
       animateNumber(row.querySelector(".rank-row__score"), score, 0, 500);
@@ -83,7 +93,7 @@ export function render(el, ctx) {
       mv.className = `move ${d > 0 ? "up" : d < 0 ? "down" : "same"}`;
       mv.textContent = d > 0 ? `▲${d}` : d < 0 ? `▼${-d}` : "–";
     });
-    if (animate) flipReorder(list, s.ranking);
+    if (animate) flipReorder(list, totals.map((x) => x.id));
     animateNumber(el.querySelector("#st-frost"), Number(s.frost_days), 0, 400);
     animateNumber(el.querySelector("#st-heat"), Number(s.heat_days), 0, 400);
     delta("#dt-frost", s.frost_days, base.frost_days);

@@ -1,6 +1,8 @@
 // 02 Risk calendar: four headline tiles, a 52-week calendar, erosion window and climate chart.
 import { isMock } from "../data.js";
-import { esc, provBadge, viewHead, panelHead, icon, ICON, css, segmentedHTML, bindSegmented, animateNumber } from "../ui.js";
+import { esc, provBadge, viewHead, panelHead, icon, ICON, css, segmentedHTML, bindSegmented, animateNumber, displayName } from "../ui.js";
+import { store } from "../store.js";
+import { resolveCurrent } from "../choice.js";
 
 const REF_YEAR = 2025; // non-leap reference year to turn week numbers into dates
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -58,7 +60,10 @@ const pct = (p) => `${Math.round(p * 100)}%`;
 export function render(el, ctx) {
   const { risk_windows: rw, climate } = ctx.data;
   const weeks = [...rw.weeks].sort((a, b) => a.week - b.week);
-  const bare = new Set((rw.bare_months || []).map(Number));
+  // bare months of the rotation the user grows now (What do you grow now?); older files: risk_windows.bare_months
+  const curRot = ctx.data.rotations ? resolveCurrent(ctx.data.rotations, store.get().current_rotation) : null;
+  const bare = new Set((curRot?.bare_months ?? rw.bare_months ?? []).map(Number));
+  const curName = curRot ? ` (${esc(displayName(curRot))})` : "";
   const today = todayWeek();
   const sm = rw.soil_moisture_now || {};
   const dry = (sm.anomaly_pct || 0) < 0;
@@ -137,8 +142,8 @@ export function render(el, ctx) {
         <div class="stat__top"><span class="stat__icon">${icon(ICON.warn, 19)}</span><span class="stat__label">Erosion window</span></div>
         ${overlap.length
           ? `<div class="stat__big">${weekRange(overlap[0]).from} – ${weekRange(overlap.at(-1)).to}</div>
-             <p>Heavy rain becomes likely while the soil is still bare in your current rotation. A cover crop or earlier sowing would protect it.</p>`
-          : `<div class="stat__big">No overlap</div><p>Heavy-rain weeks do not fall on bare soil in your current rotation.</p>`}
+             <p>Heavy rain becomes likely while the soil is still bare in your current rotation${curName}. A cover crop or earlier sowing would protect it.</p>`
+          : `<div class="stat__big">No overlap</div><p>Heavy-rain weeks do not fall on bare soil in your current rotation${curName}.</p>`}
         <div class="panel__foot">${provBadge(derived, `${ds("p_extreme_rain")} + crop calendar`)}</div>
       </section>
     </div>

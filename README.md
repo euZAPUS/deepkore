@@ -21,10 +21,10 @@ farmer's decision; it does not make it.
 **Live demo:** <https://euzapus.github.io/deepkore/> · Pitch deck: <https://euzapus.github.io/deepkore/pitch/> · Code: <https://github.com/euZAPUS/deepkore>
 
 **How to use it (2 minutes).** A short welcome card explains the app on first visit (reopen it with the **?** button).
-1. **My field**: see the field on the map, set your priorities with the sliders and choose rainfed or irrigated.
+1. **My field**: see the field on the map, tell DeepKore **What do you grow now?** (your current rotation; it is remembered on this device), set your priorities with the sliders and choose rainfed or irrigated.
 2. **Risk calendar**: check in which weeks of the year frost, extreme heat or heavy rain are most likely, and how wet the soil is now.
-3. **Compare rotations**: the four rotations re-order according to your priorities. Pick one to see why, the evidence, benefits, gaps, risks and how it compares with your current rotation.
-4. **What-if simulator**: move the rain and temperature sliders and watch the ranking change (simulated scenario).
+3. **Compare rotations**: your current rotation next to the three best alternatives for your priorities (the list re-orders as you move the sliders). Pick one to see why, the evidence, benefits, gaps, risks and how it compares with your current rotation (green / red differences).
+4. **What-if simulator**: move the rain and temperature sliders and watch the ranking of the same four rotations change (simulated scenario, weighted with your priorities).
 5. **Data & Limits**: every NASA dataset used, with link, resolution, licence and what it cannot tell you.
 6. **About / AI declaration**: who built it and how AI was used.
 
@@ -106,8 +106,20 @@ pitch/                Pitch deck (index.html, English, 7 slides) and speaker not
 | `parcel.json` | `{name, lat, lon, period, sources:[{dataset, url, version, resolution, license, role}]}` |
 | `climate.json` | `{monthly:{precip_mm[12], tmax[12], tmin[12], et0[12]}, trends:{years[], frost_days[], heat_days[], annual_precip[]}, provenance}` |
 | `risk_windows.json` | `{weeks:[{week, p_frost, p_heat, p_extreme_rain}], soil_moisture_now:{value, anomaly_pct, date, source}, bare_months:[]}` |
-| `rotations.json` | `[{id, name, sequence[], scores:{water, soil, income, erosion, risk_resilience}, confidence, why, evidence:[{dataset, fact}], benefits[], gaps[], risks[], pac_eligible, provenance}]` |
-| `scenarios.json` | `[{rain_pct, temp_delta, frost_days, heat_days, ranking[], scores:{id:total}, provenance:"synthetic"}]` |
+| `rotations.json` | `[{id, name, sequence[], can_be_current, scores:{water, soil, income, erosion, risk_resilience}, confidence, why, evidence:[{dataset, fact}], benefits[], gaps[], risks[], pac_eligible, income:{eur_ha_year, by_crop:[{crop, eur_ha}], missing[]}, bare_months[], bare_months_share[12], provenance}]` |
+| `scenarios.json` | `[{rain_pct, temp_delta, frost_days, heat_days, ranking[], scores:{id:total}, criteria:{id:{water, soil, income, erosion, risk_resilience}}, provenance}]`: every scenario scores **every** rotation |
+
+**Rotations.** Six rotations, all from rainfed Andalucía: `current` Durum wheat – Sunflower (the default current
+rotation), `A` Durum wheat – Chickpea, `B` Barley – Vetch – Durum wheat, `C` Wheat – Sunflower – Chickpea + cover crop,
+`D` Durum wheat – Durum wheat (monoculture), `E` Durum wheat – Fallow. Texts of `current`, A-C come from
+`data/mock/rotations.json`; D, E and `can_be_current` from `pipeline/rotation_catalog.json`.
+
+- `can_be_current` (boolean): `true` = a farmer in the area can grow it today; these rotations are offered in
+  "What do you grow now?". `id: "current"` must exist and be `true` (it is the default). Files without the field
+  (`data/mock`) offer only `current`.
+- `scores.income`, `income.eur_ha_year` and `income.by_crop[].eur_ha` may be `null`: no verified net margin
+  (e.g. Fallow, see `pipeline/income_ecrea.json`). A criterion that is `null` for any rotation stays out of the
+  ranking for all of them (and its slider is replaced by a note).
 
 Real files go in `/data` (see `data/README.md`); run `npm run validate`, push, reload: each screen fills in
 as soon as its files exist. Placeholder files live in `data/mock/` and are only used with `?mock` in the URL.
