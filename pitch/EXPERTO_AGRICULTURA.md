@@ -16,17 +16,17 @@ Si no sabes algo: **"No lo hemos validado todavía; es justo lo que haríamos co
 - **Erosión** = el agua (o el viento) arrastra la capa fértil de arriba. Ocurre sobre todo con **suelo desnudo + lluvia fuerte**.
 - **Materia orgánica** = restos de plantas y vida del suelo; es lo que lo hace fértil y guarda el agua como una esponja.
 
-## 2. Los cultivos de la app (español ↔ inglés)
+## 2. Los cultivos
 
-| Cultivo | Inglés | Cuándo | Lo que debes saber |
-|---|---|---|---|
-| Trigo duro | Durum wheat | Se siembra nov–dic, se cosecha junio | El trigo de la pasta. Base del secano andaluz. Margen bajo (~99 €/ha). |
-| Cebada | Barley | Nov–dic → mayo–junio | Aguanta mejor la sequía; pienso y cerveza. |
-| Girasol | Sunflower | Mar–abr → ago–sep | Para aceite. Florece en julio, con el calor: sufre mucho. En 2020 perdió dinero (−8 €/ha). |
-| Garbanzo | Chickpea | Ene–feb → junio | Leguminosa: fija nitrógeno. Se cosecha antes del verano. |
-| Lenteja | Lentil | Dic–ene → junio | Leguminosa. La mejor de la app (68). Margen del grupo leguminosas: ~623 €/ha. |
-| Veza | Vetch | Oct–nov → abril | Leguminosa para forraje o para enterrarla como abono verde. Da poco dinero. |
-| Barbecho | Fallow | Un año sin sembrar | Descansa la tierra, pero la deja desnuda todo el año (erosión). |
+| Cultivo | Cuándo | Lo que debes saber |
+|---|---|---|
+| Trigo duro | Se siembra nov–dic, se cosecha junio | El trigo de la pasta. Base del secano andaluz. Margen bajo (~99 €/ha). |
+| Cebada | Nov–dic → mayo–junio | Aguanta mejor la sequía; pienso y cerveza. |
+| Girasol | Mar–abr → ago–sep | Para aceite. Florece en julio, con el calor: sufre mucho. En 2020 perdió dinero (−8 €/ha). |
+| Garbanzo | Ene–feb → junio | Leguminosa: fija nitrógeno. Se cosecha antes del verano. |
+| Lenteja | Dic–ene → junio | Leguminosa. La mejor de la app (68). Margen del grupo leguminosas: ~623 €/ha. |
+| Veza | Oct–nov → abril | Leguminosa para forraje o para enterrarla como abono verde. Da poco dinero. |
+| Barbecho | Un año sin sembrar | Descansa la tierra, pero la deja desnuda todo el año (erosión). |
 
 ## 3. Por qué el trigo–girasol es el problema
 

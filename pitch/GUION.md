@@ -1,7 +1,7 @@
 # Guion del pitch (2 minutos · 8 diapositivas · cada uno su parte del tirón)
 
 **Presentación:** `pitch/DeepKore_pitch_ES.pptx` (el guion está también en las notas del orador).
-**Demo para NASA (inglés, 7 diapositivas, orden oficial):** `pitch/DeepKore_demo_EN.pptx` y https://euzapus.github.io/deepkore/pitch/
+**Respaldo sin animaciones:** `pitch/DeepKore_pitch_ES.pdf`
 
 Orden: **Álvaro (agricultura, diap. 1–3) → Germán (datos NASA, diap. 4–5) → Daniel (app y cierre, diap. 6–8)**.
 Cada uno habla su parte entera y al final dice el nombre del siguiente. **2 minutos**: si sobran segundos, mejor.
