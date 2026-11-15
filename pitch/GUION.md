@@ -45,6 +45,7 @@ Los 2-3 minutos incluyen subir al escenario y las preguntas: el pitch tiene que 
 - **¿Qué funciona y qué falta?** Funciona: parcela, riesgos, ranking, márgenes, simulador. Falta: SMAP/GPM, suelo de la parcela y calendarios validados por agrónomos.
 - **¿Qué lo respalda?** Detecta la sequía 2022–23 (193 mm frente a 354 habituales) y hay 28 tests automáticos.
 - **¿Por qué solo Andalucía?** Los datos NASA POWER son globales; lo que es local son los calendarios de cultivo, y en 2 días solo pudimos escribir y revisar los de nuestra región.
+- **¿Por qué solo secano y no regadío?** Empezamos por el secano porque es donde el agricultor no tiene margen frente al clima y la rotación es su principal herramienta; el regadío es el siguiente paso: la app ya calcula la necesidad de agua de cada cultivo y solo falta añadir las dotaciones y costes de riego.
 - **¿Mayor limitación?** La celda de POWER mide decenas de km: describe la zona, no cada rincón de la parcela.
 - **¿Qué decisión aporta más valor?** Que cada número diga de dónde sale y que el agricultor ponga sus prioridades: no le damos una respuesta cerrada.
 
