@@ -28,16 +28,17 @@ const m3 = (mm, ha) => Math.round((mm * 10 * ha) / 10) * 10;
 const fmt = (v, d = 0) => Number(v).toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d });
 const coordText = (lat, lon) => `${Math.abs(lat).toFixed(2)}° ${lat >= 0 ? "N" : "S"}, ${Math.abs(lon).toFixed(2)}° ${lon >= 0 ? "E" : "W"}`;
 
-// Base maps. "map" uses OpenStreetMap data (CARTO style); "osm" is the fallback if a provider fails.
+// Base maps: Esri satellite imagery and OpenStreetMap; "osm" is the fallback if a provider fails.
 const TILES = {
   satellite: () => L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
     maxZoom: 18, attribution: "Imagery © Esri, Maxar, Earthstar Geographics",
   }),
-  map: () => L.tileLayer(`https://{s}.basemaps.cartocdn.com/${currentTheme() === "dark" ? "dark_all" : "rastertiles/voyager"}/{z}/{x}/{y}{r}.png`, {
-    subdomains: "abcd", maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © CARTO',
+  // OpenStreetMap standard tiles (free, no key); darkened with a CSS filter in dark mode.
+  map: () => L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19, className: "tiles-osm", attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }),
   osm: () => L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19, attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19, className: "tiles-osm", attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }),
 };
 
@@ -49,6 +50,9 @@ export function render(el, ctx) {
   // The data on screen are for the chosen field only once its analysis is done.
   const custom = !!st.location && !ctx.usingMock && roundCoord(lat) === roundCoord(st.location.lat) && roundCoord(lon) === roundCoord(st.location.lon);
   const province = custom ? st.location.province : provinceAt(lat, lon);
+  // Draw the field where the user tapped (the data request is rounded to ~1 km; a NASA POWER cell is ~50 km).
+  const mapLat = custom && Number.isFinite(Number(st.location.lat)) ? Number(st.location.lat) : lat;
+  const mapLon = custom && Number.isFinite(Number(st.location.lon)) ? Number(st.location.lon) : lon;
   const canPick = !ctx.usingMock && typeof ctx.setLocation === "function";
   const building = canBuild(ctx.data, ctx.rules) && typeof ctx.refresh === "function";
   const customs = st.custom_rotations.filter((c) => rotations.some((r) => r.id === c.id));
@@ -161,7 +165,7 @@ export function render(el, ctx) {
       return;
     }
     card.innerHTML = `<strong>${esc(parcel.name)}</strong>
-      <span>${coordText(lat, lon)}${province ? ` · ${esc(province)}` : ""}${custom ? "" : " · approx. location"}</span>
+      <span>${coordText(mapLat, mapLon)}${province ? ` · ${esc(province)}` : ""}${custom ? "" : " · approx. location"}</span>
       <div class="chips"><span class="chip">Data ${esc(parcel.period)}</span>${provBadge(parcel.provenance, datasetOf(parcel))}</div>
       ${msg ? `<p class="map-card__msg">${esc(msg)}</p>` : canPick ? '<span class="small">Tap the map to move your field.</span>' : ""}
       ${custom ? `<div class="map-card__actions">
@@ -198,14 +202,14 @@ export function render(el, ctx) {
       : null;
   };
   if (window.L && Number.isFinite(lat) && Number.isFinite(lon)) {
-    map = L.map(el.querySelector("#map"), { center: [lat, lon], zoom: 14, scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false });
+    map = L.map(el.querySelector("#map"), { center: [mapLat, mapLon], zoom: 14, scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false });
     setLayer(mode);
     const green = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#248a3d";
     const region = L.featureGroup(ANDALUCIA_PROVINCES.map((p) =>
       L.polygon(p.ring.map(([x, y]) => [y, x]), { color: "#ffffff", weight: 1.2, opacity: 0.7, fill: false, interactive: false, dashArray: "4 4" })
     )).addTo(map);
-    fieldCircle = L.circle([lat, lon], { radius: radius(st.area_ha), color: "#ffffff", weight: 2.5, fillColor: green, fillOpacity: 0.22, interactive: false }).addTo(map);
-    L.circleMarker([lat, lon], { radius: 6, color: "#fff", weight: 2, fillColor: green, fillOpacity: 1, interactive: false }).addTo(map);
+    fieldCircle = L.circle([mapLat, mapLon], { radius: radius(st.area_ha), color: "#ffffff", weight: 2.5, fillColor: green, fillOpacity: 0.22, interactive: false }).addTo(map);
+    L.circleMarker([mapLat, mapLon], { radius: 6, color: "#fff", weight: 2, fillColor: green, fillOpacity: 1, interactive: false }).addTo(map);
     if (canPick) {
       const pick = (plat, plon) => {
         const prov = provinceAt(plat, plon);
@@ -215,7 +219,8 @@ export function render(el, ctx) {
           renderCard("That point is outside Andalucía. DeepKore's crop calendars are written for rainfed farming in Andalucía.");
           return;
         }
-        pending = { lat: roundCoord(plat), lon: roundCoord(plon), province: prov };
+        const r5 = (v) => Math.round(v * 1e5) / 1e5;
+        pending = { lat: r5(plat), lon: r5(plon), province: prov };
         showPending();
         renderCard();
       };

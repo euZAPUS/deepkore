@@ -128,7 +128,7 @@ through the NASA Earth Science Directorate Applied Science Program."
 | FAO Irrigation and Drainage Paper 56 (Allen et al., 1998), Tables 11–12 | ET0 method and crop coefficients (Kc) for the water score |
 | MAPA ECREA 2.0 (Spanish Ministry of Agriculture), Andalucía rainfed, 2018 and 2020 | Net margin per hectare of each crop (income) |
 | Natural Earth 1:10m Admin-1 (public domain) | Outline of Andalucía for the field picker |
-| OpenStreetMap contributors (ODbL), CARTO, Esri World Imagery | Base maps |
+| OpenStreetMap contributors (ODbL), Esri World Imagery | Base maps |
 | Leaflet (BSD-2), Chart.js (MIT), Inter font (SIL OFL 1.1), qrcode-generator (MIT) | Map, charts, typography, QR in the slides |
 | FAO, International Year of Soils 2015 | "Up to 1,000 years to form 1 cm of soil" (pitch) |
 

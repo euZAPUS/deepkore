@@ -127,7 +127,7 @@ The MOCK pill disappears by itself once no loaded file says `MOCK`.
 
 ## Credits and licences
 
-- Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (map view styled by CARTO); satellite imagery © Esri, Maxar, Earthstar Geographics.
+- Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors; satellite imagery © Esri, Maxar, Earthstar Geographics.
 - [Leaflet](https://leafletjs.com/) (BSD-2-Clause), [Chart.js](https://www.chartjs.org/) (MIT); see `vendor/`.
 - NASA data: see the *Data & Limits* screen for each dataset's source and licence.
 - AI use: see `AI_USAGE_LOG.md` and the *About / AI declaration* screen.

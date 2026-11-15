@@ -715,3 +715,6 @@ h1[tabindex="-1"]:focus { outline: none; }
 .fold[open] > summary .ico { transform: rotate(180deg); }
 .income.fold > summary { margin-bottom: 0; }
 .income.fold[open] > summary { margin-bottom: 6px; }
+
+/* OpenStreetMap tiles in dark mode */
+:root[data-theme="dark"] .tiles-osm { filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.85) saturate(.7); }
