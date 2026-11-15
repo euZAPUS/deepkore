@@ -39,6 +39,10 @@ async function iconPng(Icon, color = "#FFFFFF") {
   const svg = renderToStaticMarkup(React.createElement(Icon, { size: 256, color }));
   return "image/png;base64," + (await sharp(Buffer.from(svg)).png().toBuffer()).toString("base64");
 }
+const LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="3 6 26 24" width="1040" height="960"><rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/><rect x="4" y="25.5" width="24" height="3.5" rx="1.75" fill="#7a6247"/><path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/><path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/></svg>`;
+async function logoPng() {
+  return "image/png;base64," + (await sharp(Buffer.from(LOGO_SVG)).png().toBuffer()).toString("base64");
+}
 async function qrPng(url) {
   const src = fs.readFileSync(path.join(REPO, "vendor/qrcode/qrcode.js"), "utf8");
   const qrcode = new Function(src + "\n;return qrcode;")();
@@ -117,7 +121,9 @@ async function build(lang) {
     check: await iconPng(md.MdCheckCircle), sim: await iconPng(md.MdScience), next: await iconPng(md.MdPublic),
   };
   const QR = await qrPng(APP_URL);
+  const LOGO = await logoPng(); // 26:24 aspect
 
+  const LOGO_DATA = LOGO;
   pres.defineSlideMaster({ title: "DK_DARK", background: { color: C.text1 }, objects: [] });
   pres.defineSlideMaster({
     title: "DK_CONTENT",
@@ -125,7 +131,8 @@ async function build(lang) {
     margin: [0.4, 0.5, 0.45, 0.5],
     objects: [
       { placeholder: { options: { name: "title", type: "title", x: 0.5, y: 0.35, w: 9, h: 0.85, fontSize: 34, bold: true, color: C.text1, align: "left", valign: "middle" }, text: "" } },
-      { text: { text: "DeepKore", options: { x: 0.5, y: 5.2, w: 3, h: 0.25, fontSize: 10, bold: true, color: C.text2 } } },
+      { image: { x: 0.5, y: 5.17, w: 0.33, h: 0.3, data: LOGO_DATA } },
+      { text: { text: "DeepKore", options: { x: 0.88, y: 5.2, w: 3, h: 0.25, fontSize: 11, bold: true, color: C.text2 } } },
     ],
     slideNumber: { x: 9.1, y: 5.2, w: 0.4, h: 0.25, fontSize: 10, color: C.text2, align: "right" },
   });
@@ -151,25 +158,20 @@ async function build(lang) {
     text(s, [
       { text: "¿Cuánto tarda en formarse ", options: { color: C.background1 } },
       { text: `1${NB}cm`, options: { color: C.accent2 } },
-      { text: " de suelo fértil?", options: { color: C.background1 } },
-    ], { x: 1, y: 1.5, w: 8, h: 2.4, fontSize: 48, bold: true, align: "center", valign: "middle", objectName: "Question" });
+      { text: " de suelo?", options: { color: C.background1 } },
+    ], { x: 1, y: 1.5, w: 8, h: 2.4, fontSize: 52, bold: true, align: "center", valign: "middle", objectName: "Question" });
     s.addNotes("ÁLVARO (≈8 s). «¿Cuánto tarda en formarse un centímetro de suelo fértil?» Dos segundos de silencio.");
   };
 
   const slideCover = () => {
     const s = pres.addSlide({ masterName: "DK_DARK", sectionTitle: CUR });
+    s.addImage({ data: LOGO, x: 0.75, y: 1.0, w: 1.3, h: 1.2, objectName: A(1, "Logo mark"), altText: "DeepKore logo" });
     text(s, [{ text: "Deep", options: { color: C.background1 } }, { text: "Kore", options: { color: C.accent1 } }],
-      { x: 0.6, y: 1.35, w: 4.4, h: 1.0, fontSize: 60, bold: true, objectName: A(1, "Logo") });
-    text(s, t("Elige la rotación que protege tu suelo.", "Choose the rotation that protects your soil."),
-      { x: 0.6, y: 2.45, w: 4.2, h: 0.9, fontSize: 22, bold: true, color: C.background1, objectName: A(2, "Tagline") });
-    text(s, t("Con datos de la NASA · gratis · en el móvil", "With NASA data · free · on any phone"),
-      { x: 0.6, y: 3.45, w: 4.2, h: 0.4, fontSize: 15, color: HEX.soft, objectName: A(3, "Subline") });
-    if (!ES) text(s, "Field Shift: Adapting Farms with NASA Data · Pilot: Andalucía, Spain · NASA Space Apps 2026 Málaga",
-      { x: 0.6, y: 4.6, w: 4.4, h: 0.5, fontSize: 11, color: "9FB5A6", objectName: "Event" });
-    s.addImage({ path: IMG("laptop-rotations.jpg"), x: 5.2, y: 1.2, w: 4.3, h: 2.69, objectName: A(2, "App screenshot"),
-      altText: t("DeepKore: comparar rotaciones", "DeepKore: compare rotations"), shadow: { type: "outer", color: "000000", opacity: 0.35, blur: 12, offset: 4, angle: 90 } });
-    s.addNotes(t("ÁLVARO (≈15 s). «Hasta mil años. Y una tormenta puede llevárselo en una tarde. Somos DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos con datos de la NASA.»",
-      "DeepKore: a free web app that helps rainfed farmers choose the crop rotation that protects their soil, with NASA data. Pilot in Andalucía, Spain."));
+      { x: 0.6, y: 2.3, w: 4.5, h: 1.0, fontSize: 64, bold: true, objectName: A(1, "Name") });
+    text(s, "Protege tu suelo antes del riesgo", { x: 0.65, y: 3.35, w: 4.4, h: 0.5, fontSize: 22, color: HEX.soft, objectName: A(2, "Tagline") });
+    s.addImage({ path: IMG("laptop-rotations.jpg"), x: 5.2, y: 1.45, w: 4.3, h: 2.69, objectName: A(2, "App screenshot"),
+      altText: "DeepKore: comparar rotaciones", shadow: { type: "outer", color: "000000", opacity: 0.35, blur: 12, offset: 4, angle: 90 } });
+    s.addNotes("ÁLVARO (≈15 s). «Hasta mil años. Y una tormenta puede llevárselo en una tarde. Somos DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos con datos de la NASA.»");
   };
 
   const slideProblem = () => {
@@ -302,6 +304,7 @@ async function build(lang) {
     ], { x: 0.6, y: 0.7, w: 4.5, h: 1.5, fontSize: 30, bold: true, valign: "top", objectName: A(1, "Closing line") });
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.6, y: 2.6, w: 1.8, h: 1.8, rectRadius: 0.12, fill: { color: C.background1 }, line: { color: C.background1, width: 0 }, objectName: A(2, "QR frame") });
     s.addImage({ data: QR, x: 0.7, y: 2.7, w: 1.6, h: 1.6, objectName: A(2, "QR code"), altText: t("Código QR de la app", "QR code to the app") });
+    s.addImage({ data: LOGO, x: 8.95, y: 4.65, w: 0.55, h: 0.51, objectName: "Logo", altText: "DeepKore logo" });
     text(s, t("Gracias", "Thank you"), { x: 2.65, y: 2.65, w: 2.75, h: 0.85, fontSize: ES ? 44 : 34, bold: true, color: C.background1, objectName: A(2, "Thanks") });
     text(s, "euzapus.github.io/deepkore", { x: 2.65, y: 3.6, w: 2.8, h: 0.4, fontSize: 14, bold: true, color: C.accent1, hyperlink: { url: APP_URL }, objectName: A(2, "App URL") });
     if (!ES) text(s, "NASA POWER · FAO-56 · MAPA ECREA · Natural Earth · OpenStreetMap · github.com/euZAPUS/deepkore",
@@ -333,4 +336,4 @@ async function build(lang) {
   console.log("wrote", out);
 }
 
-(async () => { await build("es"); await build("en"); })().catch((e) => { console.error(e); process.exit(1); });
+(async () => { await build("es"); })().catch((e) => { console.error(e); process.exit(1); });
