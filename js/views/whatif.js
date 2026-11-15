@@ -38,7 +38,7 @@ export function render(el, ctx) {
   let cur = { rain: 0, temp: 0 };
 
   el.innerHTML = `
-    ${viewHead("What-if simulator", "What if it rains less or gets hotter? Watch the ranking change.", '<span class="pill pill--sim">Simulated scenario</span>')}
+    ${viewHead("What-if simulator", "What if it rains less or gets hotter? See how the scores react.", '<span class="pill pill--sim">Simulated scenario</span>')}
     <div class="view-body g-sim">
       <section class="panel reveal" id="controls">
         ${panelHead("Change the climate")}

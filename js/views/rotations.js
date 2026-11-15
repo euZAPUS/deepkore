@@ -7,7 +7,7 @@ import { resolveCurrent, compareSet } from "../choice.js";
 import { flipReorder } from "../motion.js";
 import {
   esc, provBadge, datasetOf, viewHead, panelHead, icon, ICON, sliderHTML, bindSliders, levelWord,
-  ringHTML, setRing, displayName, rotationTag, sequenceHTML, segmentedHTML, bindSegmented, incomeScaleText,
+  ringHTML, setRing, displayName, rotationTag, sequenceHTML, segmentedHTML, bindSegmented, incomeScaleText, ecreaYearsText,
 } from "../ui.js";
 
 const ALL_CRITERIA = [...CRITERIA_META, RESILIENCE_META];
@@ -57,9 +57,9 @@ function incomeHTML(r, rules) {
     ? `<span class="muted">no verified value${b.eur_ha === null ? "" : ` · counted as ${eur(b.eur_ha)} (TBD)`}</span>`
     : `${eur(b.eur_ha)} <span class="muted">(${esc(b.years.join(", "))}${b.ecrea_crop ? ` · ECREA "${esc(b.ecrea_crop)}"` : ""})</span>`}${b.note ? `<br><span class="small muted">${esc(b.note)}</span>` : ""}</li>`).join("");
   return `<details class="income fold">
-    <summary class="bar__top"><span>Net margin (MAPA ECREA) ${icon(ICON.chevron, 14)}</span><b>${inc.eur_ha_year === null ? "no verified value" : `${eur(inc.eur_ha_year)} per year`}</b></summary>
+    <summary class="bar__top"><span>Net margin (MAPA ECREA)${ecreaYearsText([inc]) ? ` <small class="income__years">${esc(ecreaYearsText([inc]))}</small>` : ""} ${icon(ICON.chevron, 14)}</span><b>${inc.eur_ha_year === null ? "no verified value" : `${eur(inc.eur_ha_year)} per year`}</b></summary>
     <ul class="income__list">${crops}</ul>
-    <p class="small muted">${esc(inc.region ?? "")} · MAPA ECREA 2.0 net margin (margen neto), without decoupled payments. Income score: ${esc(incomeScaleText(rules))} (scale TBD) · ${provBadge("derived", "MAPA ECREA")}</p>
+    <p class="small muted">${esc(inc.region ?? "")} · MAPA ECREA 2.0 net margin (margen neto), without decoupled CAP payments (coupled aid included). Income score: ${esc(incomeScaleText(rules))} (scale TBD) · ${provBadge("derived", "MAPA ECREA")}</p>
   </details>`;
 }
 

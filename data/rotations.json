@@ -38,7 +38,7 @@
     ],
     "gaps": [
       "No field-level yield records used",
-      "Market prices not included"
+      "Field-level yields and prices not included (regional ECREA averages used)"
     ],
     "risks": [
       "Soil left bare from July to October",
@@ -721,7 +721,7 @@
     ],
     "gaps": [
       "No field-level yield records used",
-      "Market prices not included"
+      "Field-level yields and prices not included (regional ECREA averages used)"
     ],
     "risks": [
       "No legume or break crop in the rotation",

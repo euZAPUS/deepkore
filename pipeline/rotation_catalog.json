@@ -16,7 +16,7 @@
       "sequence": ["Durum wheat", "Durum wheat"],
       "why": "Durum wheat every year (monoculture): the same crop and calendar every season.",
       "benefits": ["Known crop, machinery and buyers", "One sowing and harvest calendar to manage"],
-      "gaps": ["No field-level yield records used", "Market prices not included"],
+      "gaps": ["No field-level yield records used", "Field-level yields and prices not included (regional ECREA averages used)"],
       "risks": ["No legume or break crop in the rotation", "Soil left bare between each harvest and the next sowing"]
     },
     {

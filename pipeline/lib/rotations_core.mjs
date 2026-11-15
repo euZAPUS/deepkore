@@ -187,6 +187,8 @@ export const TEXT_EDITS = {
   current: {
     // income is not scored (no verified prices or yields at the time); the ECREA net margin is shown separately
     dropBenefits: ["Good income in average years"],
+    // income uses regional ECREA net margins, so "no prices" is not accurate
+    replaceGaps: { "Market prices not included": "Field-level yields and prices not included (regional ECREA averages used)" },
   },
   B: {
     // income is not scored; vetch as forage / green manure has no verified net margin
@@ -238,7 +240,7 @@ export function buildRotations({ texts, monthly, weeks, RULES, TH, INCOME, perio
     why: edit(m.id).why ?? STRIP(m.why),
     evidence: evidence(detail, period, TH),
     benefits: m.benefits.map(STRIP).filter((t) => !(edit(m.id).dropBenefits || []).includes(t)),
-    gaps: m.gaps.map(STRIP),
+    gaps: m.gaps.map(STRIP).map((t) => edit(m.id).replaceGaps?.[t] ?? t),
     risks: m.risks.map(STRIP).filter((t) => !(edit(m.id).dropRisks || []).includes(t)),
     pac_eligible: "TBD",
     income: rotationIncome(m.sequence, INCOME),

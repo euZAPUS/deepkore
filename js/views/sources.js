@@ -10,12 +10,11 @@ const LABELS = [
   ["MOCK", "Placeholder while building the app. Not real data."],
 ];
 
-// Draft list, to be reviewed by the team.
 const LIMITS = [
-  ["Satellite pixels are bigger than your field.", "One NASA POWER grid cell is tens of kilometres wide."],
+  ["NASA POWER grid cells are bigger than your field.", "One NASA POWER grid cell is tens of kilometres wide."],
   ["The past does not guarantee the future.", "Risk weeks come from past years; the climate is changing."],
   ["Scenarios are simulations, not forecasts.", "They show how the ranking reacts, not next season."],
-  ["No soil analysis, yields or prices.", "Your agronomist knows your soil test and harvests."],
+  ["No soil analysis, field-level yields or local prices.", "Your agronomist knows your soil test and harvests."],
   ["PAC rules change every year.", "Check eligibility with your cooperative or regional office."],
   ["Scores are for comparing, not promising.", "0–100 scores are not predicted yields or profits."],
 ];
@@ -42,11 +41,12 @@ function incomeSourcesHTML(rotations, rules) {
   let inc = null;
   (rotations || []).forEach((r) => (r.income?.documents || []).forEach((d) => { docs.set(d.url, d.id); inc = r.income; }));
   if (!docs.size) return "";
+  const years = [...new Set((rotations || []).flatMap((r) => (r.income?.by_crop || []).flatMap((b) => b.years || [])))].sort().join(" and ");
   return `<section class="panel reveal">
     ${panelHead("Other data: farm income", provBadge("derived", "MAPA ECREA"))}
-    <p class="small">Net margin per hectare (margen neto, without decoupled payments) of rainfed crops in Andalucía, from the Spanish Ministry of Agriculture's cost and income studies (ECREA 2.0, farm accounting network RECAN). Turned into the income score: ${esc(incomeScaleText(rules))} (scale TBD). Vetch as forage and cover crops have no verified value and count as 0 €/ha (TBD). Fallow has no verified value and is left empty: a rotation with fallow has no income score, and income then stays out of the ranking for all rotations.</p>
+    <p class="small">Net margin per hectare (margen neto, without decoupled CAP payments; coupled aid included) of rainfed crops in Andalucía, from the Spanish Ministry of Agriculture's cost and income studies (ECREA 2.0, farm accounting network RECAN). Turned into the income score: ${esc(incomeScaleText(rules))} (scale TBD). Vetch as forage and cover crops have no verified value and count as 0 €/ha (TBD). Fallow counts as 0 €/ha: no crop is sold; tillage costs are not counted (TBD).</p>
     <ul class="val-limits">${[...docs].map(([url, id]) => `<li><a href="${esc(url)}" target="_blank" rel="noopener">${esc(id.replace("_", " "))}</a></li>`).join("")}</ul>
-    <p class="small muted">${inc?.accessed ? `Accessed ${esc(inc.accessed)}. ` : ""}Sample farms, 2018-2020 prices, regional averages: not your field's yields or prices. Chickpea and lentil use ECREA's lentils-chickpeas-vetches group.</p>
+    <p class="small muted">${inc?.accessed ? `Accessed ${esc(inc.accessed)}. ` : ""}Sample farms, ${esc(years || "ECREA")} (current prices of each year), regional averages: not your field's yields or prices. Chickpea and lentil use ECREA's lentils-chickpeas-vetches group.</p>
   </section>`;
 }
 
@@ -86,7 +86,7 @@ export function render(el, ctx) {
       </section>
 
       <section class="panel reveal">
-        ${panelHead("Limits", '<span class="pill pill--draft">Draft</span>')}
+        ${panelHead("Limits")}
         <ol class="lim-list">
           ${LIMITS.map(([t, d], i) => `<li><span class="n">${i + 1}</span><div><b>${esc(t)}</b><p>${esc(d)}</p></div></li>`).join("")}
         </ol>

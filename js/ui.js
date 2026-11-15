@@ -180,6 +180,17 @@ export function rotationTag(rotation, currentId = "current") {
 }
 
 // "0 €/ha or less = 0, 623 €/ha = 100" from pipeline/income_ecrea.json score_scale (rules: js/custom.js loadRules).
+// Years of the ECREA values behind net margins (from income.by_crop[].years, which the pipeline copies
+// from pipeline/income_ecrea.json), e.g. "ECREA 2020, one year" or "ECREA 2018 and 2020 average".
+export function ecreaYearsText(incomes) {
+  const ys = [...new Set((incomes || []).flatMap((inc) => (inc?.by_crop || []).flatMap((b) => b.years || [])))].sort((a, b) => a - b);
+  if (!ys.length) return "";
+  if (ys.length === 1) return `ECREA ${ys[0]}, one year`;
+  const contiguous = ys.every((y, i) => i === 0 || y === ys[i - 1] + 1);
+  const span = contiguous ? `${ys[0]}–${ys.at(-1)}` : `${ys.slice(0, -1).join(", ")} and ${ys.at(-1)}`;
+  return `ECREA ${span} average`;
+}
+
 export function incomeScaleText(rules) {
   const sc = rules?.INCOME?.score_scale;
   if (!sc) return "linear scale from pipeline/income_ecrea.json";

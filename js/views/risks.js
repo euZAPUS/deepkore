@@ -198,10 +198,10 @@ export function render(el, ctx) {
     if (mode === "water") {
       data = { labels: MONTHS, datasets: [
         { type: "bar", label: "Rain", data: m.precip_mm, backgroundColor: css("--c-water") + "cc", borderRadius: 6, maxBarThickness: 26 },
-        line("Crop water demand (ET0)", m.et0, css("--wheat"), { borderDash: [6, 5] }),
+        line("Reference evapotranspiration (ET0)", m.et0, css("--wheat"), { borderDash: [6, 5] }),
       ] };
       yTitle = "mm per month";
-      caption.innerHTML = `Dashed line above the bars = crops need more water than the rain gives · ${years} · ${provBadge(climate.provenance, "NASA POWER")}`;
+      caption.innerHTML = `Dashed line above the bars = the air demands more water than the rain gives (reference grass, FAO-56) · ${years} · ${provBadge(climate.provenance, "NASA POWER")}`;
     } else if (mode === "temp") {
       data = { labels: MONTHS, datasets: [line("Max °C", m.tmax, css("--h-heat")), line("Min °C", m.tmin, css("--h-frost"))] };
       yTitle = "°C";

@@ -4,7 +4,7 @@
 import { VALIDATORS } from "./contract.js";
 
 // Bump when the browser computation changes (worker, power_files, rotations_core, power_core).
-export const LIVE_VERSION = "6";
+export const LIVE_VERSION = "7";
 const CACHE_PREFIX = "deepkore-live:";
 const OLD_PREFIXES = ["deepkore-live-v1:", "deepkore-live-v2:"];
 export const LIVE_FILES = ["parcel", "climate", "risk_windows", "validation", "rotations", "scenarios"];
