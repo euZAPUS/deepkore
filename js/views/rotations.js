@@ -14,8 +14,7 @@ const ALL_CRITERIA = [...CRITERIA_META, RESILIENCE_META];
 const TABS = [
   { value: "evidence", label: "Evidence" },
   { value: "benefits", label: "Benefits" },
-  { value: "gaps", label: "Gaps" },
-  { value: "risks", label: "Risks" },
+  { value: "gaps-risks", label: "Gaps & risks" },
 ];
 
 function confidenceHTML(conf) {
@@ -44,8 +43,9 @@ function tabHTML(r, tab) {
   if (tab === "evidence")
     return `<ul class="ev">${(r.evidence || []).map((e) => `<li>${provBadge(e.provenance ?? r.provenance, e.dataset)}<span>${esc(e.fact)}</span></li>`).join("")}</ul>`;
   if (tab === "benefits") return listHTML(r.benefits, "ilist--ok", ICON.check);
-  if (tab === "gaps") return listHTML(r.gaps, "ilist--gap", ICON.gap);
-  return listHTML(r.risks, "ilist--risk", ICON.warn);
+  // Gaps & risks: one tab, two groups; an empty group is not shown.
+  const group = (title, items, cls, ico) => (items || []).length ? `<h4 class="ilist__title">${esc(title)}</h4>${listHTML(items, cls, ico)}` : "";
+  return group("What we don't know yet", r.gaps, "ilist--gap", ICON.gap) + group("Risks to check locally", r.risks, "ilist--risk", ICON.warn);
 }
 
 // Net margin from MAPA ECREA behind the income score.
@@ -87,7 +87,6 @@ export function render(el, ctx) {
            }).join("")}
          </div>
        </div>`)}
-    ${store.get().mode === "irrigated" ? '<p class="note" style="margin:-6px 0 14px">Irrigated fields are not modelled yet. Scores assume rainfed conditions.</p>' : ""}
     <div class="view-body g-rot">
       <section class="panel reveal">
         ${panelHead("Ranking")}

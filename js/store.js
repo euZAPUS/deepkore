@@ -7,7 +7,7 @@
 
 const KEY = "deepkore-prefs";
 export const MAX_CUSTOM = 3;
-const DEFAULTS = { weights: { water: 70, soil: 70, income: 50, erosion: 60 }, mode: "rainfed", location: null, area_ha: 10, current_rotation: "current", custom_rotations: [] };
+const DEFAULTS = { weights: { water: 70, soil: 70, income: 50, erosion: 60 }, location: null, area_ha: 10, current_rotation: "current", custom_rotations: [] };
 
 // Keeps only well-formed custom rotations (2-4 crop names, ids custom-1..custom-N, at most MAX_CUSTOM).
 export function cleanCustom(list) {
@@ -20,7 +20,8 @@ export function cleanCustom(list) {
     .map((c) => ({ id: c.id, sequence: [...c.sequence] }));
 }
 
-function clean(s) {
+// Older versions stored a water-supply "mode" (rainfed / irrigated); it is dropped: everything is rainfed.
+function clean({ mode, ...s }) {
   return {
     ...DEFAULTS,
     ...s,
@@ -48,9 +49,9 @@ export const store = {
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* not remembered */ }
     subs.forEach((fn) => fn(state));
   },
-  // Resets priorities and limits; keeps the field location and size and the current rotation.
+  // Resets priorities; keeps the field location and size and the current rotation.
   reset() {
-    this.set({ mode: DEFAULTS.mode, weights: { ...DEFAULTS.weights } });
+    this.set({ weights: { ...DEFAULTS.weights } });
   },
   subscribe(fn) {
     subs.add(fn);

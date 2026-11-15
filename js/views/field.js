@@ -13,11 +13,6 @@ import {
   segmentedHTML, bindSegmented, ringHTML, ecreaYearsText, setRing, displayName, rotationTag, selectHTML, icon, ICON,
 } from "../ui.js";
 
-const MODES = [
-  { value: "rainfed", label: "Rainfed" },
-  { value: "irrigated", label: "Irrigated" },
-];
-
 // Field size steps (ha) for the slider.
 const AREAS = [0.5, 1, 2, 3, 5, 7.5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200, 300, 500];
 const areaIndex = (ha) => AREAS.reduce((best, v, i) => (Math.abs(v - ha) < Math.abs(AREAS[best] - ha) ? i : best), 0);
@@ -136,10 +131,6 @@ export function render(el, ctx) {
         <div id="totals"></div>
       </section>
 
-      <section class="panel reveal">
-        ${panelHead("Water supply", segmentedHTML("mode", MODES, st.mode, "Water supply"))}
-        <p class="note" id="mode-note" ${st.mode === "irrigated" ? "" : "hidden"}>Irrigated fields are not modelled yet. Results still assume rainfed conditions.</p>
-      </section>
 
     </div>
   `;
@@ -313,7 +304,6 @@ export function render(el, ctx) {
   });
   el.querySelector("#reset").addEventListener("click", () => {
     store.reset();
-    el.querySelector('#mode button[data-value="rainfed"]').click();
     const w = store.get().weights;
     el.querySelectorAll("#weights input").forEach((i) => {
       i.value = w[i.dataset.key];
@@ -360,10 +350,6 @@ export function render(el, ctx) {
     store.set(removeCustomPatch(store.get(), b.dataset.id));
     ctx.refresh();
   }));
-  bindSegmented(el.querySelector("#mode"), (m) => {
-    store.set({ mode: m });
-    el.querySelector("#mode-note").hidden = m !== "irrigated";
-  });
 
   return () => {
     document.removeEventListener("deepkore:theme", onTheme);

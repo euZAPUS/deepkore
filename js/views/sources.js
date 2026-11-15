@@ -15,6 +15,7 @@ const LIMITS = [
   ["The past does not guarantee the future.", "Risk weeks come from past years; the climate is changing."],
   ["Scenarios are simulations, not forecasts.", "They show how the ranking reacts, not next season."],
   ["No soil analysis, field-level yields or local prices.", "Your agronomist knows your soil test and harvests."],
+  ["Irrigated fields are not modelled: all results assume rainfed farming.", "Water need and water scores use rain only, with no irrigation."],
   ["PAC rules change every year.", "Check eligibility with your cooperative or regional office."],
   ["Scores are for comparing, not promising.", "0–100 scores are not predicted yields or profits."],
 ];

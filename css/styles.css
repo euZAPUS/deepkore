@@ -738,3 +738,5 @@ h1[tabindex="-1"]:focus { outline: none; }
 .member__name { font-weight: 650; font-size: 1rem; }
 .member__role { color: var(--text-2); font-size: .86rem; margin-top: 2px; }
 .nowrap { white-space: nowrap; }
+.ilist__title { font-size: .78rem; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: .04em; margin: 0 0 8px; }
+.ilist + .ilist__title { margin-top: 16px; }

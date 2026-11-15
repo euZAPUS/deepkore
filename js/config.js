@@ -28,7 +28,6 @@ export const SECTIONS = [
     planned: [
       "Map of the pilot field (Vega de Antequera, Málaga)",
       "Priority sliders: Water, Soil health, Income, Erosion",
-      "Limits: rainfed or irrigated",
     ],
   },
   {
