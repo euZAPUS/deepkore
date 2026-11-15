@@ -192,7 +192,7 @@ async function build(lang) {
     });
     if (!ES) text(s, "For rainfed farmers: wheat–sunflower leaves the soil bare right when autumn storms arrive, and the climate data does not reach them in plain words.",
       { x: 0.5, y: 4.72, w: 9, h: 0.4, fontSize: 11, color: HEX.mut, objectName: "Context" });
-    s.addNotes(t("ÁLVARO (≈20 s). «Aquí la rotación más habitual, trigo y girasol, deja la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. Y la primavera de 2023 fue la más seca en 25 años. Los datos para decidir mejor existen, pero no llegan al agricultor. Germán.»",
+    s.addNotes(t("ÁLVARO (≈30 s). «El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra, trigo un año, girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. Los datos para decidir mejor existen, pero no llegan al agricultor. Germán.»",
       "Problem and user: rainfed farmers. Sources: FAO (International Year of Soils 2015); NASA POWER 2001–2025 at the pilot field."));
   };
 
@@ -292,7 +292,7 @@ async function build(lang) {
       { x: 0.5, y: ES ? 4.4 : 4.3, w: 9, h: 0.45, fontSize: 20, bold: true, color: C.accent1, align: "center", objectName: A(4, "Trust") });
     if (!ES) text(s, "Limits: one NASA POWER cell is tens of km wide · past ≠ future · no field yields or prices · crop calendars to confirm with agronomists. 28 automated tests.",
       { x: 0.5, y: 4.75, w: 9, h: 0.38, fontSize: 10, color: C.accent4, objectName: "Limits" });
-    s.addNotes(t("DANIEL (≈15 s). «Hoy funciona en toda Andalucía, y como los datos de la NASA son globales, el siguiente paso es llevarlo a otras regiones. Siempre como apoyo: decide el agrónomo.»",
+    s.addNotes(t("DANIEL (≈10 s). «Hoy funciona en toda Andalucía, y los datos de la NASA son globales: el siguiente paso, otras regiones. Siempre como apoyo: decide el agrónomo.»",
       "Built / simulated / next, with the limits."));
   };
 

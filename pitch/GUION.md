@@ -8,7 +8,7 @@ Cada uno habla su parte entera y al final dice el nombre del siguiente. **2 minu
 
 ---
 
-## ÁLVARO · el problema (≈45 s) · diapositivas 1–3
+## ÁLVARO · el problema (≈55 s) · diapositivas 1–3
 
 **1 · Pregunta**
 > "¿Cuánto tarda en formarse un centímetro de suelo fértil?" *(dos segundos de silencio)*
@@ -18,8 +18,9 @@ Cada uno habla su parte entera y al final dice el nombre del siguiente. **2 minu
 > de secano a elegir su rotación de cultivos con datos de la NASA."
 
 **3 · El problema**
-> "Aquí la rotación más habitual, trigo y girasol, deja la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas
-> de otoño. Y la primavera de 2023 fue la más seca en 25 años. Los datos para decidir mejor existen, pero no llegan al agricultor. Germán."
+> "El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra, trigo un año,
+> girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio a noviembre,
+> justo cuando llegan las tormentas de otoño. Los datos para decidir mejor existen, pero no llegan al agricultor. Germán."
 
 ## GERMÁN · los datos y la evidencia (≈50 s) · diapositivas 4–5
 
@@ -31,14 +32,14 @@ Cada uno habla su parte entera y al final dice el nombre del siguiente. **2 minu
 > "Y es fiable: detecta la sequía de 2022–23, 193 milímetros frente a 354 normales. En nuestra parcela piloto, cambiar el girasol
 > por lenteja sube la puntuación de 42 a 68: protege el suelo y deja más margen. Daniel."
 
-## DANIEL · la app y el cierre (≈47 s) · diapositivas 6–8
+## DANIEL · la app y el cierre (≈40 s) · diapositivas 6–8
 
 **6 · Tres pasos, en cualquier móvil**
 > "Todo esto el agricultor lo tiene en el móvil en tres pasos: marca su parcela y lo que siembra, ve las semanas de riesgo de helada,
 > calor y tormenta, y compara su rotación con las mejores alternativas, con el porqué de cada una."
 
 **7 · Qué funciona y límites**
-> "Hoy funciona en toda Andalucía, y como los datos de la NASA son globales, el siguiente paso es llevarlo a otras regiones.
+> "Hoy funciona en toda Andalucía, y los datos de la NASA son globales: el siguiente paso, otras regiones.
 > Siempre como apoyo: decide el agrónomo."
 
 **8 · Cierre**
