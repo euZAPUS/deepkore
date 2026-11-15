@@ -133,3 +133,6 @@ data do not support are edited in `TEXT_EDITS` in `build_rotations.mjs`:
 - No field yields or prices, no soil analysis or PAC rules. Net margins are regional ECREA averages, not the field's.
   Scores are for comparing rotations, not promises.
 - Crop calendars are written for rainfed Andalucía, so the map only accepts points there.
+
+**15 Nov update:** Fallow now counts as 0 €/ha (no crop sold), like the other crops without a verified net margin, so every
+rotation has an income score and income is in the ranking (default: current 42 → best Durum wheat – Lentil 68).

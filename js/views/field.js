@@ -271,12 +271,12 @@ export function render(el, ctx) {
     totalsEl.innerHTML = `
       <dl class="kv">
         ${yearRain !== null ? `<div><dt>Rain on your field</dt><dd>≈ <b>${fmt(m3(yearRain, ha))} m³</b> per year <span class="muted">(${fmt(yearRain)} mm, mean ${esc(parcel.period)})</span></dd></div>` : ""}
-        <div><dt>Net margin, your current rotation (${esc(displayName(current))})</dt><dd>${income(current)}</dd></div>
-        ${best.id !== current.id ? `<div><dt>Net margin, best match (${esc(displayName(best))})</dt><dd>${income(best)}</dd></div>` : ""}
+        <div><dt>Net margin before CAP subsidies, your current rotation (${esc(displayName(current))})</dt><dd>${income(current)}</dd></div>
+        ${best.id !== current.id ? `<div><dt>Net margin before CAP subsidies, best match (${esc(displayName(best))})</dt><dd>${income(best)}</dd></div>` : ""}
       </dl>
       <h3 class="totals__sub">Water in the growing months, your current rotation</h3>
       <ul class="wb-list">${water(current)}</ul>
-      <p class="small muted">Water need = Kc × ET0 (FAO-56) over the growing months, rainfed, no soil storage. Net margin = MAPA ECREA, Andalucía rainfed, 2018-2020 (euro/ha, without decoupled payments); it is the base of the income score. 1 mm on 1 ha = 10 m³.</p>`;
+      <p class="small muted">Water need = Kc × ET0 (FAO-56) over the growing months, rainfed, no soil storage. Net margin = what is left from the harvest after seed, fertiliser, fuel, machinery, hired work and depreciation, <b>before CAP subsidies</b>. Regional average for rainfed farms in Andalucía from the Spanish Ministry of Agriculture (ECREA, 2018-2020), not your farm's accounts. It is the base of the income score. 1 mm on 1 ha = 10 m³.</p>`;
   };
 
   /* ---- best match ---- */

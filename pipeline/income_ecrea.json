@@ -60,8 +60,7 @@
     },
     "Fallow": {
       "values": [],
-      "use_missing_value": false,
-      "note": "TBD: ECREA has no net margin for fallow; left empty (not counted as 0 euro/ha) until a sourced value is found."
+      "note": "No crop is sold in a fallow year: counted as 0 euro/ha, like the other crops without a verified value. TBD: tillage costs of the fallow year are not counted."
     }
   }
 }

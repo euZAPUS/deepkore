@@ -61,7 +61,7 @@
       "E": {
         "water": 39,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 43,
         "risk_resilience": 100
       },
@@ -333,7 +333,7 @@
       "E": {
         "water": 38,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 43,
         "risk_resilience": 99
       },
@@ -605,7 +605,7 @@
       "E": {
         "water": 37,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 43,
         "risk_resilience": 97
       },
@@ -877,7 +877,7 @@
       "E": {
         "water": 36,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 43,
         "risk_resilience": 94
       },
@@ -1149,7 +1149,7 @@
       "E": {
         "water": 46,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 100
       },
@@ -1421,7 +1421,7 @@
       "E": {
         "water": 45,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 99
       },
@@ -1693,7 +1693,7 @@
       "E": {
         "water": 43,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 97
       },
@@ -1965,7 +1965,7 @@
       "E": {
         "water": 42,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 94
       },
@@ -2237,7 +2237,7 @@
       "E": {
         "water": 53,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 41,
         "risk_resilience": 100
       },
@@ -2509,7 +2509,7 @@
       "E": {
         "water": 51,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 41,
         "risk_resilience": 99
       },
@@ -2781,7 +2781,7 @@
       "E": {
         "water": 49,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 41,
         "risk_resilience": 97
       },
@@ -3053,7 +3053,7 @@
       "E": {
         "water": 48,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 41,
         "risk_resilience": 94
       },
@@ -3325,7 +3325,7 @@
       "E": {
         "water": 59,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 43,
         "risk_resilience": 100
       },
@@ -3597,7 +3597,7 @@
       "E": {
         "water": 57,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 43,
         "risk_resilience": 99
       },
@@ -3869,7 +3869,7 @@
       "E": {
         "water": 56,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 43,
         "risk_resilience": 97
       },
@@ -4141,7 +4141,7 @@
       "E": {
         "water": 54,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 43,
         "risk_resilience": 94
       },
@@ -4413,7 +4413,7 @@
       "E": {
         "water": 66,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 100
       },
@@ -4685,7 +4685,7 @@
       "E": {
         "water": 64,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 99
       },
@@ -4957,7 +4957,7 @@
       "E": {
         "water": 62,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 97
       },
@@ -5229,7 +5229,7 @@
       "E": {
         "water": 60,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 94
       },
@@ -5501,7 +5501,7 @@
       "E": {
         "water": 72,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 41,
         "risk_resilience": 100
       },
@@ -5773,7 +5773,7 @@
       "E": {
         "water": 70,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 41,
         "risk_resilience": 99
       },
@@ -6045,7 +6045,7 @@
       "E": {
         "water": 68,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 41,
         "risk_resilience": 97
       },
@@ -6317,7 +6317,7 @@
       "E": {
         "water": 66,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 41,
         "risk_resilience": 94
       },
@@ -6589,7 +6589,7 @@
       "E": {
         "water": 79,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 100
       },
@@ -6861,7 +6861,7 @@
       "E": {
         "water": 76,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 99
       },
@@ -7133,7 +7133,7 @@
       "E": {
         "water": 74,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 97
       },
@@ -7405,7 +7405,7 @@
       "E": {
         "water": 72,
         "soil": 25,
-        "income": null,
+        "income": 8,
         "erosion": 42,
         "risk_resilience": 94
       },

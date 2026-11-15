@@ -63,8 +63,8 @@ regional, and in 48 hours we wrote and checked them only for our own region. And
 - **Erosion:** 1 − share of the year's heavy-rain frequency that falls while the soil is bare.
 - **Risk resilience:** 1 − mean weekly chance of each crop's main hazard during its sensitive weeks.
 - **Soil health:** legume years and botanical diversity of the sequence.
-- **Income:** net margin per hectare from the Spanish Ministry of Agriculture (MAPA ECREA 2.0, Andalucía rainfed). It is shown
-  for each rotation but kept out of the ranking while one rotation (wheat–fallow) has no verified value.
+- **Income:** net margin per hectare before CAP subsidies, from the Spanish Ministry of Agriculture (MAPA ECREA 2.0, Andalucía
+  rainfed, 2018–2020). Crops without a verified value (vetch as forage, cover crop, fallow) count as 0 €/ha and are flagged.
 
 ### Benefits
 - Turns open NASA data into plain-language answers a farmer can use on a phone, without login.

@@ -395,11 +395,11 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
       <div class="card c1 a" style="--i:3">
         <span class="lab">Result at the pilot field</span>
         <div class="vsrow" id="vs">
-          <div class="score" style="--k:var(--clay)"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:80"/></svg><b>51</b><small>today</small><em>Durum wheat – Sunflower</em></div>
+          <div class="score" style="--k:var(--clay)"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:95"/></svg><b>42</b><small>today</small><em>Durum wheat – Sunflower</em></div>
           <div style="font:900 clamp(1.2rem,2vw,2rem) var(--sans);color:var(--mut)">→</div>
-          <div class="score" style="--k:var(--green)"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:49"/></svg><b>70</b><small>best for you</small><em>Durum wheat – Lentil</em></div>
+          <div class="score" style="--k:var(--green)"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:52"/></svg><b>68</b><small>best for you</small><em>Durum wheat – Lentil</em></div>
         </div>
-        <div class="deltas" id="deltas"><span>Water +19</span><span>Soil health +25</span><span>Erosion +13</span></div>
+        <div class="deltas" id="deltas"><span>Water +19</span><span>Soil health +25</span><span>Erosion +13</span><span>Income +51</span></div>
         <p style="margin-top:auto;font-size:clamp(.74rem,.92vw,.94rem)">Match score out of 100 with default priorities. The farmer decides the trade-off.</p>
       </div>
     </div>
@@ -492,7 +492,6 @@ const nameOf = (r) => String(r.name ?? r.id).replace(/^\s*(current|[A-Z])\s*:\s*
     document.getElementById("deltas").innerHTML = Object.keys(L).map((k) => {
       const a = best.rotation.scores?.[k], b = now.rotation.scores?.[k];
       if (typeof a !== "number" || typeof b !== "number" || a === b) return "";
-      if (k === "income") return ""; // income is not in the ranking yet
       return `<span class="${a < b ? "dn" : ""}">${L[k]} ${a > b ? "+" : "−"}${Math.abs(a - b)}</span>`;
     }).join("");
   } catch { /* keep static numbers */ }

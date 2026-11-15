@@ -30,7 +30,7 @@ Los 2-3 minutos incluyen subir al escenario y las preguntas: el pitch tiene que 
 > "El motor es NASA POWER: 25 años de datos diarios de tu parcela. Con ellos calculamos la probabilidad semanal de helada, calor y lluvia fuerte, el agua que necesita cada cultivo y cuándo cae la tormenta sobre suelo desnudo."
 
 **6 · Evidence**
-> "¿Funciona con datos reales? Sí: detecta la sequía de 2022–23 como la más seca de 25 años. Y en nuestra parcela piloto, pasar de trigo–girasol a trigo–lenteja sube de 51 a 70: más agua, más suelo, menos erosión."
+> "¿Funciona con datos reales? Sí: detecta la sequía de 2022–23 como la más seca de 25 años. Y en nuestra parcela piloto, pasar de trigo–girasol a trigo–lenteja sube de 42 a 68: más suelo, menos erosión y más margen por hectárea."
 
 **7 · Built / Simulated / Next**
 > "Funciona hoy en toda Andalucía, nuestra región piloto. Los datos de la NASA son globales: para llevarla a cualquier país solo hay que añadir sus calendarios de cultivo. Siguiente paso: cooperativas de Málaga, SMAP y GPM. Y siempre: apoya al agricultor, decide su agrónomo."

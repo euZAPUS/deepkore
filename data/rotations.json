@@ -149,7 +149,7 @@
     "provenance": "derived",
     "dataset": "NASA POWER",
     "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
-    "generated_at": "2026-11-14"
+    "generated_at": "2026-11-15"
   },
   {
     "id": "A",
@@ -299,7 +299,7 @@
     "provenance": "derived",
     "dataset": "NASA POWER",
     "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
-    "generated_at": "2026-11-14"
+    "generated_at": "2026-11-15"
   },
   {
     "id": "B",
@@ -472,7 +472,7 @@
     "provenance": "derived",
     "dataset": "NASA POWER",
     "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
-    "generated_at": "2026-11-14"
+    "generated_at": "2026-11-15"
   },
   {
     "id": "C",
@@ -679,7 +679,7 @@
     "provenance": "derived",
     "dataset": "NASA POWER",
     "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
-    "generated_at": "2026-11-14"
+    "generated_at": "2026-11-15"
   },
   {
     "id": "D",
@@ -826,7 +826,7 @@
     "provenance": "derived",
     "dataset": "NASA POWER",
     "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
-    "generated_at": "2026-11-14"
+    "generated_at": "2026-11-15"
   },
   {
     "id": "E",
@@ -839,7 +839,7 @@
     "scores": {
       "water": 66,
       "soil": 25,
-      "income": null,
+      "income": 8,
       "erosion": 42,
       "risk_resilience": 100
     },
@@ -877,8 +877,8 @@
     ],
     "pac_eligible": "TBD",
     "income": {
-      "eur_ha_year": null,
-      "missing_rule": null,
+      "eur_ha_year": 49.6,
+      "missing_rule": "TBD: a crop without a verified net margin counts as 0 euro/ha (no sale, costs not counted) until a value is found",
       "metric": "ECREA net margin (margen neto), euro per hectare and year, mean of the crops in the sequence",
       "region": "Andalucía, secano",
       "by_crop": [
@@ -895,11 +895,11 @@
         },
         {
           "crop": "Fallow",
-          "eur_ha": null,
+          "eur_ha": 0,
           "assumed": true,
           "years": [],
           "ecrea_crop": null,
-          "note": "TBD: ECREA has no net margin for fallow; left empty (not counted as 0 euro/ha) until a sourced value is found."
+          "note": "No crop is sold in a fallow year: counted as 0 euro/ha, like the other crops without a verified value. TBD: tillage costs of the fallow year are not counted."
         }
       ],
       "missing": [
@@ -966,7 +966,7 @@
     "provenance": "derived",
     "dataset": "NASA POWER",
     "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
-    "generated_at": "2026-11-14"
+    "generated_at": "2026-11-15"
   },
   {
     "id": "F",
@@ -1116,6 +1116,6 @@
     "provenance": "derived",
     "dataset": "NASA POWER",
     "method": "pipeline/lib/rotations_core.mjs with pipeline/agro_rules.json; see pipeline/README.md",
-    "generated_at": "2026-11-14"
+    "generated_at": "2026-11-15"
   }
 ]
