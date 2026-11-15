@@ -27,7 +27,7 @@ let baseData = null; // files from /data (pilot field) or /data/mock
 
 function buildNav() {
   const html = SECTIONS.map(
-    (s) => `<li><a href="#/${s.id}" data-id="${s.id}">${icon(s.icon, 22)}
+    (s) => `<li><a href="#/${s.id}" data-id="${s.id}" aria-label="${esc(s.nav ?? s.title)}" title="${esc(s.nav ?? s.title)}">${icon(s.icon, 22)}
       <span class="nav-full">${esc(s.nav ?? s.title)}</span><span class="nav-short">${esc(s.short)}</span></a></li>`
   ).join("");
   navLists.forEach((ul) => (ul.innerHTML = html));

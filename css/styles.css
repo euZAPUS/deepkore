@@ -15,8 +15,8 @@
   --bg: #f2f2f7;               /* app background (iOS grouped) */
   --panel: rgba(255, 255, 255, .74);   /* translucent panels (glass) */
   --panel-solid: #ffffff;             /* popovers, sheets */
-  --amb-1: rgba(52, 199, 89, .30);
-  --amb-2: rgba(232, 182, 60, .26);
+  --amb-1: rgba(120, 132, 150, .16);
+  --amb-2: rgba(232, 182, 60, .12);
   --amb-3: rgba(90, 170, 255, .20);
   --sidebar: rgba(255, 255, 255, .78);
   --tile: rgba(118, 118, 128, .09);   /* fills inside panels */
@@ -36,6 +36,12 @@
   --accent-soft: rgba(36, 138, 61, .11);
   --on-accent: #ffffff;
   --wheat: #b8860b;
+  /* neutral controls and ranking tiers (green accent is kept for the main action, active nav and Best match) */
+  --neutral-soft: rgba(118, 118, 128, .12);
+  --neutral-hover: rgba(118, 118, 128, .2);
+  --tier-weak: #b25000;
+  --tier-weakest: #c4151c;
+  --sidebar-rail: 72px;
 
   --c-water: #0a84c9;
   --c-soil: #a2845e;
@@ -65,8 +71,8 @@
   --bg: #000000;
   --panel: rgba(28, 28, 30, .72);
   --panel-solid: #1c1c1e;
-  --amb-1: rgba(48, 209, 88, .20);
-  --amb-2: rgba(227, 184, 74, .12);
+  --amb-1: rgba(110, 124, 145, .12);
+  --amb-2: rgba(227, 184, 74, .06);
   --amb-3: rgba(64, 140, 255, .15);
   --sidebar: rgba(22, 22, 24, .85);
   --tile: rgba(118, 118, 128, .2);
@@ -86,6 +92,10 @@
   --accent-soft: rgba(48, 209, 88, .16);
   --on-accent: #04210d;
   --wheat: #e3b84a;
+  --neutral-soft: rgba(118, 118, 128, .24);
+  --neutral-hover: rgba(118, 118, 128, .34);
+  --tier-weak: #ff9f0a;
+  --tier-weakest: #ff6961;
 
   --c-water: #64d2ff;
   --c-soil: #c4a77d;
@@ -740,3 +750,97 @@ h1[tabindex="-1"]:focus { outline: none; }
 .nowrap { white-space: nowrap; }
 .ilist__title { font-size: .78rem; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: .04em; margin: 0 0 8px; }
 .ilist + .ilist__title { margin-top: 16px; }
+
+/* =================== palette: neutral surfaces, green only for the main action, active nav and Best match =================== */
+.side-nav a svg { color: var(--text-2); }
+.side-disclaimer, .disclaimer-line { background: var(--neutral-soft); color: var(--text); }
+.icon-btn:hover { background: var(--neutral-hover); color: var(--text); }
+.btn--ghost { background: var(--neutral-soft); color: var(--text); }
+.btn--ghost:hover { background: var(--neutral-hover); }
+.pill { background: var(--neutral-soft); color: var(--text-2); }
+.preset:hover { background: var(--neutral-hover); }
+.src__icon, .how__n { background: var(--neutral-soft); color: var(--text-2); }
+.member__avatar { background: var(--neutral-soft); }
+.member__initials { color: var(--text-2); }
+.rot-row[aria-selected="true"] { background: var(--neutral-soft); }
+.rank-row:first-child .rank-row__n { color: var(--text-3); }
+
+/* =================== ranking tiers (Compare rotations and What-if) =================== */
+.tier-best { --tier: var(--accent); }
+.tier-close { --tier: var(--text-3); }
+.tier-weak { --tier: var(--tier-weak); }
+.tier-weakest { --tier: var(--tier-weakest); }
+.tier-tag { display: inline-flex; align-items: center; padding: 1px 7px; border-radius: 999px; font-size: .75rem; font-weight: 700; white-space: nowrap; color: var(--tier); background: color-mix(in srgb, var(--tier) 14%, transparent); }
+.tier-tag[hidden] { display: none; }
+.rot-row, .rank-row { border-left: 3px solid transparent; }
+.rank-row { padding-left: 8px; border-radius: 10px; }
+.rot-row[class*="tier-"], .rank-row[class*="tier-"] { border-left-color: var(--tier); }
+.rot-row.tier-close, .rank-row.tier-close { border-left-color: var(--sep); }
+.rot-row[class*="tier-"] .ring__val { stroke: var(--tier); }
+.rank-row[class*="tier-"] .rank-row__bar span, .rank-row:first-child[class*="tier-"] .rank-row__bar span { background: var(--tier); }
+.rot-row.tier-best, .rank-row.tier-best { background: var(--accent-soft); }
+.rot-row.tier-best[aria-selected="true"] { background: color-mix(in srgb, var(--accent) 20%, transparent); }
+.rot-row.tier-best .rot-row__n, .rank-row.tier-best .rank-row__n { color: var(--accent); }
+.rot-row__tag .tier-tag { margin-left: 2px; }
+.rank-row small .tier-tag { margin-left: 4px; }
+
+/* =================== My field: totals table =================== */
+.nums__sum { margin: 0 0 10px; font-size: .9rem; }
+.nums { width: 100%; border-collapse: collapse; font-size: .86rem; }
+.nums th, .nums td { padding: 9px 8px; border-bottom: 1px solid var(--sep); vertical-align: top; text-align: right; }
+.nums thead th { font-weight: 700; color: var(--text); }
+.nums tbody th { text-align: left; font-weight: 700; color: var(--text-2); width: 26%; }
+.nums tr:last-child > * { border-bottom: 0; }
+.nums ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.nums__first { margin: 0 0 8px; font-weight: 600; font-size: .86rem; }
+.nums-cards { display: none; }
+.howcalc { margin-top: 12px; }
+.howcalc > summary { cursor: pointer; color: var(--text-2); font-weight: 600; font-size: .86rem; min-height: 44px; display: flex; align-items: center; }
+.howcalc p { margin-top: 4px; }
+@media (max-width: 720px) {
+  .nums--wide { display: none; }
+  .nums-cards { display: grid; gap: 12px; }
+  .nums-card { padding: 10px 12px; border-radius: 12px; background: var(--tile); }
+  .nums-card h4 { font-size: .9rem; margin-bottom: 6px; }
+  .nums-card .nums tbody th { width: 40%; }
+}
+
+/* =================== My field layout (desktop): map 2/3, field size on its right =================== */
+@media (min-width: 1024px) {
+  .g-field { grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); }
+  .g-field .panel--map { grid-column: 1; grid-row: 1 / span 4; min-height: 480px; }
+  .g-field .area-panel { grid-column: 2; grid-row: 1; }
+  .g-field .best-panel { grid-column: 2; grid-row: auto; }
+  .g-field .totals { grid-column: 1 / -1; grid-row: 5; }
+  .g-field .map { height: auto; flex: 1; }
+}
+
+/* =================== desktop sidebar: icon rail that expands over the content =================== */
+@media (min-width: 721px) {
+  :root { --sidebar-w: var(--sidebar-rail); }
+  .app { padding-left: var(--sidebar-rail); }
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0; height: 100vh; width: var(--sidebar-rail);
+    padding: 18px 12px 16px; align-items: stretch; overflow: hidden; z-index: 60;
+    transition: width .18s var(--ease), box-shadow .18s var(--ease);
+  }
+  .sidebar:hover, .sidebar:focus-within { width: 232px; box-shadow: var(--shadow-lg); }
+  .sidebar .brand { padding: 0 6px; }
+  .sidebar .brand .brand__name { display: inline; opacity: 0; white-space: nowrap; transition: opacity .15s; }
+  .side-nav ul { margin-top: 22px; }
+  .side-nav a { flex-direction: row; gap: 12px; padding: 12px 14px; width: auto; min-height: 44px; font-size: .95rem; text-align: left; }
+  .side-nav a svg { width: 20px; height: 20px; }
+  .side-nav .nav-full { display: inline; opacity: 0; transition: opacity .15s; }
+  .side-nav .nav-short { display: none; }
+  .sidebar:hover .brand__name, .sidebar:focus-within .brand__name,
+  .sidebar:hover .nav-full, .sidebar:focus-within .nav-full { opacity: 1; }
+  .side-disclaimer { display: none; }
+  .sidebar:hover .side-disclaimer, .sidebar:focus-within .side-disclaimer { display: block; width: 208px; }
+  .side-foot { justify-items: start; padding-left: 2px; }
+  .side-foot .mock-pill { font-size: 0; gap: 0; padding: 6px; }
+  .side-actions { flex-direction: column; }
+  .disclaimer-line { display: block; margin: 0; padding: 8px 20px; text-align: center; font-size: .8rem; font-weight: 500; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .sidebar .brand__name, .side-nav .nav-full { transition: none !important; }
+}
