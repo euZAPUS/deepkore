@@ -7,7 +7,7 @@ const REPO = "https://github.com/euZAPUS/deepkore";
 const TEAM = [
   { name: "Germán Casas", role: "Data Engineer — NASA data pipeline & integration", photo: "assets/team/german-casas.webp" },
   { name: "Álvaro Sánchez", role: "Frontend Developer & UI/UX Designer", photo: "assets/team/alvaro-sanchez.webp" },
-  { name: "Daniel Arenas", role: "Product Manager — product strategy & pitch", photo: null },
+  { name: "Daniel Arenas", role: "Product Manager — product strategy & pitch", photo: "assets/team/daniel-arenas.webp" },
 ];
 
 const initials = (name) => name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
