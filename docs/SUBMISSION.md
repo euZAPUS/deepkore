@@ -12,8 +12,8 @@ Fields marked ✏️ need the team.
 
 ## Summary (50–200 words) · ~175 words
 
-DeepKore is a free web app that helps rainfed farmers in Andalucía (Spain) compare crop rotations before they decide what to sow.
-The farmer picks their field on the map, tells DeepKore what they grow today and what matters most to them: water, soil health,
+DeepKore is a free web app that helps rainfed farmers compare crop rotations before they decide what to sow. It runs on global
+NASA data; in these two days we piloted it in Andalucía (Spain). The farmer picks their field on the map, tells DeepKore what they grow today and what matters most to them: water, soil health,
 erosion or income. DeepKore downloads 25 years of NASA POWER daily data (2001–2025) for that point and computes, in the browser,
 a week-by-week calendar of frost, extreme heat and heavy rain, how much of each crop's water need the rain covers (FAO-56),
 and the weeks when heavy rain falls on bare soil. It then ranks the farmer's current rotation against the best alternatives and
@@ -36,7 +36,7 @@ https://euzapus.github.io/deepkore/
 ## Detailed description
 
 ### What it does
-DeepKore answers the question of the "Field Shift" challenge for one concrete user: a rainfed farmer in Andalucía who wants to know
+DeepKore answers the question of the "Field Shift" challenge for one concrete user: a rainfed farmer who wants to know
 whether to keep their current crop rotation or change it. It compares at least three rotations including the current one, and for
 each it shows why it is suggested, the evidence, the benefits, the gaps and the risks that need local review.
 
@@ -53,6 +53,10 @@ each it shows why it is suggested, the evidence, the benefits, the gaps and the 
    (labelled "Simulated scenario").
 5. **Data & Limits.** Every source with link, version, access date, variables, resolution, licence and limits, plus a check against
    the 2022–23 drought.
+
+### Why Andalucía
+The data and the code are global (NASA POWER covers every point on Earth). Crop calendars, crop rules and net margins are
+regional, and in 48 hours we wrote and checked them only for our own region. Andalucía is the pilot scope, not a limit of the method.
 
 ### Scores (0–100, higher is better)
 - **Water:** rain in each crop's growing months ÷ crop water need (Kc × ET0, FAO-56), capped at 1.
@@ -91,6 +95,7 @@ pipeline, GitHub Pages hosting. Code and data are in a public GitHub repository.
   they are not forecasts.
 
 **NEXT**
+- Any field worldwide: NASA POWER is global; each new region needs its own crop calendars and margins.
 - Pilot with farmers and cooperatives in Málaga; draw the real field boundary.
 - Add GPM IMERG (heavy rain at 0.1°) and SMAP (soil moisture) to improve resolution; slope (NASADEM) for erosion.
 - Verified crop calendars and PAC eco-scheme rules with local agronomists; irrigated fields.
