@@ -20,7 +20,7 @@ Cada uno habla su parte entera y al final dice el nombre del siguiente. **2 minu
 **3 · El problema**
 > "El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra, trigo un año,
 > girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio a noviembre,
-> justo cuando llegan las tormentas de otoño. Los datos para decidir mejor existen, pero no llegan al agricultor. Germán."
+> justo cuando llegan las tormentas de otoño. Para elegir bien, el agricultor necesita saber cuándo llega cada riesgo a su parcela. Eso nos lo dice la NASA. Germán."
 
 ## GERMÁN · los datos y la evidencia (≈50 s) · diapositivas 4–5
 

@@ -192,7 +192,7 @@ async function build(lang) {
     });
     if (!ES) text(s, "For rainfed farmers: wheat–sunflower leaves the soil bare right when autumn storms arrive, and the climate data does not reach them in plain words.",
       { x: 0.5, y: 4.72, w: 9, h: 0.4, fontSize: 11, color: HEX.mut, objectName: "Context" });
-    s.addNotes(t("ÁLVARO (≈30 s). «El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra, trigo un año, girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. Los datos para decidir mejor existen, pero no llegan al agricultor. Germán.»",
+    s.addNotes(t("ÁLVARO (≈30 s). «El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra, trigo un año, girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. Para elegir bien, el agricultor necesita saber cuándo llega cada riesgo a su parcela. Eso nos lo dice la NASA. Germán.»",
       "Problem and user: rainfed farmers. Sources: FAO (International Year of Soils 2015); NASA POWER 2001–2025 at the pilot field."));
   };
 
