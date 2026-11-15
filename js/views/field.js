@@ -118,7 +118,7 @@ export function render(el, ctx) {
         </div>
       </section>
 
-      <section class="panel reveal">
+      <section class="panel area-panel reveal">
         ${panelHead("Field size", `<output class="area-out" id="area-out">${fmt(st.area_ha, st.area_ha < 1 ? 1 : 0)} ha</output>`)}
         <div class="slider" style="--c:var(--accent)">
           <input id="area" type="range" min="0" max="${AREAS.length - 1}" step="1" value="${areaIndex(st.area_ha)}" aria-label="Field size in hectares" aria-valuetext="${st.area_ha} hectares">
@@ -250,25 +250,31 @@ export function render(el, ctx) {
     const set = compareSet(rotations, store.get().weights, current.id);
     const best = set.currentIsBest ? current : set.best.rotation;
     const yearRain = climate ? climate.monthly.precip_mm.reduce((s, v) => s + v, 0) : null;
-    const water = (r) => (r?.water_balance || []).map((w) => `<li><b>${esc(w.crop)}</b> <span class="muted">${span(w.months)}</span>
-        <span>${w.need_mm === null ? "water need not computed (no FAO-56 Kc)" : `needs ≈ ${fmt(m3(w.need_mm, ha))} m³ · rain ≈ ${fmt(m3(w.rain_mm, ha))} m³`}</span></li>`).join("");
+    const water = (r) => (r?.water_balance || []).map((w) => `<li><b>${esc(w.crop)}</b> · ${span(w.months)} · ${w.need_mm === null ? "water need not computed (no FAO-56 Kc)" : `needs ≈ ${fmt(m3(w.need_mm, ha))} m³`}</li>`).join("");
+    const rain = (r) => (r?.water_balance || []).map((w) => `<li>${w.need_mm === null ? "–" : `≈ ${fmt(m3(w.rain_mm, ha))} m³`}</li>`).join("");
     const income = (r) => {
       const inc = r?.income;
       if (!inc) return "";
       if (inc.eur_ha_year === null)
         return `<span class="muted">no verified net margin for ${esc(inc.missing.join(", "))}</span>`;
-      return `≈ <b>${fmt(inc.eur_ha_year * ha)} €</b> per year <span class="muted">(${fmt(inc.eur_ha_year, 1)} €/ha${
+      return `≈ <b>${fmt(inc.eur_ha_year * ha)} €</b> <span class="muted">(${fmt(inc.eur_ha_year, 1)} €/ha${
         inc.missing?.length ? `; ${esc(inc.missing.join(", "))} counted as 0 €/ha, no verified value` : ""})</span>`;
     };
+    const cols = best.id !== current.id
+      ? [[`Your current rotation (${displayName(current)})`, current], [`Best match (${displayName(best)})`, best]]
+      : [[`Your current rotation (${displayName(current)})`, current]];
+    const ROWS = [["Net margin per year<br><span class='muted small'>without decoupled CAP payments (coupled aid included)</span>", income], ["Water need in growing months", (r) => `<ul>${water(r)}</ul>`], ["Rain in growing months", (r) => `<ul>${rain(r)}</ul>`]];
+    const table = (cs, cls) => `<table class="nums ${cls}">
+        <thead><tr><td></td>${cs.map(([h]) => `<th scope="col">${esc(h)}</th>`).join("")}</tr></thead>
+        <tbody>${ROWS.map(([label, f]) => `<tr><th scope="row">${label}</th>${cs.map(([, r]) => `<td>${f(r)}</td>`).join("")}</tr>`).join("")}</tbody>
+      </table>`;
     totalsEl.innerHTML = `
-      <dl class="kv">
-        ${yearRain !== null ? `<div><dt>Rain on your field</dt><dd>≈ <b>${fmt(m3(yearRain, ha))} m³</b> per year <span class="muted">(${fmt(yearRain)} mm, mean ${esc(parcel.period)})</span></dd></div>` : ""}
-        <div><dt>Net margin without decoupled CAP payments (coupled aid included), your current rotation (${esc(displayName(current))})</dt><dd>${income(current)}</dd></div>
-        ${best.id !== current.id ? `<div><dt>Net margin without decoupled CAP payments (coupled aid included), best match (${esc(displayName(best))})</dt><dd>${income(best)}</dd></div>` : ""}
-      </dl>
-      <h3 class="totals__sub">Water in the growing months, your current rotation</h3>
-      <ul class="wb-list">${water(current)}</ul>
-      <p class="small muted">Water need = Kc × ET0 (FAO-56) over the growing months, rainfed, no soil storage. Net margin = what is left from the harvest after seed, fertiliser, fuel, machinery, hired work and depreciation, <b>without decoupled CAP payments (coupled aid included)</b>. Regional average for rainfed farms in Andalucía from the Spanish Ministry of Agriculture (${esc(ecreaYearsText(rotations.map((r) => r.income)) || "ECREA")}), not your farm's accounts. It is the base of the income score. 1 mm on 1 ha = 10 m³.</p>`;
+      ${yearRain !== null ? `<p class="nums__sum">Rain on your field ≈ <b>${fmt(m3(yearRain, ha))} m³</b> per year <span class="muted">(${fmt(yearRain)} mm, mean ${esc(parcel.period)})</span></p>` : ""}
+      ${best.id === current.id ? '<p class="nums__first">Your current rotation already ranks first</p>' : ""}
+      ${table(cols, "nums--wide")}
+      <div class="nums-cards">${cols.map((c) => `<div class="nums-card"><h4>${esc(c[0])}</h4>${table([["", c[1]]], "nums--card").replace(/<thead>.*?<\/thead>/s, "")}</div>`).join("")}</div>
+      <details class="howcalc"><summary>How these numbers are calculated</summary>
+      <p class="small muted">Water need = Kc × ET0 (FAO-56) over the growing months, rainfed, no soil storage. Net margin = what is left from the harvest after seed, fertiliser, fuel, machinery, hired work and depreciation, <b>without decoupled CAP payments (coupled aid included)</b>. Regional average for rainfed farms in Andalucía from the Spanish Ministry of Agriculture (${esc(ecreaYearsText(rotations.map((r) => r.income)) || "ECREA")}), not your farm's accounts. It is the base of the income score. 1 mm on 1 ha = 10 m³.</p></details>`;
   };
 
   /* ---- best match ---- */
