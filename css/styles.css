@@ -329,7 +329,7 @@ h1[tabindex="-1"]:focus { outline: none; }
 .g-field { grid-template-columns: minmax(0, 1.45fr) minmax(320px, 1fr); grid-template-rows: auto; align-items: start; }
 .g-field .panel--map { grid-column: 1; grid-row: 1 / span 3; align-self: stretch; padding: 0; overflow: hidden; isolation: isolate; min-height: 480px; }
 .g-field .totals { grid-column: 1; grid-row: 4; }
-.g-field .best-panel { grid-column: 2; grid-row: 4; }
+.g-field .best-panel { grid-column: 2; }
 .map { flex: 1; min-height: 320px; background: var(--tile); }
 .map-card {
   position: absolute; left: 14px; bottom: 14px; z-index: 500; max-width: calc(100% - 28px);
@@ -705,3 +705,13 @@ h1[tabindex="-1"]:focus { outline: none; }
     content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%);
   }
 }
+
+/* folded details (method tables, net margin breakdown) */
+.fold > summary { list-style: none; cursor: pointer; }
+.fold > summary::-webkit-details-marker { display: none; }
+.fold:not([open]) > summary .panel__head { margin-bottom: 0; }
+.fold__more { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); font-size: .85rem; font-weight: 500; }
+.fold .ico { transition: transform .3s var(--ease); vertical-align: -2px; }
+.fold[open] > summary .ico { transform: rotate(180deg); }
+.income.fold > summary { margin-bottom: 0; }
+.income.fold[open] > summary { margin-bottom: 6px; }

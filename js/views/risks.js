@@ -118,15 +118,15 @@ export function render(el, ctx) {
         <div class="panel__foot">Darker = more likely · slide across to read each week · green outline = today · ${provBadge(rw.provenance, allDs)}</div>
       </section>
 
-      ${rw.thresholds ? `<section class="panel how-count reveal">
-        ${panelHead("How we count")}
+      ${rw.thresholds ? `<section class="panel how-count reveal"><details class="fold">
+        <summary>${panelHead("How we count", `<span class="fold__more">Show method ${icon(ICON.chevron, 16)}</span>`)}</summary>
         <p class="small muted">${esc(rw.method ?? "")}${rw.period ? ` Years ${esc(rw.period)}${rw.n_years ? ` (${esc(rw.n_years)} years)` : ""}.` : ""}</p>
         <div class="table-wrap"><table class="th-table">
           <thead><tr><th scope="col">What</th><th scope="col">Rule</th><th scope="col">Source</th></tr></thead>
           <tbody>${thresholdRows(rw.thresholds)}</tbody>
         </table></div>
         ${rw.bare_months_source ? `<p class="small muted">Bare soil: ${esc(rw.bare_months_source)}.</p>` : ""}
-      </section>` : ""}
+      </details></section>` : ""}
 
       <section class="panel climate reveal">
         ${panelHead("Your climate", segmentedHTML("chart-mode", [

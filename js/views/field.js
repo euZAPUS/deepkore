@@ -78,14 +78,6 @@ export function render(el, ctx) {
       </section>
 
       <section class="panel reveal">
-        ${panelHead("Field size", `<output class="area-out" id="area-out">${fmt(st.area_ha, st.area_ha < 1 ? 1 : 0)} ha</output>`)}
-        <div class="slider" style="--c:var(--accent)">
-          <input id="area" type="range" min="0" max="${AREAS.length - 1}" step="1" value="${areaIndex(st.area_ha)}" aria-label="Field size in hectares" aria-valuetext="${st.area_ha} hectares">
-          <p class="slider__hint">Draws your field and turns the per-hectare results into totals. The climate data are the same for the whole NASA POWER grid cell (tens of km), so the size does not change the risks or the ranking.</p>
-        </div>
-      </section>
-
-      <section class="panel reveal">
         ${panelHead("What do you grow now?")}
         <div class="grow-now" id="grow-now">
           ${selectHTML("current-rot", growOptions, resolveCurrent(rotations, st.current_rotation)?.id, "What do you grow now?")}
@@ -114,16 +106,6 @@ export function render(el, ctx) {
         </div>
       </section>
 
-      <section class="panel reveal">
-        ${panelHead("Water supply", segmentedHTML("mode", MODES, st.mode, "Water supply"))}
-        <p class="note" id="mode-note" ${st.mode === "irrigated" ? "" : "hidden"}>Irrigated fields are not modelled yet. Results still assume rainfed conditions.</p>
-      </section>
-
-      <section class="panel totals reveal">
-        ${panelHead("Your field in numbers", provBadge(climate?.provenance ?? parcel.provenance, "NASA POWER"))}
-        <div id="totals"></div>
-      </section>
-
       <section class="panel best-panel reveal">
         <div class="best">
           ${ringHTML(92)}
@@ -135,6 +117,25 @@ export function render(el, ctx) {
           <a class="btn" href="#/rotations">Compare rotations</a>
         </div>
       </section>
+
+      <section class="panel reveal">
+        ${panelHead("Field size", `<output class="area-out" id="area-out">${fmt(st.area_ha, st.area_ha < 1 ? 1 : 0)} ha</output>`)}
+        <div class="slider" style="--c:var(--accent)">
+          <input id="area" type="range" min="0" max="${AREAS.length - 1}" step="1" value="${areaIndex(st.area_ha)}" aria-label="Field size in hectares" aria-valuetext="${st.area_ha} hectares">
+          <p class="slider__hint">Turns per-hectare results into totals for your field. It does not change the risks or the ranking.</p>
+        </div>
+      </section>
+
+      <section class="panel totals reveal">
+        ${panelHead("Your field in numbers", provBadge(climate?.provenance ?? parcel.provenance, "NASA POWER"))}
+        <div id="totals"></div>
+      </section>
+
+      <section class="panel reveal">
+        ${panelHead("Water supply", segmentedHTML("mode", MODES, st.mode, "Water supply"))}
+        <p class="note" id="mode-note" ${st.mode === "irrigated" ? "" : "hidden"}>Irrigated fields are not modelled yet. Results still assume rainfed conditions.</p>
+      </section>
+
     </div>
   `;
 

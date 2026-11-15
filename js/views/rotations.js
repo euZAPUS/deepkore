@@ -56,11 +56,11 @@ function incomeHTML(r, rules) {
   const crops = (inc.by_crop || []).map((b) => `<li><b>${esc(b.crop)}</b> ${b.assumed || b.eur_ha === null
     ? `<span class="muted">no verified value${b.eur_ha === null ? "" : ` · counted as ${eur(b.eur_ha)} (TBD)`}</span>`
     : `${eur(b.eur_ha)} <span class="muted">(${esc(b.years.join(", "))}${b.ecrea_crop ? ` · ECREA "${esc(b.ecrea_crop)}"` : ""})</span>`}${b.note ? `<br><span class="small muted">${esc(b.note)}</span>` : ""}</li>`).join("");
-  return `<div class="income">
-    <div class="bar__top"><span>Net margin (MAPA ECREA)</span><b>${inc.eur_ha_year === null ? "–" : `${eur(inc.eur_ha_year)} per year`}</b></div>
+  return `<details class="income fold">
+    <summary class="bar__top"><span>Net margin (MAPA ECREA) ${icon(ICON.chevron, 14)}</span><b>${inc.eur_ha_year === null ? "no verified value" : `${eur(inc.eur_ha_year)} per year`}</b></summary>
     <ul class="income__list">${crops}</ul>
     <p class="small muted">${esc(inc.region ?? "")} · MAPA ECREA 2.0 net margin (margen neto), without decoupled payments. Income score: ${esc(incomeScaleText(rules))} (scale TBD) · ${provBadge("derived", "MAPA ECREA")}</p>
-  </div>`;
+  </details>`;
 }
 
 export function render(el, ctx) {
