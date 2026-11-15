@@ -58,8 +58,10 @@ Si no sabes algo: **"No lo hemos validado todavía; es justo lo que haríamos co
 
 ## 6. Preguntas de agricultura y qué responder
 
-- **¿Por qué es tan grave perder el suelo?** Tarda hasta mil años en formarse; si una tormenta se lo lleva, no vuelve en nuestra vida.
+- **¿Por qué es tan grave perder el suelo?** Tarda hasta mil años en formarse; si se pierde, no vuelve en nuestra vida.
   No se puede fabricar, solo proteger.
+- **¿Podéis evitar las tormentas?** No: la lluvia fuerte va a llegar. Lo que sí se puede elegir es que el suelo esté cubierto
+  cuando llegue, y eso depende de la rotación. DeepKore te dice qué semanas vigilar y qué rotación lo protege.
 - **¿Qué es una rotación y para qué sirve?** Alternar cultivos: corta plagas, reparte el riesgo y, con leguminosas, abona el suelo.
 - **¿Por qué la lenteja y no seguir con girasol?** Fija nitrógeno, se cosecha antes del calor y, con datos del Ministerio, deja mucho
   más margen. Además protege mejor el suelo.
@@ -86,3 +88,4 @@ Si no sabes algo: **"No lo hemos validado todavía; es justo lo que haríamos co
 - "Eso es justo lo que validaríamos en el piloto con cooperativas y agrónomos."
 - "La app no decide por el agricultor: le enseña los datos y los riesgos de su parcela."
 - "El suelo no se puede fabricar, solo proteger: por eso hay que decidir antes de la tormenta."
+- "No podemos parar la lluvia, pero sí elegir una rotación que no deje el suelo desnudo cuando llega."

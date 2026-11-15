@@ -14,7 +14,7 @@ Cada uno habla su parte entera y al final dice el nombre del siguiente. **2 minu
 > "¿Cuánto tarda en formarse un centímetro de suelo fértil?" *(dos segundos de silencio)*
 
 **2 · Portada**
-> "Hasta mil años. Y una tormenta puede llevárselo en una tarde. Somos DeepKore: una app gratuita que ayuda al agricultor
+> "Hasta mil años. La lluvia no la podemos parar, pero sí que pille el suelo desnudo. Somos DeepKore: una app gratuita que ayuda al agricultor
 > de secano a elegir su rotación de cultivos con datos de la NASA."
 
 **3 · El problema**

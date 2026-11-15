@@ -5,7 +5,7 @@ Solo sobre lo que contamos en el pitch (el jurado no ve la app). Respuestas de 1
 
 ## 🌾 Agricultura — ÁLVARO
 
-- ⭐ **¿Por qué es tan grave perder el suelo?** Un centímetro tarda hasta mil años en formarse; si una tormenta se lo lleva, no vuelve en
+- ⭐ **¿Por qué es tan grave perder el suelo?** Un centímetro tarda hasta mil años en formarse; si se pierde, no vuelve en
   nuestra vida. No se puede fabricar, solo proteger, y por eso hay que actuar antes.
 - ⭐ **¿Qué es una rotación y por qué importa?** Alternar cultivos en la misma tierra en vez de repetir el mismo. Corta plagas,
   reparte el riesgo y, si entra una leguminosa, abona el suelo de forma natural.

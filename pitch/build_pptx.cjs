@@ -171,12 +171,12 @@ async function build(lang) {
     text(s, "Protege tu suelo antes del riesgo", { x: 0.65, y: 3.35, w: 4.5, h: 0.5, fontSize: 17, color: HEX.soft, objectName: A(2, "Tagline") });
     s.addImage({ path: IMG("laptop-rotations.jpg"), x: 5.2, y: 1.45, w: 4.3, h: 2.69, objectName: A(2, "App screenshot"),
       altText: "DeepKore: comparar rotaciones", shadow: { type: "outer", color: "000000", opacity: 0.35, blur: 12, offset: 4, angle: 90 } });
-    s.addNotes("ÁLVARO (≈15 s). «Hasta mil años. Y una tormenta puede llevárselo en una tarde. Somos DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos con datos de la NASA.»");
+    s.addNotes("ÁLVARO (≈15 s). «Hasta mil años. La lluvia no la podemos parar, pero sí que pille el suelo desnudo. Somos DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos con datos de la NASA.»");
   };
 
   const slideProblem = () => {
     const s = content(CUR, t(`1${NB}cm de suelo: hasta 1.000 años`, `1${NB}cm of soil: up to 1,000 years`));
-    text(s, t("Una tormenta se lo lleva en una tarde", "One storm washes it away in an afternoon"),
+    text(s, t("Cubierto aguanta la lluvia; desnudo, se pierde", "Covered, it withstands the rain; bare, it is lost"),
       { x: 0.5, y: 1.2, w: 9, h: 0.45, fontSize: 20, bold: true, color: C.accent4, objectName: A(1, "Subtitle") });
     const items = [
       [I.soil, HEX.wheat, t("Suelo desnudo", "Bare soil"), t("julio – noviembre", "July – November")],
