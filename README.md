@@ -16,7 +16,7 @@ income, erosion) and shows at least three rotations next to the current one: why
 the evidence behind it, benefits, data gaps and risks that need a local check. It supports the
 farmer's decision; it does not make it.
 
-**Pilot field.** Rainfed land in the Vega de Antequera (Málaga, Spain), approx. 37.02 N, -4.56 W.
+**Pilot field.** Rainfed arable land in the Vega de Antequera (Málaga, Spain), north of the town, at 37.0408 N, 4.5798 W. The pilot data were queried at 37.02 N, 4.56 W (same NASA POWER grid cell; see `pipeline/config.json`).
 
 **Live demo:** <https://euzapus.github.io/deepkore/> · Pitch deck: <https://euzapus.github.io/deepkore/pitch/> · Code: <https://github.com/euZAPUS/deepkore>
 

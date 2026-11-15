@@ -96,3 +96,8 @@ export const CRITERIA_META = [
   { key: "erosion", label: "Erosion", hint: "Keep the soil from washing away", color: "var(--c-erosion)" },
 ];
 export const RESILIENCE_META = { key: "risk_resilience", label: "Risk resilience", color: "var(--c-resilience)" };
+
+// Where the pilot field is drawn on the map: arable land in the Vega de Antequera, north of the town.
+// The pilot data (data/*.json) were queried at 37.02, -4.56 (pipeline/config.json): the same NASA POWER
+// grid cell, but FAO-56 ET0 uses the latitude, so the data are not re-run for this point.
+export const PILOT_PIN = { lat: 37.0408, lon: -4.5798 };

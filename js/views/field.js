@@ -1,5 +1,5 @@
 // 01 My field: map (pick the field, set its size), priorities, limits, field totals and the live best match.
-import { CRITERIA_META } from "../config.js";
+import { CRITERIA_META, PILOT_PIN } from "../config.js";
 import { store } from "../store.js";
 import { isScored, notScoredNote } from "../scoring.js";
 import { currentTheme } from "../theme.js";
@@ -49,10 +49,11 @@ export function render(el, ctx) {
   const lon = Number(parcel.lon);
   // The data on screen are for the chosen field only once its analysis is done.
   const custom = !!st.location && !ctx.usingMock && roundCoord(lat) === roundCoord(st.location.lat) && roundCoord(lon) === roundCoord(st.location.lon);
-  const province = custom ? st.location.province : provinceAt(lat, lon);
-  // Draw the field where the user tapped (the data request is rounded to ~1 km; a NASA POWER cell is ~50 km).
-  const mapLat = custom && Number.isFinite(Number(st.location.lat)) ? Number(st.location.lat) : lat;
-  const mapLon = custom && Number.isFinite(Number(st.location.lon)) ? Number(st.location.lon) : lon;
+  // Draw the field where the user tapped (the data request is rounded to ~1 km; a NASA POWER cell is ~50 km);
+  // the pilot field is drawn at PILOT_PIN (same NASA POWER cell as its data).
+  const mapLat = custom && Number.isFinite(Number(st.location.lat)) ? Number(st.location.lat) : PILOT_PIN.lat;
+  const mapLon = custom && Number.isFinite(Number(st.location.lon)) ? Number(st.location.lon) : PILOT_PIN.lon;
+  const province = custom ? st.location.province : provinceAt(mapLat, mapLon);
   const canPick = !ctx.usingMock && typeof ctx.setLocation === "function";
   const building = canBuild(ctx.data, ctx.rules) && typeof ctx.refresh === "function";
   const customs = st.custom_rotations.filter((c) => rotations.some((r) => r.id === c.id));
