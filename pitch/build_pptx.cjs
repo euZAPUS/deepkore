@@ -22,8 +22,8 @@ const NB = " ";
 
 const THEME = {
   name: "DeepKore Field",
-  headFontFace: "Calibri",
-  bodyFontFace: "Calibri",
+  headFontFace: "Inter",
+  bodyFontFace: "Inter",
   colors: {
     dk1: "14301F", lt1: "FFFFFF", dk2: "1F7A3C", lt2: "F3F7F1",
     accent1: "2E9E4F", accent2: "D9A520", accent3: "3F8FD6", accent4: "C8643F", accent5: "7A5235", accent6: "6B63D6",
@@ -60,16 +60,16 @@ function timingXml(ids) {
   const effect = (spid, delay) => {
     const a = n++, b = n++, c = n++, d = n++;
     return `<p:par><p:cTn id="${a}" fill="hold"><p:stCondLst><p:cond delay="${delay}"/></p:stCondLst><p:childTnLst>` +
-      `<p:par><p:cTn id="${b}" presetID="10" presetClass="entr" presetSubtype="0" fill="hold" nodeType="${delay === 0 ? "withEffect" : "afterEffect"}">` +
+      `<p:par><p:cTn id="${b}" presetID="10" presetClass="entr" presetSubtype="0" fill="hold" nodeType="withEffect">` +
       `<p:stCondLst><p:cond delay="0"/></p:stCondLst><p:childTnLst>` +
       `<p:set><p:cBhvr><p:cTn id="${c}" dur="1" fill="hold"><p:stCondLst><p:cond delay="0"/></p:stCondLst></p:cTn><p:tgtEl><p:spTgt spid="${spid}"/></p:tgtEl>` +
       `<p:attrNameLst><p:attrName>style.visibility</p:attrName></p:attrNameLst></p:cBhvr><p:to><p:strVal val="visible"/></p:to></p:set>` +
-      `<p:animEffect transition="in" filter="fade"><p:cBhvr><p:cTn id="${d}" dur="500"/><p:tgtEl><p:spTgt spid="${spid}"/></p:tgtEl></p:cBhvr></p:animEffect>` +
+      `<p:animEffect transition="in" filter="fade"><p:cBhvr><p:cTn id="${d}" dur="250"/><p:tgtEl><p:spTgt spid="${spid}"/></p:tgtEl></p:cBhvr></p:animEffect>` +
       `</p:childTnLst></p:cTn></p:par></p:childTnLst></p:cTn></p:par>`;
   };
   // group consecutive ids into steps of [ids...] that appear together
   let body = "", delay = 0;
-  ids.forEach((group) => { group.forEach((spid) => (body += effect(spid, delay))); delay += 350; });
+  ids.forEach((group) => { group.forEach((spid) => (body += effect(spid, delay))); delay += 120; });
   return `<p:timing><p:tnLst><p:par><p:cTn id="1" dur="indefinite" restart="never" nodeType="tmRoot"><p:childTnLst>` +
     `<p:seq concurrent="1" nextAc="seek"><p:cTn id="2" dur="indefinite" nodeType="mainSeq"><p:childTnLst>` +
     `<p:par><p:cTn id="${n++}" fill="hold"><p:stCondLst><p:cond delay="indefinite"/><p:cond evt="onBegin" delay="0"><p:tn val="2"/></p:cond></p:stCondLst><p:childTnLst>` +
@@ -92,7 +92,7 @@ async function animate(file) {
       steps.get(k).push(m[1]);
     }
     const groups = [...steps.keys()].sort((a, b) => a - b).map((k) => steps.get(k));
-    const transition = `<p:transition spd="med"><p:fade/></p:transition>`;
+    const transition = `<p:transition spd="fast"><p:fade/></p:transition>`;
     const timing = groups.length ? timingXml(groups) : "";
     xml = xml.replace(/<p:transition[\s\S]*?<\/p:transition>|<p:transition[^>]*\/>/g, "").replace(/<p:timing>[\s\S]*?<\/p:timing>/g, "");
     xml = xml.replace(/(<\/p:clrMapOvr>)/, `$1${transition}${timing}`);
@@ -159,7 +159,7 @@ async function build(lang) {
       { text: "¿Cuánto tarda en formarse ", options: { color: C.background1 } },
       { text: `1${NB}cm`, options: { color: C.accent2 } },
       { text: " de suelo?", options: { color: C.background1 } },
-    ], { x: 1, y: 1.5, w: 8, h: 2.4, fontSize: 52, bold: true, align: "center", valign: "middle", objectName: "Question" });
+    ], { x: 0.6, y: 1.5, w: 8.8, h: 2.4, fontSize: 44, bold: true, align: "center", valign: "middle", objectName: "Question" });
     s.addNotes("ÁLVARO (≈8 s). «¿Cuánto tarda en formarse un centímetro de suelo fértil?» Dos segundos de silencio.");
   };
 
@@ -167,8 +167,8 @@ async function build(lang) {
     const s = pres.addSlide({ masterName: "DK_DARK", sectionTitle: CUR });
     s.addImage({ data: LOGO, x: 0.75, y: 1.0, w: 1.3, h: 1.2, objectName: A(1, "Logo mark"), altText: "DeepKore logo" });
     text(s, [{ text: "Deep", options: { color: C.background1 } }, { text: "Kore", options: { color: C.accent1 } }],
-      { x: 0.6, y: 2.3, w: 4.5, h: 1.0, fontSize: 64, bold: true, objectName: A(1, "Name") });
-    text(s, "Protege tu suelo antes del riesgo", { x: 0.65, y: 3.35, w: 4.4, h: 0.5, fontSize: 22, color: HEX.soft, objectName: A(2, "Tagline") });
+      { x: 0.6, y: 2.25, w: 4.5, h: 1.0, fontSize: 56, bold: true, objectName: A(1, "Name") });
+    text(s, "Protege tu suelo antes del riesgo", { x: 0.65, y: 3.35, w: 4.5, h: 0.5, fontSize: 17, color: HEX.soft, objectName: A(2, "Tagline") });
     s.addImage({ path: IMG("laptop-rotations.jpg"), x: 5.2, y: 1.45, w: 4.3, h: 2.69, objectName: A(2, "App screenshot"),
       altText: "DeepKore: comparar rotaciones", shadow: { type: "outer", color: "000000", opacity: 0.35, blur: 12, offset: 4, angle: 90 } });
     s.addNotes("ÁLVARO (≈15 s). «Hasta mil años. Y una tormenta puede llevárselo en una tarde. Somos DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos con datos de la NASA.»");
@@ -301,7 +301,7 @@ async function build(lang) {
     text(s, [
       { text: t("El suelo tarda mil años. ", "Soil takes a thousand years. "), options: { color: C.background1 } },
       { text: t("Protejámoslo a tiempo.", "Let's protect it in time."), options: { color: C.accent1 } },
-    ], { x: 0.6, y: 0.7, w: 4.5, h: 1.5, fontSize: 30, bold: true, valign: "top", objectName: A(1, "Closing line") });
+    ], { x: 0.6, y: 0.7, w: 4.7, h: 1.5, fontSize: 25, bold: true, valign: "top", objectName: A(1, "Closing line") });
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.6, y: 2.6, w: 1.8, h: 1.8, rectRadius: 0.12, fill: { color: C.background1 }, line: { color: C.background1, width: 0 }, objectName: A(2, "QR frame") });
     s.addImage({ data: QR, x: 0.7, y: 2.7, w: 1.6, h: 1.6, objectName: A(2, "QR code"), altText: t("Código QR de la app", "QR code to the app") });
     s.addImage({ data: LOGO, x: 8.95, y: 4.65, w: 0.55, h: 0.51, objectName: "Logo", altText: "DeepKore logo" });
