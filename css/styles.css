@@ -395,6 +395,7 @@ h1[tabindex="-1"]:focus { outline: none; }
 .stat__label { font-size: .85rem; font-weight: 600; color: var(--text-2); }
 .stat__big { font-size: 1.55rem; font-weight: 700; letter-spacing: -.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .stat__big small { font-size: .55em; color: var(--text-2); font-weight: 600; margin-left: 2px; }
+.stat__big--text { font-size: 1.12rem; letter-spacing: -.015em; line-height: 1.25; }
 .stat__sub { color: var(--text-2); font-size: .82rem; margin-top: 4px; }
 .stat__sub.is-dry { color: var(--c-erosion); font-weight: 600; }
 .stat__sub.is-wet { color: var(--c-water); font-weight: 600; }

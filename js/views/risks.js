@@ -1,6 +1,6 @@
 // 02 Risk calendar: four headline tiles, a 52-week calendar, erosion window and climate chart.
 import { isMock } from "../data.js";
-import { esc, provBadge, viewHead, panelHead, icon, ICON, css, segmentedHTML, bindSegmented, animateNumber, displayName } from "../ui.js";
+import { esc, provBadge, viewHead, panelHead, icon, ICON, css, segmentedHTML, bindSegmented, displayName } from "../ui.js";
 import { store } from "../store.js";
 import { resolveCurrent } from "../choice.js";
 
@@ -16,6 +16,22 @@ const THRESHOLD_LABELS = { frost: "Frost day", heat: "Very hot day", extreme_rai
 
 // "TBD..." sources are shown as "Source to be confirmed".
 const sourceText = (src) => (!src || /^\s*TBD/i.test(String(src)) ? "Source to be confirmed" : String(src));
+
+// Soil moisture now as a plain sentence from its percentile for the time of year (soil_moisture_now.percentile:
+// share of reference days, same season, drier than today).
+const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+function soilSentence(sm, period) {
+  const p = Number(sm.percentile);
+  if (!Number.isFinite(p)) return null;
+  const [y, m, d] = String(sm.date || "").split("-").map(Number);
+  const when = m >= 1 && m <= 12 && d ? `${d <= 10 ? "early" : d <= 20 ? "mid" : "late"} ${MONTH_NAMES[m - 1]}` : "this time of year";
+  const years = String(period || "").replace("-", "–");
+  if (p <= 0) return `Driest for ${when}${years ? ` in ${years}` : ""}`;
+  if (p >= 100) return `Wettest for ${when}${years ? ` in ${years}` : ""}`;
+  return p < 50
+    ? `Drier than ${Math.round((100 - p) / 10)} out of 10 years for this time of year`
+    : `Wetter than ${Math.round(p / 10)} out of 10 years for this time of year`;
+}
 
 function thresholdRows(th) {
   return Object.entries(th || {}).map(([key, t]) => {
@@ -81,9 +97,9 @@ export function render(el, ctx) {
     <div class="view-body g-risks">
       <section class="panel stat stat--soil reveal" style="--hc:var(--c-water)">
         <div class="stat__top"><span class="stat__icon">${icon('<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>', 19)}</span><span class="stat__label">Soil moisture now</span></div>
-        <div class="stat__big"><span id="sm-num">0</span><small> / 100 wetness</small></div>
-        <p class="stat__sub ${dry ? "is-dry" : "is-wet"}">${dry ? "↓" : "↑"} ${Math.abs(sm.anomaly_pct)}% ${dry ? "drier" : "wetter"} than usual for the time of year</p>
-        <div class="panel__foot">Index ${Number.isFinite(smIndex) ? smIndex.toFixed(2) : "–"}${sm.unit ? ` · ${esc(sm.unit)}` : ""} · ${esc(sm.date)} · ${provBadge(sm.provenance ?? rw.provenance, smDataset)}</div>
+        <p class="stat__big stat__big--text">${esc(soilSentence(sm, rw.period) ?? "No percentile available")}</p>
+        <p class="stat__sub ${dry ? "is-dry" : "is-wet"}">${Number(sm.anomaly_pct) === 0 ? "About as wet as usual for the time of year" : `${dry ? "↓" : "↑"} ${Math.abs(sm.anomaly_pct)}% ${dry ? "drier" : "wetter"} than usual`}</p>
+        <div class="panel__foot">Root-zone wetness index ${Number.isFinite(smIndex) ? smIndex.toFixed(2) : "–"} (0 = dry, 1 = saturated) · NASA POWER model · ${esc(sm.date)} · ${provBadge(sm.provenance ?? rw.provenance, smDataset)}</div>
       </section>
       ${HAZARDS.map((h) => {
         const w = windows[h.key];
@@ -149,7 +165,6 @@ export function render(el, ctx) {
     </div>
   `;
 
-  requestAnimationFrame(() => animateNumber(el.querySelector("#sm-num"), Number.isFinite(smIndex) ? smIndex * 100 : 0, 0, 900));
 
   /* ---- calendar: scrub with finger or mouse ---- */
   const readout = el.querySelector("#readout");
