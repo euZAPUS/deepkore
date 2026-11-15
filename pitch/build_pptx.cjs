@@ -171,7 +171,7 @@ async function build(lang) {
     text(s, "Protege tu suelo antes del riesgo", { x: 0.65, y: 3.35, w: 4.5, h: 0.5, fontSize: 17, color: HEX.soft, objectName: A(2, "Tagline") });
     s.addImage({ path: IMG("laptop-rotations.jpg"), x: 5.2, y: 1.45, w: 4.3, h: 2.69, objectName: A(2, "App screenshot"),
       altText: "DeepKore: comparar rotaciones", shadow: { type: "outer", color: "000000", opacity: 0.35, blur: 12, offset: 4, angle: 90 } });
-    s.addNotes("ÁLVARO (≈15 s). «Hasta mil años. La lluvia no la podemos parar, pero sí que pille el suelo desnudo. Somos DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos con datos de la NASA.»");
+    s.addNotes("ÁLVARO (≈15 s). «Por eso hemos creado DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos. Para elegir bien, necesita saber cuándo llega cada riesgo a su parcela. Y eso nos lo dice la NASA. Germán.»");
   };
 
   const slideProblem = () => {
@@ -192,7 +192,7 @@ async function build(lang) {
     });
     if (!ES) text(s, "For rainfed farmers: wheat–sunflower leaves the soil bare right when autumn storms arrive, and the climate data does not reach them in plain words.",
       { x: 0.5, y: 4.72, w: 9, h: 0.4, fontSize: 11, color: HEX.mut, objectName: "Context" });
-    s.addNotes(t("ÁLVARO (≈30 s). «El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra, trigo un año, girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. Para elegir bien, el agricultor necesita saber cuándo llega cada riesgo a su parcela. Eso nos lo dice la NASA. Germán.»",
+    s.addNotes(t("ÁLVARO (≈30 s). «Hasta mil años. El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra, trigo un año, girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. La lluvia no la podemos parar, pero sí que pille el suelo desnudo.»",
       "Problem and user: rainfed farmers. Sources: FAO (International Year of Soils 2015); NASA POWER 2001–2025 at the pilot field."));
   };
 
@@ -320,7 +320,7 @@ async function build(lang) {
   let CUR = "";
   const sec = (title) => { pres.addSection({ title }); CUR = title; };
   if (ES) {
-    sec("Álvaro"); slideQuestion(); slideCover(); slideProblem();
+    sec("Álvaro"); slideQuestion(); slideProblem(); slideCover();
     sec("Germán"); slideNasa(); slideEvidence();
     sec("Daniel"); slideSolution(); slideStatus(); slideClose();
   } else {

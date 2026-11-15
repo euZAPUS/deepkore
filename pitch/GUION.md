@@ -13,14 +13,14 @@ Cada uno habla su parte entera y al final dice el nombre del siguiente. **2 minu
 **1 · Pregunta**
 > "¿Cuánto tarda en formarse un centímetro de suelo fértil?" *(dos segundos de silencio)*
 
-**2 · Portada**
-> "Hasta mil años. La lluvia no la podemos parar, pero sí que pille el suelo desnudo. Somos DeepKore: una app gratuita que ayuda al agricultor
-> de secano a elegir su rotación de cultivos con datos de la NASA."
+**2 · El problema** *(sale "1 cm de suelo: hasta 1.000 años")*
+> "Hasta mil años. El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra,
+> trigo un año, girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio
+> a noviembre, justo cuando llegan las tormentas de otoño. La lluvia no la podemos parar, pero sí que pille el suelo desnudo."
 
-**3 · El problema**
-> "El agricultor de secano no riega: depende solo de la lluvia. Y cada año alterna cultivos en la misma tierra, trigo un año,
-> girasol el siguiente: eso es una rotación. El problema es que trigo y girasol dejan la tierra desnuda de julio a noviembre,
-> justo cuando llegan las tormentas de otoño. Para elegir bien, el agricultor necesita saber cuándo llega cada riesgo a su parcela. Eso nos lo dice la NASA. Germán."
+**3 · DeepKore**
+> "Por eso hemos creado DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos.
+> Para elegir bien, necesita saber cuándo llega cada riesgo a su parcela. Y eso nos lo dice la NASA. Germán."
 
 ## GERMÁN · los datos y la evidencia (≈50 s) · diapositivas 4–5
 
