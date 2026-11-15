@@ -100,7 +100,7 @@ export function render(el, ctx) {
         <div class="stat__top"><span class="stat__icon">${icon('<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>', 19)}</span><span class="stat__label">Soil moisture now</span></div>
         <p class="stat__big stat__big--text">${esc(soilSentence(sm, rw.period) ?? "No percentile available")}</p>
         <p class="stat__sub ${dry ? "is-dry" : "is-wet"}">${Number(sm.anomaly_pct) === 0 ? "About as wet as usual for the time of year" : `${dry ? "↓" : "↑"} ${Math.abs(sm.anomaly_pct)}% ${dry ? "drier" : "wetter"} than usual`}</p>
-        <div class="panel__foot">Root-zone wetness index ${Number.isFinite(smIndex) ? smIndex.toFixed(2) : "–"} (0 = dry, 1 = saturated) · NASA POWER model · ${esc(sm.date)} · ${provBadge(sm.provenance ?? rw.provenance, smDataset)}</div>
+        <div class="panel__foot">Root-zone wetness index ${Number.isFinite(smIndex) ? smIndex.toFixed(2) : "–"} (0 = dry, 1 = saturated) · NASA POWER model · <span class="nowrap">${esc(sm.date)}</span> · ${provBadge(sm.provenance ?? rw.provenance, smDataset)}</div>
       </section>
       ${HAZARDS.map((h) => {
         const w = windows[h.key];

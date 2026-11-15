@@ -708,6 +708,13 @@ h1[tabindex="-1"]:focus { outline: none; }
   }
 }
 
+/* Minimum 44 x 44 px tap area on every device (help, theme, map controls, segmented tabs, what-if presets). */
+.icon-btn { width: 44px; height: 44px; }
+.segmented button { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.map-btn { min-height: 44px; min-width: 44px; padding: 6px 14px; }
+.preset { min-height: 44px; min-width: 44px; }
+.leaflet-touch .leaflet-control-zoom a, .leaflet-control-zoom a { width: 44px; height: 44px; line-height: 44px; font-size: 20px; }
+
 /* folded details (method tables, net margin breakdown) */
 .fold > summary { list-style: none; cursor: pointer; }
 .fold > summary::-webkit-details-marker { display: none; }
@@ -730,3 +737,4 @@ h1[tabindex="-1"]:focus { outline: none; }
 .member__initials { color: var(--accent); font-weight: 700; font-size: 1.3rem; letter-spacing: .02em; }
 .member__name { font-weight: 650; font-size: 1rem; }
 .member__role { color: var(--text-2); font-size: .86rem; margin-top: 2px; }
+.nowrap { white-space: nowrap; }

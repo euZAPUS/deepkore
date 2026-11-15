@@ -29,6 +29,13 @@ export function render(el) {
         </div>
       </section>
 
+      <section class="panel team-panel reveal">
+        ${panelHead("Team")}
+        <ul class="team">
+          ${TEAM.map((m) => `<li class="member">${avatar(m)}<div><p class="member__name">${esc(m.name)}</p><p class="member__role">${esc(m.role)}</p></div></li>`).join("")}
+        </ul>
+      </section>
+
       <section class="panel reveal">
         ${panelHead("Why we built it")}
         <div class="prose">
@@ -36,13 +43,6 @@ export function render(el) {
           <p class="muted">Rainfed farms in southern Spain have to plan around dry years, hot summers and heavy storms. DeepKore puts open NASA data in the farmer's hands, in plain language.</p>
           <p class="muted">It supports the farmer's decision. It never makes it. Always check with your local agronomist.</p>
         </div>
-      </section>
-
-      <section class="panel team-panel reveal">
-        ${panelHead("Team")}
-        <ul class="team">
-          ${TEAM.map((m) => `<li class="member">${avatar(m)}<div><p class="member__name">${esc(m.name)}</p><p class="member__role">${esc(m.role)}</p></div></li>`).join("")}
-        </ul>
       </section>
 
       <section class="panel reveal">
