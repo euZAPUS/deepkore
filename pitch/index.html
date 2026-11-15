@@ -306,7 +306,7 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
       <div class="card c3 a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 10h18M3 15h18M3 20h18"/></svg></div><h3>Bare soil</h3><p>Wheat–sunflower leaves the ground bare from July to November</p></div>
       <div class="card c2 a" style="--i:5"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 15a4 4 0 1 1 .9-7.9A6 6 0 0 1 19 9a4 4 0 0 1-1 6"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/></svg></div><h3>Autumn storms</h3><p>Heavy rain peaks in October–December, right on that bare soil</p></div>
       <div class="card c4 a" style="--i:6"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"/></svg></div><h3>Heat and drought</h3><p>The 2022–23 season was the driest in 25 years at our pilot field</p></div>
-      <div class="card c1 a" style="--i:7"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Data, not used</h3><p>Open satellite data exists, but it does not reach the farm in plain words</p></div>
+      <div class="card c1 a" style="--i:7"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Decided by habit</h3><p>The climate data exists, but it does not reach the farmer in plain words</p></div>
     </div>
     <p class="src a" style="--i:8">Sources: FAO, International Year of Soils 2015 · NASA POWER 2001–2025 at 37.02 N, 4.56 W (our analysis).</p>
   </div>
@@ -333,10 +333,8 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
         <div class="step a" style="--i:4;--c:var(--wheat)"><span class="n">3</span><div><h3>Compare rotations, with the reasons</h3>
           <p>Your rotation against the best alternatives: why, evidence, benefits, gaps and risks to check. Plus a what-if climate simulator.</p></div></div>
       </div>
-      <div class="sw a" style="--i:5" role="group" aria-label="Theme">
-        <button type="button" data-t="light" aria-pressed="true"><i style="background:#f2f2f7"></i>Light</button>
-        <button type="button" data-t="dark" aria-pressed="false"><i style="background:#1c1c1e"></i>Dark</button>
-        <span class="mut">Free · no login · installs like an app</span>
+      <div class="chips a" style="--i:5;margin-top:clamp(12px,1.6vw,20px)">
+        <span class="chip g">Free</span><span class="chip g">No login</span><span class="chip g">Works on any phone</span><span class="chip">Readable in full sun or at night</span>
       </div>
     </div>
   </div>
@@ -400,7 +398,7 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
           <div class="score" style="--k:var(--green)"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:52"/></svg><b>68</b><small>best for you</small><em>Durum wheat – Lentil</em></div>
         </div>
         <div class="deltas" id="deltas"><span>Water +19</span><span>Soil health +25</span><span>Erosion +13</span><span>Income +51</span></div>
-        <p style="margin-top:auto;font-size:clamp(.74rem,.92vw,.94rem)">Match score out of 100 with default priorities. The farmer decides the trade-off.</p>
+        <p style="margin-top:auto;font-size:clamp(.78rem,.98vw,1rem)"><b style="color:var(--ink)">Match score (0–100)</b> = how well a rotation fits the farmer's priorities, combining its water, soil, erosion and income scores (NASA POWER + Ministry of Agriculture data). Default priorities shown; the farmer can change them.</p>
       </div>
     </div>
   </div>

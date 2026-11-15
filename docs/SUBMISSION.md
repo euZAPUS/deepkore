@@ -10,17 +10,9 @@ Fields marked ✏️ need the team.
 
 **DeepKore**
 
-## Summary (50–200 words) · ~175 words
+## Summary (50–200 words) · 199 words
 
-DeepKore is a free web app that helps rainfed farmers compare crop rotations before they decide what to sow. It runs on global
-NASA data; in these two days we piloted it in Andalucía (Spain). The farmer picks their field on the map, tells DeepKore what they grow today and what matters most to them: water, soil health,
-erosion or income. DeepKore downloads 25 years of NASA POWER daily data (2001–2025) for that point and computes, in the browser,
-a week-by-week calendar of frost, extreme heat and heavy rain, how much of each crop's water need the rain covers (FAO-56),
-and the weeks when heavy rain falls on bare soil. It then ranks the farmer's current rotation against the best alternatives and
-explains each one: why it is suggested, the evidence, the benefits, the data gaps and the risks to check locally. Every number shows
-where it comes from (derived from NASA data, or simulated), and a what-if simulator shows how the ranking changes with less rain
-or more heat. We checked that the data clearly shows the 2022–23 drought at our pilot field in Antequera (Málaga).
-DeepKore supports the farmer's decision; it never replaces the local agronomist.
+DeepKore is a free web app that helps rainfed farmers choose the crop rotation that protects their soil, and prepare before climate risks arrive. The farmer picks their field on a map, says what they grow today and what matters most: water, soil health, erosion or income. DeepKore downloads 25 years of NASA POWER daily data (2001-2025) for that point and computes a week-by-week calendar of frost, extreme heat and heavy rain, each crop's water need (FAO-56), and the weeks when heavy rain falls on bare soil. It ranks the current rotation against the best alternatives and explains each one: why, evidence, benefits, data gaps and risks to check with a local agronomist. A what-if simulator shows how the ranking changes with less rain or more heat, and every number shows its source. The data correctly shows the 2022-23 drought as the driest season in 25 years at our pilot field in Antequera (Málaga, Spain). There, replacing sunflower with lentil raises the match score (fit to the farmer's priorities, 0-100) from 42 to 68: more soil protection, less erosion, higher net margin. NASA data is global; in 48 hours we piloted it in Andalucía. DeepKore supports the farmer; it never replaces the agronomist.
 
 ## Project Demo (one public link)
 
