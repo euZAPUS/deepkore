@@ -1,60 +1,50 @@
-# Guion del pitch (2 minutos, 8 diapositivas, 3 personas)
+# Guion del pitch (≈1:30 + preguntas · 8 diapositivas · 3 personas)
 
-Abrir https://euzapus.github.io/deepkore/pitch/ (o `pitch/index.html` del repo). **F** = pantalla completa, **← →** = avanzar.
-Una sola persona lleva el mando todo el pitch para no ir buscando el teclado.
+**Pitch en directo:** https://euzapus.github.io/deepkore/pitch/?pitch (8 diapositivas: la pregunta + las 7 de la demo).
+**Project Demo para NASA:** https://euzapus.github.io/deepkore/pitch/ (las mismas 7 diapositivas, sin la pregunta).
+**F** = pantalla completa · **← →** = avanzar. Una sola persona lleva el mando.
+
+Los 2-3 minutos incluyen subir al escenario y las preguntas: el pitch tiene que durar **1:30 como mucho**.
 
 ---
 
-## Persona 1 · El problema y los datos (≈50 s) · diapositivas 1–4
+## Persona 1 · El problema (≈25 s) · diapositivas 1–3
 
 **1 · La pregunta**
-> "¿Cuánto tarda en formarse un centímetro de suelo fértil?"
+> "¿Cuánto tarda en formarse un centímetro de suelo fértil?" *(dos segundos)*
 
-*(dos segundos de silencio)*
+**2 · DeepKore (portada)**
+> "Hasta mil años. Somos DeepKore: una app gratuita que ayuda al agricultor de secano andaluz a elegir su rotación de cultivos con datos de la NASA."
 
-**2 · Hasta 1.000 años**
-> "Hasta mil años, según la FAO. Y una sola tormenta sobre suelo desnudo puede llevárselo en una tarde.
-> En el secano andaluz, el suelo se queda desnudo tras la cosecha, justo cuando llegan las tormentas de otoño.
-> Y el agricultor sigue decidiendo a ojo, aunque los datos existen."
+**3 · El problema**
+> "El trigo–girasol deja el suelo desnudo de julio a noviembre, justo cuando llegan las tormentas de otoño. Y el agricultor decide por costumbre, aunque los datos existen. ZAP."
 
-**3 · DeepKore**
-> "Por eso hemos creado DeepKore: elige la rotación que protege tu suelo y prepárate antes del riesgo."
+## ZAP · La solución (≈15 s) · diapositiva 4
 
-**4 · Los datos**
-> "Usamos tres fuentes de la NASA: POWER para heladas y calor, GPM para las tormentas
-> y SMAP para la humedad del suelo ahora mismo. Nuestra parcela piloto está en Antequera.
-> ZAP os enseña la app."
+**4 · Three steps, on any phone** *(el móvil cambia solo entre claro y oscuro)*
+> "Tres pasos: marcas tu parcela y lo que siembras, ves las semanas de riesgo del año, y comparas tu rotación con las mejores alternativas, con el porqué. En el móvil, sin registro."
 
----
+## Persona 3 · NASA, evidencia y cierre (≈50 s) · diapositivas 5–8
 
-## ZAP · La app (≈30 s) · diapositivas 5–6
+**5 · NASA POWER is the engine**
+> "El motor es NASA POWER: 25 años de datos diarios de tu parcela. Con ellos calculamos la probabilidad semanal de helada, calor y lluvia fuerte, el agua que necesita cada cultivo y cuándo cae la tormenta sobre suelo desnudo."
 
-**5 · Made for the field** *(el móvil cambia solo entre claro y oscuro; puedes pulsar Light / Dark)*
-> "La hemos diseñado para el campo: sin palabras técnicas, en modo claro para el sol
-> o en oscuro para la noche, y se instala en el móvil como una app, sin registrarse."
+**6 · Evidence**
+> "¿Funciona con datos reales? Sí: detecta la sequía de 2022–23 como la más seca de 25 años. Y en nuestra parcela piloto, pasar de trigo–girasol a trigo–lenteja sube de 51 a 70: más agua, más suelo, menos erosión."
 
-**6 · Todo lo que hace**
-> "El agricultor mueve cuatro barras y DeepKore ordena las rotaciones al momento.
-> Tiene calendario de riesgos, simulador de clima, la humedad del suelo de hoy,
-> y cada dato dice de dónde viene. [Nombre 3], ¿y el resultado?"
-
----
-
-## Persona 3 · El impacto y el cierre (≈40 s) · diapositivas 7–8
-
-**7 · El resultado** *(datos reales de NASA POWER 2001-2025)*
-> "Este es el resultado con datos reales: para este agricultor, la mejor rotación sube de 51 a 68 sobre 100.
-> Aprovecha mejor el agua de lluvia, protege mucho más el suelo de la erosión y aguanta mejor el clima.
-> El dinero aún no lo puntuamos porque no tenemos precios locales verificados, y lo decimos.
-> DeepKore ayuda, nunca sustituye: cada dato dice de dónde viene."
+**7 · Built / Simulated / Next**
+> "Funciona hoy para cualquier parcela de Andalucía. Lo simulado es solo el 'qué pasaría si'. Lo siguiente: un piloto con cooperativas y añadir SMAP y GPM. Y siempre: apoya al agricultor, decide su agrónomo."
 
 **8 · Cierre y QR**
-> "Escanead el código y probadla ahora."
-> *(despacio)* "El suelo tarda mil años en formarse. Protejámoslo a tiempo. Gracias."
+> "Escanead y probadla. El suelo tarda mil años en formarse: protejámoslo a tiempo. Gracias."
 
 ---
 
-**Ensayad con cronómetro:** 50 + 30 + 40 = 2:00. Si os pasáis, quitad primero la última frase de la diapositiva 2.
+## Preguntas probables (respuestas de 1 frase)
+- **¿Dónde interviene la NASA?** Todo el cálculo sale de NASA POWER diario 2001–2025 para la parcela elegida; sin POWER no hay ranking.
+- **¿Qué funciona y qué falta?** Funciona: parcela, riesgos, ranking, márgenes, simulador. Falta: SMAP/GPM, suelo de la parcela y calendarios validados por agrónomos.
+- **¿Qué lo respalda?** Detecta la sequía 2022–23 (193 mm frente a 354 habituales) y hay 28 tests automáticos.
+- **¿Mayor limitación?** La celda de POWER mide decenas de km: describe la zona, no cada rincón de la parcela.
+- **¿Qué decisión aporta más valor?** Que cada número diga de dónde sale y que el agricultor ponga sus prioridades: no le damos una respuesta cerrada.
 
-**Datos:** la diapositiva 7 y las capturas de `pitch/img/` ya usan los datos reales (NASA POWER 2001-2025).
-Si cambia `data/rotations.json`, actualizar `DECK` al principio del `<script>` de `pitch/index.html` y repetir las capturas.
+**Ensayad con cronómetro.** Si os pasáis, recortad la frase de la diapositiva 7.

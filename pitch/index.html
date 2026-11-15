@@ -3,17 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DeepKore Pitch</title>
+<title>DeepKore · Project Demo</title>
+<meta name="description" content="DeepKore: crop rotation decision support for rainfed farms, built on NASA POWER data. NASA Space Apps Challenge 2026, Málaga.">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <style>
-/* Concept: a bright field studio. Glass panels over soft green / wheat / sky light.
-   The product itself (real app screenshots in laptop and phone frames) carries the cover and the close;
-   NASA data is an Earth with three orbiting satellites. Progress bar = a furrow where a sprout grows per slide. */
+/* Project Demo for NASA Space Apps (7 slides, cover included) and the local pitch (?pitch adds the opening question).
+   Bright field studio: glass panels over soft green / wheat / sky light. Progress bar = a furrow with a sprout per slide.
+   Numbers on slides 3 and 5 are read from ../data (the same files the app uses). */
 @font-face{font-family:"Inter";src:url("../vendor/inter/inter-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
 :root{
   --bg:#f3f7f1; --line:rgba(20,48,31,.10);
-  --ink:#14301f; --mut:#5d6b62;
-  --green:#2e9e4f; --greend:#1f7a3c; --leaf:#8cc63f; --wheat:#d9a520; --sky:#3f8fd6; --clay:#c8643f; --soil:#7a5235;
+  --ink:#14301f; --mut:#56645b;
+  --green:#2e9e4f; --greend:#1f7a3c; --leaf:#8cc63f; --wheat:#d9a520; --sky:#3f8fd6; --clay:#c8643f; --soil:#7a5235; --violet:#6b63d6;
   --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   color-scheme:light;
@@ -21,7 +22,6 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
-
 #orbs{position:fixed;inset:0;overflow:hidden;pointer-events:none}
 #orbs i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(80px);opacity:.5;animation:drift 28s ease-in-out infinite alternate}
 #orbs i:nth-child(1){background:#cdebd3;left:50%;top:-25%}
@@ -31,78 +31,83 @@ body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-
 
 #ui{position:fixed;inset:0;pointer-events:none}
 .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  padding:clamp(44px,7vh,90px) max(clamp(16px,4.5vw,88px),env(safe-area-inset-right,0px)) clamp(80px,11vh,116px) max(clamp(16px,4.5vw,88px),env(safe-area-inset-left,0px));
+  padding:clamp(36px,6vh,80px) max(clamp(16px,4.5vw,88px),env(safe-area-inset-right,0px)) clamp(78px,11vh,112px) max(clamp(16px,4.5vw,88px),env(safe-area-inset-left,0px));
   opacity:0;visibility:hidden;transition:opacity .45s,visibility 0s .45s;perspective:1400px}
 .slide.on{opacity:1;visibility:visible;transition:opacity .45s}
-.panel{pointer-events:auto;max-height:100%;overflow:auto;scrollbar-width:none;min-width:0;width:min(100%,1320px)}
+.panel{pointer-events:auto;max-height:100%;overflow:auto;scrollbar-width:none;min-width:0;width:min(100%,1360px)}
 .panel::-webkit-scrollbar{display:none}
 .split{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(20px,3vw,56px);align-items:center;width:min(100%,1400px);pointer-events:auto}
-.glass{padding:clamp(20px,2.4vw,40px);border-radius:28px;background:linear-gradient(160deg,rgba(255,255,255,.84),rgba(255,255,255,.56));
+.split.rev{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.glass{padding:clamp(18px,2.2vw,36px);border-radius:28px;background:linear-gradient(160deg,rgba(255,255,255,.86),rgba(255,255,255,.58));
   border:1px solid rgba(255,255,255,.9);box-shadow:0 30px 80px -30px rgba(20,48,31,.28),0 0 0 1px var(--line);
   -webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4)}
 
 .a{opacity:0}
-.on .a{animation:rise .85s cubic-bezier(.2,.8,.2,1) calc(.2s + var(--i,0)*.08s) both}
-.on .card.a,.on .tile.a{animation:pop .9s cubic-bezier(.2,.9,.25,1.15) calc(.25s + var(--i,0)*.08s) both}
+.on .a{animation:rise .85s cubic-bezier(.2,.8,.2,1) calc(.15s + var(--i,0)*.08s) both}
+.on .card.a{animation:pop .9s cubic-bezier(.2,.9,.25,1.15) calc(.2s + var(--i,0)*.08s) both}
 @keyframes rise{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
-@keyframes pop{from{opacity:0;transform:translateY(34px) rotateX(22deg) scale(.94);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes pop{from{opacity:0;transform:translateY(30px) rotateX(18deg) scale(.95);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
 
-.kk{font:700 clamp(.72rem,1vw,1rem)/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--greend);margin:0 0 clamp(12px,1.4vw,20px)}
+.kk{font:700 clamp(.72rem,.95vw,.95rem)/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--greend);margin:0 0 clamp(10px,1.2vw,18px)}
 .kk::before{content:'● ';font-size:.7em;vertical-align:.15em}
 .kk.cl{color:var(--clay)}
 h1,h2,h3{margin:0;letter-spacing:-.03em;text-wrap:balance;color:var(--ink)}
-h1{font-size:clamp(2.4rem,min(6vw,10vh),6.4rem);line-height:.95;font-weight:900}
-h2{font-size:clamp(1.6rem,min(3.6vw,6.2vh),3.7rem);line-height:1.05;font-weight:850;margin-bottom:clamp(16px,2.2vw,32px)}
-h3{font-size:clamp(1.05rem,1.6vw,1.6rem);line-height:1.2;font-weight:750}
+h1{font-size:clamp(2.2rem,min(5.4vw,9vh),5.8rem);line-height:.95;font-weight:900}
+h2{font-size:clamp(1.5rem,min(3.2vw,5.6vh),3.3rem);line-height:1.05;font-weight:850;margin-bottom:clamp(14px,1.8vw,26px)}
+h3{font-size:clamp(1rem,1.45vw,1.45rem);line-height:1.2;font-weight:750}
 p{margin:0}
 .grad{background:linear-gradient(95deg,var(--greend),var(--green),var(--leaf),var(--wheat),var(--greend));background-size:300% 100%;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--greend);animation:shim 8s linear infinite}
 @keyframes shim{to{background-position:300% 0}}
-.sub{font-size:clamp(1.1rem,1.9vw,1.9rem);line-height:1.25;margin:clamp(12px,1.6vw,22px) 0;font-weight:700}
-.meta{margin-top:clamp(18px,2.6vw,36px);font:500 clamp(.72rem,.95vw,.95rem) var(--mono);color:var(--mut);letter-spacing:.04em;line-height:1.6}
-.src{margin-top:clamp(10px,1.2vw,16px);font:500 clamp(.68rem,.85vw,.85rem) var(--mono);color:var(--mut)}
+.lead{font-size:clamp(1rem,1.5vw,1.5rem);line-height:1.35;font-weight:600;color:var(--ink)}
+.mut{color:var(--mut)}
+.src{margin-top:clamp(8px,1vw,14px);font:500 clamp(.66rem,.8vw,.82rem) var(--mono);color:var(--mut)}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{padding:.38em .85em;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.78);font:600 clamp(.7rem,.9vw,.9rem) var(--sans);color:var(--ink)}
+.chip.g{background:rgba(46,158,79,.12);color:var(--greend);border-color:transparent}
+.chip.n{background:transparent;border-style:dashed;color:var(--mut)}
 
 .logo{display:flex;align-items:center;gap:clamp(10px,1.4vw,22px)}
-.logo svg{width:clamp(60px,7vw,120px);height:auto;filter:drop-shadow(0 16px 26px rgba(31,122,60,.25))}
+.logo svg{width:clamp(56px,6.4vw,110px);height:auto;filter:drop-shadow(0 16px 26px rgba(31,122,60,.25))}
 .on .logo svg{animation:breathe 5s ease-in-out infinite .9s}
 @keyframes breathe{50%{transform:scale(1.04)}}
-.logo .word{font-size:clamp(2.8rem,6.6vw,7rem);font-weight:900;letter-spacing:-.05em;line-height:.9}
+.logo .word{font-size:clamp(2.6rem,6vw,6.4rem);font-weight:900;letter-spacing:-.05em;line-height:.9}
 
 /* cards */
-.grid{display:grid;gap:clamp(10px,1.2vw,20px)}
-.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.card,.tile{--c:var(--green);position:relative;overflow:hidden;border-radius:24px;
-  background:linear-gradient(155deg,rgba(255,255,255,.66),rgba(255,255,255,.24) 55%,color-mix(in srgb,var(--c) 10%,rgba(255,255,255,.18)));
-  border:1px solid rgba(255,255,255,.78);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(20,48,31,.05),0 20px 44px -26px rgba(20,48,31,.38),0 0 0 1px rgba(20,48,31,.06);
-  padding:clamp(18px,2vw,34px);display:flex;flex-direction:column;gap:.7em;min-width:0;transform-style:preserve-3d;
+.grid{display:grid;gap:clamp(10px,1.2vw,18px)}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{--c:var(--green);position:relative;overflow:hidden;border-radius:22px;
+  background:linear-gradient(155deg,rgba(255,255,255,.7),rgba(255,255,255,.28) 55%,color-mix(in srgb,var(--c) 10%,rgba(255,255,255,.2)));
+  border:1px solid rgba(255,255,255,.8);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 20px 44px -26px rgba(20,48,31,.38),0 0 0 1px rgba(20,48,31,.06);
+  padding:clamp(14px,1.6vw,26px);display:flex;flex-direction:column;gap:.55em;min-width:0;
   -webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6)}
-.card>*,.tile>*{position:relative;z-index:1}
-.card::before,.tile::before{content:'';position:absolute;inset:-40% auto -40% -60%;width:45%;transform:rotate(18deg) translateX(-120%);
+.card>*{position:relative;z-index:1}
+.card::before{content:'';position:absolute;inset:-40% auto -40% -60%;width:45%;transform:rotate(18deg) translateX(-120%);
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);pointer-events:none;z-index:2}
-.on .card::before,.on .tile::before{animation:shine 1.4s cubic-bezier(.4,0,.2,1) calc(.9s + var(--i,0)*.08s) both}
+.on .card::before{animation:shine 1.4s cubic-bezier(.4,0,.2,1) calc(.9s + var(--i,0)*.08s) both}
 @keyframes shine{to{transform:rotate(18deg) translateX(520%)}}
-.card::after,.tile::after{content:'';position:absolute;right:-25%;top:-45%;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(var(--c),transparent 68%);opacity:.16;pointer-events:none}
-.c1{--c:var(--green)}.c2{--c:var(--sky)}.c3{--c:var(--wheat)}.c4{--c:var(--clay)}
-.grid>.card:nth-child(4n+2){--c:var(--sky)}.grid>.card:nth-child(4n+3){--c:var(--wheat)}.grid>.card:nth-child(4n+4){--c:var(--clay)}
-.card p{color:var(--mut);font-size:clamp(.88rem,1.15vw,1.18rem);line-height:1.4;font-weight:550}
-.ic{width:clamp(46px,4.4vw,74px);height:clamp(46px,4.4vw,74px);border-radius:20px;display:grid;place-items:center;flex:none;
+.card::after{content:'';position:absolute;right:-25%;top:-45%;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(var(--c),transparent 68%);opacity:.16;pointer-events:none}
+.c1{--c:var(--green)}.c2{--c:var(--sky)}.c3{--c:var(--wheat)}.c4{--c:var(--clay)}.c5{--c:var(--violet)}
+.card p{color:var(--mut);font-size:clamp(.82rem,1.05vw,1.08rem);line-height:1.4;font-weight:550}
+.ic{width:clamp(40px,3.8vw,62px);height:clamp(40px,3.8vw,62px);border-radius:16px;display:grid;place-items:center;flex:none;
   color:#fff;background:linear-gradient(145deg,color-mix(in srgb,var(--c,var(--green)) 78%,#fff),var(--c,var(--green)));box-shadow:0 12px 24px -10px var(--c,var(--green))}
 .ic svg{width:52%;height:52%;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .on .ic svg{animation:bob 3.2s ease-in-out infinite}
-.grid>.card:nth-child(2) .ic svg{animation-delay:-.8s}.grid>.card:nth-child(3) .ic svg{animation-delay:-1.6s}.grid>.card:nth-child(4) .ic svg{animation-delay:-2.4s}
 @keyframes bob{50%{transform:translateY(-3px) scale(1.07)}}
-.lab{font:700 clamp(.66rem,.88vw,.88rem)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--c,var(--green)) 78%,#14301f)}
-.rows{display:grid;gap:clamp(10px,1.2vw,18px)}
-.row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(12px,1.2vw,18px);align-items:center}
-.row .ic{width:clamp(38px,3.2vw,52px);height:clamp(38px,3.2vw,52px);border-radius:14px}
-.row h3{font-size:clamp(1rem,1.45vw,1.45rem)}
-.row p{color:var(--mut);font-size:clamp(.8rem,1vw,1rem);font-weight:550;margin-top:2px}
-.rows .row:nth-child(2){--c:var(--sky)}.rows .row:nth-child(3){--c:var(--wheat)}
+.lab{font:700 clamp(.64rem,.82vw,.84rem)/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:color-mix(in srgb,var(--c,var(--green)) 80%,#14301f)}
+ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:.45em}
+ul.ticks li{position:relative;padding-left:1.25em;font:550 clamp(.8rem,1.02vw,1.05rem)/1.35 var(--sans);color:var(--ink)}
+ul.ticks li::before{content:'';position:absolute;left:0;top:.45em;width:.55em;height:.55em;border-radius:50%;background:var(--c,var(--green))}
+ul.ticks li small{display:block;color:var(--mut);font-weight:500;font-size:.88em}
 
 /* problem */
-.answer{font:900 clamp(3rem,min(8.4vw,15vh),9.5rem)/.92 var(--sans);letter-spacing:-.06em}
-.answer-sub{font-size:clamp(1.25rem,min(2.6vw,4.6vh),2.9rem)!important}
+.big1{font:900 clamp(2.2rem,min(5.2vw,10vh),6rem)/.95 var(--sans);letter-spacing:-.05em}
+.who{display:flex;gap:clamp(12px,1.4vw,20px);align-items:center;margin:clamp(12px,1.6vw,22px) 0 clamp(14px,1.8vw,24px);padding:clamp(12px,1.3vw,18px) clamp(14px,1.6vw,22px);
+  border-radius:18px;background:rgba(255,255,255,.75);box-shadow:0 0 0 1px var(--line)}
+.who .ic{--c:var(--wheat)}
+.who b{font-size:clamp(.95rem,1.3vw,1.3rem)}
+.who p{color:var(--mut);font-size:clamp(.8rem,1vw,1rem);margin-top:2px}
 
 /* devices with real app screenshots */
 .devices{position:relative;width:100%;aspect-ratio:16/11}
@@ -117,108 +122,92 @@ p{margin:0}
 .on .devices .phone{animation:fl2 6s ease-in-out infinite 1.2s}
 @keyframes fl1{50%{translate:0 -10px}}
 @keyframes fl2{50%{translate:0 -16px}}
-.solo{position:relative;width:min(100%,340px);margin-inline:auto}
-.solo .phone{position:relative;right:auto;width:100%}
 
-/* design slide: phone that switches theme */
-.designphone{position:relative;width:min(100%,46vh);margin-inline:auto}
+/* solution: phone that switches theme + steps */
+.designphone{position:relative;width:min(100%,44vh);margin-inline:auto}
 .designphone .phone{position:relative;right:auto;bottom:auto;width:100%;transform:perspective(1800px) rotateY(10deg) rotateX(2deg)}
 .on .designphone .phone{animation:fl2 6s ease-in-out infinite 1.2s}
 .swap{position:relative}
 .swap img.dark{position:absolute;left:1.4%;top:1.4%;width:97.2%;opacity:0;transition:opacity .7s ease}
 .swap.is-dark img.dark{opacity:1}
-.sw{display:flex;gap:10px;margin-top:clamp(16px,2vw,26px);pointer-events:auto}
-.sw button{display:flex;align-items:center;gap:8px;padding:8px 16px 8px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.8);
-  font:700 clamp(.8rem,1vw,1rem) var(--sans);color:var(--ink);cursor:pointer;transition:transform .2s,box-shadow .2s}
-.sw button i{width:26px;height:26px;border-radius:50%;box-shadow:0 0 0 1px var(--line),inset 0 1px 2px rgba(0,0,0,.15)}
+.steps{display:grid;gap:clamp(10px,1.2vw,16px)}
+.step{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(12px,1.3vw,18px);align-items:start}
+.step .n{width:clamp(36px,3.2vw,50px);height:clamp(36px,3.2vw,50px);border-radius:50%;display:grid;place-items:center;font-weight:850;font-size:clamp(1rem,1.5vw,1.4rem);color:#fff;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--c) 70%,#fff),var(--c));box-shadow:0 10px 20px -10px var(--c)}
+.step h3{font-size:clamp(1rem,1.4vw,1.4rem)}
+.step p{color:var(--mut);font-size:clamp(.78rem,.98vw,1rem);margin-top:2px;line-height:1.35}
+.step .res{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.45em}
+.step .res span{padding:.25em .6em;border-radius:8px;background:color-mix(in srgb,var(--k) 13%,#fff);color:color-mix(in srgb,var(--k) 75%,#14301f);font:700 clamp(.68rem,.85vw,.86rem) var(--sans)}
+.sw{display:flex;gap:10px;margin-top:clamp(12px,1.6vw,20px);pointer-events:auto;flex-wrap:wrap;align-items:center}
+.sw button{display:flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.8);
+  font:700 clamp(.76rem,.95vw,.95rem) var(--sans);color:var(--ink);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.sw button i{width:22px;height:22px;border-radius:50%;box-shadow:0 0 0 1px var(--line),inset 0 1px 2px rgba(0,0,0,.15)}
 .sw button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--greend);transform:scale(1.05)}
+.sw .mut{font-size:clamp(.72rem,.9vw,.9rem)}
 
-/* Earth + satellites */
-.orbit-art{width:min(100%,64vh);aspect-ratio:1;margin-inline:auto}
-.orbit-art svg{width:100%;height:100%;overflow:visible}
-.orbit-art .path{fill:none;stroke:rgba(20,48,31,.16);stroke-width:1.6;stroke-dasharray:4 6}
-.orbit-art .tag rect{fill:#fff;filter:drop-shadow(0 6px 10px rgba(20,48,31,.18))}
-.orbit-art .tag text{font:800 15px var(--sans);letter-spacing:.02em}
-.orbit-art .pinlab text{font:700 14px var(--sans);fill:var(--ink)}
-.pulse{transform-origin:center;transform-box:fill-box;animation:pulse 2.4s ease-out infinite}
-.pulse.b{animation-delay:1.2s}
-@keyframes pulse{from{opacity:.8;transform:scale(1)}to{opacity:0;transform:scale(3.4)}}
+/* NASA POWER flow */
+.flow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1.15fr) auto minmax(0,1fr);gap:clamp(8px,1vw,16px);align-items:stretch}
+.flow .arr{display:grid;place-items:center;color:var(--mut)}
+.flow .arr svg{width:clamp(22px,2.4vw,36px);height:auto;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.on .flow .arr svg{animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(5px)}}
+.vars{display:flex;flex-wrap:wrap;gap:.3rem}
+.vars span{padding:.2em .5em;border-radius:7px;background:rgba(63,143,214,.12);color:#235f99;font:700 clamp(.6rem,.74vw,.76rem) var(--mono)}
+.sat{display:flex;align-items:center;gap:10px}
+.sat svg{width:clamp(36px,3.4vw,54px);height:auto}
+.on .sat svg{animation:bob 3.4s ease-in-out infinite}
+.next{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;margin-top:clamp(12px,1.6vw,22px);font:600 clamp(.74rem,.92vw,.92rem) var(--sans);color:var(--mut)}
 
-/* bento */
-.bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1vw,16px)}
-.panel.fit{height:100%;display:flex;flex-direction:column;overflow:hidden}
-.panel.fit .bento{flex:1;min-height:0;grid-template-rows:repeat(3,minmax(0,1fr))}
-.tile{padding:clamp(12px,1.3vw,22px);gap:.35em;justify-content:flex-end;min-height:0}
-.tile h3{font-size:clamp(.95rem,min(1.5vw,2.6vh),1.6rem)}
-.tile p{color:var(--mut);font-size:clamp(.72rem,min(.95vw,1.7vh),1rem);line-height:1.35;font-weight:550}
-.tile .ic{width:clamp(30px,min(3vw,5vh),50px);height:clamp(30px,min(3vw,5vh),50px);border-radius:14px;margin-bottom:auto}
-.w2{grid-column:span 2}.h2{grid-row:span 2}
-.tile.hero{background:linear-gradient(150deg,rgba(20,48,31,.94),rgba(31,122,60,.9) 60%,rgba(140,198,63,.85));color:#fff;border-color:rgba(255,255,255,.35)}
-.tile.hero h3{font-size:clamp(1.5rem,min(3.4vw,6vh),3.8rem);line-height:1;color:#fff}
-.tile.hero p{color:#dcefd9}
-.msl{display:grid;gap:clamp(8px,1.4vh,16px);margin-bottom:auto;width:100%}
-.msl div{display:grid;grid-template-columns:5.5em 1fr;align-items:center;gap:10px;font:600 clamp(.7rem,min(.9vw,1.6vh),.95rem) var(--sans);color:#e6f4e4}
-.msl s{position:relative;display:block;height:6px;border-radius:9px;background:rgba(255,255,255,.22);text-decoration:none}
-.msl s::before{content:'';position:absolute;left:0;top:0;bottom:0;border-radius:9px;background:var(--k);width:var(--w);animation:sl 4.5s ease-in-out infinite alternate;animation-delay:var(--d)}
-.msl s::after{content:'';position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3);left:var(--w);animation:sk 4.5s ease-in-out infinite alternate;animation-delay:var(--d)}
-@keyframes sl{to{width:var(--w2)}}@keyframes sk{to{left:var(--w2)}}
-.heat{display:grid;grid-template-columns:repeat(26,1fr);gap:2px;margin-bottom:auto;width:100%}
-.heat i{aspect-ratio:1;border-radius:2px;background:var(--hc);opacity:var(--o);animation:hb 3s ease-in-out infinite;animation-delay:calc(var(--k) * -.06s)}
-@keyframes hb{50%{opacity:calc(var(--o) * .45)}}
-.rings{display:flex;gap:clamp(6px,.8vw,12px);margin-bottom:auto}
-.rings svg{width:clamp(34px,min(3.6vw,6vh),60px);height:auto;transform:rotate(-90deg)}
-.rings circle,.score circle{fill:none;stroke-width:6;stroke-linecap:round}
-.rings .t,.score .t{stroke:rgba(20,48,31,.1)}
-.rings .v{stroke:var(--green);stroke-dasharray:163;stroke-dashoffset:163}
-.on .rings .v{animation:ring 1.6s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(.9s + var(--k) * .15s)}
+/* evidence */
+.ev{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(12px,1.6vw,24px);align-items:stretch}
+.chart{width:100%;height:auto;display:block;margin-top:6px}
+.chart text{font:600 11px var(--sans);fill:var(--mut)}
+.chart .ln{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1200;stroke-dashoffset:1200}
+.on .chart .ln{animation:draw 2.2s cubic-bezier(.4,0,.2,1) .7s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font:600 clamp(.66rem,.82vw,.84rem) var(--sans);color:var(--mut)}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--k)}
+.card p.stat,.stat{font:900 clamp(1.8rem,3.2vw,3.2rem)/1 var(--sans);letter-spacing:-.04em;color:var(--clay)}
+.vsrow{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.score{text-align:center}
+.score svg{width:clamp(64px,6.6vw,104px);height:auto;transform:rotate(-90deg);display:block;margin:0 auto 4px}
+.score circle{fill:none;stroke-width:7;stroke-linecap:round}
+.score .t{stroke:rgba(20,48,31,.1)}
+.score .v{stroke:var(--k);stroke-dasharray:163;stroke-dashoffset:163}
+.on .score .v{animation:ring 1.8s cubic-bezier(.2,.8,.2,1) .7s forwards}
 @keyframes ring{to{stroke-dashoffset:var(--off)}}
-.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:auto}
-.tags span{padding:.28em .65em;border-radius:999px;font:700 clamp(.62rem,min(.8vw,1.4vh),.82rem) var(--sans);color:var(--k);background:color-mix(in srgb,var(--k) 14%,transparent)}
-.big{font:900 clamp(1.6rem,min(3.4vw,6vh),4rem)/1 var(--sans);letter-spacing:-.04em;color:var(--c);margin-bottom:auto}
+.score b{display:block;font:900 clamp(1.8rem,3vw,3rem)/1 var(--sans);letter-spacing:-.04em;color:var(--k)}
+.score small{display:block;font:600 clamp(.68rem,.84vw,.86rem)/1.25 var(--sans);color:var(--mut);margin-top:4px}
+.score em{display:block;font-style:normal;font-weight:800;color:var(--ink);font-size:clamp(.76rem,.96vw,1rem);margin-top:4px}
+.deltas{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin-top:clamp(10px,1.2vw,16px)}
+.deltas span{padding:.25em .6em;border-radius:8px;background:rgba(46,158,79,.12);color:var(--greend);font:700 clamp(.66rem,.84vw,.86rem) var(--sans)}
+.deltas span.dn{background:rgba(200,100,63,.12);color:var(--clay)}
 
-/* result */
-.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(12px,2vw,32px);align-items:stretch}
-.vs .card{gap:1em}
-.vs .card.best{--c:var(--green);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 30px 60px -28px rgba(31,122,60,.55),0 0 0 2px var(--green)}
-.vs .card.now{--c:var(--clay)}
-.vs .mid{display:grid;place-items:center;font:900 clamp(1.4rem,2.6vw,2.6rem) var(--sans);color:var(--mut)}
-.score{display:flex;align-items:center;gap:clamp(12px,1.4vw,20px)}
-.score svg{width:clamp(70px,8vw,120px);height:auto;transform:rotate(-90deg)}
-.score circle{stroke-width:7}
-.score .v{stroke:var(--c);stroke-dasharray:163;stroke-dashoffset:163}
-.on .score .v{animation:ring 1.8s cubic-bezier(.2,.8,.2,1) .6s forwards}
-.score b{font:900 clamp(2.4rem,4.4vw,4.6rem)/1 var(--sans);letter-spacing:-.04em;color:var(--c)}
-.score small{display:block;font:600 clamp(.7rem,.9vw,.9rem) var(--sans);color:var(--mut)}
-.seq{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;font:600 clamp(.72rem,.95vw,.95rem) var(--sans)}
-.seq span{padding:.3em .75em;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid var(--line)}
-.seq i{font-style:normal;color:var(--mut)}
-.bars{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
-.bars div{font:600 clamp(.72rem,.9vw,.92rem) var(--sans);color:var(--mut)}
-.bars div b{float:right;color:var(--ink)}
-.bars div b em{font-style:normal;margin-left:.35em}
-.bars .up{color:var(--green)}.bars .dn{color:var(--clay)}
-.bars s{display:block;height:7px;margin-top:5px;border-radius:9px;background:rgba(20,48,31,.08);text-decoration:none;overflow:hidden}
-.bars s::before{content:'';display:block;height:100%;width:0;border-radius:9px;background:var(--k)}
-.on .bars s::before{animation:fill 1.4s cubic-bezier(.2,.8,.2,1) .9s forwards}
-@keyframes fill{to{width:var(--w)}}
-.pill[hidden]{display:none}
-.pill{display:inline-flex;align-items:center;gap:.4em;padding:.35em .8em;border-radius:999px;font:700 clamp(.66rem,.85vw,.85rem) var(--sans);background:rgba(200,100,63,.14);color:var(--clay);letter-spacing:.04em}
-.trust{margin-top:clamp(14px,1.8vw,26px);font:550 clamp(.9rem,1.25vw,1.25rem)/1.4 var(--sans);color:var(--mut)}
+/* status */
+.status .card{gap:.7em}
+.limits{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:clamp(12px,1.4vw,20px)}
+.limits span{padding:.35em .8em;border-radius:999px;background:rgba(200,100,63,.1);color:#8a3f22;font:600 clamp(.68rem,.86vw,.88rem) var(--sans)}
+.trust{margin-top:clamp(12px,1.4vw,20px);font:550 clamp(.88rem,1.15vw,1.2rem)/1.4 var(--sans);color:var(--mut)}
 .trust b{color:var(--greend)}
 
 /* closing */
-.closing{font:900 clamp(2rem,min(4.4vw,7.6vh),4.6rem)/1.08 var(--sans);letter-spacing:-.04em;color:var(--ink);margin:0 0 clamp(18px,2.6vw,36px);text-wrap:balance}
+.closing{font:900 clamp(1.7rem,min(3.6vw,6.4vh),3.9rem)/1.08 var(--sans);letter-spacing:-.04em;color:var(--ink);margin:0 0 clamp(14px,2vw,28px);text-wrap:balance}
 .closing span{display:inline-block;opacity:0}
-.on .closing span{animation:word .7s cubic-bezier(.2,.8,.2,1) calc(.3s + var(--w)*.24s) both}
+.on .closing span{animation:word .7s cubic-bezier(.2,.8,.2,1) calc(.3s + var(--w)*.2s) both}
 .closing .hl{color:var(--green)}
 @keyframes word{from{opacity:0;transform:translateY(.4em);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
-.endrow{display:flex;align-items:center;gap:clamp(16px,2.4vw,36px)}
-.qr{width:clamp(120px,19vh,210px);aspect-ratio:1;padding:10px;border-radius:20px;background:#fff;box-shadow:0 30px 60px -28px rgba(20,48,31,.45),0 0 0 1px var(--line)}
+.endrow{display:flex;align-items:center;gap:clamp(14px,2vw,30px)}
+.qr{width:clamp(110px,17vh,190px);aspect-ratio:1;padding:10px;border-radius:20px;background:#fff;box-shadow:0 30px 60px -28px rgba(20,48,31,.45),0 0 0 1px var(--line);flex:none}
 .qr svg{width:100%;height:100%;display:block}
-.url{font:700 clamp(.95rem,1.5vw,1.5rem) var(--mono);color:var(--greend);word-break:break-all}
-.slide[aria-label="Thank you"] .a{animation-delay:2.7s!important}
+.url{font:700 clamp(.9rem,1.35vw,1.35rem) var(--mono);color:var(--greend);word-break:break-all}
+.team{border-radius:24px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(20,48,31,.5),0 0 0 1px var(--line);background:#fff}
+.team img{display:block;width:100%;height:auto;max-height:52vh;object-fit:cover}
+.team figcaption{padding:10px 16px;font:700 clamp(.78rem,1vw,1rem) var(--sans)}
+.team figcaption span{display:block;color:var(--mut);font-weight:550;font-size:.88em;margin-top:2px}
+.refs{margin-top:clamp(12px,1.6vw,22px);font:500 clamp(.62rem,.76vw,.78rem)/1.5 var(--mono);color:var(--mut)}
+.slide[aria-label="Impact and next steps"] .late{animation-delay:2.2s!important}
 
-/* question */
+/* question (pitch only) */
 .slide.blank{background:#fff}
 body.isblank .hud,body.isblank #hint{opacity:0}
 .q{pointer-events:auto;max-width:22ch;margin:0;text-align:center;font:900 clamp(2.2rem,min(5.6vw,9vh),5.8rem)/1.08 var(--sans);letter-spacing:-.04em;color:var(--ink);text-wrap:balance}
@@ -231,7 +220,7 @@ body.isblank .hud,body.isblank #hint{opacity:0}
 
 /* HUD: furrow with sprouts */
 .hud{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;gap:16px;pointer-events:none;transition:opacity .4s;
-  padding:0 max(clamp(16px,4.5vw,88px),env(safe-area-inset-right,0px)) max(18px,env(safe-area-inset-bottom,0px)) max(clamp(16px,4.5vw,88px),env(safe-area-inset-left,0px))}
+  padding:0 max(clamp(16px,4.5vw,88px),env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(clamp(16px,4.5vw,88px),env(safe-area-inset-left,0px))}
 .brand{display:flex;align-items:center;gap:8px;font:850 clamp(.85rem,1.05vw,1.05rem) var(--sans)}
 .brand svg{width:26px;height:26px}
 .furrow{position:relative;flex:1;height:44px;min-width:0}
@@ -248,19 +237,17 @@ body.isblank .hud,body.isblank #hint{opacity:0}
 .nav button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.85);color:var(--ink);cursor:pointer;display:grid;place-items:center}
 .nav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
-#hint{position:fixed;top:max(18px,env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);padding:.6em 1.1em;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid var(--line);
+#hint{position:fixed;top:max(16px,env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);padding:.6em 1.1em;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid var(--line);
   font:500 .85rem var(--mono);color:var(--mut);transition:opacity .6s;pointer-events:none}
 #hint.gone{opacity:0}
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.a,.closing span{opacity:1}.fl{opacity:.5}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.a,.closing span{opacity:1}.fl{opacity:.5}.chart .ln{stroke-dashoffset:0}}
 @media (max-width:900px),(max-aspect-ratio:1/1){
   .slide{align-items:flex-start}
-  .split{grid-template-columns:1fr}
-  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .bento{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .panel.fit .bento{grid-template-rows:none}
-  .vs{grid-template-columns:1fr}.vs .mid{display:none}
-  .devices,.orbit-art{max-width:520px;margin-inline:auto}
+  .split,.split.rev,.ev{grid-template-columns:1fr}
+  .g4,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow{grid-template-columns:1fr}.flow .arr{transform:rotate(90deg)}
+  .devices,.designphone{max-width:440px;margin-inline:auto}
 }
 </style>
 </head>
@@ -270,37 +257,19 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
 
 <main id="ui">
 
-<!-- 1 · Question -->
-<section class="slide blank" aria-label="Question">
+<!-- 0 · Question (only in the local pitch: ?pitch) -->
+<section class="slide blank pitch-only" aria-label="Question">
   <div class="floaters" aria-hidden="true">
     <i class="fl" style="left:7%;top:14%;width:7rem;height:7rem;--r:-14deg"><svg viewBox="0 0 24 24" stroke="#2e9e4f" stroke-width="1.6"><path d="M12 21V11M12 11c0-4 2.5-6.5 7-7-.6 4.4-3 6.8-7 7zM12 14c0-3-1.8-5-5.5-5.5.5 3.4 2.3 5.2 5.5 5.5z"/></svg></i>
     <i class="fl" style="left:84%;top:16%;width:5.5rem;height:5.5rem;--r:12deg"><svg viewBox="0 0 24 24" stroke="#d9a520" stroke-width="1.6"><path d="M12 21V5M12 8l-3-2M12 8l3-2M12 12l-3-2M12 12l3-2M12 16l-3-2M12 16l3-2"/></svg></i>
     <i class="fl" style="left:88%;top:68%;width:8rem;height:8rem;--r:-8deg"><svg viewBox="0 0 24 24" stroke="#7a5235" stroke-width="1.4"><path d="M3 10h18M3 15h18M3 20h18"/></svg></i>
     <i class="fl" style="left:16%;top:72%;width:5rem;height:5rem;--r:10deg"><svg viewBox="0 0 24 24" stroke="#3f8fd6" stroke-width="1.6"><path d="M7 15a4 4 0 1 1 .9-7.9A6 6 0 0 1 19 9a4 4 0 0 1-1 6"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/></svg></i>
     <i class="fl" style="left:50%;top:8%;width:3.5rem;height:3.5rem;--r:6deg"><svg viewBox="0 0 24 24" stroke="#2e9e4f" stroke-width="1.6"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></i>
-    <i class="fl" style="left:32%;top:86%;width:4rem;height:4rem;--r:-18deg"><svg viewBox="0 0 24 24" stroke="#d9a520" stroke-width="1.6"><path d="M12 21V11M12 11c0-4 2.5-6.5 7-7-.6 4.4-3 6.8-7 7z"/></svg></i>
-    <i class="fl" style="left:70%;top:84%;width:3.4rem;height:3.4rem;--r:20deg"><svg viewBox="0 0 24 24" stroke="#2e9e4f" stroke-width="1.6"><path d="M12 21V5M12 9l-3-2M12 9l3-2M12 13l-3-2M12 13l3-2"/></svg></i>
   </div>
   <p class="q a" style="--i:0">How long does it take to form <span class="grad">1&nbsp;cm</span> of fertile soil?</p>
 </section>
 
-<!-- 2 · Answer + problem -->
-<section class="slide" aria-label="The problem">
-  <div class="panel">
-    <p class="kk cl a" style="--i:0">The problem</p>
-    <p class="answer a" style="--i:1"><span class="grad">Up to 1,000 years.</span></p>
-    <h2 class="a answer-sub" style="--i:2;margin-top:clamp(10px,1.4vw,20px)">One storm on bare soil can wash it away in an afternoon.</h2>
-    <div class="grid g4">
-      <div class="card a" style="--i:3"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 10h18M3 15h18M3 20h18"/></svg></div><h3>Bare soil</h3><p>Months unprotected between harvest and sowing</p></div>
-      <div class="card a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 15a4 4 0 1 1 .9-7.9A6 6 0 0 1 19 9a4 4 0 0 1-1 6"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/></svg></div><h3>Autumn storms</h3><p>They hit just when the ground is exposed</p></div>
-      <div class="card a" style="--i:5"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"/></svg></div><h3>Hotter, drier</h3><p>Rainfed farms feel it first</p></div>
-      <div class="card a" style="--i:6"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Guesswork</h3><p>The data exists, but it doesn't reach the farm</p></div>
-    </div>
-    <p class="src a" style="--i:7">Source: FAO, International Year of Soils.</p>
-  </div>
-</section>
-
-<!-- 3 · Cover with the product -->
+<!-- 1 · Cover: project, challenge, solution -->
 <section class="slide" aria-label="DeepKore">
   <div class="split">
     <div>
@@ -308,8 +277,13 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
         <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/><rect x="4" y="25.5" width="24" height="3.5" rx="1.75" fill="#7a6247"/><path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/><path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/></svg>
         <span class="word">Deep<span class="grad">Kore</span></span>
       </div>
-      <p class="sub a" style="--i:1">Choose the rotation that protects your soil, and prepare before the risk arrives.</p>
-      <p class="meta a" style="--i:2">NASA Space Apps Challenge 2026 · Málaga<br>Challenge: Field Shift: Adapting Farms with NASA Data</p>
+      <p class="lead a" style="--i:1;margin-top:clamp(12px,1.6vw,20px)">Choose the rotation that protects your soil, and prepare before the risk arrives.</p>
+      <p class="mut a" style="--i:2;margin-top:clamp(10px,1.2vw,16px);font-size:clamp(.88rem,1.15vw,1.18rem);line-height:1.45">A free web app that compares crop rotations for <b style="color:var(--ink)">rainfed farms in Andalucía</b>, using 25 years of <b style="color:var(--ink)">NASA POWER</b> data and the farmer's own priorities.</p>
+      <div class="chips a" style="--i:3;margin-top:clamp(14px,1.8vw,24px)">
+        <span class="chip g">Challenge: Field Shift · Adapting Farms with NASA Data</span>
+        <span class="chip">Pilot: Vega de Antequera, Málaga</span>
+        <span class="chip">NASA Space Apps 2026 · Málaga</span>
+      </div>
     </div>
     <div class="devices a" style="--i:3" aria-label="DeepKore on a laptop and a phone">
       <div class="laptop"><div class="scr"><img src="img/laptop-rotations.jpg" alt="DeepKore web app: compare rotations"></div><div class="base"></div></div>
@@ -318,89 +292,145 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
   </div>
 </section>
 
-<!-- 4 · NASA data -->
-<section class="slide" aria-label="The data">
-  <div class="split">
-    <div class="orbit-art a" style="--i:2" id="orbit" aria-label="Earth with three NASA data sources orbiting"></div>
-    <div class="glass">
-      <p class="kk a" style="--i:0">The data</p>
-      <h2 class="a" style="--i:1">NASA already watches <span class="grad">your field.</span></h2>
-      <div class="rows">
-        <div class="row a" style="--i:2"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4"/></svg></div><div><h3>NASA POWER</h3><p>Daily climate: when it freezes and when heat peaks</p></div></div>
-        <div class="row a" style="--i:3"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 15a4 4 0 1 1 .9-7.9A6 6 0 0 1 19 9a4 4 0 0 1-1 6"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/></svg></div><div><h3>GPM IMERG</h3><p>Rain every 30 minutes: the stormy weeks</p></div></div>
-        <div class="row a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div><div><h3>SMAP</h3><p>Soil moisture, measured from space</p></div></div>
-      </div>
+<!-- 2 · Problem and who it is for -->
+<section class="slide" aria-label="The problem">
+  <div class="panel">
+    <p class="kk cl a" style="--i:0">The problem</p>
+    <p class="big1 a" style="--i:1">1 cm of soil: <span class="grad">up to 1,000 years.</span></p>
+    <h2 class="a" style="--i:2;margin:clamp(8px,1vw,14px) 0 0;font-size:clamp(1.15rem,min(2.3vw,4.2vh),2.5rem)">One storm on bare soil can wash it away in an afternoon.</h2>
+    <div class="who a" style="--i:3">
+      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6"/></svg></div>
+      <div><b>For rainfed farmers in Andalucía</b><p>They choose next year's crops by habit. No irrigation: every decision depends on rain, heat and the soil.</p></div>
     </div>
+    <div class="grid g4">
+      <div class="card c3 a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 10h18M3 15h18M3 20h18"/></svg></div><h3>Bare soil</h3><p>Wheat–sunflower leaves the ground bare from July to November</p></div>
+      <div class="card c2 a" style="--i:5"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 15a4 4 0 1 1 .9-7.9A6 6 0 0 1 19 9a4 4 0 0 1-1 6"/><path d="M9 18l-1 3M13 18l-1 3M17 18l-1 3"/></svg></div><h3>Autumn storms</h3><p>Heavy rain peaks in October–December, right on that bare soil</p></div>
+      <div class="card c4 a" style="--i:6"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2"/></svg></div><h3>Heat and drought</h3><p>The 2022–23 season was the driest in 25 years at our pilot field</p></div>
+      <div class="card c1 a" style="--i:7"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Data, not used</h3><p>Open satellite data exists, but it does not reach the farm in plain words</p></div>
+    </div>
+    <p class="src a" style="--i:8">Sources: FAO, International Year of Soils 2015 · NASA POWER 2001–2025 at 37.02 N, 4.56 W (our analysis).</p>
   </div>
 </section>
 
-<!-- 5 · Made for the field (like the bracelet materials/colours slides) -->
-<section class="slide" aria-label="Made for the field">
-  <div class="split">
+<!-- 3 · Solution and main flow (the app) -->
+<section class="slide" aria-label="The solution">
+  <div class="split rev">
     <div class="designphone a" style="--i:2">
       <div class="phone swap" id="swap">
-        <img src="img/phone-risks.jpg" alt="DeepKore on a phone, light theme">
-        <img class="dark" src="img/phone-risks-dark.jpg" alt="DeepKore on a phone, dark theme">
+        <img src="img/phone-rotations.jpg" alt="DeepKore on a phone, light theme">
+        <img class="dark" src="img/phone-rotations-dark.jpg" alt="DeepKore on a phone, dark theme">
       </div>
     </div>
     <div class="glass">
-      <p class="kk a" style="--i:0">The design</p>
-      <h2 class="a" style="--i:1">Made for <span class="grad">the field.</span></h2>
-      <div class="rows">
-        <div class="row a" style="--i:2"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><div><h3>No jargon</h3><p>Four sliders and plain words</p></div></div>
-        <div class="row a" style="--i:3"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4"/></svg></div><div><h3>Light or dark</h3><p>Readable in full sun or at night</p></div></div>
-        <div class="row a" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.5h4"/></svg></div><div><h3>Installs like an app</h3><p>Phone, tablet or laptop. No login.</p></div></div>
+      <p class="kk a" style="--i:0">The solution</p>
+      <h2 class="a" style="--i:1">Three steps, <span class="grad">on any phone.</span></h2>
+      <div class="steps">
+        <div class="step a" style="--i:2;--c:var(--green)"><span class="n">1</span><div><h3>Your field, your crops, your priorities</h3>
+          <p>Tap your field anywhere in Andalucía, choose what you grow now, and move four sliders: water, soil health, erosion, income.</p></div></div>
+        <div class="step a" style="--i:3;--c:var(--sky)"><span class="n">2</span><div><h3>See the risky weeks before they come</h3>
+          <p>A 52-week calendar of frost, extreme heat and heavy rain, and soil wetness today.</p>
+          <div class="res" id="risk-res"><span style="--k:var(--sky)">Frost · Jan 22 – Feb 4</span><span style="--k:var(--clay)">Heat · Jun 25 – Aug 26</span><span style="--k:var(--violet)">Storms · Oct 29 – Dec 9</span></div></div></div>
+        <div class="step a" style="--i:4;--c:var(--wheat)"><span class="n">3</span><div><h3>Compare rotations, with the reasons</h3>
+          <p>Your rotation against the best alternatives: why, evidence, benefits, gaps and risks to check. Plus a what-if climate simulator.</p></div></div>
       </div>
       <div class="sw a" style="--i:5" role="group" aria-label="Theme">
         <button type="button" data-t="light" aria-pressed="true"><i style="background:#f2f2f7"></i>Light</button>
         <button type="button" data-t="dark" aria-pressed="false"><i style="background:#1c1c1e"></i>Dark</button>
+        <span class="mut">Free · no login · installs like an app</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 6 · The app -->
-<section class="slide" aria-label="The app">
-  <div class="panel fit">
-    <p class="kk a" style="--i:0">The app</p>
-    <h2 class="a" style="--i:1;margin-bottom:clamp(10px,1.4vw,20px)">Everything <span class="grad">DeepKore</span> does</h2>
-    <div class="bento">
-      <div class="tile hero w2 h2 a" style="--i:2">
-        <div class="msl">
-          <div>Water<s style="--k:#64d2ff;--w:70%;--w2:35%;--d:0s"></s></div>
-          <div>Soil<s style="--k:#c4a77d;--w:60%;--w2:90%;--d:-1s"></s></div>
-          <div>Income<s style="--k:#ffd60a;--w:50%;--w2:75%;--d:-2s"></s></div>
-          <div>Erosion<s style="--k:#ff9f0a;--w:40%;--w2:80%;--d:-3s"></s></div>
-        </div>
-        <h3>Your priorities lead.</h3><p>Move a slider and the ranking reorders instantly.</p>
-      </div>
-      <div class="tile w2 a" style="--i:3"><div class="heat" id="mini-heat"></div><h3>Risk calendar</h3><p>Frost, heat and heavy rain, week by week</p></div>
-      <div class="tile c1 a" style="--i:4"><div class="rings"><svg viewBox="0 0 64 64" style="--k:0;--off:52"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26"/></svg><svg viewBox="0 0 64 64" style="--k:1;--off:72"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26"/></svg><svg viewBox="0 0 64 64" style="--k:2;--off:100"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26"/></svg></div><h3>4 rotations</h3><p>Yours + 3 alternatives</p></div>
-      <div class="tile c4 a" style="--i:5"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><h3>What if it rains less?</h3><p>Climate simulator</p></div>
-      <div class="tile c3 a" style="--i:6"><div class="tags"><span style="--k:#248a3d">Observed</span><span style="--k:#0071e3">Derived</span><span style="--k:#af52de">AI-inferred</span><span style="--k:#c93400">Simulated</span></div><h3>Every number shows its source</h3></div>
-      <div class="tile c4 a" style="--i:7"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div><h3>Erosion window</h3><p>Storms + bare soil</p></div>
-      <div class="tile c3 a" style="--i:8"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg></div><h3>Honest limits</h3><p>Gaps and risks, for your agronomist</p></div>
-      <div class="tile c2 a" style="--i:9"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></svg></div><h3>Soil moisture now</h3><p>Straight from SMAP</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 7 · Result -->
-<section class="slide" aria-label="Result">
+<!-- 4 · NASA resource and its function -->
+<section class="slide" aria-label="NASA data">
   <div class="panel">
-    <p class="kk a" style="--i:0">The result <span class="pill" id="vs-pill" hidden>Sample data</span></p>
-    <h2 class="a" style="--i:1">Your rotation today <span class="grad">vs the best one for you</span></h2>
-    <div class="vs" id="vs"></div>
-    <p class="trust a" style="--i:6"><b>Supports, never replaces.</b> Every number shows its source, its gaps and its risks. You and your agronomist decide.</p>
+    <p class="kk a" style="--i:0">NASA resource and its function</p>
+    <h2 class="a" style="--i:1">NASA POWER is <span class="grad">the engine.</span></h2>
+    <div class="flow">
+      <div class="card c2 a" style="--i:2">
+        <div class="sat"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="19" y="18" width="10" height="10" rx="2" fill="#f2c94c"/><rect x="3" y="20" width="14" height="6" rx="1" fill="#2a5fa8"/><rect x="31" y="20" width="14" height="6" rx="1" fill="#2a5fa8"/><path d="M24 30v4M18 40c4-3 8-3 12 0" stroke="#3f8fd6" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <span class="lab">In</span></div>
+        <h3>NASA POWER daily data</h3>
+        <p>2001–2025, downloaded live for the farmer's field (API v2.10.3)</p>
+        <div class="vars"><span>T2M_MAX</span><span>T2M_MIN</span><span>PRECTOTCORR</span><span>GWETROOT</span><span>ALLSKY_SFC_SW_DWN</span><span>WS2M</span><span>RH2M</span></div>
+      </div>
+      <div class="arr a" style="--i:3"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+      <div class="card c1 a" style="--i:4">
+        <span class="lab">We compute</span>
+        <ul class="ticks">
+          <li>Weekly chance of frost, extreme heat, heavy rain<small>share of 25 years with a day over the threshold</small></li>
+          <li>Crop water need vs rain<small>FAO-56: ET0 × crop coefficient</small></li>
+          <li>Erosion window<small>heavy rain on bare soil</small></li>
+          <li>Soil wetness now vs usual · what-if climates</li>
+        </ul>
+      </div>
+      <div class="arr a" style="--i:5"><svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></svg></div>
+      <div class="card c3 a" style="--i:6">
+        <span class="lab">The farmer sees</span>
+        <ul class="ticks" style="--c:var(--wheat)">
+          <li>Risk calendar for their field</li>
+          <li>Rotations ranked by their priorities</li>
+          <li>The number behind every claim, labelled Derived or Simulated</li>
+        </ul>
+        <p style="margin-top:auto">Without NASA POWER there is no ranking.</p>
+      </div>
+    </div>
+    <div class="next a" style="--i:7">Next, from the challenge resources:<span class="chip n">SMAP soil moisture</span><span class="chip n">GPM IMERG storms</span><span class="chip n">SRTM slope</span><span class="chip n">Landsat / MODIS bare soil</span></div>
   </div>
 </section>
 
-<!-- 8 · Closing + QR -->
-<section class="slide" aria-label="Thank you">
+<!-- 5 · Demo / evidence -->
+<section class="slide" aria-label="Evidence">
+  <div class="panel">
+    <p class="kk a" style="--i:0">Evidence</p>
+    <h2 class="a" style="--i:1">It works on <span class="grad">real data.</span></h2>
+    <div class="ev">
+      <div class="card c4 a" style="--i:2">
+        <span class="lab">Check: does the data see a real drought?</span>
+        <p class="stat">193 mm <span style="font-size:.45em;color:var(--mut);letter-spacing:-.01em">vs a usual 354 mm</span></p><p style="color:var(--ink);font-weight:650">Rain from 1 October 2022 to the end of April 2023 at the pilot field: drier than all 21 reference years.</p>
+        <svg class="chart" id="val-chart" viewBox="0 0 560 210" role="img" aria-label="Cumulative rain since October: 2022-23 versus usual years"></svg>
+        <div class="legend"><span style="--k:var(--clay)"><i></i>2022–23</span><span style="--k:var(--sky)"><i></i>Usual (median)</span><span style="--k:#9aa39d"><i></i>Dry years (20th pct.)</span><span>NASA POWER · Antequera</span></div>
+      </div>
+      <div class="card c1 a" style="--i:3">
+        <span class="lab">Result at the pilot field</span>
+        <div class="vsrow" id="vs">
+          <div class="score" style="--k:var(--clay)"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:80"/></svg><b>51</b><small>today</small><em>Durum wheat – Sunflower</em></div>
+          <div style="font:900 clamp(1.2rem,2vw,2rem) var(--sans);color:var(--mut)">→</div>
+          <div class="score" style="--k:var(--green)"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:49"/></svg><b>70</b><small>best for you</small><em>Durum wheat – Lentil</em></div>
+        </div>
+        <div class="deltas" id="deltas"><span>Water +19</span><span>Soil health +25</span><span>Erosion +13</span></div>
+        <p style="margin-top:auto;font-size:clamp(.74rem,.92vw,.94rem)">Match score out of 100 with default priorities. The farmer decides the trade-off.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · What works + limits -->
+<section class="slide" aria-label="Status and limits">
+  <div class="panel">
+    <p class="kk a" style="--i:0">What works today, and its limits</p>
+    <h2 class="a" style="--i:1">Built in 2 days. <span class="grad">Honest about the rest.</span></h2>
+    <div class="grid g3 status">
+      <div class="card c1 a" style="--i:2"><span class="lab">Built</span>
+        <ul class="ticks"><li>Any field in Andalucía, NASA POWER live in the browser</li><li>Risk calendar, soil wetness, erosion window</li><li>7 rotations + build your own, ranked by your priorities</li><li>Net margins (Spanish Ministry of Agriculture, ECREA)</li><li>28 automated tests</li></ul></div>
+      <div class="card c3 a" style="--i:3"><span class="lab">Simulated</span>
+        <ul class="ticks" style="--c:var(--wheat)"><li>What-if: rain −40 % to +20 %, temperature +0 to +3 °C</li><li>Applied to the real 25-year series</li><li>Shows how the ranking reacts: not a forecast</li></ul></div>
+      <div class="card c2 a" style="--i:4"><span class="lab">Next</span>
+        <ul class="ticks" style="--c:var(--sky)"><li>Pilot with cooperatives in Málaga</li><li>SMAP, GPM IMERG and SRTM for finer resolution</li><li>Real field boundary and soil data</li><li>Crop calendars and PAC rules verified by agronomists</li></ul></div>
+    </div>
+    <div class="limits a" style="--i:5"><span>Limits:</span><span>one NASA POWER cell is tens of km wide</span><span>past years ≠ future</span><span>no field yields or prices</span><span>crop calendars partly TBD</span></div>
+    <p class="trust a" style="--i:6"><b>Decision support only.</b> DeepKore supports the farmer; the local agronomist decides.</p>
+  </div>
+</section>
+
+<!-- 7 · Impact, next step, references + QR -->
+<section class="slide" aria-label="Impact and next steps">
   <div class="split">
     <div>
       <p class="closing"><span style="--w:0">Soil</span> <span style="--w:1">takes</span> <span style="--w:2">a</span> <span style="--w:3">thousand</span> <span style="--w:4">years</span> <span style="--w:5">to</span> <span style="--w:6">form.</span> <span class="hl" style="--w:7">Let's</span> <span class="hl" style="--w:8">protect</span> <span class="hl" style="--w:9">it</span> <span class="hl" style="--w:10">in</span> <span class="hl" style="--w:11">time.</span></p>
-      <div class="endrow a" style="--i:9">
+      <div class="chips a late" style="--i:9;margin-bottom:clamp(14px,1.8vw,22px)"><span class="chip g">Free</span><span class="chip g">Any field in Andalucía</span><span class="chip g">Open data, open code</span><span class="chip">Next: pilot with Málaga cooperatives</span></div>
+      <div class="endrow a late" style="--i:10">
         <div class="qr" id="qr" role="img" aria-label="QR code to the app"></div>
         <div>
           <h1>Thank you<span class="grad">.</span></h1>
@@ -408,8 +438,13 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
           <p class="url" id="app-url"></p>
         </div>
       </div>
+      <p class="refs a late" style="--i:11">NASA POWER (NASA Langley Research Center) · FAO-56 (Allen et al., 1998) · MAPA ECREA 2.0 · Natural Earth · OpenStreetMap · Code: github.com/euZAPUS/deepkore</p>
     </div>
-    <div class="solo a" style="--i:4"><div class="devices" style="aspect-ratio:auto"><div class="phone" style="position:relative;width:min(100%,300px);margin-inline:auto;right:auto"><img src="img/phone-rotations.jpg" alt="DeepKore on a phone: compare rotations"></div></div></div>
+    <figure class="team a" id="team" style="--i:4;margin:0" hidden>
+      <img src="img/team.jpg" alt="The DeepKore team at NASA Space Apps Málaga 2026" id="team-img">
+      <figcaption>Team DeepKore<span>NASA Space Apps Challenge 2026 · Málaga</span></figcaption>
+    </figure>
+    <div class="designphone a" id="team-fallback" style="--i:4"><div class="phone" style="position:relative;right:auto;width:min(100%,300px);margin-inline:auto"><img src="img/phone-rotations.jpg" alt="DeepKore on a phone"></div></div>
   </div>
 </section>
 
@@ -418,7 +453,7 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
 <div class="hud">
   <span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="21" width="24" height="3.5" rx="1.75" fill="#a2845e"/><rect x="4" y="25.5" width="24" height="3.5" rx="1.75" fill="#7a6247"/><path d="M16 19.5c0-6.2 3.1-10.4 9.4-11.5-1 6.3-4.2 10.4-9.4 11.5z" fill="#34c759"/><path d="M16 19.5c0-5.2-2.6-8.4-7.9-9.4.9 5.2 3.5 8.4 7.9 9.4z" fill="#28a745"/></svg><span>Deep<span style="color:var(--green)">Kore</span></span></span>
   <div class="furrow" id="furrow" aria-hidden="true"></div>
-  <span class="cnt" id="cnt">01 / 08</span>
+  <span class="cnt" id="cnt">01 / 07</span>
   <div class="nav">
     <button type="button" id="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
     <button type="button" id="next" aria-label="Next slide"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
@@ -427,161 +462,128 @@ button:focus-visible{outline:2px solid var(--greend);outline-offset:3px}
 <div id="hint">← → to navigate · F for full screen</div>
 
 <script src="../vendor/qrcode/qrcode.js"></script>
-<script>
-/* ===================== Result slide data =====================
-   Numbers copied from the app (Compare rotations) with the default priorities.
-   If data/rotations.json changes, update them here. Income is not scored yet, so it is not shown. */
-const DECK = {
-  appUrl: "https://euzapus.github.io/deepkore/",
-  mock: false, // real data: data/rotations.json (NASA POWER 2001-2025), default priorities (water 70, soil 70, erosion 60)
-  now:  { name: "Durum wheat – Sunflower", tag: "Your current rotation", seq: ["Durum wheat", "Sunflower"], score: 51,
-          scores: { Water: 44, Soil: 50, Erosion: 59, Resilience: 76 } },
-  best: { name: "Barley – Vetch – Durum wheat", tag: "Best for your priorities", seq: ["Barley", "Vetch", "Durum wheat"], score: 68,
-          scores: { Water: 69, Soil: 50, Erosion: 87, Resilience: 95 } },
-};
+<script type="module">
+import { rankRotations } from "../js/scoring.js";
 
-(function () {
-  const slides = [...document.querySelectorAll(".slide")];
-  const N = slides.length;
-  let cur = 0;
+const APP_URL = "https://euzapus.github.io/deepkore/";
+const DEFAULT_WEIGHTS = { water: 70, soil: 70, income: 50, erosion: 60 }; // same as js/store.js
+const C = 2 * Math.PI * 26;
 
-  /* ---------- result cards ---------- */
-  const C = 2 * Math.PI * 26;
-  const COLORS = { Water: "#0a84c9", Soil: "#a2845e", Income: "#c98a00", Erosion: "#e0620d", Resilience: "#5856d6" };
-  const card = (r, cls, other) => `
-    <div class="card ${cls} a" style="--i:${cls === "best" ? 4 : 2}">
-      <span class="lab">${r.tag}</span>
-      <div class="score"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:${C * (1 - r.score / 100)}"/></svg>
-        <div><b>${r.score}</b><small>out of 100 for your priorities</small></div></div>
-      <h3>${r.name}</h3>
-      <div class="seq">${r.seq.map((s) => `<span>${s}</span>`).join("<i>›</i>")}<i>↺</i></div>
-      <div class="bars">${Object.entries(r.scores).map(([k, v]) => {
-        const d = other ? v - other.scores[k] : 0;
-        return `<div>${k}<b>${v}${other && d ? `<em class="${d > 0 ? "up" : "dn"}">${d > 0 ? "+" : "−"}${Math.abs(d)}</em>` : ""}</b><s style="--k:${COLORS[k]};--w:${v}%"></s></div>`;
-      }).join("")}</div>
-    </div>`;
-  document.getElementById("vs").innerHTML = card(DECK.now, "now") + `<div class="mid a" style="--i:3">→</div>` + card(DECK.best, "best", DECK.now);
-  document.getElementById("vs-pill").hidden = !DECK.mock;
+/* ---------- pitch mode: ?pitch adds the opening question ---------- */
+const isPitch = new URLSearchParams(location.search).has("pitch");
+if (!isPitch) document.querySelectorAll(".pitch-only").forEach((s) => s.remove());
+const slides = [...document.querySelectorAll(".slide")];
+const N = slides.length;
+let cur = 0;
 
-  /* ---------- mini calendar (decorative) ---------- */
-  const bump = (w, c, s) => Math.exp(-Math.pow(Math.min(Math.abs(w - c), 52 - Math.abs(w - c)) / s, 2));
-  let html = "";
-  [["#32ade6", 3, 6], ["#ff3b30", 30, 4.5], ["#5856d6", 45, 4]].forEach(([col, c, s]) => {
-    for (let w = 0; w < 52; w += 2) html += `<i style="--hc:${col};--o:${(0.12 + 0.88 * bump(w, c, s)).toFixed(2)};--k:${w}"></i>`;
-  });
-  document.getElementById("mini-heat").innerHTML = html;
-
-  /* ---------- Earth with three orbiting NASA sources ---------- */
-  const ORBITS = [
-    { rx: 235, ry: 70, rot: -16, dur: 16, label: "POWER", col: "#2e9e4f" },
-    { rx: 262, ry: 96, rot: 22, dur: 21, label: "GPM", col: "#3f8fd6", start: 0.35 },
-    { rx: 205, ry: 128, rot: -64, dur: 26, label: "SMAP", col: "#d9a520", start: 0.7 },
-  ];
-  const ell = ({ rx, ry, rot }) => {
-    const a = (rot * Math.PI) / 180, pts = [];
-    for (let k = 0; k <= 96; k++) {
-      const t = (k / 96) * Math.PI * 2, x = rx * Math.cos(t), y = ry * Math.sin(t);
-      pts.push(`${(300 + x * Math.cos(a) - y * Math.sin(a)).toFixed(1)},${(300 + x * Math.sin(a) + y * Math.cos(a)).toFixed(1)}`);
-    }
-    return "M" + pts.join("L") + "Z";
-  };
-  const sat = (o) => `
-    <g>
-      <g transform="translate(-14,-8)"><rect x="9" y="3" width="10" height="10" rx="2" fill="${o.col}"/><rect x="-6" y="5.5" width="13" height="5" rx="1" fill="#2a5fa8"/><rect x="21" y="5.5" width="13" height="5" rx="1" fill="#2a5fa8"/></g>
-      <g class="tag" transform="translate(14,-34)"><rect width="${o.label.length * 11 + 22}" height="28" rx="14"/><text x="11" y="19" fill="${o.col}">${o.label}</text></g>
-      <animateMotion dur="${o.dur}s" repeatCount="indefinite" begin="-${(o.start || 0) * o.dur}s" path="${ell(o)}"/>
-    </g>`;
-  document.getElementById("orbit").innerHTML = `
-    <svg viewBox="0 0 600 600" role="img">
-      <defs>
-        <radialGradient id="earth" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#c4f1ff"/><stop offset=".42" stop-color="#2f9be0"/><stop offset=".8" stop-color="#1f6f8f"/><stop offset="1" stop-color="#173f52"/></radialGradient>
-        <radialGradient id="glow" r=".5"><stop offset=".6" stop-color="#7cc8ff" stop-opacity=".35"/><stop offset="1" stop-color="#7cc8ff" stop-opacity="0"/></radialGradient>
-        <clipPath id="clip"><circle cx="300" cy="300" r="130"/></clipPath>
-      </defs>
-      ${ORBITS.map((o) => `<path class="path" d="${ell(o)}"/>`).join("")}
-      <circle cx="300" cy="300" r="175" fill="url(#glow)"/>
-      <circle cx="300" cy="300" r="130" fill="url(#earth)"/>
-      <g clip-path="url(#clip)" fill="#4fae5c" opacity=".75">
-        <path d="M250 205c25-12 60-8 72 10 10 15-6 26 4 40 8 12 30 10 32 26 2 18-22 26-40 22-14-3-20-16-34-14-16 2-20 20-36 18-18-2-22-24-14-38 7-12-4-24 2-38 3-10 6-20 14-26z"/>
-        <path d="M352 318c14-6 34 2 36 18 2 14-10 22-8 36 2 12 14 22 6 32-9 11-28 6-34-6-6-11 2-22-4-34-5-10-12-18-8-30 2-7 6-13 12-16z"/>
-        <path d="M200 330c10-4 22 2 24 12s-6 18-14 20-18-2-20-12 2-17 10-20z"/>
-      </g>
-      <circle cx="300" cy="300" r="130" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
-      <circle class="pulse" cx="283" cy="248" r="6" fill="#ff3b30"/><circle class="pulse b" cx="283" cy="248" r="6" fill="#ff3b30"/>
-      <circle cx="283" cy="248" r="6" fill="#ff3b30" stroke="#fff" stroke-width="2.5"/>
-      <g class="pinlab" transform="translate(152,218)"><rect width="118" height="24" rx="12" fill="#fff" style="filter:drop-shadow(0 6px 10px rgba(20,48,31,.2))"/><text x="12" y="17">Antequera, ES</text></g>
-      ${ORBITS.map(sat).join("")}
-    </svg>`;
-
-  /* ---------- theme swatches on the design slide ---------- */
-  const swap = document.getElementById("swap");
-  const swBtns = [...document.querySelectorAll(".sw button")];
-  let autoSw = true;
-  const setTheme = (t) => { swap.classList.toggle("is-dark", t === "dark"); swBtns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.t === t))); };
-  swBtns.forEach((b) => b.addEventListener("click", () => { autoSw = false; setTheme(b.dataset.t); }));
-  setInterval(() => {
-    if (!autoSw || !swap.closest(".slide").classList.contains("on")) return;
-    setTheme(swap.classList.contains("is-dark") ? "light" : "dark");
-  }, 2600);
-
-  /* ---------- QR ---------- */
-  document.getElementById("app-url").textContent = DECK.appUrl.replace(/^https?:\/\//, "");
+/* ---------- live numbers from ../data (fallback: the values written in the HTML) ---------- */
+async function loadJSON(p) { const r = await fetch(p, { cache: "no-cache" }); if (!r.ok) throw new Error(p); return r.json(); }
+const nameOf = (r) => String(r.name ?? r.id).replace(/^\s*(current|[A-Z])\s*:\s*/i, "").replace(/\s+-\s+/g, " – ");
+(async () => {
   try {
-    const q = qrcode(0, "M"); q.addData(DECK.appUrl); q.make();
-    const n = q.getModuleCount();
-    let d = "";
-    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c} ${r}h1v1h-1z`;
-    document.getElementById("qr").innerHTML = `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><path d="${d}" fill="#14301f"/></svg>`;
-  } catch (e) { document.getElementById("qr").textContent = DECK.appUrl; }
-
-  /* ---------- furrow progress ---------- */
-  const furrow = document.getElementById("furrow");
-  const SPROUT = '<svg viewBox="0 0 22 30"><path d="M11 30V14" stroke="#2e9e4f" stroke-width="2.4" stroke-linecap="round"/><path d="M11 16c0-6 3-9.5 9-10.5-.8 6-4 9.5-9 10.5z" fill="#34c759"/><path d="M11 19c0-5-2.4-8-7.5-9 .7 5 3.3 8 7.5 9z" fill="#28a745"/></svg>';
-  const sprouts = slides.map((_, i) => {
-    const x = `${(i / (N - 1)) * 96 + 2}%`;
-    const seed = document.createElement("i"); seed.className = "seed"; seed.style.left = x; furrow.appendChild(seed);
-    const s = document.createElement("span"); s.className = "sprout"; s.style.left = x; s.innerHTML = SPROUT; furrow.appendChild(s);
-    return s;
-  });
-
-  /* ---------- navigation ---------- */
-  const cnt = document.getElementById("cnt");
-  function go(i, fromHash) {
-    i = Math.max(0, Math.min(N - 1, i));
-    slides[cur].classList.remove("on");
-    cur = i;
-    const s = slides[cur];
-    s.classList.remove("on"); void s.offsetWidth; s.classList.add("on");
-    document.body.classList.toggle("isblank", s.classList.contains("blank"));
-    cnt.textContent = `${String(cur + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`;
-    sprouts.forEach((sp, k) => { sp.classList.toggle("grown", k < cur); sp.classList.toggle("now", k === cur); });
-    if (!fromHash) history.replaceState(null, "", `#${cur + 1}`);
-  }
-  const next = () => go(cur + 1), prev = () => go(cur - 1);
-  document.getElementById("next").addEventListener("click", next);
-  document.getElementById("prev").addEventListener("click", prev);
-  addEventListener("keydown", (e) => {
-    if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); next(); }
-    else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); prev(); }
-    else if (e.key === "Home") go(0);
-    else if (e.key === "End") go(N - 1);
-    else if (e.key === "f" || e.key === "F") {
-      if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.();
-    }
-  });
-  let tx = null;
-  addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; }, { passive: true });
-  addEventListener("touchend", (e) => {
-    if (tx == null) return;
-    const dx = e.changedTouches[0].clientX - tx; tx = null;
-    if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
-  });
-  setTimeout(() => document.getElementById("hint").classList.add("gone"), 4500);
-
-  const start = parseInt(location.hash.slice(1), 10);
-  go(Number.isFinite(start) ? start - 1 : 0, true);
-  addEventListener("hashchange", () => { const n = parseInt(location.hash.slice(1), 10); if (Number.isFinite(n) && n - 1 !== cur) go(n - 1, true); });
+    const rotations = await loadJSON("../data/rotations.json");
+    const ranked = rankRotations(rotations, DEFAULT_WEIGHTS);
+    const now = ranked.find((x) => x.rotation.id === "current");
+    const best = ranked[0];
+    if (!now || !best) return;
+    const card = (x, label, k) => `<div class="score" style="--k:${k}"><svg viewBox="0 0 64 64"><circle class="t" cx="32" cy="32" r="26"/><circle class="v" cx="32" cy="32" r="26" style="--off:${C * (1 - x.total / 100)}"/></svg><b>${Math.round(x.total)}</b><small>${label}</small><em>${nameOf(x.rotation)}</em></div>`;
+    document.getElementById("vs").innerHTML = card(now, "today", "var(--clay)") + `<div style="font:900 clamp(1.2rem,2vw,2rem) var(--sans);color:var(--mut)">→</div>` + card(best, "best for you", "var(--green)");
+    const L = { water: "Water", soil: "Soil health", erosion: "Erosion", income: "Income", risk_resilience: "Resilience" };
+    document.getElementById("deltas").innerHTML = Object.keys(L).map((k) => {
+      const a = best.rotation.scores?.[k], b = now.rotation.scores?.[k];
+      if (typeof a !== "number" || typeof b !== "number" || a === b) return "";
+      if (k === "income") return ""; // income is not in the ranking yet
+      return `<span class="${a < b ? "dn" : ""}">${L[k]} ${a > b ? "+" : "−"}${Math.abs(a - b)}</span>`;
+    }).join("");
+  } catch { /* keep static numbers */ }
 })();
+
+/* ---------- drought chart (2022-23 vs usual), from ../data/validation.json ---------- */
+const FALLBACK_ROWS = [[7,43,30],[25,128,74],[140,189,128],[157,229,151],[184,263,196],[193,308,243],[193,354,302],[245,407,319],[283,411,319],[283,411,319],[283,417,320]]; // copied from data/validation.json (15 Nov 2026)
+function drawChart(rows) {
+  const W = 560, H = 210, padL = 34, padB = 22, padT = 8, padR = 20;
+  const max = Math.ceil(Math.max(...rows.flat()) / 100) * 100;
+  const x = (i) => padL + (i * (W - padL - padR)) / (rows.length - 1);
+  const y = (v) => padT + (1 - v / max) * (H - padT - padB);
+  const path = (k) => rows.map((r, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(r[k]).toFixed(1)}`).join("");
+  const months = ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"];
+  let grid = "";
+  for (let v = 0; v <= max; v += 100) grid += `<line x1="${padL}" x2="${W - padR}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(20,48,31,.08)"/><text x="${padL - 6}" y="${y(v) + 4}" text-anchor="end">${v}</text>`;
+  const ticks = rows.map((_, i) => (i % 2 === 0 ? `<text x="${x(i)}" y="${H - 4}" text-anchor="middle">${months[i] ?? ""}</text>` : "")).join("");
+  document.getElementById("val-chart").innerHTML = `${grid}${ticks}
+    <path class="ln" d="${path(2)}" stroke="#9aa39d" stroke-dasharray="4 6" style="stroke-dasharray:4 6;stroke-dashoffset:0;opacity:.9"/>
+    <path class="ln" d="${path(1)}" stroke="var(--sky)"/>
+    <path class="ln" d="${path(0)}" stroke="var(--clay)" stroke-width="4"/>`;
+}
+drawChart(FALLBACK_ROWS);
+loadJSON("../data/validation.json").then((v) => {
+  const rows = (v.rain_since_october || []).map((r) => [r.cum_mm, r.base_median, r.base_p20]);
+  if (rows.length > 3) drawChart(rows);
+}).catch(() => {});
+
+/* ---------- team photo (pitch/img/team.jpg), else a phone ---------- */
+const teamImg = document.getElementById("team-img");
+teamImg.addEventListener("load", () => { document.getElementById("team").hidden = false; document.getElementById("team-fallback").remove(); });
+if (teamImg.complete && teamImg.naturalWidth) teamImg.dispatchEvent(new Event("load"));
+
+/* ---------- theme swatches on the solution slide ---------- */
+const swap = document.getElementById("swap");
+const swBtns = [...document.querySelectorAll(".sw button")];
+let autoSw = true;
+const setTheme = (t) => { swap.classList.toggle("is-dark", t === "dark"); swBtns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.t === t))); };
+swBtns.forEach((b) => b.addEventListener("click", () => { autoSw = false; setTheme(b.dataset.t); }));
+setInterval(() => { if (autoSw && swap.closest(".slide").classList.contains("on")) setTheme(swap.classList.contains("is-dark") ? "light" : "dark"); }, 2600);
+
+/* ---------- QR to the app ---------- */
+document.getElementById("app-url").textContent = APP_URL.replace(/^https?:\/\//, "");
+try {
+  const q = qrcode(0, "M"); q.addData(APP_URL); q.make();
+  const n = q.getModuleCount(); let d = "";
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c} ${r}h1v1h-1z`;
+  document.getElementById("qr").innerHTML = `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><path d="${d}" fill="#14301f"/></svg>`;
+} catch { document.getElementById("qr").textContent = APP_URL; }
+
+/* ---------- furrow progress ---------- */
+const furrow = document.getElementById("furrow");
+const SPROUT = '<svg viewBox="0 0 22 30"><path d="M11 30V14" stroke="#2e9e4f" stroke-width="2.4" stroke-linecap="round"/><path d="M11 16c0-6 3-9.5 9-10.5-.8 6-4 9.5-9 10.5z" fill="#34c759"/><path d="M11 19c0-5-2.4-8-7.5-9 .7 5 3.3 8 7.5 9z" fill="#28a745"/></svg>';
+const sprouts = slides.map((_, i) => {
+  const xp = `${(i / (N - 1)) * 96 + 2}%`;
+  const seed = document.createElement("i"); seed.className = "seed"; seed.style.left = xp; furrow.appendChild(seed);
+  const s = document.createElement("span"); s.className = "sprout"; s.style.left = xp; s.innerHTML = SPROUT; furrow.appendChild(s);
+  return s;
+});
+
+/* ---------- navigation ---------- */
+const cnt = document.getElementById("cnt");
+function go(i, fromHash) {
+  i = Math.max(0, Math.min(N - 1, i));
+  slides[cur].classList.remove("on");
+  cur = i;
+  const s = slides[cur];
+  s.classList.remove("on"); void s.offsetWidth; s.classList.add("on");
+  document.body.classList.toggle("isblank", s.classList.contains("blank"));
+  cnt.textContent = `${String(cur + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`;
+  sprouts.forEach((sp, k) => { sp.classList.toggle("grown", k < cur); sp.classList.toggle("now", k === cur); });
+  if (!fromHash) history.replaceState(null, "", `${location.search}#${cur + 1}`);
+}
+const next = () => go(cur + 1), prev = () => go(cur - 1);
+document.getElementById("next").addEventListener("click", next);
+document.getElementById("prev").addEventListener("click", prev);
+addEventListener("keydown", (e) => {
+  if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); next(); }
+  else if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); prev(); }
+  else if (e.key === "Home") go(0);
+  else if (e.key === "End") go(N - 1);
+  else if (e.key === "f" || e.key === "F") { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+});
+let tx = null;
+addEventListener("touchstart", (e) => { tx = e.touches[0].clientX; }, { passive: true });
+addEventListener("touchend", (e) => { if (tx == null) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 50) (dx < 0 ? next : prev)(); });
+setTimeout(() => document.getElementById("hint").classList.add("gone"), 4500);
+
+const start = parseInt(location.hash.slice(1), 10);
+go(Number.isFinite(start) ? start - 1 : 0, true);
+addEventListener("hashchange", () => { const n = parseInt(location.hash.slice(1), 10); if (Number.isFinite(n) && n - 1 !== cur) go(n - 1, true); });
 </script>
 </body>
 </html>

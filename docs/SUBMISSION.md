@@ -24,7 +24,7 @@ DeepKore supports the farmer's decision; it never replaces the local agronomist.
 
 ## Project Demo (one public link)
 
-https://euzapus.github.io/deepkore/pitch/ — ✏️ must be the **7-slide** version (cover included) before submitting.
+https://euzapus.github.io/deepkore/pitch/ — 7 slides, cover included (the local pitch uses `?pitch`, which adds an opening question).
 
 ## Final Project (one public link)
 
