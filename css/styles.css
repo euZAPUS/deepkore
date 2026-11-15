@@ -674,7 +674,8 @@ h1[tabindex="-1"]:focus { outline: none; }
   .rot-row__chev { display: block; }
   .detail {
     position: fixed; inset: 0; z-index: 90; border-radius: 0; overflow-y: auto;
-    padding: calc(12px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom));
+    /* bottom: room for the tab bar, which stays on top */
+    padding: calc(12px + env(safe-area-inset-top)) 16px calc(var(--tabbar-h) + 28px + env(safe-area-inset-bottom));
     background: var(--panel-solid); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
     transform: translateX(100%); transition: transform .45s var(--ease), visibility .45s; visibility: hidden;
   }
@@ -694,4 +695,13 @@ h1[tabindex="-1"]:focus { outline: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .reveal { opacity: 1; transform: none; }
+}
+
+/* Touch screens: at least 44 x 44 px to tap, without changing how the controls look
+   (an invisible hit area around small buttons). */
+@media (pointer: coarse) {
+  .btn-text, .icon-btn, .map-btn, .segmented button, .preset, .detail__back { position: relative; }
+  .btn-text::after, .icon-btn::after, .map-btn::after, .segmented button::after, .preset::after, .detail__back::after {
+    content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%);
+  }
 }

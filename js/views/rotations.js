@@ -7,7 +7,7 @@ import { resolveCurrent, compareSet } from "../choice.js";
 import { flipReorder } from "../motion.js";
 import {
   esc, provBadge, datasetOf, viewHead, panelHead, icon, ICON, sliderHTML, bindSliders, levelWord,
-  ringHTML, setRing, displayName, rotationTag, sequenceHTML, segmentedHTML, bindSegmented,
+  ringHTML, setRing, displayName, rotationTag, sequenceHTML, segmentedHTML, bindSegmented, incomeScaleText,
 } from "../ui.js";
 
 const ALL_CRITERIA = [...CRITERIA_META, RESILIENCE_META];
@@ -49,7 +49,7 @@ function tabHTML(r, tab) {
 }
 
 // Net margin from MAPA ECREA behind the income score.
-function incomeHTML(r) {
+function incomeHTML(r, rules) {
   const inc = r.income;
   if (!inc) return "";
   const eur = (v) => `${v < 0 ? "−" : ""}${Math.abs(Math.round(v)).toLocaleString("en-US")} €/ha`;
@@ -57,9 +57,9 @@ function incomeHTML(r) {
     ? `<span class="muted">no verified value${b.eur_ha === null ? "" : ` · counted as ${eur(b.eur_ha)} (TBD)`}</span>`
     : `${eur(b.eur_ha)} <span class="muted">(${esc(b.years.join(", "))}${b.ecrea_crop ? ` · ECREA "${esc(b.ecrea_crop)}"` : ""})</span>`}${b.note ? `<br><span class="small muted">${esc(b.note)}</span>` : ""}</li>`).join("");
   return `<div class="income">
-    <div class="bar__top"><span>Net margin behind the income score</span><b>${inc.eur_ha_year === null ? "–" : `${eur(inc.eur_ha_year)} per year`}</b></div>
+    <div class="bar__top"><span>Net margin (MAPA ECREA)</span><b>${inc.eur_ha_year === null ? "–" : `${eur(inc.eur_ha_year)} per year`}</b></div>
     <ul class="income__list">${crops}</ul>
-    <p class="small muted">${esc(inc.region ?? "")} · MAPA ECREA 2.0 net margin (margen neto), without decoupled payments. Income score: 0 €/ha or less = 0, 623 €/ha = 100 (scale TBD) · ${provBadge("derived", "MAPA ECREA")}</p>
+    <p class="small muted">${esc(inc.region ?? "")} · MAPA ECREA 2.0 net margin (margen neto), without decoupled payments. Income score: ${esc(incomeScaleText(rules))} (scale TBD) · ${provBadge("derived", "MAPA ECREA")}</p>
   </div>`;
 }
 
@@ -138,7 +138,7 @@ export function render(el, ctx) {
             <div class="bar__track"><div class="bar__fill" data-w="${v}"></div></div></div>`;
         }).join("")}
       </div>
-      ${incomeHTML(r)}
+      ${incomeHTML(r, ctx.rules)}
       ${unscored.map((c) => `<p class="small muted">${esc(notScoredNote(c.key, c.label, rotations))}</p>`).join("")}
       ${vs ? `<p class="small muted" style="margin-top:-6px">Green / red numbers: difference with your current rotation (${esc(displayName(current))}).</p>` : ""}
       <div class="detail__meta">${confidenceHTML(r.confidence)}${pacHTML(r.pac_eligible)}</div>

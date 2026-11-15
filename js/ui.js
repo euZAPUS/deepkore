@@ -176,6 +176,13 @@ export function rotationTag(rotation, currentId = "current") {
   return /^[A-Z]$/.test(rotation.id) ? `Option ${rotation.id}` : "Alternative";
 }
 
+// "0 €/ha or less = 0, 623 €/ha = 100" from pipeline/income_ecrea.json score_scale (rules: js/custom.js loadRules).
+export function incomeScaleText(rules) {
+  const sc = rules?.INCOME?.score_scale;
+  if (!sc) return "linear scale from pipeline/income_ecrea.json";
+  return `${Math.round(sc.zero_eur_ha)} €/ha or less = 0, ${Math.round(sc.full_eur_ha).toLocaleString("en-US")} €/ha = 100`;
+}
+
 /* ---------- compact select (same look as the segmented control) ---------- */
 // options: [{ value, label }]
 export function selectHTML(id, options, value, label) {

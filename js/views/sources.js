@@ -1,5 +1,6 @@
 // 05 Data & Limits: NASA sources, what the labels mean, and what the tool cannot tell you.
-import { esc, provBadge, datasetOf, viewHead, panelHead, icon, ICON, css } from "../ui.js";
+import { esc, provBadge, datasetOf, viewHead, panelHead, icon, ICON, css, incomeScaleText } from "../ui.js";
+import { anyMock } from "../data.js";
 
 const LABELS = [
   ["Observed", "Measured by a NASA satellite or weather record."],
@@ -36,16 +37,16 @@ function validationHTML(v) {
 }
 
 // Non-NASA data: MAPA ECREA net margins used for the income figures (not in the ranking).
-function incomeSourcesHTML(rotations) {
+function incomeSourcesHTML(rotations, rules) {
   const docs = new Map();
   let inc = null;
   (rotations || []).forEach((r) => (r.income?.documents || []).forEach((d) => { docs.set(d.url, d.id); inc = r.income; }));
   if (!docs.size) return "";
   return `<section class="panel reveal">
     ${panelHead("Other data: farm income", provBadge("derived", "MAPA ECREA"))}
-    <p class="small">Net margin per hectare (margen neto, without decoupled payments) of rainfed crops in Andalucía, from the Spanish Ministry of Agriculture's cost and income studies (ECREA 2.0, farm accounting network RECAN). Base of the income score (0 €/ha or less = 0, 623 €/ha = 100; scale TBD). Crops without a verified value (vetch as forage, cover crop) count as 0 €/ha.</p>
+    <p class="small">Net margin per hectare (margen neto, without decoupled payments) of rainfed crops in Andalucía, from the Spanish Ministry of Agriculture's cost and income studies (ECREA 2.0, farm accounting network RECAN). Turned into the income score: ${esc(incomeScaleText(rules))} (scale TBD). Vetch as forage and cover crops have no verified value and count as 0 €/ha (TBD). Fallow has no verified value and is left empty: a rotation with fallow has no income score, and income then stays out of the ranking for all rotations.</p>
     <ul class="val-limits">${[...docs].map(([url, id]) => `<li><a href="${esc(url)}" target="_blank" rel="noopener">${esc(id.replace("_", " "))}</a></li>`).join("")}</ul>
-    <p class="small muted">${inc?.accessed ? `Accessed ${esc(inc.accessed)}. ` : ""}Sample farms, 2018-2020 prices, regional averages: not your field's yields or prices. Chickpea uses ECREA's lentils-chickpeas-vetches group.</p>
+    <p class="small muted">${inc?.accessed ? `Accessed ${esc(inc.accessed)}. ` : ""}Sample farms, 2018-2020 prices, regional averages: not your field's yields or prices. Chickpea and lentil use ECREA's lentils-chickpeas-vetches group.</p>
   </section>`;
 }
 
@@ -77,11 +78,11 @@ export function render(el, ctx) {
         </ul>
       </section>
 
-      ${incomeSourcesHTML(ctx.data.rotations)}
+      ${incomeSourcesHTML(ctx.data.rotations, ctx.rules)}
 
       <section class="panel reveal">
         ${panelHead("What the labels mean")}
-        <ul class="legend-list">${LABELS.map(([l, d]) => `<li>${provBadge(l)}<span>${esc(d)}</span></li>`).join("")}</ul>
+        <ul class="legend-list">${LABELS.filter(([l]) => l !== "MOCK" || anyMock(ctx.data)).map(([l, d]) => `<li>${provBadge(l)}<span>${esc(d)}</span></li>`).join("")}</ul>
       </section>
 
       <section class="panel reveal">
