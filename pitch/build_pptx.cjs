@@ -111,7 +111,7 @@ async function build(lang) {
       { text: "1\u00A0cm", options: { color: C.accent2 } },
       { text: " de suelo fértil?", options: { color: C.background1 } },
     ], { x: 1, y: 1.6, w: 8, h: 2.2, fontSize: 44, bold: true, align: "center", valign: "middle", objectName: "Question" });
-    s.addNotes("ÁLVARO (agricultura). Lanza la pregunta mirando al jurado y espera tres segundos en silencio.");
+    s.addNotes("ÁLVARO (≈8 s). «¿Cuánto tarda en formarse un centímetro de suelo fértil?» Dos segundos de silencio.");
   }
 
   // ======================= 1 · Cover =======================
@@ -130,7 +130,7 @@ async function build(lang) {
     s.addImage({ path: IMG("laptop-rotations.jpg"), x: 5.1, y: 1.05, w: 4.4, h: 2.75, rounding: false, objectName: "App screenshot", altText: t("DeepKore: comparar rotaciones", "DeepKore: compare rotations"),
       shadow: { type: "outer", color: "000000", opacity: 0.35, blur: 12, offset: 4, angle: 90 } });
     text(s, t("La app funcionando con datos reales", "The app running on real data"), { x: 5.1, y: 3.9, w: 4.4, h: 0.3, fontSize: 11, color: "9FB5A6", align: "center", objectName: "Caption" });
-    s.addNotes(t("ÁLVARO. «Hasta mil años. Y una sola tormenta puede llevárselo en una tarde: ese suelo no se puede fabricar, solo proteger. Somos DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos con datos de la NASA. La hemos probado donde vivimos: Andalucía.»",
+    s.addNotes(t("ÁLVARO (≈15 s). «Hasta mil años. Y una tormenta puede llevárselo en una tarde. Somos DeepKore: una app gratuita que ayuda al agricultor de secano a elegir su rotación de cultivos con datos de la NASA.»",
       "Cover: what DeepKore is, the challenge and the pilot region."));
   }
 
@@ -154,7 +154,7 @@ async function build(lang) {
     });
     text(s, t("Fuentes: FAO, Año Internacional de los Suelos 2015 · NASA POWER 2001–2025, parcela piloto (análisis propio).", "Sources: FAO, International Year of Soils 2015 · NASA POWER 2001–2025 at the pilot field (our analysis)."),
       { x: 0.5, y: 4.85, w: 9, h: 0.25, fontSize: 10, color: HEX.mut, objectName: "Sources" });
-    s.addNotes(t("ÁLVARO. «En el secano no hay riego: todo depende de la lluvia, el calor y el suelo. La rotación más habitual aquí, trigo y girasol, deja la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. El girasol sufre el calor del verano, y la primavera de 2023 fue la más seca en 25 años. Los datos para decidir mejor existen, pero no llegan al agricultor. Daniel.»",
+    s.addNotes(t("ÁLVARO (≈20 s). «Aquí la rotación más habitual, trigo y girasol, deja la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. Y la primavera de 2023 fue la más seca en 25 años. Los datos para decidir mejor existen, pero no llegan al agricultor. Daniel.»",
       "Problem and who it is for: rainfed farmers; bare soil meets autumn storms."));
   }
 
@@ -177,7 +177,7 @@ async function build(lang) {
     });
     text(s, t("Gratis · sin registro · en el móvil · se lee a pleno sol", "Free · no login · on any phone · readable in full sun"),
       { x: 3.3, y: 4.75, w: 6.2, h: 0.3, fontSize: 13, bold: true, color: C.accent1, objectName: "Benefits" });
-    s.addNotes(t("DANIEL (app). «DeepKore funciona en tres pasos. Uno: marcas tu parcela en el mapa, eliges lo que siembras y mueves cuatro barras: agua, suelo, erosión y dinero. Dos: ves las semanas del año con más riesgo de helada, calor o tormenta. Tres: comparas tu rotación con las mejores alternativas, y cada una te dice por qué, con qué datos y qué riesgos revisar. Gratis, en el móvil y sin registro. Germán.»",
+    s.addNotes(t("DANIEL (≈20 s). «Tres pasos: marcas tu parcela y lo que siembras, ves las semanas de riesgo de helada, calor y tormenta, y comparas tu rotación con las mejores alternativas, con el porqué de cada una. Gratis y en el móvil. Germán.»",
       "Solution and main flow of the app."));
   }
 
@@ -202,7 +202,7 @@ async function build(lang) {
     text(s, t("Los datos de la NASA son globales: el mismo cálculo sirve para cualquier parcela del mundo. Siguiente: SMAP, GPM IMERG y SRTM.",
         "NASA data is global: the same computation works for any field on Earth. Next: SMAP, GPM IMERG and SRTM."),
       { x: 0.5, y: 4.65, w: 9, h: 0.35, fontSize: 13, italic: true, color: C.text2, objectName: "Global note" });
-    s.addNotes(t("GERMÁN (datos). «El motor es NASA POWER, uno de los recursos del reto: 25 años de datos diarios para el punto exacto de tu parcela. Con ellos calculamos la probabilidad de helada, calor y lluvia fuerte cada semana, el agua que necesita cada cultivo con el método de la FAO, y cuándo cae la tormenta sobre suelo desnudo. Sin NASA POWER no hay ranking.»",
+    s.addNotes(t("GERMÁN (≈20 s). «El motor es NASA POWER: 25 años de datos diarios de tu parcela. Con ellos calculamos el riesgo de cada semana, el agua que necesita cada cultivo y cuándo cae la tormenta sobre suelo desnudo.»",
       "NASA POWER: what goes in, what we compute, what the farmer sees."));
   }
 
@@ -241,7 +241,7 @@ async function build(lang) {
     text(s, t("Puntuación (0–100): cuánto encaja la rotación con las prioridades del agricultor (agua, suelo, erosión, dinero). Márgenes: Ministerio de Agricultura (ECREA), antes de ayudas PAC.",
         "Match score (0–100): how well a rotation fits the farmer's priorities (water, soil, erosion, income). Margins: Spanish Ministry of Agriculture (ECREA), before CAP subsidies."),
       { x: 6.3, y: 3.9, w: 3.0, h: 1.0, fontSize: 10, color: HEX.mut, valign: "top", objectName: "Score note" });
-    s.addNotes(t("GERMÁN (datos): «¿Funciona con datos reales? Lo comprobamos con la sequía de 2022–23: los datos la detectan, 193 milímetros frente a 354 normales.» ÁLVARO (agricultura): «Y en nuestra parcela piloto, cambiar el girasol por lenteja sube de 42 a 68: la lenteja fija nitrógeno, protege el suelo y, con datos del Ministerio, deja mucho más margen por hectárea.»",
+    s.addNotes(t("GERMÁN (≈10 s): «Y es fiable: detecta la sequía de 2022–23, 193 milímetros frente a 354 normales.» ÁLVARO (≈15 s): «En nuestra parcela, cambiar el girasol por lenteja sube de 42 a 68: la lenteja abona el suelo, lo protege y deja más margen.»",
       "Evidence: drought check and the result at the pilot field."));
   }
 
@@ -266,7 +266,7 @@ async function build(lang) {
       { x: 0.5, y: 4.45, w: 9, h: 0.4, fontSize: 12, color: C.accent4, objectName: "Limits" });
     text(s, t("Apoya al agricultor; decide su agrónomo.", "Decision support only: the local agronomist decides."),
       { x: 0.5, y: 4.85, w: 9, h: 0.3, fontSize: 13, bold: true, color: C.accent1, objectName: "Trust" });
-    s.addNotes(t("DANIEL (app). «Hoy funciona para cualquier parcela de Andalucía. Lo único simulado es el ‘qué pasaría si llueve menos o hace más calor’, y lo decimos. Los datos de la NASA son globales: para llevarlo a otro país solo hay que añadir sus calendarios de cultivo. Y siempre: DeepKore apoya al agricultor; decide su agrónomo.»",
+    s.addNotes(t("DANIEL (≈15 s). «Hoy funciona en toda Andalucía, y como los datos de la NASA son globales, el siguiente paso es llevarlo a otras regiones. Siempre como apoyo: decide el agrónomo.»",
       "Status: built, simulated and next, with the limits."));
   }
 
@@ -288,7 +288,7 @@ async function build(lang) {
       shadow: { type: "outer", color: "000000", opacity: 0.35, blur: 12, offset: 4, angle: 90 } });
     text(s, t("Equipo DeepKore", "Team DeepKore"), { x: 5.4, y: 3.25, w: 4.1, h: 0.35, fontSize: 15, bold: true, color: C.background1, objectName: "Team name" });
     text(s, "Germán Casas · Álvaro Sánchez · Daniel Arenas", { x: 5.4, y: 3.6, w: 4.1, h: 0.3, fontSize: 12, color: "C9D8CE", objectName: "Team members" });
-    s.addNotes(t("DANIEL (app). «Escanead el código y probadla ahora mismo.» ÁLVARO cierra, despacio: «El suelo tarda mil años en formarse: protejámoslo a tiempo. Gracias.»",
+    s.addNotes(t("DANIEL: «Escanead y probadla.» ÁLVARO, despacio (≈10 s): «El suelo tarda mil años en formarse: protejámoslo a tiempo. Gracias.»",
       "Close: QR to the app, team and references."));
   }
 
