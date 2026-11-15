@@ -7,7 +7,7 @@ import { resolveCurrent, compareSet } from "../choice.js";
 import { flipReorder } from "../motion.js";
 import {
   esc, provBadge, datasetOf, viewHead, panelHead, icon, ICON, sliderHTML, bindSliders, levelWord,
-  ringHTML, setRing, displayName, rotationTag, sequenceHTML, segmentedHTML, bindSegmented, incomeScaleText, ecreaYearsText,
+  ringHTML, setRing, displayName, rotationTag, sequenceHTML, segmentedHTML, bindSegmented, incomeScaleText, ecreaYearsText, applyTier,
 } from "../ui.js";
 
 const ALL_CRITERIA = [...CRITERIA_META, RESILIENCE_META];
@@ -104,7 +104,7 @@ export function render(el, ctx) {
     <button class="rot-row" role="option" aria-selected="false" data-id="${esc(r.id)}">
       <span class="rot-row__n">–</span>
       <span><span class="rot-row__name">${esc(displayName(r))}</span>
-        <span class="rot-row__tag">${esc(rotationTag(r, current.id))}<span class="pill">Best match</span></span></span>
+        <span class="rot-row__tag">${esc(rotationTag(r, current.id))}<span class="tier-tag" hidden></span></span></span>
       ${ringHTML(46)}
       <span class="rot-row__chev">${icon(ICON.next, 18)}</span>
     </button></li>`;
@@ -181,6 +181,7 @@ export function render(el, ctx) {
       const row = list.querySelector(`.rot-row[data-id="${CSS.escape(rotation.id)}"]`);
       row.querySelector(".rot-row__n").textContent = i + 1;
       row.classList.toggle("is-best", i === 0);
+      applyTier(row, total, ranked[0].total, i === 0);
       setRing(row.querySelector(".ring"), total);
     });
     if (animate) flipReorder(list, keys);

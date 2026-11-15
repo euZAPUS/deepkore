@@ -210,3 +210,23 @@ export function sequenceHTML(seq = []) {
     .map((c, i) => `<span class="seq__crop">${esc(c)}</span>${i < seq.length - 1 ? '<span class="seq__sep">›</span>' : ""}`)
     .join("")}<span class="seq__loop" title="Then repeats">↺</span></div>`;
 }
+
+// Ranking colours: points behind the best rotation of the same list.
+// <= close: neutral · close+1..weak: orange "Weaker" · > weak: red "Weakest". The best one is green "Best match".
+export const RANK_GAP = { close: 10, weak: 20 };
+export function rankTier(score, bestScore) {
+  const gap = Math.round(bestScore) - Math.round(score);
+  if (gap <= 0) return { cls: "tier-best", label: "Best match" };
+  if (gap <= RANK_GAP.close) return { cls: "tier-close", label: "" };
+  if (gap <= RANK_GAP.weak) return { cls: "tier-weak", label: "Weaker" };
+  return { cls: "tier-weakest", label: "Weakest" };
+}
+export const TIER_CLASSES = ["tier-best", "tier-close", "tier-weak", "tier-weakest"];
+export function applyTier(row, score, bestScore, isFirst) {
+  const t = isFirst ? { cls: "tier-best", label: "Best match" } : rankTier(score, bestScore);
+  row.classList.remove(...TIER_CLASSES);
+  row.classList.add(t.cls);
+  const tag = row.querySelector(".tier-tag");
+  if (tag) { tag.textContent = t.label; tag.hidden = !t.label; }
+  return t;
+}

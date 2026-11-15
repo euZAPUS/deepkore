@@ -3,7 +3,7 @@ import { nearestScenario } from "../scoring.js";
 import { store } from "../store.js";
 import { resolveCurrent, compareSet, scenarioTotals } from "../choice.js";
 import { flipReorder } from "../motion.js";
-import { esc, provBadge, datasetOf, viewHead, panelHead, sliderHTML, bindSliders, animateNumber, displayName, rotationTag, icon, ICON } from "../ui.js";
+import { esc, provBadge, datasetOf, viewHead, panelHead, sliderHTML, bindSliders, animateNumber, displayName, rotationTag, icon, ICON, applyTier } from "../ui.js";
 
 const PRESETS = [
   { label: "Today's climate", rain: 0, temp: 0 },
@@ -58,7 +58,7 @@ export function render(el, ctx) {
         <ol class="rank-list" id="rank">
           ${baseTotals.map(({ id }) => `<li class="rank-row" data-key="${esc(id)}">
             <span class="rank-row__n">–</span>
-            <span class="rank-row__name">${esc(displayName(byId[id] ?? { id }))}<small>${esc(byId[id] ? rotationTag(byId[id], current.id) : id)}</small></span>
+            <span class="rank-row__name">${esc(displayName(byId[id] ?? { id }))}<small>${esc(byId[id] ? rotationTag(byId[id], current.id) : id)} <span class="tier-tag" hidden></span></small></span>
             <span class="rank-row__bar"><span style="width:0%"></span></span>
             <span class="rank-row__score">0</span>
             <span class="move same">–</span>
@@ -86,6 +86,7 @@ export function render(el, ctx) {
       if (!row) return;
       const score = Math.round(total);
       row.querySelector(".rank-row__n").textContent = i + 1;
+      applyTier(row, total, totals[0].total, i === 0);
       row.querySelector(".rank-row__bar span").style.width = `${Math.max(0, Math.min(100, score))}%`;
       animateNumber(row.querySelector(".rank-row__score"), score, 0, 500);
       const mv = row.querySelector(".move");
