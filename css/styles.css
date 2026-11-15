@@ -39,7 +39,8 @@
   /* neutral controls and ranking tiers (green accent is kept for the main action, active nav and Best match) */
   --neutral-soft: rgba(118, 118, 128, .12);
   --neutral-hover: rgba(118, 118, 128, .2);
-  --tier-weak: #b25000;
+  --tier-weak: #9a4600;
+  --tier-best-text: #1c6e30;
   --tier-weakest: #c4151c;
   --sidebar-rail: 72px;
 
@@ -96,6 +97,7 @@
   --neutral-hover: rgba(118, 118, 128, .34);
   --tier-weak: #ff9f0a;
   --tier-weakest: #ff6961;
+  --tier-best-text: var(--accent);
 
   --c-water: #64d2ff;
   --c-soil: #c4a77d;
@@ -844,3 +846,9 @@ h1[tabindex="-1"]:focus { outline: none; }
 @media (prefers-reduced-motion: reduce) {
   .sidebar, .sidebar .brand__name, .side-nav .nav-full { transition: none !important; }
 }
+@media (max-width: 720px) {
+  .nums-card .nums tr { display: grid; gap: 2px; padding: 8px 0; border-bottom: 1px solid var(--sep); }
+  .nums-card .nums tr:last-child { border-bottom: 0; }
+  .nums-card .nums th, .nums-card .nums td { border: 0; padding: 0; width: auto; text-align: left; }
+}
+.tier-best .tier-tag { color: var(--tier-best-text); }
