@@ -148,6 +148,8 @@ export function setRing(ringEl, value) {
 }
 
 export function animateNumber(el, to, decimals = 0, ms = 700) {
+  // A new call cancels the previous animation of this element (fast slider moves used to leave a stale number).
+  const token = (el._numAnim = (el._numAnim || 0) + 1);
   const from = parseFloat(el.textContent) || 0;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || from === to) {
     el.textContent = to.toFixed(decimals);
@@ -155,6 +157,7 @@ export function animateNumber(el, to, decimals = 0, ms = 700) {
   }
   const t0 = performance.now();
   const step = (t) => {
+    if (el._numAnim !== token) return;
     const k = Math.min(1, (t - t0) / ms);
     const e = 1 - Math.pow(1 - k, 3);
     el.textContent = (from + (to - from) * e).toFixed(decimals);

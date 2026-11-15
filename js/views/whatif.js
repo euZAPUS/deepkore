@@ -44,7 +44,7 @@ export function render(el, ctx) {
         ${panelHead("Change the climate")}
         <div class="sliders">
           ${sliderHTML({ id: "s-rain", key: "rain", label: "Rain", hint: "Change in yearly rainfall", color: "var(--c-water)", value: 0, ...rain, output: signed(0, " %") })}
-          ${sliderHTML({ id: "s-temp", key: "temp", label: "Temperature", hint: "Warmer than today", color: "var(--h-heat)", value: 0, ...temp, output: signed(0, " °C") })}
+          ${sliderHTML({ id: "s-temp", key: "temp", label: "Temperature", hint: "Warmer than today. Watch the very hot days: the ranking moves only a little", color: "var(--h-heat)", value: 0, ...temp, output: signed(0, " °C") })}
         </div>
         <div class="presets">${PRESETS.map((p, i) => `<button class="preset${i === 0 ? " is-on" : ""}" data-i="${i}">${esc(p.label)}</button>`).join("")}</div>
         <div class="sim-stats">

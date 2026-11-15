@@ -30,6 +30,8 @@ export function revealIn(root) {
 // Re-order children of `container` (each has data-key) to match `keys`, animating the move (FLIP).
 export function flipReorder(container, keys) {
   const items = new Map([...container.children].map((el) => [el.dataset.key, el]));
+  // stop moves still running (fast slider changes), so positions are measured without their offset
+  items.forEach((el) => el.getAnimations?.().forEach((a) => a.cancel()));
   const before = new Map([...items].map(([k, el]) => [k, el.getBoundingClientRect().top]));
   keys.forEach((k) => items.get(k) && container.appendChild(items.get(k)));
   if (reduce()) return;
