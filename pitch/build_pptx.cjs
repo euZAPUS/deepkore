@@ -154,14 +154,13 @@ async function build(lang) {
     });
     text(s, t("Fuentes: FAO, Año Internacional de los Suelos 2015 · NASA POWER 2001–2025, parcela piloto (análisis propio).", "Sources: FAO, International Year of Soils 2015 · NASA POWER 2001–2025 at the pilot field (our analysis)."),
       { x: 0.5, y: 4.85, w: 9, h: 0.25, fontSize: 10, color: HEX.mut, objectName: "Sources" });
-    s.addNotes(t("ÁLVARO (≈20 s). «Aquí la rotación más habitual, trigo y girasol, deja la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. Y la primavera de 2023 fue la más seca en 25 años. Los datos para decidir mejor existen, pero no llegan al agricultor. Daniel.»",
+    s.addNotes(t("ÁLVARO (≈20 s). «Aquí la rotación más habitual, trigo y girasol, deja la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. Y la primavera de 2023 fue la más seca en 25 años. Los datos para decidir mejor existen, pero no llegan al agricultor. Germán.»",
       "Problem and who it is for: rainfed farmers; bare soil meets autumn storms."));
   }
 
   // ======================= 3 · Solution =======================
-  pres.addSection({ title: t("Solución", "Solution") });
-  {
-    const s = content(t("Solución", "Solution"), t("La solución", "The solution"), t("Tres pasos, en cualquier móvil", "Three steps, on any phone"));
+  const slideSolution = () => {
+    const s = content(CUR, t("La solución", "The solution"), t("Tres pasos, en cualquier móvil", "Three steps, on any phone"));
     s.addImage({ path: IMG("phone-rotations.jpg"), x: 0.7, y: 1.35, w: 2.15, h: 3.66, objectName: "Phone screenshot", altText: t("DeepKore en el móvil", "DeepKore on a phone"),
       shadow: { type: "outer", color: "000000", opacity: 0.25, blur: 10, offset: 3, angle: 90 } });
     const steps = [
@@ -177,13 +176,13 @@ async function build(lang) {
     });
     text(s, t("Gratis · sin registro · en el móvil · se lee a pleno sol", "Free · no login · on any phone · readable in full sun"),
       { x: 3.3, y: 4.75, w: 6.2, h: 0.3, fontSize: 13, bold: true, color: C.accent1, objectName: "Benefits" });
-    s.addNotes(t("DANIEL (≈20 s). «Tres pasos: marcas tu parcela y lo que siembras, ves las semanas de riesgo de helada, calor y tormenta, y comparas tu rotación con las mejores alternativas, con el porqué de cada una. Gratis y en el móvil. Germán.»",
+    s.addNotes(t("DANIEL (≈20 s). «Todo esto el agricultor lo tiene en el móvil en tres pasos: marca su parcela y lo que siembra, ve las semanas de riesgo de helada, calor y tormenta, y compara su rotación con las mejores alternativas, con el porqué de cada una.»",
       "Solution and main flow of the app."));
-  }
+  };
 
   // ======================= 4 · NASA =======================
-  {
-    const s = content(t("Solución", "Solution"), t("El recurso NASA y su función", "NASA resource and its function"), t("NASA POWER es el motor", "NASA POWER is the engine"));
+  const slideNasa = () => {
+    const s = content(CUR, t("El recurso NASA y su función", "NASA resource and its function"), t("NASA POWER es el motor", "NASA POWER is the engine"));
     const cols = [
       [HEX.sky, ICONS.sat, t("Entra", "In"), t("Datos diarios NASA POWER", "NASA POWER daily data"), [t("2001–2025, para el punto exacto de la parcela", "2001–2025, for the exact point of the field"), t("Temperatura, lluvia, radiación, viento, humedad del aire y del suelo", "Temperature, rain, radiation, wind, air and soil humidity")]],
       [HEX.green, ICONS.calc, t("Calculamos", "We compute"), t("Riesgos y agua", "Risks and water"), [t("Probabilidad semanal de helada, calor y lluvia fuerte", "Weekly chance of frost, heat and heavy rain"), t("Agua que necesita cada cultivo (FAO-56)", "Water each crop needs (FAO-56)"), t("Ventana de erosión: tormenta sobre suelo desnudo", "Erosion window: storm on bare soil")]],
@@ -202,14 +201,13 @@ async function build(lang) {
     text(s, t("Los datos de la NASA son globales: el mismo cálculo sirve para cualquier parcela del mundo. Siguiente: SMAP, GPM IMERG y SRTM.",
         "NASA data is global: the same computation works for any field on Earth. Next: SMAP, GPM IMERG and SRTM."),
       { x: 0.5, y: 4.65, w: 9, h: 0.35, fontSize: 13, italic: true, color: C.text2, objectName: "Global note" });
-    s.addNotes(t("GERMÁN (≈20 s). «El motor es NASA POWER: 25 años de datos diarios de tu parcela. Con ellos calculamos el riesgo de cada semana, el agua que necesita cada cultivo y cuándo cae la tormenta sobre suelo desnudo.»",
+    s.addNotes(t("GERMÁN (≈25 s). «El motor es NASA POWER: 25 años de datos diarios de cualquier parcela. Con ellos calculamos el riesgo de cada semana, el agua que necesita cada cultivo y cuándo cae la tormenta sobre suelo desnudo.»",
       "NASA POWER: what goes in, what we compute, what the farmer sees."));
-  }
+  };
 
   // ======================= 5 · Evidence =======================
-  pres.addSection({ title: t("Resultados", "Results") });
-  {
-    const s = content(t("Resultados", "Results"), t("Evidencia", "Evidence"), t("Funciona con datos reales", "It works on real data"));
+  const slideEvidence = () => {
+    const s = content(CUR, t("Evidencia", "Evidence"), t("Funciona con datos reales", "It works on real data"));
     card(s, 0.5, 1.35, 5.4, 3.65, "Drought card");
     text(s, [{ text: "193 mm ", options: { fontSize: 28, bold: true, color: C.accent4 } }, { text: t("frente a 354 habituales", "vs a usual 354 mm"), options: { fontSize: 15, bold: true, color: HEX.mut } }],
       { x: 0.7, y: 1.45, w: 5, h: 0.5, objectName: "Drought stat" });
@@ -241,13 +239,13 @@ async function build(lang) {
     text(s, t("Puntuación (0–100): cuánto encaja la rotación con las prioridades del agricultor (agua, suelo, erosión, dinero). Márgenes: Ministerio de Agricultura (ECREA), antes de ayudas PAC.",
         "Match score (0–100): how well a rotation fits the farmer's priorities (water, soil, erosion, income). Margins: Spanish Ministry of Agriculture (ECREA), before CAP subsidies."),
       { x: 6.3, y: 3.9, w: 3.0, h: 1.0, fontSize: 10, color: HEX.mut, valign: "top", objectName: "Score note" });
-    s.addNotes(t("GERMÁN (≈10 s): «Y es fiable: detecta la sequía de 2022–23, 193 milímetros frente a 354 normales.» ÁLVARO (≈15 s): «En nuestra parcela, cambiar el girasol por lenteja sube de 42 a 68: la lenteja abona el suelo, lo protege y deja más margen.»",
+    s.addNotes(t("GERMÁN (≈25 s). «Y es fiable: detecta la sequía de 2022–23, 193 milímetros frente a 354 normales. En nuestra parcela piloto, cambiar el girasol por lenteja sube la puntuación de 42 a 68: protege el suelo y deja más margen. Daniel.»",
       "Evidence: drought check and the result at the pilot field."));
-  }
+  };
 
   // ======================= 6 · Status =======================
-  {
-    const s = content(t("Resultados", "Results"), t("Qué funciona hoy y sus límites", "What works today, and its limits"), t("Hecho en 2 días, honesto con el resto", "Built in 2 days, honest about the rest"));
+  const slideStatus = () => {
+    const s = content(CUR, t("Qué funciona hoy y sus límites", "What works today, and its limits"), t("Hecho en 2 días, honesto con el resto", "Built in 2 days, honest about the rest"));
     const cols = [
       [HEX.green, ICONS.check, t("Hecho", "Built"), [t("Cualquier parcela de Andalucía", "Any field in Andalucía"), t("Calendario de riesgos y erosión", "Risk calendar and erosion window"), t("7 rotaciones + crea la tuya", "7 rotations + build your own"), t("Márgenes oficiales (ECREA)", "Official margins (ECREA)"), t("28 tests automáticos", "28 automated tests")]],
       [HEX.wheat, ICONS.sim, t("Simulado", "Simulated"), [t("¿Y si llueve un 40 % menos o hace 3 °C más?", "What if: −40 % rain or +3 °C"), t("Sobre los 25 años reales", "Applied to the real 25 years"), t("Muestra cómo cambia el ranking: no es una predicción", "Shows how the ranking reacts: not a forecast")]],
@@ -268,11 +266,11 @@ async function build(lang) {
       { x: 0.5, y: 4.85, w: 9, h: 0.3, fontSize: 13, bold: true, color: C.accent1, objectName: "Trust" });
     s.addNotes(t("DANIEL (≈15 s). «Hoy funciona en toda Andalucía, y como los datos de la NASA son globales, el siguiente paso es llevarlo a otras regiones. Siempre como apoyo: decide el agrónomo.»",
       "Status: built, simulated and next, with the limits."));
-  }
+  };
 
   // ======================= 7 · Close =======================
-  {
-    const s = pres.addSlide({ masterName: "DK_DARK", sectionTitle: t("Resultados", "Results") });
+  const slideClose = () => {
+    const s = pres.addSlide({ masterName: "DK_DARK", sectionTitle: CUR });
     text(s, [
       { text: t("El suelo tarda mil años en formarse. ", "Soil takes a thousand years to form. "), options: { color: C.background1 } },
       { text: t("Protejámoslo a tiempo.", "Let's protect it in time."), options: { color: C.accent1 } },
@@ -288,8 +286,20 @@ async function build(lang) {
       shadow: { type: "outer", color: "000000", opacity: 0.35, blur: 12, offset: 4, angle: 90 } });
     text(s, t("Equipo DeepKore", "Team DeepKore"), { x: 5.4, y: 3.25, w: 4.1, h: 0.35, fontSize: 15, bold: true, color: C.background1, objectName: "Team name" });
     text(s, "Germán Casas · Álvaro Sánchez · Daniel Arenas", { x: 5.4, y: 3.6, w: 4.1, h: 0.3, fontSize: 12, color: "C9D8CE", objectName: "Team members" });
-    s.addNotes(t("DANIEL: «Escanead y probadla.» ÁLVARO, despacio (≈10 s): «El suelo tarda mil años en formarse: protejámoslo a tiempo. Gracias.»",
+    s.addNotes(t("DANIEL (≈12 s). «Escanead y probadla. El suelo tarda mil años en formarse: protejámoslo a tiempo. Gracias.»",
       "Close: QR to the app, team and references."));
+  };
+
+  // Order: the Spanish pitch goes person by person (Álvaro: problem · Germán: NASA + evidence · Daniel: app + close);
+  // the English demo follows the event's recommended order.
+  let CUR = "";
+  const sec = (title) => { pres.addSection({ title }); CUR = title; };
+  if (ES) {
+    sec("Datos NASA"); slideNasa(); slideEvidence();
+    sec("La app"); slideSolution(); slideStatus(); slideClose();
+  } else {
+    sec("Solution"); slideSolution(); slideNasa();
+    sec("Results"); slideEvidence(); slideStatus(); slideClose();
   }
 
   const out = path.join(REPO, "pitch", ES ? "DeepKore_pitch_ES.pptx" : "DeepKore_demo_EN.pptx");
