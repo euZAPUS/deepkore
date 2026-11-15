@@ -1,44 +1,61 @@
-# Guion del pitch (≈1:30 + preguntas · 8 diapositivas · 3 personas)
+# Guion del pitch (≈2:40 de presentación + 3 min de preguntas · 8 diapositivas · 3 personas)
 
 **Pitch en directo:** https://euzapus.github.io/deepkore/pitch/?pitch (8 diapositivas: la pregunta + las 7 de la demo).
 **Project Demo para NASA:** https://euzapus.github.io/deepkore/pitch/ (las mismas 7 diapositivas, sin la pregunta).
 **F** = pantalla completa · **← →** = avanzar. Una sola persona lleva el mando.
 
-Los 2-3 minutos incluyen subir al escenario y las preguntas: el pitch tiene que durar **1:30 como mucho**.
+Formato: **3 minutos de presentación + 3 minutos de preguntas**. Apuntad a **2:40** para tener margen.
+Ritmo tranquilo: mirad al jurado, no a la pantalla. Las respuestas a las preguntas están abajo y en `pitch/PREGUNTAS.md`.
 
 ---
 
-## Persona 1 · El problema (≈25 s) · diapositivas 1–3
+## Persona 1 · El problema (≈45 s) · diapositivas 1–3
 
 **1 · La pregunta**
-> "¿Cuánto tarda en formarse un centímetro de suelo fértil?" *(dos segundos)*
+> "¿Cuánto tarda en formarse un centímetro de suelo fértil?" *(tres segundos de silencio, mirando al jurado)*
 
 **2 · DeepKore (portada)**
-> "Hasta mil años. Somos DeepKore: una app gratuita que ayuda a cualquier agricultor de secano a elegir su rotación de cultivos con datos de la NASA. En estos dos días la hemos probado en Andalucía."
+> "Hasta mil años. Y una sola tormenta puede llevárselo en una tarde. Ese suelo no se puede fabricar: solo se puede proteger.
+> Somos DeepKore: una app gratuita que ayuda a cualquier agricultor de secano a elegir su rotación de cultivos con datos de la NASA.
+> En estos dos días la hemos probado donde vivimos: Andalucía."
 
 **3 · El problema**
-> "El trigo–girasol deja el suelo desnudo de julio a noviembre, justo cuando llegan las tormentas de otoño. Y el agricultor decide por costumbre, aunque los datos existen. ZAP."
+> "En el secano no hay riego: todo depende de la lluvia, el calor y el suelo. La rotación más habitual aquí, trigo y girasol,
+> deja la tierra desnuda de julio a noviembre, justo cuando llegan las tormentas de otoño. El girasol sufre el calor del verano,
+> y la temporada 2022–23 fue la más seca en 25 años. Los datos para decidir mejor existen, pero no llegan al agricultor. ZAP."
 
-## ZAP · La solución (≈15 s) · diapositiva 4
+## ZAP · La solución (≈30 s) · diapositiva 4
 
 **4 · Three steps, on any phone** *(el móvil cambia solo entre claro y oscuro)*
-> "Tres pasos: marcas tu parcela y lo que siembras, ves las semanas de riesgo del año, y comparas tu rotación con las mejores alternativas, con el porqué. En el móvil, sin registro."
+> "DeepKore funciona en tres pasos. Uno: marcas tu parcela en el mapa, eliges lo que siembras ahora y mueves cuatro barras:
+> agua, suelo, erosión y dinero. Dos: ves las semanas del año con más riesgo de helada, calor o tormenta. Tres: comparas tu
+> rotación con las mejores alternativas, y cada una te dice por qué, con qué datos y qué riesgos revisar. Funciona en el móvil,
+> sin registro y en modo claro u oscuro."
 
-## Persona 3 · NASA, evidencia y cierre (≈50 s) · diapositivas 5–8
+## Persona 3 · NASA, evidencia y cierre (≈85 s) · diapositivas 5–8
 
 **5 · NASA POWER is the engine**
-> "El motor es NASA POWER: 25 años de datos diarios de tu parcela. Con ellos calculamos la probabilidad semanal de helada, calor y lluvia fuerte, el agua que necesita cada cultivo y cuándo cae la tormenta sobre suelo desnudo."
+> "El motor es NASA POWER, uno de los recursos del reto: 25 años de datos diarios de temperatura, lluvia, radiación y humedad
+> del suelo para el punto exacto de tu parcela. Con ellos calculamos la probabilidad de helada, calor y lluvia fuerte cada semana,
+> el agua que necesita cada cultivo con el método de la FAO, y cuándo cae la tormenta sobre suelo desnudo. Sin NASA POWER no hay ranking."
 
 **6 · Evidence**
-> "¿Funciona con datos reales? Sí: detecta la sequía de 2022–23 como la más seca de 25 años. Y en nuestra parcela piloto, pasar de trigo–girasol a trigo–lenteja sube de 42 a 68: más suelo, menos erosión y más margen por hectárea."
+> "¿Funciona con datos reales? Lo comprobamos con la sequía de 2022–23: los datos la detectan como la más seca de 25 años,
+> 193 milímetros frente a 354 normales. Y en nuestra parcela piloto, cambiar el girasol por lenteja sube de 42 a 68 sobre 100:
+> más salud del suelo, menos erosión y, con datos del Ministerio de Agricultura, más margen por hectárea."
 
 **7 · Built / Simulated / Next**
-> "Funciona hoy en toda Andalucía, nuestra región piloto. Los datos de la NASA son globales: para llevarla a cualquier país solo hay que añadir sus calendarios de cultivo. Siguiente paso: cooperativas de Málaga, SMAP y GPM. Y siempre: apoya al agricultor, decide su agrónomo."
+> "Hoy funciona para cualquier parcela de Andalucía. Lo único simulado es el 'qué pasaría si llueve menos o hace más calor',
+> y lo decimos. Los datos de la NASA son globales: para llevarlo a otro país solo hay que añadir sus calendarios de cultivo.
+> Siguiente paso: un piloto con cooperativas de Málaga y añadir SMAP y GPM. Y siempre: DeepKore apoya al agricultor; decide su agrónomo."
 
 **8 · Cierre y QR**
-> "Escanead y probadla. El suelo tarda mil años en formarse: protejámoslo a tiempo. Gracias."
+> "Escanead el código y probadla ahora mismo. El suelo tarda mil años en formarse: protejámoslo a tiempo. Gracias."
 
 ---
+
+**Cronómetro:** 45 + 30 + 85 ≈ 2:40. Si os pasáis, recortad primero la diapositiva 7.
+**Preguntas (3 min):** responde quien mejor lo sepa, en una o dos frases. Si piden ver la app, abridla en el portátil o el móvil.
 
 ## Preguntas probables (respuestas de 1 frase)
 - **¿Dónde interviene la NASA?** Todo el cálculo sale de NASA POWER diario 2001–2025 para la parcela elegida; sin POWER no hay ranking.
