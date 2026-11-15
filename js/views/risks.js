@@ -41,7 +41,8 @@ function thresholdRows(th) {
     const unit = t.unit ?? (pctRule ? `for the time of year${t.run_days !== undefined ? `, ${t.run_days} days in a row` : ""}` : "");
     return `<tr><th scope="row">${esc(THRESHOLD_LABELS[key] ?? key)}</th>
       <td>${esc(t.variable ? `${t.variable}: ` : "")}${esc(rule)} <b>${esc(value)}</b> ${esc(unit)}</td>
-      <td class="${/^\s*TBD/i.test(String(t.source ?? "TBD")) ? "muted" : ""}">${esc(sourceText(t.source))}</td></tr>`;
+      <td class="${/^\s*TBD/i.test(String(t.source ?? "TBD")) ? "muted" : ""}">${esc(sourceText(t.source))}${
+        t.url && /^https:\/\//.test(String(t.url)) ? ` <a href="${esc(t.url)}" target="_blank" rel="noopener">Source ${icon(ICON.ext, 12)}</a>` : ""}</td></tr>`;
   }).join("");
 }
 
